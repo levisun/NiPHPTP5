@@ -2,6 +2,7 @@ runtime/
 tests/
 thinkphp/
 vendor/
+.DS_Store
 build.php
 test.php
 think
