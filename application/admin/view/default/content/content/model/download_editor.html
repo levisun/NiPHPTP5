@@ -1,0 +1,189 @@
+<form action="" method="post" class="form-horizontal">
+	<ul class="nav nav-tabs nav-justified" role="tablist">
+		<li role="presentation" class="active">
+			<a href="#CT-basic" id="tab-CT-basic" aria-controls="CT-basic" role="tab" data-toggle="tab">{:lang('basic')}</a>
+		</li>
+		<li role="presentation">
+			<a href="#CT-content" id="tab-CT-content" aria-controls="CT-content" role="tab" data-toggle="tab">{:lang('content')}</a>
+		</li>
+		<li role="presentation">
+			<a href="#CT-status" id="tab-CT-status" aria-controls="CT-status" role="tab" data-toggle="tab">{:lang('status')}</a>
+		</li>
+		<li role="presentation">
+			<a href="#CT-fields" id="tab-CT-fields" aria-controls="CT-fields" role="tab" data-toggle="tab">{:lang('fields')}</a>
+		</li>
+	</ul>
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="CT-basic">
+			<ul>
+				<li class="form-group">
+					<label for="title" class="col-md-2 control-label">{:lang('title')}</label>
+					<div class="col-md-6">
+						<input type="text" name="title" id="title" class="form-control" value="{$data.title}">
+					</div>
+				</li>
+				<li class="form-group">
+					<label for="keywords" class="col-md-2 control-label">{:lang('keywords')}</label>
+					<div class="col-md-6">
+						<input type="text" name="keywords" id="keywords" class="form-control" value="{$data.keywords}">
+					</div>
+				</li>
+				<li class="form-group">
+					<label for="description" class="col-md-2 control-label">{:lang('description')}</label>
+					<div class="col-md-6">
+						<textarea name="description" id="description" class="form-control">{$data.description}</textarea>
+					</div>
+				</li>
+				<li class="form-group">
+					<label for="down_url" class="col-md-2 control-label">{:lang('down')}</label>
+					<div class="col-md-6">
+						<input type="text" name="down_url" id="down_url" class="form-control" value="{$data.down_url}">
+					</div>
+				</li>
+				<li class="form-group">
+					<label for="thumb" class="col-md-2 control-label">{:lang('thumb')}</label>
+					<div class="col-md-6">
+						<input type="text" name="thumb" id="thumb" class="form-control" value="{$data.thumb}">
+						<button type="button" class="btn btn-success btn-sm np-upload" data-type="image" data-id="thumb" data-model="{$model_name}">{:lang('button upload')}</button>
+						<img src="{$data.thumb}" id="img-thumb" width="100" style="display:none">
+					</div>
+				</li>
+				<li class="form-group">
+					<label for="type_id" class="col-md-2 control-label">{:lang('type')}</label>
+					<div class="col-md-6">
+						<select name="type_id" id="type_id" class="form-control">
+							<option value="0">{:lang('select_type')}</option>
+							{volist name="type" id="vo"}
+							<option value="{$vo.id}" {eq name="vo.id" value="$data.type_id"}selected="selected"{/eq}>{$vo.name}</option>
+							{/volist}
+						</select>
+					</div>
+				</li>
+
+				<li class="form-group">
+					<label for="username" class="col-md-2 control-label">{:lang('username')}</label>
+					<div class="col-md-6">
+						<input type="text" name="username" id="username" class="form-control" value="{$data.username}">
+					</div>
+				</li>
+				<li class="form-group">
+					<label for="origin" class="col-md-2 control-label">{:lang('origin')}</label>
+					<div class="col-md-6">
+						<input type="text" name="origin" id="origin" class="form-control" value="{$data.origin}">
+					</div>
+				</li>
+				<li class="form-group">
+					<label for="tags" class="col-md-2 control-label">{:lang('tags')}</label>
+					<div class="col-md-6">
+						<input type="text" name="tags" id="tags" class="form-control" placeholder="{:lang('tags_info')}" value="{$data.tags}">
+					</div>
+				</li>
+				<li class="form-group">
+					<label for="show_time" class="col-md-2 control-label">{:lang('showtime')}</label>
+					<div class="col-md-6">
+						<input type="text" name="show_time" id="show_time" class="form-control long">
+						<script type="text/javascript">
+						$(function () {
+							$('#show_time').datetimepicker(
+								{format: 'Y-M-D'}
+								);
+						});
+						</script>
+					</div>
+				</li>
+				<li class="form-group">
+					<label for="access_id" class="col-md-2 control-label">{:lang('access')}</label>
+					<div class="col-md-6">
+						<select name="access_id" id="access_id" class="form-control">
+							<option value="0" {eq name="data.access_id" value="0"selected="selected"{/eq}>{:lang('select_access')}</option>
+							{volist name="level" id="vo"}
+							<option value="{$vo.id}" {eq name="vo.id" value="$data['access_id']"}selected{/eq} >{$vo.name}</option>
+							{/volist}
+						</select>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="CT-content">
+			<ul>
+				<li class="form-group">
+					<label for="website_description" class="col-md-2 control-label">{:lang('content')}</label>
+					<div class="col-md-10">
+						<textarea name="content" id="contentTextarea" class="form-control">{$data.content}</textarea>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="CT-status">
+			<ul>
+				{eq name="is_pass" value="1"}
+				<li class="form-group">
+					<label class="col-md-2 control-label">{:lang('pass')}</label>
+					<div class="col-md-6">
+						<label class="radio-inline"><input type="radio" name="is_pass" {eq name="data.is_pass" value="1"}checked{/eq} value="1">{:lang('button yes')}</label>
+						<label class="radio-inline"><input type="radio" name="is_pass" {eq name="data.is_pass" value="0"}checked{/eq} value="0">{:lang('button no')}</label>
+					</div>
+				</li>
+				{/eq}
+				<li class="form-group">
+					<label class="col-md-2 control-label">{:lang('com')}</label>
+					<div class="col-md-6">
+						<label class="radio-inline"><input type="radio" name="is_com" {eq name="data.is_com" value="1"}checked{/eq} value="1">{:lang('button yes')}</label>
+						<label class="radio-inline"><input type="radio" name="is_com" {eq name="data.is_com" value="0"}checked{/eq} value="0">{:lang('button no')}</label>
+					</div>
+				</li>
+				<li class="form-group">
+					<label class="col-md-2 control-label">{:lang('top')}</label>
+					<div class="col-md-6">
+						<label class="radio-inline"><input type="radio" name="is_top" {eq name="data.is_top" value="1"}checked{/eq} value="1">{:lang('button yes')}</label>
+						<label class="radio-inline"><input type="radio" name="is_top" {eq name="data.is_top" value="0"}checked{/eq} value="0">{:lang('button no')}</label>
+					</div>
+				</li>
+				<li class="form-group">
+					<label class="col-md-2 control-label">{:lang('hot')}</label>
+					<div class="col-md-6">
+						<label class="radio-inline"><input type="radio" name="is_hot" {eq name="data.is_hot" value="1"}checked{/eq} value="1">{:lang('button yes')}</label>
+						<label class="radio-inline"><input type="radio" name="is_hot" {eq name="data.is_hot" value="0"}checked{/eq} value="0">{:lang('button no')}</label>
+					</div>
+				</li>
+				<li class="form-group">
+					<label class="col-md-2 control-label">{:lang('link')}</label>
+					<div class="col-md-6">
+						<label class="radio-inline"><input type="radio" name="is_link" {eq name="data.is_link" value="1"}checked{/eq} value="1">{:lang('button yes')}</label>
+						<label class="radio-inline"><input type="radio" name="is_link" {eq name="data.is_link" value="0"}checked{/eq} value="0">{:lang('button no')}</label>
+					</div>
+				</li>
+				<li class="form-group">
+					<label for="url" class="col-md-2 control-label">{:lang('url')}</label>
+					<div class="col-md-6">
+						<input type="text" name="url" id="url" class="form-control" value="{$data.url}">
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="CT-fields">
+			<ul>
+				{volist name="data.field_data" id="vo"}
+				<li class="form-group">
+					<label for="seo_title" class="col-md-2 control-label">{$vo.name}</label>
+					<div class="col-md-6">
+						{$vo.input}
+					</div>
+				</li>
+				{/volist}
+			</ul>
+		</div>
+	</div>
+	{:token()}
+	<input type="hidden" name="category_id" value="{$data.category_id}">
+	<input type="hidden" name="id" value="{$data.id}">
+	<div class="form-button col-md-10 col-md-offset-2">
+	<input type="submit" value="{:lang('button save')}" class="btn btn-success" id="button-basic">
+	</div>
+</form>
+<script type="text/javascript" src="__STATIC__library/ckeditor/ckeditor.js"></script>
+<script type="text/javascript" src="__STATIC__library/ckeditor/config.js"></script>
+
+<script type="text/javascript">
+var editor = CKEDITOR.replace('contentTextarea');
+</script>

@@ -1,0 +1,82 @@
+<form action="" method="post">
+<table class="table">
+	<thead>
+		<tr>
+			<th>{:lang('sort')}</th>
+			<th>{:lang('name')}</th>
+			<th>{:lang('type')}</th>
+			<th>{:lang('model')}</th>
+			<th>{:lang('isshow')}</th>
+			<th>{:lang('ischannel')}</th>
+			<th>{:lang('operation')}</th>
+		</tr>
+	</thead>
+	<tbody>
+		{volist name="list" id="vo"}
+		<tr>
+			<td>
+				<input type="text" name="sort[{$vo.id}]" class="form-control mini" value="{$vo.sort}">
+			</td>
+			<td>{$vo.name}</td>
+			<td>
+				{eq name="vo.type_id" value="1"}
+				{:lang('ctype top')}
+				{/eq}
+
+				{eq name="vo.type_id" value="2"}
+				{:lang('ctype main')}
+				{/eq}
+
+				{eq name="vo.type_id" value="3"}
+				{:lang('ctype foot')}
+				{/eq}
+
+				{eq name="vo.type_id" value="4"}
+				{:lang('ctype other')}
+				{/eq}
+			</td>
+			<td>{:lang('model ' . $vo['model_name'])}</td>
+			<td>
+				{eq name="vo.is_show" value="1"}
+				{:lang('show')}
+				{else/}
+				{:lang('hide')}
+				{/eq}
+			</td>
+			<td>
+				{eq name="vo.is_channel" value="1"}
+				{:lang('button yes')}
+				{else/}
+				{:lang('button no')}
+				{/eq}
+			</td>
+			<td>
+				{neq name="parent.id" value=""}
+				<a href="{:url('', array('pid' => $parent['pid']))}"><span class="icon-reply"></span>{:lang('go back')}</a>
+				{/neq}
+
+				{neq name="vo.child" value=""}
+				<a href="{:url('', array('pid' => $vo['id']))}"><span class="icon-eye-open"></span>{:lang('show child')}</a>
+				{/neq}
+
+				<a href="{:url('', array('method' => 'added','pid' => $vo['id']))}"><span class="icon-plus"></span>{:lang('add child')}</a>
+				<a href="{:url('', array('method' => 'editor', 'id' => $vo['id']))}"><i class="icon-edit"></i>{:lang('button editor')}</a>
+				<a href="{:url('', array('method' => 'remove', 'id' => $vo['id']))}"><i class="icon-remove"></i>{:lang('button delete')}</a>
+			</td>
+		</tr>
+		{/volist}
+		<tr>
+			<td><input type="submit" value="{:lang('button sort')}" class="btn btn-primary"></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</tbody>
+</table>
+</form>
+<div class="paging">
+
+</div>

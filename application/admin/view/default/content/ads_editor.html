@@ -1,0 +1,53 @@
+<form action="" method="post" class="form-horizontal">
+	<ul>
+		<li class="form-group">
+			<label for="name" class="col-md-2 control-label">{:lang('ads name')}</label>
+			<div class="col-md-6">
+				<input type="text" name="name" id="name" class="form-control" value="{$data.name}">
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="" class="col-md-2 control-label">{:lang('size')}</label>
+			<div class="col-md-6">
+				<input type="text" name="width" id="width" class="form-control mini" value="{$data.width}">
+				<input type="text" name="height" id="height" class="form-control mini" value="{$data.height}">
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="" class="col-md-2 control-label">{:lang('time')}</label>
+			<div class="col-md-6">
+				<input type="text" name="start_time" id="starttime" class="form-control long" value="{$data.start_time|date='Y-m-d',###}">
+				<input type="text" name="end_time" id="endtime" class="form-control long" value="{$data.end_time|date='Y-m-d',###}">
+				<script type="text/javascript">
+				$(function () {
+					$('#starttime').datetimepicker(
+						{format: 'Y-M-D', viewMode: 'years'}
+						);
+					$('#endtime').datetimepicker(
+						{format: 'Y-M-D', viewMode: 'years'}
+						);
+				});
+				</script>
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="image" class="col-md-2 control-label">{:lang('ads_image')}</label>
+			<div class="col-md-6">
+				<input type="text" name="image" id="image" class="form-control" value="{$data.image}">
+				<button type="button" class="btn btn-info btn-sm np-upload" data-type="ads" data-id="image" data-model="">{:lang('button upload')}</button>
+				<img src="{$data.image}" id="img-image" width="100" style="display:none">
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="url" class="col-md-2 control-label">{:lang('adsurl')}</label>
+			<div class="col-md-6">
+				<input type="text" name="url" id="url" class="form-control" value="{$data.url}">
+			</div>
+		</li>
+	</ul>
+	{:token()}
+	<input type="hidden" name="id" value="{$data.id}">
+	<div class="form-button col-md-10 col-md-offset-2">
+	<input type="submit" value="{:lang('button save')}" class="btn btn-danger btn-block" id="button-basic">
+	</div>
+</form>

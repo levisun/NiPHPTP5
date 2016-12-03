@@ -1,0 +1,44 @@
+<aside id="sidebar" class="col-md-4">
+	{notempty name="Request.param.cid"}
+	<div class="row">
+		<div class="col-md-12">
+			<div id="np-menu" class="panel panel-default">
+				<div class="panel-heading">
+					{label:sidebar}
+					{/label:sidebar}
+					<h5 class="panel-title">{$label_sidebar_name}</h5>
+				</div>
+				<div class="panel-body">
+					<ul class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						{label:sidebar}
+						{notempty name="vo.child"}
+						{volist name="vo.child" id="cv"}
+						<li >
+							{notempty name="cv.child"}
+							<div class="panel-heading" role="tab" id="heading-menu-{$key}">
+							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#menu-{$key}" aria-expanded="false" aria-controls="menu-{$key}">
+								{$cv.name}
+							</a>
+							</div>
+							<ul id="menu-{$key}" class="panel-collapse collapse" role="tabpanel" aria-expanded="false" aria-labelledby="heading-menu-{$key}">
+								{volist name="cv.child" id="cc"}
+								<li><a href="{$cc.url}">{$cc.name}</a></li>
+								{/volist}
+							</ul>
+							{else/}
+							<div class="panel-heading" role="tab" id="heading-menu-{$key}">
+							<a href="{$cv.url}">{$cv.name}</a>
+							</div>
+							{/notempty}
+						</li>
+						{/volist}
+						{/notempty}
+
+						{/label:sidebar}
+					</ul>
+				</div>
+			</div>
+		</div>
+	</div>
+	{/notempty}
+</aside>

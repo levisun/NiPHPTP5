@@ -1,0 +1,24 @@
+<table class="table">
+	<thead>
+		<tr>
+			<th>{:lang('elog date')}</th>
+			<th>{:lang('elog file size')}</th>
+			<th>{:lang('operation')}</th>
+		</tr>
+	</thead>
+	<tbody>
+		{volist name="list" id="vo"}
+		<tr>
+			<td>{$vo.name}</td>
+			<td>{$vo.size}</td>
+			<td>
+				{empty name="Request.param.name"}
+				<a href="{:url('', array('name' => $vo['id']))}"><i class="icon-eye-open"></i>{:lang('button view')}</a>
+				{else/}
+				<a href="{:url('', array('method' => 'show', 'name' => $Request.param.name, 'id' => $vo['id']))}"><i class="icon-eye-open"></i>{:lang('button view')}</a>
+				{/empty}
+			</td>
+		</tr>
+		{/volist}
+	</tbody>
+</table>

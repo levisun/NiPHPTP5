@@ -1,0 +1,24 @@
+<aside id="np-sidebar" class="col-sm-2">
+	<div class="web-url">
+		<a href="__DOMAIN__" target="_blank">
+			<span class="icon-home"></span>
+			{:lang('website home')}
+		</a>
+	</div>
+	<ul class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+		{volist name="__MENU__" id="vo"}
+		<li class="panel panel-default">
+			<div class="panel-heading" role="tab" id="heading-nav-{$key}">
+				<a role="button" data-toggle="collapse" data-parent="#accordion" href="#nav-{$key}" aria-expanded="{if condition="$controller_name eq ucfirst($key)"}true{else/}false{/if}" aria-controls="nav-{$key}" class="{if condition="$controller_name eq ucfirst($key)"}active{/if}">
+					<span class="{:config($key)}"></span> {$vo.name}
+				</a>
+			</div>
+			<ul id="nav-{$key}" class="panel-collapse collapse {if condition="$controller_name eq ucfirst($key)"}in{/if}" role="tabpanel" aria-expanded="{if condition="$controller_name eq ucfirst($key)"}true{else/}false{/if}" aria-labelledby="heading-nav-{$key}">
+				{volist name="vo.menu" id="v"}
+				<li><a class="{eq name="action_name" value="$v.action"}active{/eq}" href="{$v.url}">{$v.lang}</a></li>
+				{/volist}
+			</ul>
+		</li>
+		{/volist}
+	</ul>
+</aside>

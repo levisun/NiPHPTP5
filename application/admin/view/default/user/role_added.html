@@ -1,0 +1,44 @@
+<form action="" method="post" class="form-horizontal">
+	<ul>
+		<li class="form-group">
+			<label for="name" class="col-md-2 control-label">{:lang('rolename')}</label>
+			<div class="col-md-6">
+				<input type="text" name="name" id="name" class="form-control">
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="status" class="col-md-2 control-label">{:lang('status')}</label>
+			<div class="col-md-6">
+				<label class="radio-inline"><input type="radio" name="status" value="1" checked>{:lang('button open')}</label>
+				<label class="radio-inline"><input type="radio" name="status" value="0">{:lang('button close')}</label>
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="remark" class="col-md-2 control-label">{:lang('remark')}</label>
+			<div class="col-md-6">
+				<textarea name="remark" id="remark" class="form-control"></textarea>
+			</div>
+		</li>
+		<li class="form-group">
+			<label class="col-md-2 control-label">{:lang('rolenode')}</label>
+			<div class="col-md-10">
+				{volist name="node" id="vo"}
+				<input type="hidden" name="node[{$vo.level}][{$vo.name}]" value="{$vo.id}" checked>
+					{volist name="vo.child" id="v"}
+					<p>
+					<label style="font-size: 14px;" class="checkbox-inline"><input type="checkbox" name="node[{$v.level}][{$v.name}]" value="{$v.id}" checked>{$v.title}</label>
+
+					{volist name="v.child" id="c"}
+						<label class="checkbox-inline"><input type="checkbox" name="node[{$c.level}][{$v.name}_{$c.name}]" value="{$c.id}">{$c.title}</label>
+					{/volist}
+					</p>
+					{/volist}
+				{/volist}
+			</div>
+		</li>
+	</ul>
+	{:token()}
+	<div class="form-button col-md-10 col-md-offset-2">
+	<input type="submit" value="{:lang('button save')}" class="btn btn-danger btn-block" id="button-basic">
+	</div>
+</form>

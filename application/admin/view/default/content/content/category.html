@@ -1,0 +1,27 @@
+<div class="row">
+	{volist name="category" id="vo"}
+	<div class="col-md-3">
+		<div class="thumbnail">
+			<img src="__IMG__{$vo.model_name}.png" alt="">
+			<div class="caption align-c">
+				<h5>{$vo.name}</h5>
+				{eq name="vo.model_name" value="page"}
+				<a href="{:url('', array('method' => 'page', 'cid' => $vo['id']))}">
+					{:lang('button editor')}
+				</a>
+				{else/}
+				<a href="{:url('', array('method' => 'manage', 'cid' => $vo['id']))}">
+					{:lang('button list')}
+				</a>
+				{/eq}
+				{neq name="vo.child" value=""}
+					-
+					<a href="{:url('', array('pid' => $vo['id']))}">
+						{:lang('button child')}
+					</a>
+				{/neq}
+			</div>
+		</div>
+	</div>
+	{/volist}
+</div>

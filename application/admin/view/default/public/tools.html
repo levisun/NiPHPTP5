@@ -1,0 +1,49 @@
+<header class="panel-heading">
+	<div class="row">
+		<h5 class="col-sm-4">{$__SUB_TITLE__}</h5>
+
+		{eq name="submenu" value="1"}
+		{eq name="submenu_button_added" value="1"}
+		<div class="col-md-7 text-right">
+		{else/}
+		<div class="col-md-8 text-right">
+		{/eq}
+			<form action="" method="get" class="form-inline">
+				<div class="form-group">
+					<!-- <input type="hidden" name="m" value="{$module_name}"> -->
+					<!-- <input type="hidden" name="c" value="{$controller_name}"> -->
+					<!-- <input type="hidden" name="a" value="{$action_name}"> -->
+					{notempty name="Request.param.cid"}
+					<!-- 内容 -->
+					<!-- <input type="hidden" name="d" value="manage"> -->
+					<!-- <input type="hidden" name="cid" value="{$Think.get.cid}"> -->
+					{/notempty}
+					<input type="text" name="key" class="form-control">
+					<button type="submit" class="btn btn-default"><i class="icon-search"></i></button>
+				</div>
+			</form>
+		</div>
+
+		{eq name="submenu_button_added" value="1"}
+		<div class="col-md-1 text-right">
+			{notempty name="Request.param.pid"}
+			<!-- 栏目 -->
+			<a href="{:url('', array('method' => 'added', 'pid' => $Request.param.pid))}" class="btn btn-info"><span class="icon-plus"></span>{:lang('button add')}</a>
+			{/notempty}
+
+			{notempty name="Request.param.cid"}
+			<!-- 内容 -->
+			<a href="{:url('', array('method' => 'added', 'cid' => $Request.param.cid))}" class="btn btn-info"><span class="icon-plus"></span>{:lang('button add')}</a>
+			{/notempty}
+
+			{empty name="Request.param.pid"}
+			{empty name="Request.param.cid"}
+			<a href="{:url('', array('method' => 'added'))}" class="btn btn-info"><span class="icon-plus"></span>{:lang('button add')}</a>
+			{/empty}
+			{/empty}
+		</div>
+		{/eq}
+
+		{/eq}
+	</div>
+</header>

@@ -1,0 +1,82 @@
+<div class="row">
+	<div class="col-sm-4">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<h5>{:lang('info member')}</h5>
+				<p>{:lang('info member count')}:{$data.member}</p>
+				<p>{:lang('info member reg')}:{$data.member_reg}</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<h5>{:lang('info feed or mess')}</h5>
+				<p>{:lang('info feedback')}:{$data.feedback}</p>
+				<p>{:lang('info message')}:{$data.message}</p>
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-4">
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<h5>{:lang('info tg')}</h5>
+				<p>{:lang('info link')}:{$data.link}</p>
+				<p>{:lang('info ads')}:{$data.ads}</p>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div class="row">
+	<div class="col-sm-7">
+		<div class="panel panel-default">
+			<header class="panel-heading">
+				{:lang('info visit count')}
+			</header>
+			<div class="panel-body">
+			</div>
+		</div>
+	</div>
+	<div class="col-sm-5">
+		<div class="panel panel-default">
+			<header class="panel-heading">
+				{:lang('info sys info')}
+			</header>
+			<div class="panel-body">
+				<table class="table">
+					<tbody>
+						<tr>
+							<th>{:lang('info sys name')}</th>
+							<td>NIPHPCMS</td>
+						</tr>
+						<tr>
+							<th>{:lang('info sys version')}</th>
+							<td>SYS:{:config('sys_version')} / TP:{$Think.THINK_VERSION }</td>
+						</tr>
+						<tr>
+							<th>{:lang('info os')}</th>
+							<td>{$data.os}</td>
+						</tr>
+						<tr>
+							<th>{:lang('info php env')}</th>
+							<td>{$data.php_version} / {$data.env}</td>
+						</tr>
+						<tr>
+							<th>{:lang('info db')}</th>
+							<td>{$data.db_type} {$data.db_version}</td>
+						</tr>
+						<tr>
+							<th>{:lang('info copy')}</th>
+							<td>失眠小枕头 [levisun.mail@gmail.com]</td>
+						</tr>
+						<tr>
+							<th>在线升级</th>
+							<td>检测更新</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

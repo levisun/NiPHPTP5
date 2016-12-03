@@ -1,0 +1,105 @@
+<form action="" method="post" class="form-horizontal">
+	<ul>
+		<li class="form-group">
+			<label for="name" class="col-md-2 control-label">{:lang('name')}</label>
+			<div class="col-md-6">
+				<input type="text" name="name" id="name" class="form-control" value="{$data.name}">
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="aliases" class="col-md-2 control-label">{:lang('aliases')}</label>
+			<div class="col-md-6">
+				<input type="text" name="aliases" id="aliases" class="form-control" value="{$data.aliases}">
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="pid" class="col-md-2 control-label">{:lang('parent')}</label>
+			<div class="col-md-6">
+				<input type="hidden" name="pid" value="{$data.pid}">
+				<input type="text" id="pid" class="form-control category-pid" disabled value="{$parent.name}">
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="type_id" class="col-md-2 control-label">{:lang('type')}</label>
+			<div class="col-md-6">
+				<select name="type_id" id="type_id" class="form-control">
+					{volist name="type" id="vo"}
+					<option value="{$vo.id}" {eq name="data.type_id" value="$vo['id']"}selected{/eq}>{$vo.name}</option>
+					{/volist}
+				</select>
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="model_id" class="col-md-2 control-label">{:lang('model')}</label>
+			<div class="col-md-6">
+				<select name="model_id" id="model_id" class="form-control">
+					{volist name="model" id="vo"}
+					<option value="{$vo.id}" {eq name="data.model_id" value="$vo['id']"}selected{/eq}>{:lang('model ' . $vo['name'])}</option>
+					{/volist}
+				</select>
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="url" class="col-md-2 control-label">{:lang('url')}</label>
+			<div class="col-md-6">
+				<input type="text" name="url" id="url" class="form-control" value="{$data.url}">
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="is_show" class="col-md-2 control-label">{:lang('isshow')}</label>
+			<div class="col-md-6">
+				<label class="radio-inline"><input type="radio" name="is_show" value="1" {eq name="data.is_show" value="1"}checked{/eq}>{:lang('button yes')}</label>
+				<label class="radio-inline"><input type="radio" name="is_show" value="0" {eq name="data.is_show" value="0"}checked{/eq}>{:lang('button no')}</label>
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="is_channel" class="col-md-2 control-label">{:lang('ischannel')}</label>
+			<div class="col-md-6">
+				<label class="radio-inline"><input type="radio" name="is_channel" value="1" {eq name="data.is_channel" value="1"}checked{/eq}>{:lang('button yes')}</label>
+				<label class="radio-inline"><input type="radio" name="is_channel" value="0" {eq name="data.is_channel" value="0"}checked{/eq}>{:lang('button no')}</label>
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="image" class="col-md-2 control-label">{:lang('image')}</label>
+			<div class="col-md-6">
+				<input type="text" name="image" id="image" class="form-control" value="{$data.image}">
+				<button type="button" class="btn btn-info btn-sm np-upload" data-type="category" data-id="image" data-model="">{:lang('button upload')}</button>
+				<img src="{$data.image}" id="img-image" width="100" {eq name="data.image" value=""}style="display:none"{/eq}>
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="seo_title" class="col-md-2 control-label">{:lang('title')}</label>
+			<div class="col-md-6">
+				<input type="text" name="seo_title" id="seo_title" class="form-control" value="{$data.seo_title}">
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="seo_keywords" class="col-md-2 control-label">{:lang('keywords')}</label>
+			<div class="col-md-6">
+				<input type="text" name="seo_keywords" id="seo_keywords" class="form-control" value="{$data.seo_keywords}">
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="seo_description" class="col-md-2 control-label">{:lang('description')}</label>
+			<div class="col-md-6">
+				<textarea type="text" name="seo_description" id="seo_description" class="form-control">{$data.seo_description}</textarea>
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="access_id" class="col-md-2 control-label">{:lang('access')}</label>
+			<div class="col-md-6">
+				<select name="access_id" id="access_id" class="form-control">
+					<option value="0">{:lang('select access')}</option>
+					{volist name="level" id="vo"}
+					<option value="{$vo.id}" {eq name="data.access_id" value="$vo['id']"}selected{/eq}>{$vo.name}</option>
+					{/volist}
+				</select>
+			</div>
+		</li>
+	</ul>
+	{:token()}
+	<input type="hidden" name="id" value="{$data.id}">
+	<div class="form-button col-md-10 col-md-offset-2">
+	<input type="submit" value="{:lang('button save')}" class="btn btn-danger btn-block" id="button-basic">
+	</div>
+</form>

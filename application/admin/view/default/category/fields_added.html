@@ -1,0 +1,49 @@
+<form action="" method="post" class="form-horizontal">
+	<ul>
+		<li class="form-group">
+			<label for="name" class="col-md-2 control-label">{:lang('fieldsname')}</label>
+			<div class="col-md-6">
+				<input type="text" name="name" id="name" class="form-control">
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="type_id" class="col-md-2 control-label">{:lang('fieldstype')}</label>
+			<div class="col-md-6">
+				<select name="type_id" id="type_id" class="form-control">
+					<option value="">{:lang('select type')}</option>
+					{volist name="type_list" id="vo"}
+					<option value="{$vo.id}">{:lang('type ' . $vo['name'])}</option>
+					{/volist}
+				</select>
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="category_id" class="col-md-2 control-label">{:lang('fieldscategory')}</label>
+			<div class="col-md-6">
+				<select name="category_id[]" id="category_id_1" class="form-control" data-type="1" onchange="fieldsCategory(this)">
+					<option value="">{:lang('select category')}</option>
+					{volist name="category_list" id="vo"}
+					<option value="{$vo.id}">{$vo.name}</option>
+					{/volist}
+				</select>
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="is_require" class="col-md-2 control-label">{:lang('isrequire')}</label>
+			<div class="col-md-6">
+				<label class="radio-inline"><input type="radio" name="is_require" value="1" checked>{:lang('button yes')}</label>
+				<label class="radio-inline"><input type="radio" name="is_require" value="0">{:lang('button no')}</label>
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="description" class="col-md-2 control-label">{:lang('remark')}</label>
+			<div class="col-md-6">
+				<textarea name="description" id="description" class="form-control"></textarea>
+			</div>
+		</li>
+	</ul>
+	{:token()}
+	<div class="form-button col-md-10 col-md-offset-2">
+	<input type="submit" value="{:lang('button save')}" class="btn btn-danger btn-block" id="button-basic">
+	</div>
+</form>

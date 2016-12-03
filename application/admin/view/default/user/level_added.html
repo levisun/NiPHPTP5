@@ -1,0 +1,33 @@
+<form action="" method="post" class="form-horizontal">
+	<ul>
+		<li class="form-group">
+			<label for="name" class="col-md-2 control-label">{:lang('level name')}</label>
+			<div class="col-md-6">
+				<input type="text" name="name" id="name" class="form-control">
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="integral" class="col-md-2 control-label">{:lang('level integral')}</label>
+			<div class="col-md-6">
+				<input type="text" name="integral" id="integral" class="form-control">
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="status" class="col-md-2 control-label">{:lang('status')}</label>
+			<div class="col-md-6">
+				<label class="radio-inline"><input type="radio" name="status" value="1" checked>{:lang('button open')}</label>
+				<label class="radio-inline"><input type="radio" name="status" value="0">{:lang('button close')}</label>
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="remark" class="col-md-2 control-label">{:lang('remark')}</label>
+			<div class="col-md-6">
+				<textarea name="remark" id="remark" class="form-control"></textarea>
+			</div>
+		</li>
+	</ul>
+	{:token()}
+	<div class="form-button col-md-10 col-md-offset-2">
+	<input type="submit" value="{:lang('button save')}" class="btn btn-danger btn-block" id="button-basic">
+	</div>
+</form>

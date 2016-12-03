@@ -1,0 +1,55 @@
+<form action="" method="post" class="form-horizontal">
+	<ul>
+		<li class="form-group">
+			<label for="title" class="col-md-2 control-label">{:lang('title')}</label>
+			<div class="col-md-6">
+				<input type="text" name="title" id="title" class="form-control">
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="description" class="col-md-2 control-label">{:lang('description')}</label>
+			<div class="col-md-6">
+				<textarea name="description" id="description" class="form-control"></textarea>
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="logo" class="col-md-2 control-label">{:lang('logo')}</label>
+			<div class="col-md-6">
+				<input type="text" name="logo" id="linklogo" class="form-control">
+				<button type="button" class="btn btn-info btn-sm" id="upload" data-type="image" data-id="linklogo" data-model="{$model_name}">{:lang('button upload')}</button>
+				<img src="" id="img-linklogo" width="100" style="display:none">
+			</div>
+		</li>
+		<if condition="$is_pass eq 1">
+		<li class="form-group">
+			<label class="col-md-2 control-label">{:lang('pass')}</label>
+			<div class="col-md-6">
+				<label class="radio-inline"><input type="radio" name="is_pass" checked value="1">{:lang('button yes')}</label>
+				<label class="radio-inline"><input type="radio" name="is_pass" value="0">{:lang('button no')}</label>
+			</div>
+		</li>
+		</if>
+		<li class="form-group">
+			<label for="url" class="col-md-2 control-label">{:lang('url')}</label>
+			<div class="col-md-6">
+				<input type="text" name="url" id="url" class="form-control">
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="type_id" class="col-md-2 control-label">{:lang('type')}</label>
+			<div class="col-md-6">
+				<select name="type_id" id="type_id" class="form-control">
+					<option value="0">{:lang('select type')}</option>
+					{volist name="type" id="vo"}
+					<option value="{$vo.id}">{$vo.name}</option>
+					{/volist}
+				</select>
+			</div>
+		</li>
+	</ul>
+	{:token()}
+	<input type="hidden" name="category_id" value="{$Request.param.cid}">
+	<div class="form-button col-md-10 col-md-offset-2">
+	<input type="submit" value="{:lang('button save')}" class="btn btn-danger btn-block"" id="button-basic">
+	</div>
+</form>

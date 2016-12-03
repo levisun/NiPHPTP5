@@ -1,0 +1,15 @@
+<div class="row">
+	{volist name="list" id="vo"}
+	<div class="col-sm-2">
+		<a href="{:url('', array('method' => 'update', 'id' => $vo['name']))}">
+		<div class="thumbnail">
+			<img src="__DOMAIN__/theme/{$type}/{$vo.name}/view.jpg" width="100">
+			<div class="caption align-c">
+				<input type="radio" name="themes" {eq name="config" value="$vo.name"}checked{/eq} >
+				{$vo.name}
+			</div>
+		</div>
+		</a>
+	</div>
+	{/volist}
+</div>

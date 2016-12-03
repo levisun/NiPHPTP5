@@ -1,0 +1,52 @@
+<form action="" method="post" class="form-horizontal">
+	<ul>
+		<li class="form-group">
+			<label for="keyword" class="col-md-2 control-label">{:lang('keyword')}</label>
+			<div class="col-md-6">
+				<input type="text" name="keyword" id="keyword" class="form-control" value="{$data.keyword}">
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="title" class="col-md-2 control-label">{:lang('title')}</label>
+			<div class="col-md-6">
+				<input type="text" name="title" id="title" class="form-control" value="{$data.title}">
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="content" class="col-md-2 control-label">{:lang('reply')}</label>
+			<div class="col-md-6">
+				<textarea name="content" id="content" class="form-control">{$data.content}</textarea>
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="image" class="col-md-2 control-label">{:lang('image')}</label>
+			<div class="col-md-6">
+				<input type="text" name="image" id="image" class="form-control" value="{$data.image}">
+				<button type="button" class="btn btn-danger btn-block btn-sm" id="upload" data-type="image" data-id="image" data-model="">{:lang('button upload')}</button>
+				<img src="{$data.image}" id="img-image" width="100" style="display:none">
+			</div>
+			<div class="col-md-4">
+				{:lang('img info')}
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="url" class="col-md-2 control-label">{:lang('url')}</label>
+			<div class="col-md-6">
+				<input type="text" name="url" id="url" class="form-control">
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="status" class="col-md-2 control-label">{:lang('status')}</label>
+			<div class="col-md-6">
+				<label class="radio-inline"><input type="radio" name="status" value="1" {eq name="data.status" value="1"}checked{/eq} >{:lang('button open')}</label>
+				<label class="radio-inline"><input type="radio" name="status" value="0" {eq name="data.status" value="0"}checked{/eq} >{:lang('button close')}</label>
+			</div>
+		</li>
+	</ul>
+	{:token()}
+	<input type="hidden" name="id" value="{$data.id}">
+	<input type="hidden" name="type" value="{$Think.get.type}">
+	<div class="form-button col-md-10 col-md-offset-2">
+	<input type="submit" value="{:lang('button save')}" class="btn btn-danger btn-block" id="button-basic">
+	</div>
+</form>

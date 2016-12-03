@@ -1,0 +1,104 @@
+<form action="" method="post" class="form-horizontal">
+	<ul>
+		<li class="form-group">
+			<label class="col-md-2 control-label">{:lang('image auto image')}</label>
+			<label class="checkbox-inline"><input type="checkbox" name="auto_image" {eq name="data.auto_image" value="1"}checked{/eq} value="1">
+			{:lang('image auto image info')}</label>
+		</li>
+		<li class="form-group">
+			<label class="col-md-2 control-label">{:lang('image article module')}</label>
+			<div class="col-md-6">
+				<input type="text" name="article_module_width" class="form-control mini" id="article_module_width" value="{$data.article_module_width}"> X <input type="text" name="article_module_height" class="form-control mini" id="article_module_height" value="{$data.article_module_height}">
+			</div>
+		</li>
+		<li class="form-group">
+			<label class="col-md-2 control-label">{:lang('image picture module')}</label>
+			<div class="col-md-6">
+				<input type="text" name="picture_module_width" class="form-control mini" id="picture_module_width" value="{$data.picture_module_width}"> X <input type="text" name="picture_module_height" class="form-control mini" id="picture_module_height" value="{$data.picture_module_height}">
+			</div>
+		</li>
+		<li class="form-group">
+			<label class="col-md-2 control-label">{:lang('image download module')}</label>
+			<div class="col-md-6">
+				<input type="text" name="download_module_width" class="form-control mini" id="download_module_width" value="{$data.download_module_width}"> X <input type="text" name="download_module_height" class="form-control mini" id="download_module_height" value="{$data.download_module_height}">
+			</div>
+		</li>
+		<li class="form-group">
+			<label class="col-md-2 control-label">{:lang('image page module')}</label>
+			<div class="col-md-6">
+				<input type="text" name="page_module_width" class="form-control mini" id="page_module_width" value="{$data.page_module_width}"> X <input type="text" name="page_module_height" class="form-control mini" id="page_module_height" value="{$data.download_module_height}">
+			</div>
+		</li>
+		<li class="form-group">
+			<label class="col-md-2 control-label">{:lang('image product module')}</label>
+			<div class="col-md-6">
+				<input type="text" name="product_module_width" class="form-control mini" id="product_module_width" value="{$data.product_module_width}"> X <input type="text" name="product_module_height" class="form-control mini" id="product_module_height" value="{$data.product_module_height}">
+			</div>
+		</li>
+		<li class="form-group">
+			<label class="col-md-2 control-label">{:lang('image job module')}</label>
+			<div class="col-md-6">
+				<input type="text" name="job_module_width" class="form-control mini" id="job_module_width" value="{$data.job_module_width}"> X <input type="text" name="job_module_height" class="form-control mini" id="job_module_height" value="{$data.job_module_height}">
+			</div>
+		</li>
+		<li class="form-group">
+			<label class="col-md-2 control-label">{:lang('image link module')}</label>
+			<div class="col-md-6">
+				<input type="text" name="link_module_width" class="form-control mini" id="link_module_width" value="{$data.link_module_width}"> X <input type="text" name="link_module_height" class="form-control mini" id="link_module_height" value="{$data.link_module_height}">
+			</div>
+		</li>
+		<li class="form-group">
+			<label class="col-md-2 control-label">{:lang('image ask module')}</label>
+			<div class="col-md-6">
+				<input type="text" name="ask_module_width" class="form-control mini" id="ask_module_width" value="{$data.ask_module_width}"> X <input type="text" name="ask_module_height" class="form-control mini" id="ask_module_height" value="{$data.ask_module_height}">
+			</div>
+		</li>
+		<li class="form-group">
+			<label class="col-md-2 control-label">{:lang('image add water')}</label>
+			<div class="col-md-6">
+				<label class="radio-inline"><input type="radio" name="add_water" {eq name="data.add_water" value="1"}checked{/eq} value="1">{:lang('button open')}</label>
+				<label class="radio-inline"><input type="radio" name="add_water" {eq name="data.add_water" value="0"}checked{/eq} value="0">{:lang('button close')}</label>
+			</div>
+		</li>
+		<li class="form-group">
+			<label class="col-md-2 control-label">{:lang('image water type')}</label>
+			<div class="col-md-6">
+				<label class="radio-inline"><input type="radio" name="water_type" {eq name="data.water_type" value="1"}checked{/eq} value="1">{:lang('image water type image')}</label>
+				<label class="radio-inline"><input type="radio" name="water_type" {eq name="data.water_type" value="0"}checked{/eq} value="0">{:lang('image water type text')}</label>
+			</div>
+		</li>
+		<li class="form-group">
+			<label class="col-md-2 control-label">{:lang('image water location')}</label>
+			<div class="col-md-6">
+				<label class="radio-inline"><input type="radio" name="water_location" {eq name="data.water_location" value="1"}checked{/eq} value="1">上左</label>
+				<label class="radio-inline"><input type="radio" name="water_location" {eq name="data.water_location" value="2"}checked{/eq} value="2">上中</label>
+				<label class="radio-inline"><input type="radio" name="water_location" {eq name="data.water_location" value="3"}checked{/eq} value="3">上右</label>
+				<br>
+				<label class="radio-inline"><input type="radio" name="water_location" {eq name="data.water_location" value="4"}checked{/eq} value="4">中左</label>
+				<label class="radio-inline"><input type="radio" name="water_location" {eq name="data.water_location" value="5"}checked{/eq} value="5">中间</label>
+				<label class="radio-inline"><input type="radio" name="water_location" {eq name="data.water_location" value="6"}checked{/eq} value="6">中右</label>
+				<br>
+				<label class="radio-inline"><input type="radio" name="water_location" {eq name="data.water_location" value="7"}checked{/eq} value="7">下左</label>
+				<label class="radio-inline"><input type="radio" name="water_location" {eq name="data.water_location" value="8"}checked{/eq} value="8">下中</label>
+				<label class="radio-inline"><input type="radio" name="water_location" {eq name="data.water_location" value="9"}checked{/eq} value="9">下右</label>
+			</div>
+		</li>
+		<li class="form-group">
+			<label class="col-md-2 control-label">{:lang('image water text')}</label>
+			<div class="col-md-6">
+				<input type="text" name="water_text" class="form-control" value="{$data.water_text}">
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="water_image" class="col-md-2 control-label">{:lang('image water image')}</label>
+			<div class="col-md-6">
+				<input type="text" name="water_image" id="water_image" class="form-control" value="{$data.water_image}">
+				<button type="button" class="btn btn-info btn-sm" id="upload" data-type="water" data-id="water_image" data-model="">{:lang('button upload')}</button>
+				<img src="__DOMAIN__{$data.water_image}" id="img-water_image" width="100">
+			</div>
+		</li>
+	</ul>
+	<div class="form-button col-md-10 col-md-offset-2">
+	<input type="submit" value="{:lang('button save')}" class="btn btn-danger btn-block" id="button-image">
+	</div>
+</form>

@@ -1,0 +1,122 @@
+body {
+	background-color: #f6f6f6;
+	font-size: 14px;
+}
+.nav>li>a:focus,
+.nav>li>a:hover {
+	background-color: transparent;
+}
+
+#header {
+	background-color: #fff;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 15px;
+}
+#header #member-menu {
+	line-height: 35px;
+}
+#header #member-menu .nav a {
+	padding-top: 0;
+	padding-bottom: 0;
+}
+
+#header #logo-nav {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+#header #logo-nav #logo {
+
+}
+#header #logo-nav #logo>h1 {
+	margin: 0;
+}
+#header #logo-nav #nav {
+	font-size: 18px;
+}
+
+#main #content-wrap #banner {
+	height: 200px;
+	background-color: #FF5E52;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+	margin-bottom: 15px;
+}
+#main #content-wrap .entry {
+	min-height: 120px;
+	background-color: #fff;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+	margin-bottom: 15px;
+}
+#main #content-wrap .entry>div>h2 {
+	margin: 0;
+	font-size: 18px;
+	margin-bottom: 15px;
+}
+#main #content-wrap .entry>div>p{
+	text-indent: 28px;
+}
+
+#main #sidebar {
+	padding-left: 0px;
+}
+
+#main #sidebar .entry {
+
+}
+#main #sidebar .entry>div>h3 {
+	margin: 0;
+	font-size: 18px;
+}
+#main #sidebar .entry>div.panel-body {
+	padding: 0;
+}
+#main #sidebar .entry>div.panel-body>ul.row {
+	margin: 0;
+}
+#main #sidebar .entry>div.panel-body>ul>li {
+	min-height: 150px;
+	padding: 15px;
+	border-bottom: 1px dashed #ddd;
+}
+#main #sidebar .entry>div.panel-body>ul>li:hover {
+	background-color: #F9F9F9;
+}
+#main #sidebar .entry>div.panel-body>ul>li:nth-child(odd) {
+	border-right: 1px dashed #ddd;
+}
+#main #sidebar .entry>div.panel-body>ul>li:nth-child(3n+5) {
+	border-bottom: 0;
+	border-right: 0;
+}
+#main #sidebar .entry>div.panel-body>ul>li>h4 {
+	margin: 10px 0;
+}
+#main #sidebar .entry>div.panel-body>ul>li>p {
+	font-size: 12px;
+	line-height: 1.5em;
+	max-height: 32px;
+	overflow: hidden;
+	color: #bbb;
+}
+#main #sidebar .entry>div.panel-body>ol.row {
+	margin: 0;
+	font-size: 12px;
+	padding: 15px;
+}
+#main #sidebar .entry>div.panel-body>ol>li {
+	padding: 0;
+	padding-bottom: 3px;
+}
+#main #sidebar .entry>div.panel-body>ol>li:nth-child(3n+2) {
+	padding: 0 3px;
+}
+#main #sidebar .entry>div.panel-body>ol>li>a {
+	display: block;
+	line-height: 30px;
+	background-color: #F9F9F9;
+}
+#main #sidebar .entry>div.panel-body>ol>li>a:hover {
+	color: #fff;
+	background-color: #61B3E6;
+}

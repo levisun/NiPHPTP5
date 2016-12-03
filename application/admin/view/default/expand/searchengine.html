@@ -1,0 +1,27 @@
+<menu>
+	<a href="{:url('')}" class="btn btn-default"><span class="icon-eye-open"></span>{:lang('visit')}</a>
+
+	<a href="{:url('', array('method' => 'searchengine'))}" class="btn btn-default"><span class="icon-eye-open"></span>{:lang('searchengine')}</a>
+</menu>
+
+<table class="table">
+	<thead>
+		<tr>
+			<th>{:lang('date')}</th>
+			<th>{:lang('searchengine name')}</th>
+			<th>{:lang('count')}</th>
+		</tr>
+	</thead>
+	<tbody>
+		{volist name="list" id="vo"}
+		<tr>
+			<td>{$vo.date|date='Y-m-d',###}</td>
+			<td>{$vo.name}</td>
+			<td>{$vo.count}</td>
+		</tr>
+		{/volist}
+	</tbody>
+</table>
+<div class="paging">
+	{$page}
+</div>

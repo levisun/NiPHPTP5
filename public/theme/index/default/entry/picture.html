@@ -1,0 +1,41 @@
+<div class="panel panel-default">
+	<div class="panel-heading">
+		<h5 class="panel-title">最新</h5>
+	</div>
+	<div class="panel-body">
+		<ul class="list">
+			{volist name="list" id="vo"}
+			<li class="media">
+				{notempty name="vo.thumb"}
+				<a class="media-left" href="{$vo.url}">
+				<img src="__DOMAIN__{$vo.thumb}" alt="...">
+				</a>
+				{/notempty}
+
+				<div class="media-body">
+					<div class="media-heading">
+						<div class="tooltip left">
+							<div class="tooltip-arrow"></div>
+							<div class="tooltip-inner">
+								<a href="{:url('/entry/' . $vo['category_id'])}">{$vo.cat_name}</a>
+							</div>
+						</div>
+						<a href="{$vo.url}">{$vo.title}</a>
+
+						<div class="meta">
+							<span><i class="icon-time"></i>{$vo.update_time|date="Y-m-d",###}</span>
+							<span><i class="icon-eye-open"></i>阅读({$vo.hits})</span>
+							<span><i class="icon-comments-alt"></i>评论(<a href="">{$vo.comment_count}</a>)</span>
+						</div>
+					</div>
+					<p>{$vo.description}</p>
+				</div>
+			</li>
+			{/volist}
+		</ul>
+	</div>
+
+	<div class="paging align-c">
+		{$page}
+	</div>
+</div>

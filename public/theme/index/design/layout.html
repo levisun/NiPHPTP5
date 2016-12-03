@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>{$__TITLE__}</title>
+	<meta name="keywords" content="{$__KEYWORDS__}">
+	<meta name="description" content="{$__DESCRIPTION__}">
+	<link href="__STATIC__library/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="__STATIC__library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="__STATIC__library/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+	<link href="__STATIC__library/layout/css/layout-3.0.css" rel="stylesheet">
+	<link href="__CSS__style.css" rel="stylesheet">
+
+	<!--[if lte IE 9]><script src="__STATIC__library/layout/js/html5shiv.js"></script><![endif]-->
+	<script src="__STATIC__library/jquery/jquery-2.2.3.min.js"></script>
+</head>
+<body>
+<header id="header" class="container-fluid">
+	<section id="member-menu" class="row">
+		<div id="member" class="col-md-3">
+			欢迎回来，<a href="">请登录</a>!
+		</div>
+		<menu id="menu" class="col-md-9">
+			<ul class="nav nav-pills float-r">
+				{label:nav type="top"}
+				<li><a href="{$vo.url}">{$vo.name}</a></li>
+				{/label:nav}
+			</ul>
+		</menu>
+	</section>
+	<section id="logo-nav" class="row">
+		<hgroup id="logo" class="col-md-3">
+			<h1><a href="">LOGO</a></h1>
+		</hgroup>
+		<nav id="nav" class="col-md-9">
+			<ul class="nav nav-pills float-r">
+				<li role="presentation"><a href="{:url('/')}">首页</a></li>
+				{label:nav type="main"}
+				<li role="presentation" {notempty name="vo.child"}class="dropdown"{/notempty}>
+					{notempty name="vo.child"}
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+						{$vo.name} <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						{volist name="vo.child" id="cv"}
+						<li><a href="{$cv.url}">{$cv.name}</a></li>
+						{/volist}
+					</ul>
+					{else/}
+					<a href="{$vo.url}">{$vo.name}</a>
+					{/notempty}
+				</li>
+				{/label:nav}
+			</ul>
+		</nav>
+	</section>
+</header>
+
+<div id="main" class="container-fluid">
+	<section class="row">
+		<div id="content-wrap" class="col-md-9">
+			<!-- <div id="banner">
+				fff
+			</div> -->
+
+			<article class="entry panel panel-default">
+				<div class="panel-body">
+					<h2><a href="">【前端招聘】</a><a href="">Mobvista-汇量科技招聘前端H5工程师（北京 20K+）</a></h2>
+					<p>汇量科技（Mobvista）于2013 年3月开始开展业务，旗下拥有覆盖全球的移动数字营销平台和移动网游海外发行平台。汇量科技专注于为广告主与应用开发者提供高效的用户获取及流量变现综合解决方案，2015年在移动数据监测机构AppsFlyer...</p>
+				</div>
+			</article>
+		</div>
+
+		<aside id="sidebar" class="col-md-3">
+			<div class="entry panel panel-default">
+				<div class="panel-heading">
+					<h3>前端开发</h3>
+				</div>
+				<div class="panel-body">
+					<ul class="row">
+						<li class="col-md-6 align-c">
+							<h4>前端网址导航</h4>
+							<p>扁平化设计、自定义颜色风格、多功能配置</p>
+							<a class="btn btn-default btn-sm" href="">立即使用</a>
+						</li>
+						<li class="col-md-6 align-c">
+							<h4>前端网址导航</h4>
+							<p>扁平化设计、自定义颜色风格、多功能配置</p>
+							<a class="btn btn-default btn-sm" href="">立即使用</a>
+						</li>
+						<li class="col-md-6 align-c">
+							<h4>前端网址导航</h4>
+							<p>扁平化设计、自定义颜色风格、多功能配置</p>
+							<a class="btn btn-default btn-sm" href="">立即使用</a>
+						</li>
+						<li class="col-md-6 align-c">
+							<h4>前端网址导航</h4>
+							<p>扁平化设计、自定义颜色风格、多功能配置</p>
+							<a class="btn btn-default btn-sm" href="">立即使用</a>
+						</li>
+						<li class="col-md-12 align-c">
+							<h4>前端网址导航</h4>
+							<p>扁平化设计、自定义颜色风格、多功能配置</p>
+							<a class="btn btn-default btn-sm" href="">立即使用</a>
+						</li>
+					</ul>
+				</div>
+			</div>
+
+			<div class="entry panel panel-default">
+				<div class="panel-heading">
+					<h3>标签云</h3>
+				</div>
+				<div class="panel-body">
+					<ol class="row">
+						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
+						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
+						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
+						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
+						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
+						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
+						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
+						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
+						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
+						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
+						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
+						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
+						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
+						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
+						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
+						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
+						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
+						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
+						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
+						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
+					</ul>
+				</div>
+			</div>
+		</aside>
+	</section>
+</div>
+
+<footer id="footer">
+	<section class="row">
+
+	</section>
+</footer>
+
+</body>
+</html>

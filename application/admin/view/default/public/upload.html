@@ -1,0 +1,13 @@
+<form action="" enctype="multipart/form-data" method="post">
+	<ul class="form-inline">
+		<li class="form-group col-xs-10">
+			<input type="file" name="upload" class="form-control">
+			<input type="hidden" name="type" value="{$Think.get.type}">
+			<input type="hidden" name="id" value="{$Think.get.id}">
+			<input type="hidden" name="model" value="{$Think.get.model}">
+		</li>
+		<li class="col-xs-2">
+			<input type="submit" value="{:lang('button upload')}" class="btn btn-success">
+		</li>
+	</ul>
+</form>

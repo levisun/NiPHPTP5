@@ -1,0 +1,29 @@
+<div id="np-login">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h5 class="panel-title">{:lang('manage login')}</h5>
+		</div>
+		<div class="panel-body">
+			<form action="" method="post">
+			<ul>
+				<li class="input-group">
+					<span class="input-group-addon"><i class="icon-user"></i></span>
+					<input type="text" name="username" class="form-control" placeholder="{:lang('username')}">
+				</li>
+				<li class="input-group">
+					<span class="input-group-addon"><i class="icon-lock"></i></span>
+					<input type="password" name="password" class="form-control" placeholder="{:lang('password')}">
+				</li>
+				<li>
+					<input type="text" name="captcha" class="form-control" placeholder="{:lang('captcha')}">
+					<img src="{:captcha_src()}" data-url="{:captcha_src()}" alt="captcha" class="np-verify" />
+				</li>
+				<li>
+					{:token()}
+					<input type="submit" id="account-login" class="btn btn-block btn-primary" value="{:lang('button login')}">
+				</li>
+			</ul>
+			</form>
+		</div>
+	</div>
+</div>

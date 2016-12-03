@@ -1,0 +1,45 @@
+<form action="" method="post" class="form-horizontal">
+	<ul>
+		<li class="form-group">
+			<label for="name" class="col-md-2 control-label">{:lang('fieldsname')}</label>
+			<div class="col-md-6">
+				<input type="text" name="name" id="name" class="form-control" value={$data.name}>
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="type_id" class="col-md-2 control-label">{:lang('fieldstype')}</label>
+			<div class="col-md-6">
+				<select name="type_id" id="type_id" class="form-control" disabled>
+					<option value="0">{:lang('select type')}</option>
+					{volist name="type_list" id="vo"}
+					<option value="{$vo.id}" {eq name="data.type_id" value="$vo['id']"}selected{/eq}>{:lang('type ' . $vo['name'])}</option>
+					{/volist}
+				</select>
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="category_id" class="col-md-2 control-label">{:lang('fieldscategory')}</label>
+			<div class="col-md-6">
+				<input type="text" name="" id="" class="form-control" disabled value="{$data.cat_name}">
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="is_require" class="col-md-2 control-label">{:lang('isrequire')}</label>
+			<div class="col-md-6">
+				<label class="radio-inline"><input type="radio" name="is_require" value="1" {eq name="data.is_require" value="1"}checked{/eq}>{:lang('button yes')}</label>
+				<label class="radio-inline"><input type="radio" name="is_require" value="0" {eq name="data.is_require" value="0"}checked{/eq}>{:lang('button no')}</label>
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="description" class="col-md-2 control-label">{:lang('remark')}</label>
+			<div class="col-md-6">
+				<textarea name="description" id="description" class="form-control">{$data.description}</textarea>
+			</div>
+		</li>
+	</ul>
+	{:token()}
+	<input type="hidden" name="id" value="{$data.id}">
+	<div class="form-button col-md-10 col-md-offset-2">
+	<input type="submit" value="{:lang('button save')}" class="btn btn-danger btn-block" id="button-basic">
+	</div>
+</form>

@@ -1,0 +1,96 @@
+body {
+	background-color: #f6f6f6;
+}
+
+#header {
+	background-color: #fff;
+	border-bottom: 1px solid #ddd;
+	padding-bottom: 10px;
+}
+#header .header-top .member {
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+#header .header-top .menu .nav>li>a:focus,
+#header .header-top .menu .nav>li>a:hover {
+	background-color: transparent;
+}
+#header #logo {
+	margin: 0;
+}
+#header #nav {
+	margin-top: 20px;
+	margin-bottom: 10px;
+	font-size: 18px;
+}
+#header #nav .nav>li>a:focus,
+#header #nav .nav>li>a:hover {
+	background-color: transparent;
+}
+#footer {
+	width: 100%;
+	bottom: 0;
+	background-color: #fff;
+	padding-top: 25px;
+	padding-bottom: 15px;
+	border-top: 1px solid #ddd;
+}
+#main {
+	margin-top: 15px;
+}
+#main #banner {
+	height: 220px;
+	margin-bottom: 15px;
+}
+#main #banner .slide,
+#main #banner .slide .carousel-control {
+	border-radius: 3px;
+}
+#main #banner img {
+	height: 220px;
+	width: 100%;
+	border-radius: 3px;
+}
+#main #content #breadcrumb {
+	margin-bottom: 15px;
+}
+#main #content #breadcrumb .breadcrumb {
+	padding: 10px 15px;
+	border: 1px solid #ddd;
+	margin-bottom: 0;
+}
+
+#main #content .list .tooltip {
+	opacity: 1;
+}
+#main #content .list .tooltip .tooltip-arrow {
+	border-left-color: #31b0d5;
+}
+#main #content .list .tooltip .tooltip-inner {
+	background-color: #31b0d5;
+}
+#main #content .list .tooltip .tooltip-inner a {
+	color: #fff;
+	padding-left: 0;
+	font-size: 12px;
+}
+#main #content .list .media-left img {
+	width: 220px;
+	height: 150px;
+}
+#main #content .list .media-heading>a {
+    padding-left: 80px;
+    font-size: 20px;
+}
+#main #content .list .media-heading>div.meta{
+	padding-top: 10px;
+}
+#main #content .list p {
+	font-size: 14px;
+	padding-top: 5px;
+	padding-bottom: 0;
+}
+#main #content .paging {
+	padding-top: 0;
+	padding-bottom: 0;
+}

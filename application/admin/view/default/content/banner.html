@@ -1,0 +1,81 @@
+<table class="table">
+	{eq name="Request.param.pid" value=""}
+	<thead>
+		<tr>
+			<th>{:lang('sort')}</th>
+			<th>{:lang('id')}</th>
+			<th>{:lang('banner name')}</th>
+			<th>{:lang('width')}</th>
+			<th>{:lang('height')}</th>
+			<th>{:lang('operation')}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<form action="" method="post">
+		{volist name="list" id="vo"}
+		<tr>
+			<td>
+				<input type="text" name="sort[{$vo.id}]" class="form-control mini" value="{$vo.sort}">
+			</td>
+			<td>{$vo.id}</td>
+			<td>{$vo.name}</td>
+			<td>{$vo.width}</td>
+			<td>{$vo.height}</td>
+			<td>
+				<a href="{:url('', array('pid' => $vo['id']))}"><span class="icon-eye-open"></span>{:lang('manage image')}</a>
+				<a href="{:url('', array('method' => 'editor', 'id' => $vo['id']))}"><i class="icon-edit"></i>{:lang('button editor')}</a>
+				<a href="{:url('', array('method' => 'remove', 'id' => $vo['id']))}"><i class="icon-remove"></i>{:lang('button delete')}</a>
+			</td>
+		</tr>
+		{/volist}
+		<tr>
+			<td><input type="submit" value="{:lang('sort')}" class="btn btn-info"></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		</form>
+	</tbody>
+	{else/}
+	<thead>
+		<tr>
+			<th>{:lang('sort')}</th>
+			<th>{:lang('banner title')}</th>
+			<th>{:lang('banner url')}</th>
+			<th>{:lang('banner image')}</th>
+			<th>{:lang('operation')}</th>
+		</tr>
+	</thead>
+	<tbody>
+		<form action="" method="post">
+		{volist name="list" id="vo"}
+		<tr>
+			<td>
+				<input type="text" name="sort[{$vo.id}]" class="form-control mini" value="{$vo.sort}">
+			</td>
+			<td>{$vo.title}</td>
+			<td>{$vo.url}</td>
+			<td>{$vo.image}</td>
+			<td>
+				<a href="{:url('')}"><span class="icon-reply"></span>{:lang('return')}</a>
+				<a href="{:url('', array('method' => 'editor', 'pid' => $vo['pid'], 'id' => $vo['id']))}"><i class="icon-edit"></i>{:lang('button editor')}</a>
+				<a href="{:url('', array('method' => 'remove', 'pid' => $vo['pid'], 'id' => $vo['id']))}"><i class="icon-remove"></i>{:lang('button delete')}</a>
+			</td>
+		</tr>
+		{/volist}
+		<tr>
+			<td><input type="submit" value="{:lang('sort')}" class="btn btn-info"></td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		</form>
+	</tbody>
+	{/eq}
+</table>
+<div class="paging">
+	{$page}
+</div>
