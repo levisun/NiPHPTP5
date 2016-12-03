@@ -1,0 +1,10 @@
+runtime/
+tests/
+thinkphp/
+vendor/
+build.php
+test.php
+think
+composer.json
+composer.lock
+phpunit.xml
