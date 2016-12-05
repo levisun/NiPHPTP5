@@ -15,5 +15,8 @@ return [
 	'/'                => 'index',
 	'entry/:cid'       => 'index/index/entry',
 	'article/:cid/:id' => 'index/index/article',
+	'tags/:id'         => 'index/index/tags',
+	'message/:id'      => 'index/index/message',
+	'feedback/:id'     => 'index/index/feedback',
 	'jump/:cid/:id'    => 'index/index/jump',
 ];

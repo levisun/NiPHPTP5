@@ -19,6 +19,7 @@ use think\Url;
 use app\admin\model\Category as IndexCategory;
 use app\admin\model\Ads as IndexAds;
 use app\admin\model\Banner as IndexBanner;
+use app\admin\model\Tags as IndexTags;
 class LabelFun
 {
 
@@ -490,6 +491,32 @@ class LabelFun
 		}
 
 		return $list;
+	}
+
+	/**
+	 * tags标签函数
+	 * @access public
+	 * @param
+	 * @return array
+	 */
+	public static function tagTags()
+	{
+		$map = ['lang' => Lang::detect()];
+
+		$tags = new IndexTags;
+		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+
+		$result =
+		$tags->where($map)
+		->cache($CACHE)
+		->select();
+
+		$data = [];
+		foreach ($result as $value) {
+			$data[] = $value->toArray();
+		}
+
+		return $data;
 	}
 
 	/**

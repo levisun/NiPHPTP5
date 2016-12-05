@@ -58,7 +58,7 @@
 
 <div id="main" class="container-fluid">
 	<section class="row">
-		<div id="content-wrap" class="col-md-9">
+		<div id="content-wrap" class="col-md-8">
 			<!-- <div id="banner">
 				fff
 			</div> -->
@@ -67,114 +67,77 @@
 				<div class="panel-body">
 					{label:article id="1" cid="3"}
 					<h2>
-						<a href="{:url('/entry/' . $article.category_id)}">【{$article.cat_name}】</a>
-						<a href="{:url('/article/' . $article.category_id . '/' . $article.id)}">{$article.title}</a></h2>
+						<a href="{$article.cat_url}">【{$article.cat_name}】</a>
+						<a href="{$article.url}">{$article.title}</a></h2>
 					<p>{$article.description}</p>
 					{/label:article}
 				</div>
 			</article>
 
-			<div class="list-title">
-				<h3>最新发布</h3>
-			</div>
+			{notempty name="Request.param.cid"}
+			<ol class="breadcrumb black">
+				<li><a href="__DOMAIN__">首页</a></li>
+				{label:breadcrumb id="Think.get.cid"}
+				<li><a href="{$vo.url}">{$vo.name}</a></li>
+				{/label:breadcrumb}
+			</ol>
+			{/notempty}
 
-			<article class="excerpt media start">
-				<a class="media-left" href="">
-					<img src="__DOMAIN__" alt="...">
-				</a>
-				<div class="media-body">
-					<div class="media-heading">
-						<h2>
-							<span class="label label-info"><a href="{:url('/entry/' . 1)}">1111</a></span>
-							<a href="">2222</a>
-						</h2>
-
-						<div class="meta">
-							<span><i class="icon-time"></i></span>
-							<span><i class="icon-eye-open"></i>阅读()</span>
-							<span><i class="icon-comments-alt"></i>评论(<a href=""></a>)</span>
-						</div>
-					</div>
-					<p>dddddddd</p>
-				</div>
-			</article>
-
-			<article class="excerpt media">
-				<a class="media-left" href="">
-					<img src="__DOMAIN__" alt="...">
-				</a>
-				<div class="media-body">
-					<div class="media-heading">
-						<h2>
-							<span class="label label-info"><a href="{:url('/entry/' . 1)}">1111</a></span>
-							<a href="">2222</a>
-						</h2>
-
-						<div class="meta">
-							<span><i class="icon-time"></i></span>
-							<span><i class="icon-eye-open"></i>阅读()</span>
-							<span><i class="icon-comments-alt"></i>评论(<a href=""></a>)</span>
-						</div>
-					</div>
-					<p>dddddddd</p>
-				</div>
-			</article>
-
-			<article class="excerpt media">
-				<a class="media-left" href="">
-					<img src="__DOMAIN__" alt="...">
-				</a>
-				<div class="media-body">
-					<div class="media-heading">
-						<h2>
-							<span class="label label-info"><a href="{:url('/entry/' . 1)}">1111</a></span>
-							<a href="">2222</a>
-						</h2>
-
-						<div class="meta">
-							<span><i class="icon-time"></i></span>
-							<span><i class="icon-eye-open"></i>阅读()</span>
-							<span><i class="icon-comments-alt"></i>评论(<a href=""></a>)</span>
-						</div>
-					</div>
-					<p>dddddddd</p>
-				</div>
-			</article>
-
-			<article class="excerpt media end">
-				<a class="media-left" href="">
-					<img src="__DOMAIN__" alt="...">
-				</a>
-				<div class="media-body">
-					<div class="media-heading">
-						<h2>
-							<span class="label label-info"><a href="{:url('/entry/' . 1)}">1111</a></span>
-							<a href="">2222</a>
-						</h2>
-
-						<div class="meta">
-							<span><i class="icon-time"></i></span>
-							<span><i class="icon-eye-open"></i>阅读()</span>
-							<span><i class="icon-comments-alt"></i>评论(<a href=""></a>)</span>
-						</div>
-					</div>
-					<p>dddddddd</p>
-				</div>
-			</article>
+			{__CONTENT__}
 		</div>
 
-		<aside id="sidebar" class="col-md-3">
+		<aside id="sidebar" class="col-md-4">
+			{notempty name="Request.param.cid"}
 			<div class="widget panel panel-default">
 				<div class="panel-heading">
-					<h3>前端开发</h3>
+					{label:sidebar}
+					{/label:sidebar}
+					<h3 class="panel-title">{$label_sidebar_name}</h3>
+				</div>
+				<div class="panel-body">
+					<ul class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+						{label:sidebar}
+						{notempty name="vo.child"}
+						{volist name="vo.child" id="cv"}
+						<li >
+							{notempty name="cv.child"}
+							<div class="panel-heading" role="tab" id="heading-menu-{$key}">
+							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#menu-{$key}" aria-expanded="false" aria-controls="menu-{$key}">
+								{$cv.name}
+							</a>
+							</div>
+							<ul id="menu-{$key}" class="panel-collapse collapse" role="tabpanel" aria-expanded="false" aria-labelledby="heading-menu-{$key}">
+								{volist name="cv.child" id="cc"}
+								<li><a href="{$cc.url}">{$cc.name}</a></li>
+								{/volist}
+							</ul>
+							{else/}
+							<div class="panel-heading" role="tab" id="heading-menu-{$key}">
+							<a href="{$cv.url}">{$cv.name}</a>
+							</div>
+							{/notempty}
+						</li>
+						{/volist}
+						{/notempty}
+
+						{/label:sidebar}
+					</ul>
+				</div>
+			</div>
+			{/notempty}
+
+
+			<div class="widget panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">程序开发</h3>
 				</div>
 				<div class="panel-body">
 					<ul class="row">
 						{label:list id="3" limit="5"}
 						<li class="{eq name="key" value="4"}col-md-12{else}col-md-6{/eq} align-c">
-							<h4>{$vo.title|msubstr=0,12,0} {$key}</h4>
-							<p>{$vo.description|msubstr=0,20}</p>
-							<a class="btn btn-default btn-sm" href="">立即使用</a>
+							<h4>{$vo.title|msubstr=0,10,0}</h4>
+							<p>{$vo.description|msubstr=0,25}</p>
+							<a class="btn btn-default btn-sm" href="{$vo.url}">点击查看</a>
 						</li>
 						{/label:list}
 					</ul>
@@ -183,30 +146,30 @@
 
 			<div class="widget panel panel-default">
 				<div class="panel-heading">
-					<h3>标签云</h3>
+					<h3 class="panel-title">前台开发</h3>
+				</div>
+				<div class="panel-body">
+					<ul class="row">
+						{label:list id="2" limit="5"}
+						<li class="{eq name="key" value="4"}col-md-12{else}col-md-6{/eq} align-c">
+							<h4>{$vo.title|msubstr=0,15,0}</h4>
+							<p>{$vo.description|msubstr=0,20}</p>
+							<a class="btn btn-default btn-sm" href="{$vo.url}">点击查看</a>
+						</li>
+						{/label:list}
+					</ul>
+				</div>
+			</div>
+
+			<div class="widget panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">标签云</h3>
 				</div>
 				<div class="panel-body">
 					<ol class="row">
-						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
-						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
-						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
-						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
-						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
-						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
-						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
-						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
-						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
-						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
-						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
-						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
-						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
-						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
-						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
-						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
-						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
-						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
-						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
-						<li class="col-md-4 align-c"><a href="">立即使用 (61)</a></li>
+						{label:tags}
+						<li class="col-md-4 align-c"><a href="{$vo.url}">{$vo.name|msubstr=0,4,0} ({$vo.count})</a></li>
+						{/label:tags}
 					</ul>
 				</div>
 			</div>

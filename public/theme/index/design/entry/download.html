@@ -1,9 +1,9 @@
 <div class="list-title">
-	<h3>最新发布</h3>
+	<h3>{$__SUB_TITLE__}</h3>
 </div>
 
-{label:list id="3"}
-<article class="excerpt media {eq name="key+1" value="$tag_count"}end{/eq} {eq name="key" value="0"}start{/eq}">
+{volist name="list" id="vo"}
+<article class="excerpt media {eq name="i" value="$count"}end{/eq} {eq name="key" value="0"}start{/eq}">
 	{notempty name="vo.thumb"}
 	<a class="media-left" href="{$vo.url}">
 		<img src="__DOMAIN__{$vo.thumb}" alt="...">
@@ -25,4 +25,8 @@
 		<p>{$vo.description}</p>
 	</div>
 </article>
-{/label:list}
+{/volist}
+
+<div class="paging align-c">
+	{$page}
+</div>

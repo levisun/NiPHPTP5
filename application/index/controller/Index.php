@@ -17,7 +17,7 @@ use app\index\controller\Common;
 class Index extends Common
 {
 	protected $beforeActionList = [
-		'first'
+		'first' => ['index', 'entry'],
 	];
 
 	/**
@@ -49,10 +49,10 @@ class Index extends Common
 
 		$data = $model->getListData();
 
+		$this->assign('data', $data['list']);
 		$this->assign('list', $data['list']);
 		$this->assign('page', $data['page']);
-
-		// trace($data);
+		$this->assign('count', count($data['list']));
 
 		return $this->fetch('entry/' . $this->table_name);
 	}
@@ -65,14 +65,13 @@ class Index extends Common
 	 */
 	public function article()
 	{
-		$web_info = $this->beforeArticle();
-
 		$model = Loader::model('Article', 'logic');
 		$model->setTableModel($this->table_name);
 
 		$data = $model->getArticle();
 		$this->assign('data', $data);
 
+		$web_info = $this->getCatWebInfo();
 		$web_info['title'] = $data['title'] . ' - ' . $web_info['title'];
 		$web_info['keywords'] = $data['keywords'] ? $data['keywords'] : $web_info['keywords'];
 		$web_info['description'] = $data['description'] ? $data['description'] : $web_info['description'];
@@ -82,6 +81,11 @@ class Index extends Common
 		$this->assign('__DESCRIPTION__', $web_info['description']);
 
 		return $this->fetch('article/' . $this->table_name);
+	}
+
+	public function tags()
+	{
+		return $this->fetch('entry/tags');
 	}
 
 	/**
@@ -99,8 +103,6 @@ class Index extends Common
 	{
 		if ($this->request->has('cid', 'param')) {
 			$web_info = $this->getCatWebInfo();
-
-
 		} else {
 			$web_info = [
 				'title' => $this->website_data['website_name'],
@@ -111,11 +113,6 @@ class Index extends Common
 		$this->assign('__TITLE__', $web_info['title']);
 		$this->assign('__KEYWORDS__', $web_info['keywords']);
 		$this->assign('__DESCRIPTION__', $web_info['description']);
-	}
-
-	protected function before()
-	{
-
 	}
 
 	/**
@@ -129,6 +126,8 @@ class Index extends Common
 		$web_title = $web_keywords = $web_description = '';
 		if ($this->request->has('cid', 'param')) {
 			$data = $this->common_model->getCategoryData();
+
+			$this->assign('__SUB_TITLE__', $data[0]['name']);
 
 			foreach ($data as $value) {
 				$web_title .= $value['seo_title'] ? $value['seo_title'] : $value['name'] . ' - ';
