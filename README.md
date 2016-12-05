@@ -1,7 +1,9 @@
 # NiPHPTP5
 
 > NiPHPTP5的运行环境要求PHP5.4以上。
+
 > NiPHPTP5基于ThinkPHP5框架开发，使用时请先下载[ThinkPHP5框架](http://www.thinkphp.cn/)
+
 > 安装ThinkPHP5框架后，替换application和public目录。
 
 ## 目录结构
@@ -17,9 +19,9 @@ www  WEB部署目录（或者子目录）
 │  │  ├─validate        验证器目录
 │  │  ├─view            视图目录
 │  │  ├─common.php      模块函数文件
-│  ├─config             设置目录
-│  │  ├─admin           后台设置目录
-│  │  ├─index           前台设置目录
+│  ├─config             配置目录
+│  │  ├─admin           后台配置目录
+│  │  ├─index           前台配置目录
 │  │  ├─command.php     命令行工具配置文件
 │  │  ├─config.php      公共配置文件
 │  │  ├─database.php    数据库配置文件
