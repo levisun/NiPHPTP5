@@ -6,6 +6,14 @@ body {
 .nav>li>a:hover {
 	background-color: transparent;
 }
+.label {
+	border-radius: 5px;
+}
+.label.label-info a {
+	color: #fff;
+	padding-left: 0;
+	font-size: 12px;
+}
 
 #header {
 	background-color: #fff;
@@ -41,82 +49,128 @@ body {
 	border: 1px solid #ddd;
 	margin-bottom: 15px;
 }
-#main #content-wrap .entry {
+#main #content-wrap .excerpt-see {
 	min-height: 120px;
 	background-color: #fff;
 	border-radius: 5px;
 	border: 1px solid #ddd;
 	margin-bottom: 15px;
 }
-#main #content-wrap .entry>div>h2 {
+#main #content-wrap .excerpt-see>div>h2 {
 	margin: 0;
 	font-size: 18px;
 	margin-bottom: 15px;
 }
-#main #content-wrap .entry>div>p{
+#main #content-wrap .excerpt-see>div>p{
 	text-indent: 28px;
+}
+#main #content-wrap .list-title {
+	margin-bottom: 15px;
+}
+#main #content-wrap .list-title>h3 {
+	font-size: 20px;
+	margin: 0;
+}
+#main #content-wrap .excerpt {
+	background-color: #fff;
+	border: 1px #ddd solid;
+	padding: 15px;
+	margin-top: 0;
+	margin-bottom: -1px;
+}
+#main #content-wrap .excerpt:hover {
+	border-color: #88D3F9;
+}
+#main #content-wrap .excerpt.start {
+	border-radius: 5px 5px 0 0;
+}
+#main #content-wrap .excerpt.end {
+	border-radius: 0 0 5px 5px;
+}
+#main #content-wrap .excerpt .media-left img {
+	width: 220px;
+	height: 150px;
+}
+#main #content-wrap .excerpt h2 {
+	font-size: 18px;
+	margin-top: 0;
+	margin-bottom: 10px;
+	line-height: 2em;
+}
+#main #content-wrap .excerpt .meta {
+	font-size: 12px;
+	color: #999;
 }
 
 #main #sidebar {
 	padding-left: 0px;
 }
 
-#main #sidebar .entry {
+#main #sidebar .widget {
 
 }
-#main #sidebar .entry>div>h3 {
+#main #sidebar .widget>div>h3 {
 	margin: 0;
 	font-size: 18px;
 }
-#main #sidebar .entry>div.panel-body {
+#main #sidebar .widget>div.panel-body {
 	padding: 0;
 }
-#main #sidebar .entry>div.panel-body>ul.row {
+#main #sidebar .widget>div.panel-body>ul.row {
 	margin: 0;
 }
-#main #sidebar .entry>div.panel-body>ul>li {
+#main #sidebar .widget>div.panel-body>ul>li {
 	min-height: 150px;
 	padding: 15px;
 	border-bottom: 1px dashed #ddd;
 }
-#main #sidebar .entry>div.panel-body>ul>li:hover {
+#main #sidebar .widget>div.panel-body>ul>li:hover {
 	background-color: #F9F9F9;
 }
-#main #sidebar .entry>div.panel-body>ul>li:nth-child(odd) {
+#main #sidebar .widget>div.panel-body>ul>li:nth-child(odd) {
 	border-right: 1px dashed #ddd;
 }
-#main #sidebar .entry>div.panel-body>ul>li:nth-child(3n+5) {
+#main #sidebar .widget>div.panel-body>ul>li:nth-child(3n+5) {
 	border-bottom: 0;
 	border-right: 0;
 }
-#main #sidebar .entry>div.panel-body>ul>li>h4 {
+#main #sidebar .widget>div.panel-body>ul>li>h4 {
 	margin: 10px 0;
 }
-#main #sidebar .entry>div.panel-body>ul>li>p {
+#main #sidebar .widget>div.panel-body>ul>li>p {
 	font-size: 12px;
 	line-height: 1.5em;
 	max-height: 32px;
 	overflow: hidden;
 	color: #bbb;
 }
-#main #sidebar .entry>div.panel-body>ol.row {
+#main #sidebar .widget>div.panel-body>ol.row {
 	margin: 0;
 	font-size: 12px;
 	padding: 15px;
 }
-#main #sidebar .entry>div.panel-body>ol>li {
+#main #sidebar .widget>div.panel-body>ol>li {
 	padding: 0;
 	padding-bottom: 3px;
 }
-#main #sidebar .entry>div.panel-body>ol>li:nth-child(3n+2) {
+#main #sidebar .widget>div.panel-body>ol>li:nth-child(3n+2) {
 	padding: 0 3px;
 }
-#main #sidebar .entry>div.panel-body>ol>li>a {
+#main #sidebar .widget>div.panel-body>ol>li>a {
 	display: block;
 	line-height: 30px;
 	background-color: #F9F9F9;
 }
-#main #sidebar .entry>div.panel-body>ol>li>a:hover {
+#main #sidebar .widget>div.panel-body>ol>li>a:hover {
 	color: #fff;
 	background-color: #61B3E6;
+}
+
+#footer {
+	margin-top: 15px;
+	background-color: #444;
+}
+#footer .footer {
+	padding: 25px 0;
+	font-size: 12px;
 }

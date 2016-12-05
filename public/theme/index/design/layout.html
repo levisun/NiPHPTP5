@@ -63,51 +63,125 @@
 				fff
 			</div> -->
 
-			<article class="entry panel panel-default">
+			<article class="excerpt-see panel panel-default">
 				<div class="panel-body">
-					<h2><a href="">【前端招聘】</a><a href="">Mobvista-汇量科技招聘前端H5工程师（北京 20K+）</a></h2>
-					<p>汇量科技（Mobvista）于2013 年3月开始开展业务，旗下拥有覆盖全球的移动数字营销平台和移动网游海外发行平台。汇量科技专注于为广告主与应用开发者提供高效的用户获取及流量变现综合解决方案，2015年在移动数据监测机构AppsFlyer...</p>
+					{label:article id="1" cid="3"}
+					<h2>
+						<a href="{:url('/entry/' . $article.category_id)}">【{$article.cat_name}】</a>
+						<a href="{:url('/article/' . $article.category_id . '/' . $article.id)}">{$article.title}</a></h2>
+					<p>{$article.description}</p>
+					{/label:article}
+				</div>
+			</article>
+
+			<div class="list-title">
+				<h3>最新发布</h3>
+			</div>
+
+			<article class="excerpt media start">
+				<a class="media-left" href="">
+					<img src="__DOMAIN__" alt="...">
+				</a>
+				<div class="media-body">
+					<div class="media-heading">
+						<h2>
+							<span class="label label-info"><a href="{:url('/entry/' . 1)}">1111</a></span>
+							<a href="">2222</a>
+						</h2>
+
+						<div class="meta">
+							<span><i class="icon-time"></i></span>
+							<span><i class="icon-eye-open"></i>阅读()</span>
+							<span><i class="icon-comments-alt"></i>评论(<a href=""></a>)</span>
+						</div>
+					</div>
+					<p>dddddddd</p>
+				</div>
+			</article>
+
+			<article class="excerpt media">
+				<a class="media-left" href="">
+					<img src="__DOMAIN__" alt="...">
+				</a>
+				<div class="media-body">
+					<div class="media-heading">
+						<h2>
+							<span class="label label-info"><a href="{:url('/entry/' . 1)}">1111</a></span>
+							<a href="">2222</a>
+						</h2>
+
+						<div class="meta">
+							<span><i class="icon-time"></i></span>
+							<span><i class="icon-eye-open"></i>阅读()</span>
+							<span><i class="icon-comments-alt"></i>评论(<a href=""></a>)</span>
+						</div>
+					</div>
+					<p>dddddddd</p>
+				</div>
+			</article>
+
+			<article class="excerpt media">
+				<a class="media-left" href="">
+					<img src="__DOMAIN__" alt="...">
+				</a>
+				<div class="media-body">
+					<div class="media-heading">
+						<h2>
+							<span class="label label-info"><a href="{:url('/entry/' . 1)}">1111</a></span>
+							<a href="">2222</a>
+						</h2>
+
+						<div class="meta">
+							<span><i class="icon-time"></i></span>
+							<span><i class="icon-eye-open"></i>阅读()</span>
+							<span><i class="icon-comments-alt"></i>评论(<a href=""></a>)</span>
+						</div>
+					</div>
+					<p>dddddddd</p>
+				</div>
+			</article>
+
+			<article class="excerpt media end">
+				<a class="media-left" href="">
+					<img src="__DOMAIN__" alt="...">
+				</a>
+				<div class="media-body">
+					<div class="media-heading">
+						<h2>
+							<span class="label label-info"><a href="{:url('/entry/' . 1)}">1111</a></span>
+							<a href="">2222</a>
+						</h2>
+
+						<div class="meta">
+							<span><i class="icon-time"></i></span>
+							<span><i class="icon-eye-open"></i>阅读()</span>
+							<span><i class="icon-comments-alt"></i>评论(<a href=""></a>)</span>
+						</div>
+					</div>
+					<p>dddddddd</p>
 				</div>
 			</article>
 		</div>
 
 		<aside id="sidebar" class="col-md-3">
-			<div class="entry panel panel-default">
+			<div class="widget panel panel-default">
 				<div class="panel-heading">
 					<h3>前端开发</h3>
 				</div>
 				<div class="panel-body">
 					<ul class="row">
-						<li class="col-md-6 align-c">
-							<h4>前端网址导航</h4>
-							<p>扁平化设计、自定义颜色风格、多功能配置</p>
+						{label:list id="3" limit="5"}
+						<li class="{eq name="key" value="4"}col-md-12{else}col-md-6{/eq} align-c">
+							<h4>{$vo.title|msubstr=0,12,0} {$key}</h4>
+							<p>{$vo.description|msubstr=0,20}</p>
 							<a class="btn btn-default btn-sm" href="">立即使用</a>
 						</li>
-						<li class="col-md-6 align-c">
-							<h4>前端网址导航</h4>
-							<p>扁平化设计、自定义颜色风格、多功能配置</p>
-							<a class="btn btn-default btn-sm" href="">立即使用</a>
-						</li>
-						<li class="col-md-6 align-c">
-							<h4>前端网址导航</h4>
-							<p>扁平化设计、自定义颜色风格、多功能配置</p>
-							<a class="btn btn-default btn-sm" href="">立即使用</a>
-						</li>
-						<li class="col-md-6 align-c">
-							<h4>前端网址导航</h4>
-							<p>扁平化设计、自定义颜色风格、多功能配置</p>
-							<a class="btn btn-default btn-sm" href="">立即使用</a>
-						</li>
-						<li class="col-md-12 align-c">
-							<h4>前端网址导航</h4>
-							<p>扁平化设计、自定义颜色风格、多功能配置</p>
-							<a class="btn btn-default btn-sm" href="">立即使用</a>
-						</li>
+						{/label:list}
 					</ul>
 				</div>
 			</div>
 
-			<div class="entry panel panel-default">
+			<div class="widget panel panel-default">
 				<div class="panel-heading">
 					<h3>标签云</h3>
 				</div>
@@ -140,9 +214,11 @@
 	</section>
 </div>
 
-<footer id="footer">
+<footer id="footer" class="container-fluid">
 	<section class="row">
-
+		<div class="col-md-12 footer align-c white">
+			__COPYRIGHT__ __MESSAGE__
+		</div>
 	</section>
 </footer>
 

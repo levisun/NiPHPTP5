@@ -50,11 +50,13 @@ class LabelFun
 		];
 
 		$category = new IndexCategory;
+		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+
 		$result =
 		$category->field($field)
 		->where($map)
 		->order($order)
-		->cache(!APP_DEBUG)
+		->cache($CACHE)
 		->select();
 
 		$data = [];
@@ -97,11 +99,13 @@ class LabelFun
 			$map['pid'] = $value['id'];
 
 			$category = new IndexCategory;
+			$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+
 			$result =
 			$category->field($field)
 			->where($map)
 			->order($order)
-			->cache(!APP_DEBUG)
+			->cache($CACHE)
 			->select();
 
 			$child = [];
@@ -166,10 +170,12 @@ class LabelFun
 		];
 
 		$category = new IndexCategory;
+		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+
 		$result =
 		$category->field($field)
 		->where($map)
-		->cache(!APP_DEBUG)
+		->cache($CACHE)
 		->find();
 
 		$data = $result ? $result->toArray() : [];
@@ -219,10 +225,12 @@ class LabelFun
 		];
 
 		$category = new IndexCategory;
+		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+
 		$result =
 		$category->field($field)
 		->where($map)
-		->cache(!APP_DEBUG)
+		->cache($CACHE)
 		->select();
 
 		$data = [];
@@ -264,10 +272,12 @@ class LabelFun
 		];
 
 		$category = new IndexCategory;
+		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+
 		$result =
 		$category->field($field)
 		->where($map)
-		->cache(!APP_DEBUG)
+		->cache($CACHE)
 		->find();
 
 		$data = $result ? $result->toArray() : [];
@@ -295,10 +305,12 @@ class LabelFun
 		];
 
 		$category = new IndexAds;
+		$CACHE = !APP_DEBUG ? __METHOD__ . $id_ : false;
+
 		$result =
 		$category->field(true)
 		->where($map)
-		->cache(!APP_DEBUG)
+		->cache($CACHE)
 		->find();
 
 		return $result ? $result->toArray() : [];
@@ -321,10 +333,12 @@ class LabelFun
 			'lang' => Lang::detect()
 		];
 		$banner = new IndexBanner;
+		$CACHE = !APP_DEBUG ? __METHOD__ . 'PARENT' . implode('', $map) : false;
+
 		$result =
 		$banner->field(true)
 		->where($map)
-		->cache(!APP_DEBUG)
+		->cache($CACHE)
 		->find();
 
 		$size = $result ? $result->toArray() : [];
@@ -337,10 +351,12 @@ class LabelFun
 			'pid' => $id_,
 			'lang' => Lang::detect()
 		];
+		$CACHE = !APP_DEBUG ? __METHOD__ . 'CHILD' . implode('', $map) : false;
+
 		$result =
 		$banner->field(true)
 		->where($map)
-		->cache(!APP_DEBUG)
+		->cache($CACHE)
 		->select();
 
 		$data = [];
@@ -378,6 +394,7 @@ class LabelFun
 		];
 
 		$model = Loader::model(ucfirst($table_name), 'model', false, 'admin');
+		$CACHE = !APP_DEBUG ? __METHOD__ . $id_ . $cid_ : false;
 
 		$result =
 		$model->view($table_name . ' a', true)
@@ -386,7 +403,7 @@ class LabelFun
 		->view('category c', ['name' => 'cat_name'], 'c.id=a.category_id')
 		->view('admin ad', ['username' => 'editor_name'], 'a.user_id=ad.id')
 		->where($map)
-		->cache(!APP_DEBUG)
+		->cache($CACHE)
 		->find();
 
 		$data = $result ? $result->toArray() : [];
@@ -447,6 +464,7 @@ class LabelFun
 		$order = !empty($param_['order']) ? $param_['order'] : 'a.sort DESC, a.id DESC';
 
 		$model = Loader::model(ucfirst($table_name), 'model', false, 'admin');
+		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $param_) : false;
 
 		$result =
 		$model->view($table_name . ' a', true)
@@ -457,7 +475,7 @@ class LabelFun
 		->where($map)
 		->limit($limit)
 		->order($order)
-		->cache(!APP_DEBUG)
+		->cache($CACHE)
 		->select();
 
 		$list = [];
@@ -488,12 +506,14 @@ class LabelFun
 		];
 
 		$category = new IndexCategory;
+		$CACHE = !APP_DEBUG ? __METHOD__ . $cid_ : false;
+
 		$result =
 		$category->view('category c', 'id')
 		->view('model m', ['name' => 'model_name'], 'm.id=c.model_id AND m.name!=\'external\'')
 		->view('category cc', 'pid', 'c.id=cc.pid', 'LEFT')
 		->where($map)
-		->cache(!APP_DEBUG)
+		->cache($CACHE)
 		->find();
 
 		$data = $result ? $result->toArray() : [];

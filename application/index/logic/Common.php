@@ -58,9 +58,12 @@ class Common extends Model
 		];
 
 		$category = new IndexCategory;
+		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+
 		$result =
 		$category->field(['id', 'pid', 'name', 'seo_title', 'seo_keywords', 'seo_description'])
 		->where($map)
+		->cache($CACHE)
 		->find();
 
 		$self = $result ? $result->toArray() : [];
@@ -94,10 +97,12 @@ class Common extends Model
 		];
 
 		$config = new IndexConfig;
+		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map['name']) . $map['lang'] : false;
+
 		$result =
 		$config->field(true)
 		->where($map)
-		->cache(!APP_DEBUG)
+		->cache($CACHE)
 		->select();
 
 		$data = [];
@@ -131,12 +136,14 @@ class Common extends Model
 		];
 
 		$category = new IndexCategory;
+		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+
 		$result =
 		$category->view('category c', 'id')
 		->view('model m', ['name' => 'model_name'], 'm.id=c.model_id AND m.name!=\'external\'')
 		->view('category cc', 'pid', 'c.id=cc.pid', 'LEFT')
 		->where($map)
-		->cache(!APP_DEBUG)
+		->cache($CACHE)
 		->find();
 
 		$data = $result ? $result->toArray() : [];

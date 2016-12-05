@@ -44,12 +44,14 @@ class Link extends Model
 		$order = 'l.sort DESC, l.type_id ASC, l.update_time DESC';
 
 		$link = new IndexLink;
+		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+
 		$result =
 		$link->view('link l', 'id,logo,title,category_id,type_id,description')
 		->view('type t', ['name' => 'type_name'], 't.id=l.type_id', 'LEFT')
 		->where($map)
 		->order($order)
-		->cache(!APP_DEBUG)
+		->cache($CACHE)
 		->select();
 
 		$list = [];

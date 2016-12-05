@@ -46,13 +46,15 @@ class Page extends Model
 		];
 
 		$model = new IndexPage;
+		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+
 		$result =
 		$model->view('page a', true)
 		->view('type t', ['name' => 'type_name'], 't.id=a.type_id', 'LEFT')
 		->view('level l', ['name' => 'level_name'], 'l.id=a.access_id', 'LEFT')
 		->view('category c', ['name' => 'cat_name'], 'c.id=a.category_id')
 		->where($map)
-		->cache(!APP_DEBUG)
+		->cache($CACHE)
 		->find();
 
 		$list = $result ? $result->toArray() : '';

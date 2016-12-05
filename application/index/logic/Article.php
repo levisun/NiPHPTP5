@@ -58,6 +58,7 @@ class Article extends Model
 
 
 		$model = Loader::model(ucfirst($this->model_name), 'model', false, 'admin');
+		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
 
 		$result =
 		$model->view($this->model_name . ' a', 'id,title,keywords,description,thumb,category_id,hits,comment_count,create_time,update_time,type_id,access_id,is_link,url')
@@ -66,7 +67,7 @@ class Article extends Model
 		->view('category c', ['name' => 'cat_name'], 'c.id=a.category_id')
 		->view('admin ad', ['username' => 'editor_name'], 'a.user_id=ad.id')
 		->where($map)
-		->cache(!APP_DEBUG)
+		->cache($CACHE)
 		->paginate();
 
 		$list = [];
@@ -101,10 +102,12 @@ class Article extends Model
 		];
 
 		$category = new IndexCategory;
+		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+
 		$result =
 		$category->field(['id'])
 		->where($map)
-		->cache(!APP_DEBUG)
+		->cache($CACHE)
 		->select();
 
 		if (!$result) {
@@ -138,6 +141,7 @@ class Article extends Model
 
 
 		$model = Loader::model(ucfirst($this->model_name), 'model', false, 'admin');
+		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
 
 		$result =
 		$model->view($this->model_name . ' a', true)
@@ -146,7 +150,7 @@ class Article extends Model
 		->view('category c', ['name' => 'cat_name'], 'c.id=a.category_id')
 		->view('admin ad', ['username' => 'editor_name'], 'a.user_id=ad.id')
 		->where($map)
-		->cache(!APP_DEBUG)
+		->cache($CACHE)
 		->find();
 
 		$data = $result ? $result->toArray() : [];
@@ -174,9 +178,12 @@ class Article extends Model
 		$map = ['main_id' => $this->request->param('id/f')];
 
 		$album = Loader::model($this->model_name . 'Album', 'model', false, 'admin');
+		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+
 		$result =
 		$album->field(true)
 		->where($map)
+		->cache($CACHE)
 		->select();
 
 		$list = [];
@@ -199,11 +206,14 @@ class Article extends Model
 		$table_name = $this->model_name . '_data d';
 
 		$fields = new IndexFields;
+		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+
 		$result =
 		$fields->view('fields f', ['id', 'name' => 'field_name'])
 		->view('fields_type t', ['name' => 'field_type'], 'f.type_id=t.id')
 		->view($table_name, ['data' => 'field_data'], 'f.id=d.fields_id AND d.main_id=' . $this->request->param('id/f'), 'LEFT')
 		->where($map)
+		->cache($CACHE)
 		->select();
 
 		$list = [];
@@ -228,10 +238,13 @@ class Article extends Model
 		];
 
 		$tags = new IndexTagsArticle;
+		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+
 		$result =
 		$tags->view('tags_article a', 'tags_id')
 		->view('tags t', 'name', 't.id=a.tags_id')
 		->where($map)
+		->cache($CACHE)
 		->select();
 
 		$list = [];
