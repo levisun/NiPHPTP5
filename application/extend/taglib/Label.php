@@ -146,10 +146,10 @@ class Label extends TagLib
 		$parseStr .= ' $label["banner"][' . $id . '] = \taglib\LabelFun::tagBanner(' . $id . ');';
 		$parseStr .= ' if (!empty($label["banner"][' . $id . '])) {';
 		$parseStr .= ' $tag_count = count($label["banner"][' . $id . ']);';
-		$parseStr .= ' foreach ($label["banner"][' . $id . ']["data"] as $key => $vo) {';
-		$parseStr .= ' $label["banner"][' . $id . ']["data"][$key] = $vo["url"] = url("/banner/" . $vo["id"]);';
+		$parseStr .= ' foreach ($label["banner"][' . $id . ']["data"] as $key => $vo) { ?>';
+		/*$parseStr .= ' $label["banner"][' . $id . ']["data"][$key] = $vo["url"] = url("/banner/" . $vo["id"]);';
 		$parseStr .= ' $label["banner"][' . $id . ']["data"][$key] = $vo["width"] = $label["banner"][' . $id . ']["size"]["width"];';
-		$parseStr .= ' $label["banner"][' . $id . ']["data"][$key] = $vo["height"] = $label["banner"][' . $id . ']["size"]["height"];?>';
+		$parseStr .= ' $label["banner"][' . $id . ']["data"][$key] = $vo["height"] = $label["banner"][' . $id . ']["size"]["height"];?>';*/
 		$parseStr .= $content;
 		$parseStr .= '<?php } } ?>';
 		return $parseStr;
@@ -171,9 +171,10 @@ class Label extends TagLib
 		$parseStr .= ' $label["article"]["' . $id . $cid . '"] = \taglib\LabelFun::tagArticle(' . $id . ', ' . $cid . ');';
 		$parseStr .= ' if (!empty($label["article"]["' . $id . $cid . '"])) {';
 		$parseStr .= ' $tag_count = count($label["article"]["' . $id . $cid . '"]);';
-		$parseStr .= ' $article = $label["article"]["' . $id . $cid . '"];';
-		$parseStr .= ' $article["cat_url"] = url("/entry/" . $article["category_id"]);';
+		$parseStr .= ' $article = $label["article"]["' . $id . $cid . '"]; ?>';
+		/*$parseStr .= ' $article["cat_url"] = url("/entry/" . $article["category_id"]);';
 		$parseStr .= ' $article["url"] = url("/article/" . $article["category_id"] . "/" . $article["id"]); ?>';
+		*/
 		$parseStr .= $content;
 		$parseStr .= '<?php } ?>';
 		return $parseStr;
@@ -195,9 +196,10 @@ class Label extends TagLib
 		$parseStr .= ' $label["list"]["' . $id . '"] = \taglib\LabelFun::tagList(' . $id . ', $param);';
 		$parseStr .= ' if (!empty($label["list"]["' . $id . '"])) {';
 		$parseStr .= ' $tag_count = count($label["list"]["' . $id . '"]);';
-		$parseStr .= ' foreach ($label["list"][' . $id . '] as $key => $vo) {';
-		$parseStr .= ' $vo["cat_url"] = url("/entry/" . $vo["category_id"]);';
+		$parseStr .= ' foreach ($label["list"][' . $id . '] as $key => $vo) { ?>';
+		/*$parseStr .= ' $vo["cat_url"] = url("/entry/" . $vo["category_id"]);';
 		$parseStr .= ' $vo["url"] = url("/article/" . $vo["category_id"] . "/" . $vo["id"]); ?>';
+		*/
 		$parseStr .= $content;
 		$parseStr .= '<?php } } ?>';
 		return $parseStr;
@@ -216,8 +218,8 @@ class Label extends TagLib
 		$parseStr .= ' $label["tags"] = \taglib\LabelFun::tagTags();';
 		$parseStr .= ' if (!empty($label["tags"])) {';
 		$parseStr .= ' $tag_count = count($label["tags"]);';
-		$parseStr .= ' foreach ($label["tags"] as $key => $vo) {';
-		$parseStr .= ' $vo["url"] = url("/tags/" . $vo["id"]); ?>';
+		$parseStr .= ' foreach ($label["tags"] as $key => $vo) { ?>';
+		/*$parseStr .= ' $vo["url"] = url("/tags/" . $vo["id"]); ?>';*/
 		$parseStr .= $content;
 		$parseStr .= '<?php } } ?>';
 		return $parseStr;

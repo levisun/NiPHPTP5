@@ -13,6 +13,7 @@
  */
 namespace app\index\controller;
 use think\Loader;
+use think\Url;
 use app\index\controller\Common;
 class Index extends Common
 {
@@ -69,7 +70,14 @@ class Index extends Common
 		$model->setTableModel($this->table_name);
 
 		$data = $model->getArticle();
+
+		if ($data['is_link']) {
+			$this->redirect(Url::build('/jump/' . $data['category_id'] . '/' . $data['id']), 302);
+		}
+
 		$this->assign('data', $data);
+
+
 
 		$web_info = $this->getCatWebInfo();
 		$web_info['title'] = $data['title'] . ' - ' . $web_info['title'];
@@ -96,7 +104,9 @@ class Index extends Common
 	 */
 	public function jump()
 	{
-		# code...
+		$model = Loader::model('Jump', 'logic');
+		$url = $model->jump($this->table_name);
+		$this->redirect($url, 302);
 	}
 
 	protected function first()

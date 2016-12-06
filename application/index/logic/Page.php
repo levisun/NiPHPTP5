@@ -18,6 +18,8 @@ use think\Lang;
 use think\Url;
 use think\Loader;
 use app\admin\model\Page as IndexPage;
+use app\admin\model\Fields as IndexFields;
+use app\admin\model\TagsArticle as IndexTagsArticle;
 class Page extends Model
 {
 	protected $request    = null;
@@ -41,7 +43,6 @@ class Page extends Model
 	{
 		$map = [
 			'a.category_id' => $this->request->param('cid/f'),
-			'a.is_pass'     => 1,
 			'a.lang'        => Lang::detect()
 		];
 
@@ -58,8 +59,73 @@ class Page extends Model
 		->find();
 
 		$list = $result ? $result->toArray() : '';
+
 		$list['content'] = htmlspecialchars_decode($list['content']);
+		$list['field']   = $this->getFieldsData($list['id']);
+		$list['tags']    = $this->getTagsData($list['id']);
 
 		return ['list' => $list, 'page' => ''];
+	}
+
+	/**
+	 * 查询字段数据
+	 * @access protected
+	 * @param  string $table_name_ 表名
+	 * @return array
+	 */
+	protected function getFieldsData($id)
+	{
+		$map = ['f.category_id' => $this->request->param('cid/f')];
+		$table_name = 'page_data d';
+
+		$fields = new IndexFields;
+		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+
+		$result =
+		$fields->view('fields f', ['id', 'name' => 'field_name'])
+		->view('fields_type t', ['name' => 'field_type'], 'f.type_id=t.id')
+		->view($table_name, ['data' => 'field_data'], 'f.id=d.fields_id AND d.main_id=' . $id, 'LEFT')
+		->where($map)
+		->cache($CACHE)
+		->select();
+
+		$list = [];
+		foreach ($result as $value) {
+			$list[] = $value->toArray();
+		}
+
+		return $list;
+	}
+
+	/**
+	 * 查询标签数据
+	 * @access protected
+	 * @param
+	 * @return array
+	 */
+	protected function getTagsData($id)
+	{
+		$map = [
+			'a.category_id' => $this->request->param('cid/f'),
+			'a.article_id'  => $id
+		];
+
+		$tags = new IndexTagsArticle;
+		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+
+		$result =
+		$tags->view('tags_article a', 'tags_id')
+		->view('tags t', 'name', 't.id=a.tags_id')
+		->where($map)
+		->cache($CACHE)
+		->select();
+
+		$list = [];
+		foreach ($result as $value) {
+			$value = $value->toArray();
+			$list[] = $value['name'];
+		}
+
+		return implode(' ', $list);
 	}
 }

@@ -129,11 +129,17 @@ class Article extends Model
 		return $id;
 	}
 
+	/**
+	 * 内容数据
+	 * @access public
+	 * @param
+	 * @return array
+	 */
 	public function getArticle()
 	{
 		$map = [
 			'a.category_id' => $this->request->param('cid/f'),
-			'a.id' => $this->request->param('id/f'),
+			'a.id'          => $this->request->param('id/f'),
 			'a.is_pass'     => 1,
 			'a.lang'        => Lang::detect(),
 			'a.show_time'   => ['ELT', time()]

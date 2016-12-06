@@ -1,0 +1,26 @@
+<div class="list-title">
+	<h3>{$__SUB_TITLE__}</h3>
+</div>
+
+<div class="link-list">
+	<ul class="row">
+		{php}$type="";{/php}
+		{volist name="list" id="vo"}
+		{neq name="vo.type_name" value="$type"}
+		<li class="col-sm-12">
+			<span class="btn btn-info">
+				{$vo.type_name}
+			</span>
+		</li>
+		{php}$type=$vo['type_name'];{/php}
+		{/neq}
+
+		<li class="col-sm-3">
+			<div>
+				<h5><a href="{$vo.url}" target="_blank">{$vo.title}</a></h5>
+				<p>{$vo.description}</p>
+			</div>
+		</li>
+		{/volist}
+	</ul>
+</div>

@@ -6,10 +6,10 @@ include('Pay.class.php');
 include('WxPay.class.php');
 
 $config = array(
-	'appid' => 'wx9b2b0724c11c788b',
-	'appsecret' => 'c2d5a77cfc5b71117d3dcd5cf569cbad',
-	'mch_id' => '1303680001',
-	'key' => '0af4769d381ece7b4fddd59dcf048da6');
+	'appid' => '',
+	'appsecret' => '',
+	'mch_id' => '',
+	'key' => '');
 $param = array(
 	'body' => 'test',					// 商品描述 128位
 	'detail' => '',						// 商品详情

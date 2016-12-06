@@ -1,0 +1,15 @@
+<article class="content">
+	<header class="content-header align-c">
+		<h1>{$data.title}</h1>
+		<div class="meta">
+			<span><i class="icon-time"></i>{$data.update_time|date="Y-m-d",###}</span>
+			<span><i class="icon-eye-open"></i>阅读({$data.hits})</span>
+			<span><i class="icon-comments-alt"></i>评论(<a href="">{$data.comment_count}</a>)</span>
+		</div>
+	</header>
+
+	<div class="content-body">
+		{$data.content}
+	</div>
+
+</article>

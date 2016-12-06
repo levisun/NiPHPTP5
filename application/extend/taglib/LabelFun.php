@@ -362,7 +362,11 @@ class LabelFun
 
 		$data = [];
 		foreach ($result as $value) {
-			$data[] = $value->toArray();
+			$value = $value->toArray();
+			$value['url'] = Url::build('/banner/' . $vo['id']);
+			$value['width'] = $size['width'];
+			$value['height'] = $size['height'];
+			$data[] = $value;
 		}
 
 		return ['data' => $data, 'size' => $size];
@@ -410,6 +414,12 @@ class LabelFun
 		$data = $result ? $result->toArray() : [];
 
 		$data['content'] = htmlspecialchars_decode($data['content']);
+		if ($data['is_link']) {
+			$data['url'] = Url::build('/jump/' . $data['category_id'] . '/' . $data['id']);
+		} else {
+			$data['url'] = Url::build('/article/' . $data['category_id'] . '/' . $data['id']);
+		}
+		$data['cat_url'] = Url::build('/entry/' . $data['category_id']);
 
 		/*
 		TODO
@@ -487,6 +497,7 @@ class LabelFun
 			} else {
 				$value['url'] = Url::build('/article/' . $value['category_id'] . '/' . $value['id']);
 			}
+			$value['cat_url'] = Url::build('/entry/' . $value['category_id']);
 			$list[] = $value;
 		}
 
@@ -513,7 +524,9 @@ class LabelFun
 
 		$data = [];
 		foreach ($result as $value) {
-			$data[] = $value->toArray();
+			$value = $value->toArray();
+			$value['url'] = Url::build('/tags/' . $value['id']);
+			$data[] = $value;
 		}
 
 		return $data;
