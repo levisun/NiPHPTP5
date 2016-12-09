@@ -1,8 +1,17 @@
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# OSX
+.DS_Store
+.AppleDouble
+.LSOverride
+
+#Project
 runtime/
 tests/
 thinkphp/
 vendor/
-.DS_Store
 build.php
 test.php
 think

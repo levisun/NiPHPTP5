@@ -20,8 +20,11 @@ use think\Config;
 use think\View;
 class Common extends Controller
 {
+	// 公众业务
 	protected $common_model = null;
+	// 当前请求表名
 	protected $table_name   = null;
+	// 网站基本数据
 	protected $website_data = [];
 
 	/**
@@ -32,9 +35,18 @@ class Common extends Controller
 	 */
 	protected function _initialize()
 	{
+		// 加载语言
+		$lang_path = APP_PATH . $this->request->module();
+		$lang_path .= '\lang\\' . Lang::detect() . '\\';
+		Lang::load($lang_path . Lang::detect() . '.php');
+		Lang::load($lang_path . strtolower($this->request->controller()) . '.php');
+
+		// 公众业务
 		$this->common_model = Loader::model('Common', 'logic');
 
+		// 当前请求表名
 		$this->table_name = $this->common_model->table_name;
+		// 网站基本数据
 		$this->website_data = $this->common_model->getWetsiteData();
 
 		$this->themeConfig();
@@ -51,6 +63,8 @@ class Common extends Controller
 	{
 		Config::set('template.taglib_pre_load', 'taglib\Label');
 
+		$controller = strtolower($this->request->controller());
+
 		// 判断访问端
 		$mobile = $this->request->isMobile() ? 'mobile/' : '';
 		$info = $this->request->header();
@@ -59,8 +73,8 @@ class Common extends Controller
 		}
 
 		// 模板路径
-		$view_path = './theme/' . $this->request->module() . '/';
-		$view_path .= $this->website_data[$this->request->module() . '_theme'] . '/' . $mobile;
+		$view_path = './theme/' . $controller . '/';
+		$view_path .= $this->website_data[$controller . '_theme'] . '/' . $mobile;
 		Config::set('template.view_path', $view_path);
 
 		// 获得域名地址
@@ -69,10 +83,10 @@ class Common extends Controller
 		Config::set('view_replace_str.__STATIC__', $domain . '/static/');
 		Config::set('view_replace_str.__DOMAIN__', $domain);
 
-		$default_theme = $domain . '/theme/' . $this->request->module() . '/';
-		$default_theme .= $this->website_data[$this->request->module() . '_theme'] . '/' . $mobile;
+		$default_theme = $domain . '/theme/' . $controller . '/';
+		$default_theme .= $this->website_data[$controller . '_theme'] . '/' . $mobile;
 
-		Config::set('view_replace_str.__THEME__', $this->website_data[$this->request->module() . '_theme']);
+		Config::set('view_replace_str.__THEME__', $this->website_data[$controller . '_theme']);
 		Config::set('view_replace_str.__CSS__', $default_theme . 'css/');
 		Config::set('view_replace_str.__JS__', $default_theme . 'js/');
 		Config::set('view_replace_str.__IMG__', $default_theme . 'img/');

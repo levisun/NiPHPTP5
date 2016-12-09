@@ -67,6 +67,6 @@ INSERT INTO `np_config` (`name`, `value`, `lang`) VALUES
 ('product_module_height', '150', 'zh-cn'),
 
 -- 模板设置
-('website_theme', 'default', 'zh-cn'),
+('index_theme', 'default', 'zh-cn'),
 ('member_theme', 'default', 'zh-cn'),
-('shop_theme', 'default', 'zh-cn');
+('mall_theme', 'default', 'zh-cn');

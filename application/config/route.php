@@ -17,4 +17,15 @@ return [
 	'article/:cid/:id' => 'index/index/article',
 	'tags/:id'         => 'index/index/tags',
 	'jump/:cid/:id'    => 'index/index/jump',
+
+
+	'member'           => 'index/member/index',
+	'member/account'   => 'index/member/account',
+
+
+	'mall'             => 'index/mall/index',
+	'mall/item/:id'    => 'index/mall/item',
+	'mall/order/:id'   => 'index/mall/order',
+	'mall/cart'        => 'index/mall/cart',
+	'mall/shop/:id'    => 'index/mall/shop',
 ];

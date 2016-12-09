@@ -518,7 +518,8 @@ class LabelFun
 		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
 
 		$result =
-		$tags->where($map)
+		$tags->field(true)
+		->where($map)
 		->cache($CACHE)
 		->select();
 

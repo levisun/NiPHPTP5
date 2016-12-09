@@ -10,20 +10,40 @@
 	<div class="content-body">
 		<form action="" method="post">
 			<ul>
-				<li>
-					<label for="">标题</label>
-					<input type="text" name="title">
+				<li class="form-group">
+					<label for="" class="control-label">标题</label>
+					<input type="text" name="title" class="form-control">
 				</li>
-				<li>
-					<label for="">姓名</label>
-					<input type="text" name="username">
+				<li class="form-group">
+					<label for="" class="control-label">姓名</label>
+					<input type="text" name="username" class="form-control">
 				</li>
-				<li>
-					<label for="">内容</label>
-					<textarea name="content"></textarea>
+				{notempty name="data.type"}
+				<li class="form-group">
+					<label for="" class="control-label">分类</label>
+					<select name="" class="form-control">
+						<option value="">请选择分类</option>
+						{volist name="data.type" id="vo"}
+						<option value="{$vo.id}">{$vo.name}</option>
+						{/volist}
+					</select>
+				</li>
+				{/notempty}
+				<li class="form-group">
+					<label for="" class="control-label">内容</label>
+					<textarea name="content" class="form-control"></textarea>
+				</li>
+				{volist name="data.field" id="vo"}
+				<li class="form-group">
+					<label for="" class="control-label">内容{$vo.field_name}</label>
+					{$vo.input}
+				</li>
+				{/volist}
+				<li class="form-group">
+					<label for=""></label>
+					<input type="submit" class="btn btn-primary">
 				</li>
 			</ul>
-
 		</form>
 	</div>
 </article>

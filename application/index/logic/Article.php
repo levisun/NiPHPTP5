@@ -32,6 +32,12 @@ class Article extends Model
 		$this->request = Request::instance();
 	}
 
+	/**
+	 * 设置模型名
+	 * @access public
+	 * @param  string $name_ 模型名
+	 * @return void
+	 */
 	public function setTableModel($name_)
 	{
 		$this->model_name = $name_;

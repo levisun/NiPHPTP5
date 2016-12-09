@@ -41,6 +41,7 @@ pre {
 	margin-bottom: .5rem;
 	overflow: hidden;
 	padding: 10px;
+	font-size: 12px;
 	white-space: pre-wrap;
 }
 

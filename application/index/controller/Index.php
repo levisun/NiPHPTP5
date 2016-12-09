@@ -7,13 +7,14 @@
  * @category  index\controller\
  * @author    失眠小枕头 [levisun.mail@gmail.com]
  * @copyright Copyright (c) 2013, 失眠小枕头, All rights reserved.
- * @version   CVS: $Id: Account.php v1.0.1 $
+ * @version   CVS: $Id: Index.php v1.0.1 $
  * @link      http://www.NiPHP.com
  * @since     2016/11/25
  */
 namespace app\index\controller;
 use think\Loader;
 use think\Url;
+use think\Lang;
 use app\index\controller\Common;
 class Index extends Common
 {
@@ -45,7 +46,20 @@ class Index extends Common
 			$model = Loader::model('Article', 'logic');
 			$model->setTableModel($this->table_name);
 		} else {
+			// page link feedback message
 			$model = Loader::model($this->table_name, 'logic');
+		}
+
+		// feedback or message
+		if ($this->request->isPost() && in_array($this->table_name, ['feedback', 'message'])) {
+			$result = $this->validate($_POST, ucfirst($this->table_name));
+			if (true !== $result) {
+				$this->error(Lang::get($result));
+			}
+			// $model->added();
+			// trace($model);
+			// trace($_POST);
+			halt(1);
 		}
 
 		$data = $model->getListData();
@@ -109,6 +123,12 @@ class Index extends Common
 		$this->redirect($url, 302);
 	}
 
+	/**
+	 * 首页 列表页 网站标题等数据
+	 * @access protected
+	 * @param
+	 * @return void
+	 */
 	protected function first()
 	{
 		if ($this->request->has('cid', 'param')) {

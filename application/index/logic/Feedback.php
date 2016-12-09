@@ -15,10 +15,12 @@ namespace app\index\logic;
 use think\Model;
 use think\Request;
 use think\Lang;
-use think\Url;
-use think\Loader;
+use think\Config;
+use think\Cookie;
 use app\admin\model\Feedback as IndexFeedback;
+use app\admin\model\FeedbackData as IndexFeedbackData;
 use app\admin\model\Fields as IndexFields;
+use app\admin\model\Type as IndexType;
 class Feedback extends Model
 {
 	protected $request = null;
@@ -30,18 +32,67 @@ class Feedback extends Model
 		$this->request = Request::instance();
 	}
 
+	/**
+	 * 反馈自定义字段与分类数据
+	 * @access public
+	 * @param
+	 * @return array
+	 */
 	public function getListData()
 	{
 		$feedback = new IndexFeedback;
 
-		$data = $this->getFields();
-		trace($data);
+		$data['field'] = $this->getFields();
+		$data['type']  = $this->getType();
+
+		return ['list' => $data, 'page' => ''];
+	}
+
+	public function added()
+	{
+		$data = [
+			'title'       => $this->request->post('title'),
+			'username'    => $this->request->post('username'),
+			'content'     => $this->request->post('content'),
+			'category_id' => $this->request->param('cid/f'),
+			'type_id'     => $this->request->post('type/f', 0),
+			'mebmer_id'   => Cookie::has(Config::get('USER_AUTH_KEY')) ?
+								Cookie::has(Config::get('USER_AUTH_KEY')) : 0,
+			'lang'     => Lang::detect(),
+		];
+
+		$feedback = new IndexFeedback;
+
+		$feedback->allowField(true)
+		->isUpdate(false)
+		->data($data)
+		->save();
+
+
+		// 自定义字段
+		$fields = $this->request->post('fields/a');
+		if (empty($fields)) {
+			return true;
+		}
+
+		$added_data = [];
+		foreach ($fields as $key => $value) {
+			$added_data[] = [
+				'main_id'   => $feedback->id,
+				'fields_id' => $key,
+				'data'      => $value
+			];
+		}
+
+		$feedback_data = new IndexFeedbackData;
+
+		$feedback_data->saveAll($added_data);
 	}
 
 	/**
 	 * 查询字段数据
 	 * @access protected
-	 * @param  string $table_name_ 表名
+	 * @param
 	 * @return array
 	 */
 	protected function getFields()
@@ -63,6 +114,32 @@ class Feedback extends Model
 			$value = $value->toArray();
 			$value['input'] = toFieldsType($value);
 			$list[] = $value;
+		}
+
+		return $list;
+	}
+
+	/**
+	 * 分类数据
+	 * @access protected
+	 * @param
+	 * @return array
+	 */
+	protected function getType()
+	{
+		$map = ['category_id' => $this->request->param('cid/f')];
+
+		$type = new IndexType;
+		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+
+		$result =
+		$type->field(true)
+		->where($map)
+		->select();
+
+		$list = [];
+		foreach ($result as $value) {
+			$list[] = $value->toArray();
 		}
 
 		return $list;
