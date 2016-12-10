@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
-	<title>{$__TITLE__}</title>
-	<meta name="keywords" content="{$__KEYWORDS__}">
-	<meta name="description" content="{$__DESCRIPTION__}">
+	<title>__TITLE__</title>
+	<meta name="keywords" content="__KEYWORDS__">
+	<meta name="description" content="__DESCRIPTION__">
 	<link href="__STATIC__library/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	<link href="__STATIC__library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="__STATIC__library/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
@@ -18,7 +18,9 @@
 <header id="header" class="container-fluid">
 	<section id="member-menu" class="row">
 		<div id="member" class="col-md-3">
-			欢迎回来，<a href="">请登录</a>!
+			{label:member empty='欢迎回来，<a href="">请登录</a>!' notempty="llll"}
+
+
 		</div>
 		<menu id="menu" class="col-md-9">
 			<ul class="nav nav-pills float-r">
@@ -135,7 +137,7 @@
 					<ul class="row">
 						{label:list id="3" limit="5"}
 						<li class="{eq name="key" value="4"}col-md-12{else}col-md-6{/eq} align-c">
-							<h4>{$vo.title|msubstr=0,10,0}</h4>
+							<h4>{$vo.title|msubstr=0,7,0}</h4>
 							<p>{$vo.description|msubstr=0,25}</p>
 							<a class="btn btn-default btn-sm" href="{$vo.url}">点击查看</a>
 						</li>
@@ -152,7 +154,7 @@
 					<ul class="row">
 						{label:list id="2" limit="5"}
 						<li class="{eq name="key" value="4"}col-md-12{else}col-md-6{/eq} align-c">
-							<h4>{$vo.title|msubstr=0,15,0}</h4>
+							<h4>{$vo.title|msubstr=0,7,0}</h4>
 							<p>{$vo.description|msubstr=0,20}</p>
 							<a class="btn btn-default btn-sm" href="{$vo.url}">点击查看</a>
 						</li>

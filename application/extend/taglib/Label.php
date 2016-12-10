@@ -19,15 +19,15 @@ class Label extends TagLib
 	// 标签定义
 	protected $tags = [
 		// 标签定义： attr 属性列表 close 是否闭合（0 或者1 默认1） alias 标签别名 level 嵌套层次
-		'category'   => ['attr' => 'type',   'alias' => 'nav'],
-		'breadcrumb' => ['attr' => '',       'alias' => 'map'],
-		'sidebar'    => ['attr' => '',       'alias' => 'sub'],
-		'ads'        => ['attr' => 'id',     'alias' => 'guanggao'],
-		'banner'     => ['attr' => 'id',     'alias' => 'huandengpian'],
-		'article'    => ['attr' => 'id,cid', 'alias' => 'neirong'],
+		'category'   => ['attr' => 'type',                     'alias' => 'nav'],
+		'breadcrumb' => ['attr' => '',                         'alias' => 'map'],
+		'sidebar'    => ['attr' => '',                         'alias' => 'sub'],
+		'ads'        => ['attr' => 'id',                       'alias' => 'guanggao'],
+		'banner'     => ['attr' => 'id',                       'alias' => 'huandengpian'],
+		'article'    => ['attr' => 'id,cid',                   'alias' => 'neirong'],
 		'list'       => ['attr' => 'id,num,order,com,top,hot', 'alias' => 'entry'],
-		'tags'       => ['attr' => '', 'alias' => 'biaoqian'],
-		//
+		'tags'       => ['attr' => '',                         'alias' => 'biaoqian'],
+		'member'     => ['attr' => 'empty,notempty', 'close' => 0,           'alias' => 'huiyuan'],
 	];
 
 	/**
@@ -222,6 +222,19 @@ class Label extends TagLib
 		/*$parseStr .= ' $vo["url"] = url("/tags/" . $vo["id"]); ?>';*/
 		$parseStr .= $content;
 		$parseStr .= '<?php } } ?>';
+		return $parseStr;
+	}
+
+	public function tagMember($tag, $content)
+	{
+		$parseStr = '<?php ';
+		$parseStr .= ' $label["member"] = cookie(config("USER_AUTH_KEY"));';
+		$parseStr .= ' if (empty($label["member"])) {';
+		$parseStr .= ' echo \'' . $tag['empty'] . '\';';
+		$parseStr .= '} else {';
+		$parseStr .= ' echo \'' . $tag['notempty'] . '\';';
+		$parseStr .= '} ?>';
+		$parseStr .= $content;
 		return $parseStr;
 	}
 }

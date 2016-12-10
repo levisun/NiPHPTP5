@@ -56,10 +56,14 @@ class Index extends Common
 			if (true !== $result) {
 				$this->error(Lang::get($result));
 			}
-			// $model->added();
-			// trace($model);
-			// trace($_POST);
-			halt(1);
+
+			$result = $model->added();
+			if (true === $result) {
+				$url = Url::build('/entry/' . $this->request->param('cid'));
+				$this->success(Lang::get('success ' . $this->table_name . ' added'), $url);
+			} else {
+				$this->error(Lang::get('error ' . $this->table_name . ' added'));
+			}
 		}
 
 		$data = $model->getListData();
@@ -91,16 +95,15 @@ class Index extends Common
 
 		$this->assign('data', $data);
 
-
-
 		$web_info = $this->getCatWebInfo();
-		$web_info['title'] = $data['title'] . ' - ' . $web_info['title'];
-		$web_info['keywords'] = $data['keywords'] ? $data['keywords'] : $web_info['keywords'];
-		$web_info['description'] = $data['description'] ? $data['description'] : $web_info['description'];
-
-		$this->assign('__TITLE__', $web_info['title']);
-		$this->assign('__KEYWORDS__', $web_info['keywords']);
-		$this->assign('__DESCRIPTION__', $web_info['description']);
+		$replace = [
+			'__TITLE__'       => $data['title'] . ' - ' . $web_info['title'],
+			'__KEYWORDS__'    => $data['keywords'] ? $data['keywords'] : $web_info['keywords'],
+			'__DESCRIPTION__' => $data['description'] ?
+									$data['description'] :
+									$web_info['description'],
+		];
+		$this->view->replace($replace);
 
 		return $this->fetch('article/' . $this->table_name);
 	}
@@ -140,9 +143,12 @@ class Index extends Common
 				'description' => $this->website_data['website_description']
 			];
 		}
-		$this->assign('__TITLE__', $web_info['title']);
-		$this->assign('__KEYWORDS__', $web_info['keywords']);
-		$this->assign('__DESCRIPTION__', $web_info['description']);
+		$replace = [
+			'__TITLE__' => $web_info['title'],
+			'__KEYWORDS__' => $web_info['keywords'],
+			'__DESCRIPTION__' => $web_info['description'],
+		];
+		$this->view->replace($replace);
 	}
 
 	/**

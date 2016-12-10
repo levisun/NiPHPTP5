@@ -13,16 +13,27 @@
  */
 return [
 	'/'                => 'index',
+
+	// website
 	'entry/:cid'       => 'index/index/entry',
 	'article/:cid/:id' => 'index/index/article',
 	'tags/:id'         => 'index/index/tags',
 	'jump/:cid/:id'    => 'index/index/jump',
+	'message/:cid'     => 'index/index/message',
 
+	// comment
+	'comment/:cid'     => 'index/comment/index',
+	'comment/added'    => 'index/comment/added',
 
+	// member
 	'member'           => 'index/member/index',
+	'member/login'     => 'index/member/login',
+	'member/logout'    => 'index/member/logout',
+	'member/reg'       => 'index/member/reg',
+	'member/forget'    => 'index/member/forget',
 	'member/account'   => 'index/member/account',
 
-
+	// mall
 	'mall'             => 'index/mall/index',
 	'mall/item/:id'    => 'index/mall/item',
 	'mall/order/:id'   => 'index/mall/order',

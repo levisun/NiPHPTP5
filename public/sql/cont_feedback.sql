@@ -8,6 +8,8 @@ CREATE TABLE IF NOT EXISTS `np_feedback` (
   `type_id` smallint(6) unsigned NOT NULL DEFAULT '0' COMMENT '类型ID',
   `mebmer_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '会员ID',
   `is_pass` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '审核',
+  `ip` varchar(15) NOT NULL DEFAULT '' COMMENT '评论IP',
+  `ip_attr` varchar(255) NOT NULL DEFAULT '' COMMENT '评论IP地区',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
   `delete_time` int(11) unsigned DEFAULT NULL COMMENT '删除时间',

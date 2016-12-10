@@ -61,7 +61,8 @@ class Common extends Controller
 	 */
 	protected function themeConfig()
 	{
-		Config::set('template.taglib_pre_load', 'taglib\Label');
+		$template = Config::get('template');
+		$template['taglib_pre_load'] = 'taglib\Label';
 
 		$controller = strtolower($this->request->controller());
 
@@ -73,31 +74,34 @@ class Common extends Controller
 		}
 
 		// 模板路径
-		$view_path = './theme/' . $controller . '/';
-		$view_path .= $this->website_data[$controller . '_theme'] . '/' . $mobile;
-		Config::set('template.view_path', $view_path);
+		$template['view_path'] = './theme/' . $controller . '/';
+		$template['view_path'] .= $this->website_data[$controller . '_theme'] . '/' . $mobile;
+
+		$this->view->engine($template);
 
 		// 获得域名地址
 		$domain = $this->request->root(true);
 		$domain = strtr($domain, ['/index.php' => '']);
+
+
 		Config::set('view_replace_str.__STATIC__', $domain . '/static/');
 		Config::set('view_replace_str.__DOMAIN__', $domain);
 
 		$default_theme = $domain . '/theme/' . $controller . '/';
 		$default_theme .= $this->website_data[$controller . '_theme'] . '/' . $mobile;
 
-		Config::set('view_replace_str.__THEME__', $this->website_data[$controller . '_theme']);
-		Config::set('view_replace_str.__CSS__', $default_theme . 'css/');
-		Config::set('view_replace_str.__JS__', $default_theme . 'js/');
-		Config::set('view_replace_str.__IMG__', $default_theme . 'img/');
-
-		Config::set('view_replace_str.__MESSAGE__', $this->website_data['bottom_message']);
-		Config::set('view_replace_str.__COPYRIGHT__', $this->website_data['copyright']);
-		Config::set('view_replace_str.__SCRIPT__', $this->website_data['script']);
-
-		$template = Config::get('template');
-		$view_replace_str = Config::get('view_replace_str');
-		$this->view = new View($template, $view_replace_str);
+		$replace = [
+			'__DOMAIN__'    => $domain,
+			'__STATIC__'    => $domain . '/static/',
+			'__THEME__'     => $this->website_data[$controller . '_theme'],
+			'__CSS__'       => $default_theme . 'css/',
+			'__JS__'        => $default_theme . 'js/',
+			'__IMG__'       => $default_theme . 'img/',
+			'__MESSAGE__'   => $this->website_data['bottom_message'],
+			'__COPYRIGHT__' => $this->website_data['copyright'],
+			'__SCRIPT__'    => $this->website_data['script'],
+		];
+		$this->view->replace($replace);
 	}
 
 	/**

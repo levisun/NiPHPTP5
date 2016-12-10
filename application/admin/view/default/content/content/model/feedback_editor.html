@@ -1,0 +1,57 @@
+<form action="" method="post" class="form-horizontal">
+	<ul>
+		<li class="form-group">
+			<label class="col-md-2 control-label">{:lang('title')}</label>
+			<div class="col-md-6">
+				{$data.title}
+			</div>
+		</li>
+		<li class="form-group">
+			<label class="col-md-2 control-label">{:lang('username')}</label>
+			<div class="col-md-6">
+				{$data.username}
+			</div>
+		</li>
+		<li class="form-group">
+			<label for="type_id" class="col-md-2 control-label">{:lang('type')}</label>
+			<div class="col-md-6">
+				{volist name="type" id="vo"}
+				{eq name="vo.id" value="$data.type_id"}{$vo.name}{/eq}
+				{/volist}
+			</div>
+		</li>
+		<li class="form-group">
+			<label class="col-md-2 control-label">IP</label>
+			<div class="col-md-6">
+				{$data.ip}[{$data.ip_attr}]
+			</div>
+		</li>
+		<li class="form-group">
+			<label class="col-md-2 control-label">{:lang('content')}</label>
+			<div class="col-md-6">
+				<pre>{$data.content}</pre>
+			</div>
+		</li>
+		{volist name="data.field_data" id="vo"}
+		<li class="form-group">
+			<label for="seo_title" class="col-md-2 control-label">{$vo.field_name}</label>
+			<div class="col-md-6">
+				{$vo.field_data}
+			</div>
+		</li>
+		{/volist}
+		<li class="form-group">
+			<label class="col-md-2 control-label">{:lang('button check')}</label>
+			<div class="col-md-6">
+				<label class="radio-inline"><input type="radio" name="is_pass" value="1" {eq name="data.is_pass" value="1"}checked{/eq} >{:lang('button yes')}</label>
+				<label class="radio-inline"><input type="radio" name="is_pass" value="0" {eq name="data.is_pass" value="0"}checked{/eq} >{:lang('button no')}</label>
+			</div>
+		</li>
+	</ul>
+	{:token()}
+	<input type="hidden" name="id" value="{$data.id}">
+	<div class="form-button col-md-10 col-md-offset-2">
+	<input type="submit" value="{:lang('button check')}" class="btn btn-danger btn-block" id="button-basic">
+	<a href="{:url('', array('method' => 'remove', 'id' => $data['id']))}" class="btn btn-warning btn-block" id="button-basic">{:lang('button delete')}</a>
+	</div>
+</form>

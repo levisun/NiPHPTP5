@@ -32,7 +32,6 @@ www  WEB部署目录（或者子目录）
 │  │  ├─controller      控制器目录
 │  │  ├─lang            语言包目录
 │  │  ├─logic           业务目录
-│  │  ├─model           模型目录
 │  │  ├─validate        验证器目录
 │  │  ├─common.php      模块函数文件
 │  ├─common             公共模块目录（可以更改）

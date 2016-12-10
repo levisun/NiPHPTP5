@@ -1,13 +1,13 @@
 <?php
 /**
  *
- * 反馈 - 逻辑层
+ * 留言 - 逻辑层
  *
  * @package   NiPHPCMS
  * @category  index\logic\
  * @author    失眠小枕头 [levisun.mail@gmail.com]
  * @copyright Copyright (c) 2013, 失眠小枕头, All rights reserved.
- * @version   CVS: $Id: Feedback.php v1.0.1 $
+ * @version   CVS: $Id: Message.php v1.0.1 $
  * @link      http://www.NiPHP.com
  * @since     2016/12/06
  */
@@ -17,11 +17,11 @@ use think\Request;
 use think\Lang;
 use think\Config;
 use think\Cookie;
-use app\admin\model\Feedback as IndexFeedback;
-use app\admin\model\FeedbackData as IndexFeedbackData;
+use app\admin\model\Message as IndexMessage;
+use app\admin\model\MessageData as IndexMessageData;
 use app\admin\model\Fields as IndexFields;
 use app\admin\model\Type as IndexType;
-class Feedback extends Model
+class Message extends Model
 {
 	protected $request = null;
 
@@ -40,7 +40,7 @@ class Feedback extends Model
 	 */
 	public function getListData()
 	{
-		$feedback = new IndexFeedback;
+		$message = new IndexMessage;
 
 		$data['field'] = $this->getFields();
 		$data['type']  = $this->getType();
@@ -72,9 +72,9 @@ class Feedback extends Model
 			'lang'        => Lang::detect(),
 		];
 
-		$feedback = new IndexFeedback;
+		$message = new IndexMessage;
 
-		$feedback->allowField(true)
+		$message->allowField(true)
 		->isUpdate(false)
 		->data($data)
 		->save();
@@ -89,15 +89,15 @@ class Feedback extends Model
 		$added_data = [];
 		foreach ($fields as $key => $value) {
 			$added_data[] = [
-				'main_id'   => $feedback->id,
+				'main_id'   => $message->id,
 				'fields_id' => $key,
 				'data'      => $value
 			];
 		}
 
-		$feedback_data = new IndexFeedbackData;
+		$message_data = new IndexMessageData;
 
-		$feedback_data->saveAll($added_data);
+		$message_data->saveAll($added_data);
 
 		return true;
 	}

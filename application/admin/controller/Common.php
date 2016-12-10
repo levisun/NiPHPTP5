@@ -258,29 +258,28 @@ class Common extends Controller
 	 */
 	protected function themeConfig()
 	{
-		$view_path = '../application/' . $this->request->module() . '/view/';
-		$view_path .= Config::get('default_theme') . '/';
-		Config::set('template.view_path', $view_path);
+		$template = Config::get('template');
+		$template['view_path'] = '../application/' . $this->request->module() . '/view/';
+		$template['view_path'] .= Config::get('default_theme') . '/';
+		$this->view->engine($template);
 
 		// 获得域名地址
 		$domain = $this->request->root(true);
 		$domain_arr = explode('/', $domain);
 		array_pop($domain_arr);
 		$domain = implode('/', $domain_arr);
-		// $domain = strtr($domain, ['/index.php' => '', '/admin.php' => '']);
-		Config::set('view_replace_str.__STATIC__', $domain . '/static/');
-		Config::set('view_replace_str.__DOMAIN__', $domain);
 
 		$default_theme = $domain . '/static/' . $this->request->module() . '/';
 		$default_theme .= Config::get('default_theme') . '/';
 
-		Config::set('view_replace_str.__THEME__', Config::get('default_theme'));
-		Config::set('view_replace_str.__CSS__', $default_theme . 'css/');
-		Config::set('view_replace_str.__JS__', $default_theme . 'js/');
-		Config::set('view_replace_str.__IMG__', $default_theme . 'img/');
-
-		$template = Config::get('template');
-		$view_replace_str = Config::get('view_replace_str');
-		$this->view = new View($template, $view_replace_str);
+		$replace = [
+			'__DOMAIN__' => $domain,
+			'__STATIC__' => $domain . '/static/',
+			'__THEME__'  => Config::get('default_theme'),
+			'__CSS__'    => $default_theme . 'css/',
+			'__JS__'     => $default_theme . 'js/',
+			'__IMG__'    => $default_theme . 'img/',
+		];
+		$this->view->replace($replace);
 	}
 }

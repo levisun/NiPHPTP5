@@ -165,7 +165,7 @@
 			<ul>
 				{volist name="data.field_data" id="vo"}
 				<li class="form-group">
-					<label for="seo_title" class="col-md-2 control-label">{$vo.name}</label>
+					<label for="seo_title" class="col-md-2 control-label">{$vo.field_name}</label>
 					<div class="col-md-6">
 						{$vo.input}
 					</div>
@@ -178,7 +178,7 @@
 	<input type="hidden" name="category_id" value="{$data.category_id}">
 	<input type="hidden" name="id" value="{$data.id}">
 	<div class="form-button col-md-10 col-md-offset-2">
-	<input type="submit" value="{:lang('button save')}" class="btn btn-success" id="button-basic">
+	<input type="submit" value="{:lang('button save')}" class="btn btn-danger btn-block"" id="button-basic">
 	</div>
 </form>
 <script type="text/javascript" src="__STATIC__library/ckeditor/ckeditor.js"></script>
