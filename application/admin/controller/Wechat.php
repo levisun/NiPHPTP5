@@ -13,7 +13,6 @@
  */
 namespace app\admin\controller;
 use app\admin\controller\Common;
-use think\Loader;
 class Wechat extends Common
 {
 	/**

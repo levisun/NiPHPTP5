@@ -232,9 +232,8 @@ class ContentContent extends Model
 		$id = $this->request->param('id/f');
 		$map = ['id' => $id];
 
-		$result =
-		$this->table_model->where($map)
-		->delete(false);
+		$this->table_model->where($map);
+		$result = $this->table_model->delete();
 
 		return $result ? true : false;
 	}

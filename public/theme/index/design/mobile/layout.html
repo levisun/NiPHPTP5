@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>__TITLE__</title>
+	<meta name="keywords" content="__KEYWORDS__">
+	<meta name="description" content="__DESCRIPTION__">
+	<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+	<meta name="format-detection" content="telephone=yes">
+	<meta name="format-detection" content="email=yes">
+	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<link href="__STATIC__library/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+	<link href="__STATIC__library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="__STATIC__library/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
+	<link href="__STATIC__library/layout/css/layout-3.0.css" rel="stylesheet">
+	<link href="__CSS__style.css" rel="stylesheet">
+
+	<script src="__STATIC__library/jquery/jquery-2.2.3.min.js"></script>
+</head>
+<body>
+<header id="header" class="container-fluid">
+	<section id="member-menu" class="row">
+		<div id="member" class="col-md-3">
+			{label:member}
+			{empty name="label.member"}
+			欢迎回来，<a href="{$label.member_url.login}">请登录</a>!
+			<a href="{$label.member_url.reg}">注册</a>
+			{else/}
+			欢迎回来，<a href="{$label.member_url.logout}">注销</a>!
+			{/empty}
+			{/label:member}
+
+
+		</div>
+		<!-- <menu id="menu" class="col-md-9">
+			<ul class="nav nav-pills float-r">
+				{label:nav type="top"}
+				<li><a href="{$vo.url}">{$vo.name}</a></li>
+				{/label:nav}
+			</ul>
+		</menu> -->
+	</section>
+	<section id="logo-nav" class="row">
+		<hgroup id="logo" class="col-md-3">
+			<h1><a href="">LOGO</a></h1>
+		</hgroup>
+		<nav id="nav" class="col-md-9">
+			<ul class="nav nav-pills float-r">
+				<li role="presentation"><a href="{:url('/')}">首页</a></li>
+				{label:nav type="main"}
+				<li role="presentation" {notempty name="vo.child"}class="dropdown"{/notempty}>
+					{notempty name="vo.child"}
+					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+						{$vo.name} <span class="caret"></span>
+					</a>
+					<ul class="dropdown-menu">
+						{volist name="vo.child" id="cv"}
+						<li><a href="{$cv.url}">{$cv.name}</a></li>
+						{/volist}
+					</ul>
+					{else/}
+					<a href="{$vo.url}">{$vo.name}</a>
+					{/notempty}
+				</li>
+				{/label:nav}
+			</ul>
+		</nav>
+	</section>
+</header>
+
+
+{__CONTENT__}
+
+</body>
+</html>

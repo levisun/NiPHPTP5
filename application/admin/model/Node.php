@@ -18,13 +18,13 @@ class Node extends Model
 	protected $name = 'node';
 	protected $autoWriteTimestamp = false;
 	protected $field = [
-		'id',
+		'id'      => 'int',
 		'name',
 		'title',
-		'status',
+		'status'  => 'int',
 		'remark',
-		'sort',
-		'pid',
-		'level'
+		'sort'    => 'int',
+		'pid'     => 'int',
+		'level'   => 'int',
 	];
 }

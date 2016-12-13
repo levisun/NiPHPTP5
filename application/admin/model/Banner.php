@@ -18,18 +18,18 @@ class Banner extends Model
 	protected $name = 'banner';
 	protected $autoWriteTimestamp = true;
 	protected $field = [
-		'id',
-		'pid',
+		'id'          => 'int',
+		'pid'         => 'int',
 		'name',
 		'title',
-		'width',
-		'height',
+		'width'       => 'int',
+		'height'      => 'int',
 		'image',
 		'url',
-		'hits',
-		'sort',
-		'create_time',
-		'update_time',
+		'hits'        => 'int',
+		'sort'        => 'int',
+		'create_time' => 'int',
+		'update_time' => 'int',
 		'lang'
 	];
 }

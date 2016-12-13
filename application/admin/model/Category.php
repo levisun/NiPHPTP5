@@ -18,23 +18,23 @@ class Category extends Model
 	protected $name = 'category';
 	protected $autoWriteTimestamp = true;
 	protected $field = [
-		'id',
-		'pid',
+		'id'          => 'int',
+		'pid'         => 'int',
 		'name',
 		'aliases',
 		'seo_title',
 		'seo_keywords',
 		'seo_description',
 		'image',
-		'type_id',
-		'model_id',
-		'is_show',
-		'is_channel',
-		'sort',
-		'access_id',
+		'type_id'     => 'int',
+		'model_id'    => 'int',
+		'is_show'     => 'int',
+		'is_channel'  => 'int',
+		'sort'        => 'int',
+		'access_id'   => 'int',
 		'url',
-		'create_time',
-		'update_time',
+		'create_time' => 'int',
+		'update_time' => 'int',
 		'lang'
 	];
 }

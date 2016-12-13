@@ -12,10 +12,13 @@
  * @since     2016/11/12
  */
 namespace app\admin\controller;
-use app\admin\controller\Common;
-use think\Loader;
 use think\Lang;
 use think\Url;
+use app\admin\controller\Common;
+use app\admin\logic\ContentContent as AdminContentContent;
+use app\admin\logic\CategoryCategory as AdminCategoryCategory;
+use app\admin\logic\ContentRecycle as AdminContentRecycle;
+use app\admin\logic\ContentCache as AdminContentCache;
 class Content extends Common
 {
 
@@ -31,7 +34,7 @@ class Content extends Common
 		$theme = 'content/content/';
 
 		// 获得模型表名
-		$model = Loader::model('ContentContent', 'logic');
+		$model = new AdminContentContent;
 		$this->assign('model_name', $model->table_name);
 
 		if (in_array($this->method, ['page', 'added', 'editor'])) {
@@ -100,7 +103,8 @@ class Content extends Common
 		}
 
 		// 栏目
-		$category = Loader::model('CategoryCategory', 'logic')->getListData();
+		$model = new AdminCategoryCategory;
+		$category = $model->getListData();
 		foreach ($category as $key => $value) {
 			if ($value['model_name'] == 'external') {
 				unset($category[$key]);
@@ -110,13 +114,19 @@ class Content extends Common
 		return $this->fetch($theme . 'category');
 	}
 
+	/**
+	 * 回收站
+	 * @access public
+	 * @param
+	 * @return string
+	 */
 	public function recycle()
 	{
 		$this->assign('sort', 0);
 		$theme = 'content/content/';
 
 		// 获得模型表名
-		$model = Loader::model('ContentRecycle', 'logic');
+		$model = new AdminContentRecycle;
 		$this->assign('model_name', $model->table_name);
 
 		if (in_array($this->method, ['page', 'added', 'editor'])) {
@@ -128,6 +138,9 @@ class Content extends Common
 			// 自定义字段
 			$data['field_data'] = $model->data_model->getAddedFieldsData($model->table_name);
 			$this->assign('data', $data);
+
+			// 是否审核
+			$this->assign('is_pass', $model->data_model->isPass());
 		}
 
 		// 删除
@@ -138,15 +151,15 @@ class Content extends Common
 		// 编辑
 		if ($this->method == 'editor') {
 			$this->assign('data', $model->getEditorData());
-			return $this->fetch($theme . 'model/' . $model->table_name . '_editor');
+			return $this->fetch($theme . 'recycle/' . $model->table_name . '_editor');
 		}
 
 		// 列表
 		if ($this->method == 'manage') {
 			$this->assign('submenu', 1);
-			if (!in_array($model->table_name, ['message', 'feedback'])) {
+			/*if (!in_array($model->table_name, ['message', 'feedback'])) {
 				$this->assign('submenu_button_added', 1);
-			}
+			}*/
 
 			$data = $model->getListData();
 			$this->assign('list', $data['list']);
@@ -155,7 +168,8 @@ class Content extends Common
 		}
 
 		// 栏目
-		$category = Loader::model('CategoryCategory', 'logic')->getListData();
+		$model = new AdminCategoryCategory;
+		$category = $model->getListData();
 		foreach ($category as $key => $value) {
 			if (in_array($value['model_name'], ['page', 'external'])) {
 				unset($category[$key]);
@@ -283,7 +297,8 @@ class Content extends Common
 	public function cache()
 	{
 		if ($this->method == 'remove') {
-			$result = Loader::model('ContentCache', 'logic')->remove();
+			$model = new AdminContentCache;
+			$result = $model->remove();
 
 			$url = Url::build($this->request->action());
 

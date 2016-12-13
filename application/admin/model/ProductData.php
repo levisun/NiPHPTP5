@@ -18,9 +18,9 @@ class ProductData extends Model
 	protected $name = 'product_data';
 	protected $autoWriteTimestamp = false;
 	protected $field = [
-		'id',
-		'main_id',
-		'fields_id',
+		'id'        => 'int',
+		'main_id'   => 'int',
+		'fields_id' => 'int',
 		'data'
 	];
 }

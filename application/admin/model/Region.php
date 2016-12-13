@@ -18,8 +18,8 @@ class Region extends Model
 	protected $name = 'region';
 	protected $autoWriteTimestamp = false;
 	protected $field = [
-		'id',
-		'pid',
+		'id'  => 'int',
+		'pid' => 'int',
 		'name',
 		'type'
 	];

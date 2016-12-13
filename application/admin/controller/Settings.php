@@ -13,7 +13,7 @@
  */
 namespace app\admin\controller;
 use app\admin\controller\Common;
-use think\Loader;
+use app\admin\logic\SettingsInfo as AdminSettingsInfo;
 class Settings extends Common
 {
 
@@ -25,7 +25,8 @@ class Settings extends Common
 	 */
 	public function info()
 	{
-		$this->assign('data', Loader::model('SettingsInfo', 'logic')->getSysInfo());
+		$model = new AdminSettingsInfo;
+		$this->assign('data', $model->getSysInfo());
 		return $this->fetch();
 	}
 

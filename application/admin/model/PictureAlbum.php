@@ -18,8 +18,8 @@ class PictureAlbum extends Model
 	protected $name = 'picture_album';
 	protected $autoWriteTimestamp = false;
 	protected $field = [
-		'id',
-		'main_id',
+		'id'      => 'int',
+		'main_id' => 'int',
 		'thumb',
 		'image'
 	];

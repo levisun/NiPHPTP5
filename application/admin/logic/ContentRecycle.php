@@ -97,10 +97,11 @@ class ContentRecycle extends Model
 			$map = ['id' => $this->request->param('id/f')];
 		}
 
-		$this->table_model->field(true);
-		$this->table_model->where($map);
 		$result =
-		$this->table_model->find();
+		$this->table_model->onlyTrashed()
+		->field(true)
+		->where($map)
+		->find();
 
 		$data = !empty($result) ? $result->toArray() : [];
 
@@ -108,16 +109,18 @@ class ContentRecycle extends Model
 			return null;
 		}
 
+		// 非友链
 		if ($this->table_name != 'link') {
-			$data['content'] = !empty($data['content']) ? htmlspecialchars_decode($data['content']) : '';
+			$data['content'] = htmlspecialchars_decode($data['content']);
 
 			$data['field_data'] = $this->data_model->getEditorFieldsData($data, $this->table_name);
+
 			$data['tags'] = $this->data_model->getEditorTagsData($data);
 		}
 
+		// 图文 产品
 		if (in_array($this->table_name, ['picture', 'product'])) {
-			// 图文 产品
-			# code...
+			$data['album_data'] = $this->data_model->getEditorAlbumData($this->table_name);
 		}
 
 		return $data;
@@ -134,16 +137,18 @@ class ContentRecycle extends Model
 		$id = $this->request->param('id/f');
 		$map = ['id' => $id];
 
-		$this->table_model->where($map);
 		$result =
-		$this->table_model->delete(true);
+		$this->table_model->onlyTrashed()
+		->where($map)
+		->delete();
 
 		if ($this->table_name != 'link') {
 			$map = ['main_id' => $id];
 
 			$model = Loader::model(ucfirst($this->table_name) . '_data');
 			$result =
-			$model->where($map)->delete();
+			$model->where($map)
+			->delete();
 		}
 
 		if (in_array($this->table_name, ['picture', 'product'])) {
@@ -152,7 +157,8 @@ class ContentRecycle extends Model
 
 			$model = Loader::model(ucfirst($this->table_name) . '_album');
 			$result =
-			$model->where($map)->delete();
+			$model->where($map)
+			->delete();
 		}
 
 		return $result ? true : false;

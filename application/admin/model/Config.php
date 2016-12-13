@@ -17,7 +17,7 @@ class Config extends Model
 {
 	protected $name = 'config';
 	protected $field = [
-		'id',
+		'id' => 'int',
 		'name',
 		'value',
 		'lang'

@@ -12,12 +12,28 @@
  * @since     2016/11/25
  */
 namespace app\index\controller;
-use think\Controller;
-class Member extends Controller
+use think\Loader;
+use think\Url;
+use think\Lang;
+use app\index\controller\Common;
+class Member extends Common
 {
+	protected $beforeActionList = [
+		'first'
+	];
+
+	public function login()
+	{
+		// return $this->fetch('index/login');
+	}
 
 	public function index()
 	{
 		halt('member');
+	}
+
+	public function first()
+	{
+		trace(1);
 	}
 }

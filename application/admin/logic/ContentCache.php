@@ -15,6 +15,7 @@ namespace app\admin\logic;
 use think\Model;
 use think\Request;
 use think\Cache;
+use util\File;
 class ContentCache extends Model
 {
 	protected $request = null;
@@ -42,14 +43,14 @@ class ContentCache extends Model
 		}
 
 		if ($type == 'compile') {
-			$list = \util\File::get(TEMP_PATH);
+			$list = File::get(TEMP_PATH);
 
 			// 删除编辑缓存
 			foreach ($list as $key => $value) {
 				if (is_dir(TEMP_PATH . $value['name'] . '/')) {
 					$value['name'] .= '/';
 				}
-				\util\File::delete(TEMP_PATH . $value['name']);
+				File::delete(TEMP_PATH . $value['name']);
 			}
 			return 'compile';
 		}

@@ -19,19 +19,19 @@ class Comment extends Model
 	protected $autoWriteTimestamp = true;
 	protected $updateTime = false;
 	protected $field = [
-		'id',
-		'category_id',
-		'content_id',
-		'user_id',
-		'pid',
+		'id' => 'int',
+		'category_id' => 'int',
+		'content_id'  => 'int',
+		'user_id'     => 'int',
+		'pid'         => 'int',
 		'content',
-		'is_pass',
-		'is_report',
-		'support',
-		'report_time',
+		'is_pass'     => 'int',
+		'is_report'   => 'int',
+		'support'     => 'int',
+		'report_time' => 'int',
 		'ip',
 		'ip_attr',
-		'create_time',
+		'create_time' => 'int',
 		'lang'
 	];
 }

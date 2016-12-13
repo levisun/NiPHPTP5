@@ -16,12 +16,10 @@ use think\Model;
 class Searchengine extends Model
 {
 	protected $name = 'searchengine';
-	protected $autoWriteTimestamp = true;
-	protected $updateTime = 'date';
-	protected $createTime = false;
+	protected $autoWriteTimestamp = false;
 	protected $field = [
-		'date',
+		'date'  => 'int',
 		'name',
-		'count'
+		'count' => 'int',
 	];
 }

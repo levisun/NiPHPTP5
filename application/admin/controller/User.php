@@ -13,7 +13,10 @@
  */
 namespace app\admin\controller;
 use app\admin\controller\Common;
-use think\Loader;
+use app\admin\logic\UserMember as AdminUserMember;
+use app\admin\logic\UserAdmin as AdminUserAdmin;
+use app\admin\logic\UserRole as AdminUserRole;
+use app\admin\logic\UserNode as AdminUserNode;
 class User extends Common
 {
 
@@ -25,10 +28,12 @@ class User extends Common
 	 */
 	public function member()
 	{
+		$model = new AdminUserMember;
+
 		// AJAX获得地区
 		if ($this->request->isAjax()) {
 			$id = $this->request->post('id/f');
-			$data = Loader::model('UserMember', 'logic')->getRegion($id);
+			$data = $model->getRegion($id);
 
 			$option = '';
 			foreach ($data as $key => $value) {
@@ -43,8 +48,8 @@ class User extends Common
 		$this->assign('submenu_button_added', 1);
 
 		if (in_array($this->method, ['added', 'editor'])) {
-			$this->assign('region', Loader::model('UserMember', 'logic')->getRegion(1));
-			$this->assign('level', Loader::model('UserMember', 'logic')->getLevel());
+			$this->assign('region', $model->getRegion(1));
+			$this->assign('level', $model->getLevel());
 		}
 
 		// 新增
@@ -62,8 +67,8 @@ class User extends Common
 		// 编辑
 		if ($this->method == 'editor') {
 			$data = parent::editor('UserMember');
-			$this->assign('city', Loader::model('UserMember', 'logic')->getRegion($data['province']));
-			$this->assign('area', Loader::model('UserMember', 'logic')->getRegion($data['city']));
+			$this->assign('city', $model->getRegion($data['province']));
+			$this->assign('area', $model->getRegion($data['city']));
 			$this->assign('data', $data);
 			return $this->fetch('member_editor');
 		}
@@ -122,7 +127,8 @@ class User extends Common
 		$this->assign('submenu_button_added', 1);
 
 		if (in_array($this->method, ['added', 'editor'])) {
-			$this->assign('role', Loader::model('UserAdmin', 'logic')->getRole());
+			$model = new AdminUserAdmin;
+			$this->assign('role', $model->getRole());
 		}
 
 		// 新增
@@ -162,7 +168,8 @@ class User extends Common
 		$this->assign('submenu_button_added', 1);
 
 		if (in_array($this->method, ['added', 'editor'])) {
-			$this->assign('node', Loader::model('UserRole', 'logic')->getNode());
+			$model = new AdminUserRole;
+			$this->assign('node', $model->getNode());
 		}
 
 		// 新增
@@ -202,7 +209,8 @@ class User extends Common
 		$this->assign('submenu_button_added', 1);
 
 		if (in_array($this->method, ['added', 'editor'])) {
-			$this->assign('node', Loader::model('UserNode', 'logic')->getListData());
+			$model = new AdminUserNode;
+			$this->assign('node', $model->getListData());
 		}
 
 		// 新增

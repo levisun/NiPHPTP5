@@ -18,11 +18,11 @@ class Fields extends Model
 	protected $name = 'fields';
 	protected $autoWriteTimestamp = false;
 	protected $field = [
-		'id',
-		'category_id',
-		'type_id',
+		'id'          => 'int',
+		'category_id' => 'int',
+		'type_id'     => 'int',
 		'name',
 		'description',
-		'is_require'
+		'is_require'  => 'int',
 	];
 }

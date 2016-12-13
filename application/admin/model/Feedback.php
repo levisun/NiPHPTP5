@@ -22,17 +22,17 @@ class Feedback extends Model
 	protected $name = 'feedback';
 	protected $autoWriteTimestamp = true;
 	protected $field = [
-		'id',
+		'id'          => 'int',
 		'title',
 		'username',
 		'content',
-		'category_id',
-		'type_id',
-		'mebmer_id',
-		'is_pass',
-		'create_time',
-		'update_time',
-		'delete_time',
+		'category_id' => 'int',
+		'type_id'     => 'int',
+		'mebmer_id'   => 'int',
+		'is_pass'     => 'int',
+		'create_time' => 'int',
+		'update_time' => 'int',
+		'delete_time' => 'int',
 		'lang'
 	];
 }

@@ -18,6 +18,8 @@ use think\Lang;
 use think\Request;
 use think\Session;
 use think\Url;
+use net\IpLocation;
+use util\Rbac;
 use app\admin\model\Config as AdminConfig;
 use app\admin\model\Category as AdminCategory;
 use app\admin\model\Action as AdminAction;
@@ -59,7 +61,7 @@ class CommonAccount extends Model
 			return false;
 		}
 
-		$ip = new \net\IpLocation();
+		$ip = new IpLocation();
 		$area = $ip->getlocation($this->request->ip());
 
 		$data = [
@@ -267,9 +269,9 @@ class CommonAccount extends Model
 			return Url::build('settings/info');
 		}
 
-		\util\Rbac::checkLogin();
-		if (\util\Rbac::AccessDecision()) {
-			Session::set('_ACCESS_LIST', \util\Rbac::getAccessList($user_auth_key));
+		Rbac::checkLogin();
+		if (Rbac::AccessDecision()) {
+			Session::set('_ACCESS_LIST', Rbac::getAccessList($user_auth_key));
 			return true;
 		}
 	}

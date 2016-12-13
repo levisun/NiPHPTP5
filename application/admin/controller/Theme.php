@@ -12,10 +12,10 @@
  * @since     2016/11/16
  */
 namespace app\admin\controller;
-use app\admin\controller\Common;
-use think\Loader;
 use think\Lang;
 use think\Url;
+use app\admin\controller\Common;
+use app\admin\logic\ThemeTemplate as AdminThemeTemplate;
 class Theme extends Common
 {
 
@@ -55,7 +55,8 @@ class Theme extends Common
 	protected function theme()
 	{
 		if ($this->method == 'update') {
-			$result = Loader::model('ThemeTemplate', 'logic')->editor();
+			$model = new AdminThemeTemplate;
+			$result = $model->editor();
 			if (true === $result) {
 				$this->actionLog('config_editor');
 				$url = Url::build($this->request->action());

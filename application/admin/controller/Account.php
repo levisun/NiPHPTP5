@@ -12,7 +12,6 @@
  * @since     2016/10/22
  */
 namespace app\admin\controller;
-use think\Loader;
 use think\Url;
 use think\Lang;
 use app\admin\controller\Common;
@@ -30,7 +29,8 @@ class Account extends Common
 		if ($this->request->isPost()) {
 			$result = $this->validate($_POST, 'Account.login');
 			if(true === $result){
-				$result = Loader::model('CommonLogin', 'logic')->checkLogin();
+				$model = new AdminCommonLogin;
+				$result = $model->checkLogin();
 			}
 
 			if (true === $result) {
@@ -53,7 +53,8 @@ class Account extends Common
 	public function logout()
 	{
 		$this->actionLog('admin_logout');
-		$result = Loader::model('CommonLogin', 'logic')->logout();
+		$model = new AdminCommonLogin;
+		$result = $model->logout();
 		if (true === $result) {
 			$this->redirect(Url::build('account/login'));
 		}

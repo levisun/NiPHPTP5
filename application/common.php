@@ -93,7 +93,7 @@ function escape_xss($string_)
 
 /**
  * 字符串加密
- * @param  mixed  $string_     加密前的字符串
+ * @param  mixed  $string_  加密前的字符串
  * @param  string $authkey_ 密钥
  * @return mixed  加密后的字符串
  */
@@ -117,7 +117,7 @@ function encrypt($string_, $authkey_='0af4769d381ece7b4fddd59dcf048da6') {
 /**
  * 字符串解密
  * @param  mixed  $string_ 加密后的字符串
- * @param  string $key 密钥
+ * @param  string $key     密钥
  * @return mixed  加密前的字符串
  */
 function decrypt($string_, $authkey_='0af4769d381ece7b4fddd59dcf048da6') {

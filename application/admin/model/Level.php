@@ -18,10 +18,10 @@ class Level extends Model
 	protected $name = 'level';
 	protected $autoWriteTimestamp = false;
 	protected $field = [
-		'id',
+		'id'       => 'int',
 		'name',
-		'integral',
-		'status',
+		'integral' => 'int',
+		'status'   => 'int',
 		'remark'
 	];
 }

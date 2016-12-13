@@ -18,17 +18,17 @@ class Ads extends Model
 	protected $name = 'ads';
 	protected $autoWriteTimestamp = true;
 	protected $field = [
-		'id',
+		'id'          => 'int',
 		'name',
 		'width',
 		'height',
 		'image',
 		'url',
-		'hits',
-		'start_time',
-		'end_time',
-		'create_time',
-		'update_time',
+		'hits'        => 'int',
+		'start_time'  => 'int',
+		'end_time'    => 'int',
+		'create_time' => 'int',
+		'update_time' => 'int',
 		'lang'
 	];
 }

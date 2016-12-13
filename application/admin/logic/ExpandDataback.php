@@ -15,6 +15,8 @@ namespace app\admin\logic;
 use think\Model;
 use think\Request;
 use think\Config;
+use util\File;
+use util\Pclzip;
 class ExpandDataback extends Model
 {
 	protected $request = null;
@@ -34,7 +36,7 @@ class ExpandDataback extends Model
 	 */
 	public function getListData()
 	{
-		$list = \util\File::get('./backup/');
+		$list = File::get('./backup/');
 
 		rsort($list);
 
@@ -42,7 +44,7 @@ class ExpandDataback extends Model
 		$days = strtotime('-180 days');
 		foreach ($list as $key => $value) {
 			if (strtotime($value['time']) <= $days) {
-				\File::delete('./backup/' . $value['name']);
+				File::delete('./backup/' . $value['name']);
 				unset($list[$key]);
 			} else {
 				$list[$key]['id'] = encrypt('./backup/' . $value['name']);
@@ -113,12 +115,12 @@ class ExpandDataback extends Model
 		file_put_contents($dir . 'tables.sql', $tables_sql);
 
 		// 打包备份
-		$zip = new \util\Pclzip('');
+		$zip = new Pclzip('');
 		$zip->zipname = './backup/back ' . date('YmdHis') . '.zip';
 		$zip->create($dir, PCLZIP_OPT_REMOVE_PATH, $dir);
 
 		// 删除临时文件
-		\util\File::delete($dir);
+		File::delete($dir);
 
 		return true;
 	}
@@ -154,11 +156,11 @@ class ExpandDataback extends Model
 
 		$dir = TEMP_PATH . $name[0] . '/';
 
-		$zip = new \util\Pclzip('');
+		$zip = new Pclzip('');
 		$zip->zipname = $file;
 		$zip->extract(PCLZIP_OPT_PATH, $dir);
 
-		$list = \util\File::get($dir . '/');
+		$list = File::get($dir . '/');
 		foreach ($list as $key => $value) {
 			if ($value['name'] == 'tables.sql') {
 				$sql = file_get_contents($dir . $value['name']);
@@ -174,7 +176,7 @@ class ExpandDataback extends Model
 		$this->batchQuery($execute_sql);
 
 		// 删除临时文件
-		\util\File::delete($dir);
+		File::delete($dir);
 
 		return true;
 	}

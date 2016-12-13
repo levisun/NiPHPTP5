@@ -18,14 +18,14 @@ class Reply extends Model
 	protected $name = 'reply';
 	protected $autoWriteTimestamp = false;
 	protected $field = [
-		'id',
+		'id'     => 'int',
 		'keyword',
 		'title',
 		'content',
-		'type',
+		'type'   => 'int',
 		'image',
 		'url',
-		'status',
+		'status' => 'int',
 		'lang'
 	];
 }

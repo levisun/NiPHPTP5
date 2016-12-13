@@ -12,10 +12,13 @@
  * @since     2016/11/01
  */
 namespace app\admin\controller;
-use app\admin\controller\Common;
-use think\Loader;
 use think\Url;
 use think\Lang;
+use net\Http;
+use util\File;
+use app\admin\controller\Common;
+use app\admin\logic\ExpandDataback as AdminExpandDataback;
+use app\admin\logic\ExpandELog as AdminExpandELog;
 class Expand extends Common
 {
 
@@ -41,9 +44,10 @@ class Expand extends Common
 	 */
 	public function databack()
 	{
+		$model = new AdminExpandDataback;
+
 		// 备份
 		if ($this->method == 'back') {
-			$model = Loader::model('ExpandDataback', 'logic');
 			$result = $model->createZipSql();
 			if (true === $result) {
 				$this->actionLog('databack_back');
@@ -60,13 +64,13 @@ class Expand extends Common
 
 			define('UPLOAD_PATH', './pulbic/upload/');
 			$file = decrypt($this->request->param('id'));
-			\net\Http::download($file, 'databack ' . date('Ymd') . '.zip');
+			Http::download($file, 'databack ' . date('Ymd') . '.zip');
 		}
 
 		// 删除
 		if ($this->method == 'remove') {
 			$file = decrypt($this->request->param('id'));
-			\util\File::delete($file);
+			File::delete($file);
 			$this->actionLog('databack_remove');
 
 			$url = Url::build($this->request->action());
@@ -75,7 +79,7 @@ class Expand extends Common
 
 		// 还原
 		if ($this->method == 'reduction') {
-			$result = Loader::model('ExpandDataback', 'logic')->reduction();
+			$result = $model->reduction();
 
 			$url = Url::build($this->request->action());
 			$this->success(Lang::get('success reduction'), $url);
@@ -106,7 +110,8 @@ class Expand extends Common
 	public function elog()
 	{
 		if ($this->method == 'show') {
-			$data = Loader::model('ExpandELog', 'logic')->getOneData();
+			$model = new AdminExpandELog;
+			$data = $model->getOneData();
 			$this->assign('data', $data);
 			return $this->fetch('elog_show');
 		}

@@ -17,11 +17,11 @@ class Models extends Model
 {
 	protected $name = 'model';
 	protected $field = [
-		'id',
+		'id'         => 'int',
 		'name',
 		'tablename',
 		'remark',
-		'status',
-		'sort'
+		'status'     => 'int',
+		'sort'       => 'int',
 	];
 }

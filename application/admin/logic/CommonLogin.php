@@ -16,6 +16,7 @@ use think\Model;
 use think\Config;
 use think\Request;
 use think\Session;
+use net\IpLocation;
 use app\admin\model\Admin as AdminAdmin;
 class CommonLogin extends Model
 {
@@ -55,7 +56,7 @@ class CommonLogin extends Model
 
 		$user_data['last_login_ip'] = $this->request->ip();
 
-		$ip = new \net\IpLocation();
+		$ip = new IpLocation();
 		$area = $ip->getlocation($this->request->ip());
 		$user_data['last_login_ip_attr'] = $area['country'] . $area['area'];
 

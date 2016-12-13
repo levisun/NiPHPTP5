@@ -18,8 +18,8 @@ class Tags extends Model
 	protected $name = 'tags';
 	protected $autoWriteTimestamp = false;
 	protected $field = [
-		'id',
+		'id'    => 'int',
 		'name',
-		'count'
+		'count' => 'int',
 	];
 }

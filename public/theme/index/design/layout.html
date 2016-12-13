@@ -18,7 +18,14 @@
 <header id="header" class="container-fluid">
 	<section id="member-menu" class="row">
 		<div id="member" class="col-md-3">
-			{label:member empty='欢迎回来，<a href="">请登录</a>!' notempty="llll"}
+			{label:member}
+			{empty name="label.member"}
+			欢迎回来，<a href="{$label.member_url.login}">请登录</a>!
+			<a href="{$label.member_url.reg}">注册</a>
+			{else/}
+			欢迎回来，<a href="{$label.member_url.logout}">注销</a>!
+			{/empty}
+			{/label:member}
 
 
 		</div>

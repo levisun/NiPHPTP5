@@ -21,21 +21,21 @@ class Link extends Model
 	protected $name = 'link';
 	protected $autoWriteTimestamp = true;
 	protected $field = [
-		'id',
+		'id'          => 'int',
 		'title',
 		'logo',
 		'description',
-		'category_id',
-		'type_id',
-		'mebmer_id',
-		'is_pass',
-		'sort',
-		'hits',
-		'user_id',
+		'category_id' => 'int',
+		'type_id'     => 'int',
+		'mebmer_id'   => 'int',
+		'is_pass'     => 'int',
+		'sort'        => 'int',
+		'hits'        => 'int',
+		'user_id'     => 'int',
 		'url',
-		'create_time',
-		'update_time',
-		'delete_time',
+		'create_time' => 'int',
+		'update_time' => 'int',
+		'delete_time' => 'int',
 		'lang'
 	];
 }

@@ -18,9 +18,9 @@ class Visit extends Model
 	protected $name = 'visit';
 	protected $autoWriteTimestamp = false;
 	protected $field = [
-		'date',
+		'date'     => 'int',
 		'ip',
 		'ip_attr',
-		'count'
+		'count'    => 'int',
 	];
 }

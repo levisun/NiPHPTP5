@@ -18,10 +18,10 @@ class Access extends Model
 	protected $name = 'access';
 	protected $autoWriteTimestamp = false;
 	protected $field = [
-		'role_id',
-		'node_id',
-		'status',
-		'level',
+		'role_id' => 'int',
+		'node_id' => 'int',
+		'status'  => 'int',
+		'level'   => 'int',
 		'module'
 	];
 }

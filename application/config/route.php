@@ -26,12 +26,12 @@ return [
 	'comment/added'    => 'index/comment/added',
 
 	// member
-	'member'           => 'index/member/index',
-	'member/login'     => 'index/member/login',
-	'member/logout'    => 'index/member/logout',
-	'member/reg'       => 'index/member/reg',
-	'member/forget'    => 'index/member/forget',
-	'member/account'   => 'index/member/account',
+	'member'           => 'member/index/index',
+	'member/login'     => 'member/index/login',
+	'member/logout'    => 'member/index/logout',
+	'member/reg'       => 'member/index/reg',
+	'member/forget'    => 'member/index/forget',
+	'member/account'   => 'member/index/account',
 
 	// mall
 	'mall'             => 'index/mall/index',

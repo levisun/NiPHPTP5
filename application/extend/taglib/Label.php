@@ -27,7 +27,7 @@ class Label extends TagLib
 		'article'    => ['attr' => 'id,cid',                   'alias' => 'neirong'],
 		'list'       => ['attr' => 'id,num,order,com,top,hot', 'alias' => 'entry'],
 		'tags'       => ['attr' => '',                         'alias' => 'biaoqian'],
-		'member'     => ['attr' => 'empty,notempty', 'close' => 0,           'alias' => 'huiyuan'],
+		'member'     => ['attr' => '',           'alias' => 'huiyuan'],
 	];
 
 	/**
@@ -147,9 +147,6 @@ class Label extends TagLib
 		$parseStr .= ' if (!empty($label["banner"][' . $id . '])) {';
 		$parseStr .= ' $tag_count = count($label["banner"][' . $id . ']);';
 		$parseStr .= ' foreach ($label["banner"][' . $id . ']["data"] as $key => $vo) { ?>';
-		/*$parseStr .= ' $label["banner"][' . $id . ']["data"][$key] = $vo["url"] = url("/banner/" . $vo["id"]);';
-		$parseStr .= ' $label["banner"][' . $id . ']["data"][$key] = $vo["width"] = $label["banner"][' . $id . ']["size"]["width"];';
-		$parseStr .= ' $label["banner"][' . $id . ']["data"][$key] = $vo["height"] = $label["banner"][' . $id . ']["size"]["height"];?>';*/
 		$parseStr .= $content;
 		$parseStr .= '<?php } } ?>';
 		return $parseStr;
@@ -172,9 +169,6 @@ class Label extends TagLib
 		$parseStr .= ' if (!empty($label["article"]["' . $id . $cid . '"])) {';
 		$parseStr .= ' $tag_count = count($label["article"]["' . $id . $cid . '"]);';
 		$parseStr .= ' $article = $label["article"]["' . $id . $cid . '"]; ?>';
-		/*$parseStr .= ' $article["cat_url"] = url("/entry/" . $article["category_id"]);';
-		$parseStr .= ' $article["url"] = url("/article/" . $article["category_id"] . "/" . $article["id"]); ?>';
-		*/
 		$parseStr .= $content;
 		$parseStr .= '<?php } ?>';
 		return $parseStr;
@@ -197,9 +191,6 @@ class Label extends TagLib
 		$parseStr .= ' if (!empty($label["list"]["' . $id . '"])) {';
 		$parseStr .= ' $tag_count = count($label["list"]["' . $id . '"]);';
 		$parseStr .= ' foreach ($label["list"][' . $id . '] as $key => $vo) { ?>';
-		/*$parseStr .= ' $vo["cat_url"] = url("/entry/" . $vo["category_id"]);';
-		$parseStr .= ' $vo["url"] = url("/article/" . $vo["category_id"] . "/" . $vo["id"]); ?>';
-		*/
 		$parseStr .= $content;
 		$parseStr .= '<?php } } ?>';
 		return $parseStr;
@@ -219,7 +210,6 @@ class Label extends TagLib
 		$parseStr .= ' if (!empty($label["tags"])) {';
 		$parseStr .= ' $tag_count = count($label["tags"]);';
 		$parseStr .= ' foreach ($label["tags"] as $key => $vo) { ?>';
-		/*$parseStr .= ' $vo["url"] = url("/tags/" . $vo["id"]); ?>';*/
 		$parseStr .= $content;
 		$parseStr .= '<?php } } ?>';
 		return $parseStr;
@@ -229,12 +219,21 @@ class Label extends TagLib
 	{
 		$parseStr = '<?php ';
 		$parseStr .= ' $label["member"] = cookie(config("USER_AUTH_KEY"));';
+		$parseStr .= ' $label["member_url"]["login"] = url("/member/login");';
+		$parseStr .= ' $label["member_url"]["logout"] = url("/member/logout");';
+		$parseStr .= ' $label["member_url"]["reg"] = url("/member/reg");';
+		$parseStr .= ' $label["member_url"]["forget"] = url("/member/forget"); ?>';
+		$parseStr .= $content;
+		return $parseStr;
+
+		/*$parseStr = '<?php ';
+		$parseStr .= ' $label["member"] = cookie(config("USER_AUTH_KEY"));';
 		$parseStr .= ' if (empty($label["member"])) {';
 		$parseStr .= ' echo \'' . $tag['empty'] . '\';';
 		$parseStr .= '} else {';
 		$parseStr .= ' echo \'' . $tag['notempty'] . '\';';
 		$parseStr .= '} ?>';
 		$parseStr .= $content;
-		return $parseStr;
+		return $parseStr;*/
 	}
 }

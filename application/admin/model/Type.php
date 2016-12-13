@@ -18,8 +18,8 @@ class Type extends Model
 	protected $name = 'type';
 	protected $autoWriteTimestamp = false;
 	protected $field = [
-		'id',
-		'category_id',
+		'id'          => 'int',
+		'category_id' => 'int',
 		'name',
 		'description'
 	];

@@ -18,8 +18,8 @@ class TagsArticle extends Model
 	protected $name = 'tags_article';
 	protected $autoWriteTimestamp = false;
 	protected $field = [
-		'tags_id',
-		'category_id',
-		'article_id'
+		'tags_id'     => 'int',
+		'category_id' => 'int',
+		'article_id'  => 'int',
 	];
 }

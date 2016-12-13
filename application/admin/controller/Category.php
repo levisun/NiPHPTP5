@@ -12,9 +12,11 @@
  * @since     2016/10/24
  */
 namespace app\admin\controller;
-use think\Loader;
-use think\Lang;
 use app\admin\controller\Common;
+use app\admin\logic\CategoryCategory as AdminCategoryCategory;
+use app\admin\logic\CategoryModel as AdminCategoryModel;
+use app\admin\logic\CategoryFields as AdminCategoryFields;
+use app\admin\logic\CategoryType as AdminCategoryType;
 class Category extends Common
 {
 
@@ -30,16 +32,17 @@ class Category extends Common
 		$this->assign('submenu_button_added', 1);
 
 		// 父级导航信息
-		$this->assign('parent', Loader::model('CategoryCategory', 'logic')->getParent());
+		$model = new AdminCategoryCategory;
+		$this->assign('parent', $model->getParent());
 
 		// 新增与编辑所需信息
 		if (in_array($this->method, ['added', 'editor'])) {
 			// 导航类型信息
-			$this->assign('type', Loader::model('CategoryCategory', 'logic')->getCategoryType());
+			$this->assign('type', $model->getCategoryType());
 			// 导航模型信息
-			$this->assign('model', Loader::model('CategoryCategory', 'logic')->getCategoryModel());
+			$this->assign('model', $model->getCategoryModel());
 			// 访问权限会员组信息
-			$this->assign('level', Loader::model('CategoryCategory', 'logic')->getLevel());
+			$this->assign('level', $model->getLevel());
 		}
 
 		// 新增
@@ -79,7 +82,8 @@ class Category extends Common
 
 		// 新增与编辑所需信息
 		if (in_array($this->method, ['added', 'editor'])) {
-			$this->assign('model_list', Loader::model('CategoryModel', 'logic')->getModel());
+			$model = new AdminCategoryModel;
+			$this->assign('model_list', $model->getModel());
 		}
 
 		// 添加
@@ -115,11 +119,13 @@ class Category extends Common
 	 */
 	public function fields()
 	{
+		$model = new AdminCategoryFields;
+
 		// AJAX获得子栏目
 		if ($this->request->isAjax()) {
 			$type = $this->request->post('type/f');
 			$type++;
-			return Loader::model('CategoryFields', 'logic')->getCategory($type);
+			return $model->getCategory($type);
 		}
 
 		$this->assign('submenu', 1);
@@ -128,9 +134,9 @@ class Category extends Common
 		// 新增与编辑所需信息
 		if (in_array($this->method, ['added', 'editor'])) {
 			// 主栏目
-			$this->assign('category_list', Loader::model('CategoryFields', 'logic')->getCategory());
+			$this->assign('category_list', $model->getCategory());
 			// 字段类型
-			$this->assign('type_list', Loader::model('CategoryFields', 'logic')->getType());
+			$this->assign('type_list', $model->getType());
 		}
 
 		// 添加
@@ -166,11 +172,13 @@ class Category extends Common
 	 */
 	public function type()
 	{
+		$model = new AdminCategoryType;
+
 		// AJAX获得子栏目
 		if ($this->request->isAjax()) {
 			$type = $this->request->post('type/f');
 			$type++;
-			return Loader::model('CategoryType', 'logic')->getCategory($type);
+			return $model->getCategory($type);
 		}
 
 		$this->assign('submenu', 1);
@@ -179,7 +187,7 @@ class Category extends Common
 		// 新增与编辑所需信息
 		if (in_array($this->method, ['added', 'editor'])) {
 			// 主栏目
-			$this->assign('category_list', Loader::model('CategoryType', 'logic')->getCategory());
+			$this->assign('category_list', $model->getCategory());
 		}
 
 		// 添加

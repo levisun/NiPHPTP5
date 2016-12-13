@@ -19,12 +19,12 @@ class ActionLog extends Model
 	protected $autoWriteTimestamp = true;
 	protected $updateTime = false;
 	protected $field = [
-		'action_id',
-		'user_id',
+		'action_id'   => 'int',
+		'user_id'     => 'int',
 		'action_ip',
 		'model',
-		'record_id',
+		'record_id'   => 'int',
 		'remark',
-		'create_time'
+		'create_time' => 'int',
 	];
 }
