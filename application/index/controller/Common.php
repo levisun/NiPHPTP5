@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * 全局 - 控制器
+ * 网站全局 - 控制器
  *
  * @package   NiPHPCMS
  * @category  index\controller\
@@ -35,6 +35,11 @@ class Common extends Controller
 	 */
 	protected function _initialize()
 	{
+		// 访问与搜索日志
+		$visit = Loader::model('Visit', 'logic', false, 'index');
+		$visit->searchengine();
+		$visit->visit();
+
 		// 加载语言
 		$lang_path = APP_PATH . $this->request->module();
 		$lang_path .= '\lang\\' . Lang::detect() . '\\';
@@ -42,7 +47,7 @@ class Common extends Controller
 		Lang::load($lang_path . strtolower($this->request->controller()) . '.php');
 
 		// 公众业务
-		$this->common_model = Loader::model('Common', 'logic');
+		$this->common_model = Loader::model('Common', 'logic', false, 'index');
 
 		// 当前请求表名
 		$this->table_name = $this->common_model->table_name;
@@ -83,10 +88,6 @@ class Common extends Controller
 		$domain = $this->request->root(true);
 		$domain = strtr($domain, ['/index.php' => '']);
 
-
-		Config::set('view_replace_str.__STATIC__', $domain . '/static/');
-		Config::set('view_replace_str.__DOMAIN__', $domain);
-
 		$default_theme = $domain . '/theme/' . $controller . '/';
 		$default_theme .= $this->website_data[$controller . '_theme'] . '/' . $mobile;
 
@@ -102,15 +103,5 @@ class Common extends Controller
 			'__SCRIPT__'    => $this->website_data['script'],
 		];
 		$this->view->replace($replace);
-	}
-
-	/**
-	 * 数据合法验证
-	 * @access protected
-	 * @param
-	 * @return boolean
-	 */
-	protected function illegal()
-	{
 	}
 }

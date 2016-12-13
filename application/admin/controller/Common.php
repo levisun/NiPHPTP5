@@ -18,6 +18,9 @@ use think\Url;
 use think\Lang;
 use think\Config;
 use think\View;
+use think\Session;
+use app\admin\logic\CommonUpload as AdminCommonUpload;
+use app\admin\logic\CommonAccount as AdminCommonAccount;
 class Common extends Controller
 {
 	// 分支操作方法
@@ -32,7 +35,8 @@ class Common extends Controller
 	public function upload()
 	{
 		if ($this->request->isPost()) {
-			$result = Loader::model('CommonUpload', 'logic')->upload();
+			$model = new AdminCommonUpload;
+			$result = $model->upload();
 			if (is_string($result)) {
 				$this->error($result);
 			}
@@ -45,20 +49,20 @@ class Common extends Controller
 	/**
 	 * 新增方法
 	 * @access public
-	 * @param  string $model_    操作模型名
-	 * @param  string $validate_ 验证器名
-	 * @param  string $log_      操作日志记录名|为空不做日志记录
+	 * @param  string $model_name    操作模型名
+	 * @param  string $validate_name 验证器名
+	 * @param  string $log_name      操作日志记录名|为空不做日志记录
 	 * @return void
 	 */
-	protected function added($model_, $validate_='', $log_='')
+	protected function added($model_name, $validate_name='', $log_name='')
 	{
 		if ($this->request->isPost()) {
 			// 数据验证
-			$this->illegal($validate_);
+			$this->illegal($validate_name);
 
-			$result = Loader::model($model_, 'logic')->added();
+			$result = Loader::model($model_name, 'logic')->added();
 			if (true === $result) {
-				$this->actionLog($log_);
+				$this->actionLog($log_name);
 				$url = Url::build($this->request->action());
 				$this->success(Lang::get('success added'), $url);
 			} else {
@@ -70,19 +74,20 @@ class Common extends Controller
 	/**
 	 * 删除方法
 	 * @access public
-	 * @param  string $model_    操作模型名
-	 * @param  string $log_      操作日志记录名|为空不做日志记录
+	 * @param  string $model_name    操作模型名
+	 * @param  string $validate_name 验证器名
+	 * @param  string $log_name      操作日志记录名|为空不做日志记录
 	 * @return void
 	 */
-	protected function remove($model_, $validate_='', $log_='')
+	protected function remove($model_name, $validate_name='', $log_name='')
 	{
 		// 数据验证
-		$this->illegal($validate_);
+		$this->illegal($validate_name);
 
-		$result = Loader::model($model_, 'logic')->remove();
+		$result = Loader::model($model_name, 'logic')->remove();
 		if (true === $result) {
 			// 获得操作数据ID,后期再做
-			$this->actionLog($log_);
+			$this->actionLog($log_name);
 			$url = Url::build($this->request->action());
 			$this->success(Lang::get('success remove'), $url);
 		} else {
@@ -97,21 +102,21 @@ class Common extends Controller
 	/**
 	 * 编辑方法
 	 * @access public
-	 * @param  string $model_    操作模型名
-	 * @param  string $validate_ 验证器名
-	 * @param  string $log_      操作日志记录名|为空不做日志记录
-	 * @param  string $illegal_  是否自动验证合法信息 默认true
+	 * @param  string $model_name    操作模型名
+	 * @param  string $validate_name 验证器名
+	 * @param  string $log_name      操作日志记录名|为空不做日志记录
+	 * @param  string $illegal_      是否自动验证合法信息 默认true
 	 * @return array
 	 */
-	protected function editor($model_, $validate_='', $log_='', $illegal_=true)
+	protected function editor($model_name, $validate_name='', $log_name='', $illegal_=true)
 	{
 		if ($this->request->isPost()) {
 			// 数据验证
-			$this->illegal($validate_);
+			$this->illegal($validate_name);
 
-			$result = Loader::model($model_, 'logic')->editor();
+			$result = Loader::model($model_name, 'logic')->editor();
 			if (true === $result) {
-				$this->actionLog($log_);
+				$this->actionLog($log_name);
 				$url = Url::build($this->request->action());
 				$this->success(Lang::get('success editor'));
 			} else {
@@ -119,48 +124,48 @@ class Common extends Controller
 			}
 		}
 
-		if (!empty($validate_)) {
-			$validate_ = explode('.', $validate_);
-			$validate_ = $validate_[0] . '.illegal';
+		if (!empty($validate_name)) {
+			$validate_name = explode('.', $validate_name);
+			$validate_name = $validate_name[0] . '.illegal';
 		} else {
-			$validate_ = ucfirst($this->request->action()) . '.illegal';
+			$validate_name = ucfirst($this->request->action()) . '.illegal';
 		}
 
 
-		$this->illegal($validate_, $illegal_);
+		$this->illegal($validate_name, $illegal_);
 
-		return Loader::model($model_, 'logic')->getEditorData();
+		return Loader::model($model_name, 'logic')->getEditorData();
 	}
 
 	/**
 	 * 查询方法
 	 * @access public
-	 * @param  string $model_ 操作模型名
-	 * @param  string $log_   操作日志记录名|为空不做日志记录
+	 * @param  string $model_name 操作模型名
+	 * @param  string $log_name   操作日志记录名|为空不做日志记录
 	 * @return array
 	 */
-	protected function select($model_, $log_='')
+	protected function select($model_name, $log_name='')
 	{
 		if ($this->request->isPost()) {
-			$result = Loader::model($model_, 'logic')->listSort();
+			$result = Loader::model($model_name, 'logic')->listSort();
 			if (true === $result) {
-				$this->actionLog($log_);
+				$this->actionLog($log_name);
 				$url = Url::build($this->request->action());
 				$this->success(Lang::get('success sort'), $url);
 			} else {
 				$this->error(Lang::get('error sort'));
 			}
 		}
-		return Loader::model($model_, 'logic')->getListData();
+		return Loader::model($model_name, 'logic')->getListData();
 	}
 
 	/**
 	 * 数据合法验证
 	 * @access protected
-	 * @param  string $validate_ 验证器名
+	 * @param  string $validate_name 验证器名
 	 * @return boolean
 	 */
-	protected function illegal($validate_='', $illegal_=true)
+	protected function illegal($validate_name='', $illegal_=true)
 	{
 		// 不进行数据合法验证
 		if (false === $illegal_) {
@@ -168,9 +173,9 @@ class Common extends Controller
 		}
 
 		// 验证器为空自动获得验证器
-		if (empty($validate_)) {
-			$validate_ = ucfirst($this->request->action());
-			$validate_ .= '.' . $this->method;
+		if (empty($validate_name)) {
+			$validate_name = ucfirst($this->request->action());
+			$validate_name .= '.' . $this->method;
 		}
 
 		// 验证数据
@@ -180,7 +185,7 @@ class Common extends Controller
 			$data = ['id' => $this->request->param('id/f')];
 		}
 
-		$result = $this->validate($data, $validate_);
+		$result = $this->validate($data, $validate_name);
 		if (true !== $result) {
 			$this->error(Lang::get($result));
 		}
@@ -189,19 +194,20 @@ class Common extends Controller
 	/**
 	 * 执行日志
 	 * @access protected
-	 * @param  string $action_   行为名称
-	 * @param  intval $recordId_ 数据ID
-	 * @param  string $remark_   备注
+	 * @param  string $action_name 行为名称
+	 * @param  intval $record_id   数据ID
+	 * @param  string $remark      备注
 	 * @return void
 	 */
-	protected function actionLog($action_, $record_id_='', $remark_='')
+	protected function actionLog($action_name, $record_id='', $remark='')
 	{
 		// 行为为空自动获得
-		if (empty($action_)) {
-			$action_ = $this->method !== 'list' ? $this->method : 'sort';
-			$action_ = $this->request->action() . '_' . $action_;
+		if (empty($action_name)) {
+			$action_name = $this->method !== 'list' ? $this->method : 'sort';
+			$action_name = $this->request->action() . '_' . $action_name;
 		}
-		Loader::model('CommonAccount', 'logic')->action_log($action_, $record_id_, $remark_);
+		$model = new AdminCommonAccount;
+		$model->action_log($action_name, $record_id, $remark);
 	}
 
 	/**
@@ -219,7 +225,7 @@ class Common extends Controller
 		Lang::load($lang_path . strtolower($this->request->controller()) . '.php');
 
 		// 权限判断
-		$account = Loader::model('CommonAccount', 'logic');
+		$account = new AdminCommonAccount;
 		$result = $account->accountAuth();
 		if (true !== $result) {
 			$this->redirect($result);
@@ -232,7 +238,7 @@ class Common extends Controller
 
 		// 注入常用模板变量
 		if (!empty($auth_data['auth_menu'])) {
-			$this->assign('__ADMIN_DATA__', \think\Session::get('ADMIN_DATA'));
+			$this->assign('__ADMIN_DATA__', Session::get('ADMIN_DATA'));
 			$this->assign('__MENU__', $auth_data['auth_menu']);
 			$this->assign('__SUB_TITLE__', $auth_data['sub_title']);
 			$this->assign('__BREADCRUMB__', $auth_data['breadcrumb']);
