@@ -12,11 +12,26 @@
  * @since     2016/11/25
  */
 namespace app\member\controller;
-use think\Loader;
-use think\Url;
-use think\Lang;
 use app\index\controller\Common;
 class Index extends Common
 {
+	protected $beforeActionList = [
+		'first'
+	];
+	protected $user_data = [];
 
+	public function login()
+	{
+		// return $this->fetch();
+	}
+
+	public function index()
+	{
+		return $this->fetch();
+	}
+
+	public function first()
+	{
+		cookie(config("USER_AUTH_KEY"));
+	}
 }

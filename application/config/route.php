@@ -15,11 +15,10 @@ return [
 	'/'                => 'index',
 
 	// website
-	'entry/:cid'       => 'index/index/entry',
-	'article/:cid/:id' => 'index/index/article',
-	'tags/:id'         => 'index/index/tags',
-	'jump/:cid/:id'    => 'index/index/jump',
-	'message/:cid'     => 'index/index/message',
+	'entry/:cid'       => 'index/entry/index',
+	'article/:cid/:id' => 'index/article/index',
+	'tags/:id'         => 'index/tags/index',
+	'jump/:cid/:id'    => 'index/jump/index',
 
 	// comment
 	'comment/:cid'     => 'index/comment/index',
@@ -31,7 +30,7 @@ return [
 	'member/logout'    => 'member/index/logout',
 	'member/reg'       => 'member/index/reg',
 	'member/forget'    => 'member/index/forget',
-	'member/account'   => 'member/index/account',
+	'member/my'        => 'member/index/my',
 
 	// mall
 	'mall'             => 'index/mall/index',

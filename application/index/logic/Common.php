@@ -91,7 +91,7 @@ class Common extends Model
 			'name' => [
 				'in',
 				'website_name,website_keywords,website_description,bottom_message,copyright,script,'
-				. strtolower($this->request->controller()) . '_theme'
+				. strtolower($this->request->module()) . '_theme'
 			],
 			'lang' => Lang::detect()
 		];

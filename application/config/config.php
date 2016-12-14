@@ -53,7 +53,9 @@ return [
 		'database'
 	],
 	// 禁止访问模块
-	'deny_module_list' => ['common'],
+	'deny_module_list' => [
+		'admin'
+	],
 	// 模板设置
 	'template' => [
 		'view_path'   => '',
