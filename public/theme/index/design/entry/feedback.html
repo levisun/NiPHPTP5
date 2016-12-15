@@ -39,6 +39,10 @@
 					{$vo.input}
 				</li>
 				{/volist}
+				<li>
+					<input type="text" name="captcha" class="form-control" placeholder="{:lang('captcha')}">
+					<img src="{:captcha_src()}" data-url="{:captcha_src()}" alt="captcha" class="np-verify" />
+				</li>
 				<li class="form-group">
 					<label for=""></label>
 					{:token()}

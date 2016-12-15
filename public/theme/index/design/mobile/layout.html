@@ -21,7 +21,7 @@
 </head>
 <body>
 <header id="header" class="container-fluid">
-	<section id="member-menu" class="row">
+	<!-- <section id="member-menu" class="row">
 		<div id="member" class="col-md-3">
 			{label:member}
 			{empty name="label.member"}
@@ -34,20 +34,20 @@
 
 
 		</div>
-		<!-- <menu id="menu" class="col-md-9">
+		<menu id="menu" class="col-md-9">
 			<ul class="nav nav-pills float-r">
 				{label:nav type="top"}
 				<li><a href="{$vo.url}">{$vo.name}</a></li>
 				{/label:nav}
 			</ul>
-		</menu> -->
-	</section>
+		</menu>
+	</section> -->
 	<section id="logo-nav" class="row">
-		<hgroup id="logo" class="col-md-3">
+		<hgroup id="logo" class="col-md-12 align-c">
 			<h1><a href="">LOGO</a></h1>
 		</hgroup>
-		<nav id="nav" class="col-md-9">
-			<ul class="nav nav-pills float-r">
+		<nav id="nav" class="col-md-12 pos-a">
+			<ul class="nav nav-pills nav-stacked">
 				<li role="presentation"><a href="{:url('/')}">首页</a></li>
 				{label:nav type="main"}
 				<li role="presentation" {notempty name="vo.child"}class="dropdown"{/notempty}>

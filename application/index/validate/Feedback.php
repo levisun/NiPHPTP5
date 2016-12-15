@@ -19,6 +19,7 @@ class Feedback extends Validate
 		'title'    => ['require', 'length:4,255', 'token'],
 		'username' => ['require', 'length:4,20'],
 		'content'  => ['require', 'max:500'],
+		'captcha'  => ['require', 'length:4', 'captcha'],
 	];
 
 	protected $message = [

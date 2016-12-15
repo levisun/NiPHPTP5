@@ -12,7 +12,6 @@
  * @since     2016/11/25
  */
 namespace app\index\controller;
-use think\Loader;
 use think\Url;
 use think\Lang;
 use app\index\controller\Common;

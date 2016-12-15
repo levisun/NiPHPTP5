@@ -1,5 +1,7 @@
 <?php
 return [
+	'captcha' => '验证码',
+
 	// feedback
 	'error feedback title require'       => '请输入反馈标题',
 	'error feedback title length not'    => '反馈标题长度不得小于4位并大于200位',

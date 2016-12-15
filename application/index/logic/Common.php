@@ -14,9 +14,7 @@
 namespace app\index\logic;
 use think\Model;
 use think\Request;
-use think\Loader;
 use think\Lang;
-use think\Session;
 use app\admin\model\Config as IndexConfig;
 use app\admin\model\Category as IndexCategory;
 class Common extends Model

@@ -25,12 +25,11 @@ return [
 	'comment/added'    => 'index/comment/added',
 
 	// member
-	'member'           => 'member/index/index',
 	'member/login'     => 'member/index/login',
 	'member/logout'    => 'member/index/logout',
 	'member/reg'       => 'member/index/reg',
 	'member/forget'    => 'member/index/forget',
-	'member/my'        => 'member/index/my',
+	'member'           => 'member/my/index',
 
 	// mall
 	'mall'             => 'index/mall/index',
