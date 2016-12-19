@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * 搜索引擎 - 逻辑层
+ * 访问 - 逻辑层
  *
  * @package   NiPHPCMS
  * @category  index\logic\

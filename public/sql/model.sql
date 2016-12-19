@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `np_model` (
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `table_name` (`table_name`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='模型表';
-INSERT INTO `np_model` (`id`, `name`, `tablename`, `remark`, `status`, `sort`) VALUES
+INSERT INTO `np_model` (`id`, `name`, `table_name`, `remark`, `status`, `sort`) VALUES
 (1, 'article', 'article', '文章模型', 1, 9),
 (2, 'picture', 'picture', '图片模型', 1, 8),
 (3, 'download', 'download', '下载模型', 1, 7),

@@ -103,9 +103,15 @@ class ExpandDataback extends Model
 					$insert_sql = "INSERT INTO `{$table}` (`" . implode('`,`', $fieldRs) . "`) VALUES ";
 					$values = array();
 					foreach ($table_data as $data) {
+						foreach ($data as $key => $value) {
+							if ($value === null) {
+								$data[$key] = 'NULL';
+							}
+						}
 						$values[] = '(\'' . implode('\',\'', $data) . '\')';
 					}
 					$insert_sql .= implode(',', $values) . ';';
+					$insert_sql = strtr($insert_sql, ['\'NULL\''=>'NULL']);
 
 					$num = 700001 + $i;
 					file_put_contents($dir . $table . '_' . $num . '.sql', $insert_sql);

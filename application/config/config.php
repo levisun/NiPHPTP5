@@ -78,6 +78,24 @@ return [
 			// 'info'
 		],
 	],
+	// session设置
+	'session' => [
+		'id'             => '',
+		'var_session_id' => '',
+		'prefix'         => 'niphp',
+		'type'           => '',
+		'auto_start'     => true,
+    ],
+    // cookie设置
+    'cookie' => [
+		'prefix'    => 'niphp',
+		'expire'    => 0,
+		'path'      => '/',
+		'domain'    => '',
+		'secure'    => false,
+		'httponly'  => '',
+		'setcookie' => true,
+    ],
 	// 缓存设置
 	'cache' => [
 		'type'   => 'File',

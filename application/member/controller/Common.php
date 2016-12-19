@@ -82,15 +82,19 @@ class Common extends Controller
 		$default_theme .= $this->website_data[$module . '_theme'] . '/' . $mobile;
 
 		$replace = [
-			'__DOMAIN__'    => $domain,
-			'__STATIC__'    => $domain . '/static/',
-			'__THEME__'     => $this->website_data[$module . '_theme'],
-			'__CSS__'       => $default_theme . 'css/',
-			'__JS__'        => $default_theme . 'js/',
-			'__IMG__'       => $default_theme . 'img/',
-			'__MESSAGE__'   => $this->website_data['bottom_message'],
-			'__COPYRIGHT__' => $this->website_data['copyright'],
-			'__SCRIPT__'    => $this->website_data['script'],
+			'__DOMAIN__'      => $domain,
+			'__STATIC__'      => $domain . '/static/',
+			'__THEME__'       => $this->website_data[$module . '_theme'],
+			'__CSS__'         => $default_theme . 'css/',
+			'__JS__'          => $default_theme . 'js/',
+			'__IMG__'         => $default_theme . 'img/',
+			'__MESSAGE__'     => $this->website_data['bottom_message'],
+			'__COPYRIGHT__'   => $this->website_data['copyright'],
+			'__SCRIPT__'      => $this->website_data['script'],
+
+			'__TITLE__'       => $this->website_data['website_name'],
+			'__KEYWORDS__'    => $this->website_data['website_keywords'],
+			'__DESCRIPTION__' => $this->website_data['website_description'],
 		];
 		$this->view->replace($replace);
 	}

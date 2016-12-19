@@ -15,7 +15,7 @@ namespace app\index\controller;
 use think\Url;
 use think\Lang;
 use app\index\controller\Common;
-use app\index\logic\Jump as IndexJump;
+use app\index\logic\Tags as IndexTags;
 class Tags extends Common
 {
 	protected $beforeActionList = [
@@ -24,6 +24,8 @@ class Tags extends Common
 
 	public function index()
 	{
+		$tags = new IndexTags;
+		$tags->getListData();
 		return $this->fetch('entry/tags');
 	}
 }

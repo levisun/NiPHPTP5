@@ -23,7 +23,10 @@ class Index extends Common
 
 	public function login()
 	{
-		// return $this->fetch();
+		if ($this->request->isPost()) {
+			$result = $this->validate($_POST, 'Account.login');
+		}
+		return $this->fetch();
 	}
 
 	public function logout()
