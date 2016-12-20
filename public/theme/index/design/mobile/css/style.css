@@ -1,18 +1,174 @@
 body {
 	background-color: #f6f6f6;
+	font-size: 18px;
+	padding-top: 55px;
+}
+.nav>li>a:focus,
+.nav>li>a:hover {
+	background-color: transparent;
+}
+.label {
+	border-radius: 5px;
+}
+.label.label-info a {
+	color: #fff;
+	padding-left: 0;
 	font-size: 14px;
+}
+#header {
+	width: 100%;
+	top: 0;
+	z-index: 999;
+	border-bottom: 1px solid #ddd;
 }
 #header #logo-nav #logo {
 	height: 40px;
 	background-color: #fff;
 }
+#header #logo-nav #logo,
 #header #logo-nav #logo h1 {
 	font-size: 18px;
 	margin: 0;
 	line-height: 40px;
 }
+#header #logo-nav #logo h1 {
+	padding-left: 0;
+	padding-right: 0;
+}
+#header #logo-nav #logo a.col-xs-1 {
+	padding-left: 0
+}
+#header #logo-nav #logo a.logo-home {
+	padding-right: 0;
+	padding-left: 15px;
+}
+#header #logo-nav #nav #menu {
+	border-top: 1px solid #ddd;
+	border-bottom: 1px solid #ddd;
+	padding-top: 10px;
+	padding-bottom: 10px;
+	margin-bottom: 15px;
+	font-size: 14px;
+}
 
-#header #nav {
-	/*background-color: #000;*/
-	top: 0;
+#footer {
+	margin-top: 15px;
+	background-color: #444;
+}
+#footer .footer {
+	padding: 15px 0;
+	font-size: 12px;
+}
+#footer .footer p {
+	margin-bottom: 0;
+	margin-top: 0;
+}
+
+#main #content-wrap .breadcrumb {
+	background-color: #fff;
+	border: 1px solid #ddd;
+}
+
+#main #content-wrap .excerpt-see {
+	min-height: 120px;
+	background-color: #fff;
+	border-radius: 5px;
+	border: 1px solid #ddd;
+	margin-bottom: 15px;
+}
+#main #content-wrap .excerpt-see>div>h2 {
+	margin: 0;
+	font-size: 18px;
+	margin-bottom: 15px;
+}
+#main #content-wrap .excerpt-see>div>p{
+	text-indent: 28px;
+}
+
+#main #content-wrap .excerpt {
+	background-color: #fff;
+	border: 1px #ddd solid;
+	padding: 15px;
+	margin-top: 0;
+	margin-bottom: -1px;
+}
+#main #content-wrap .excerpt:hover {
+	border-color: #88D3F9;
+}
+#main #content-wrap .excerpt.start {
+	border-radius: 5px 5px 0 0;
+}
+#main #content-wrap .excerpt.end {
+	border-radius: 0 0 5px 5px;
+}
+#main #content-wrap .excerpt .media-left img {
+	width: 220px;
+	height: 150px;
+}
+#main #content-wrap .excerpt h2 {
+	font-size: 18px;
+	margin-top: 0;
+	margin-bottom: 10px;
+	line-height: 2em;
+}
+#main #content-wrap .excerpt .meta {
+	font-size: 14px;
+	color: #999;
+}
+#main #content-wrap .excerpt p {
+	font-size: 14px;
+	color: #999;
+}
+
+#main #content-wrap article.content {
+	background-color: #fff;
+	padding: 15px;
+	border: 1px #ddd solid;
+	border-radius: 5px;
+}
+#main #content-wrap article.content .content-header {
+	padding-bottom: 20px;
+	margin-bottom: 20px;
+	border-bottom: 1px #eee solid;
+}
+#main #content-wrap article.content .content-header h1 {
+	font-size: 26px;
+	/*margin: 0;*/
+}
+#main #content-wrap article.content .content-header .meta {
+	font-size: 12px;
+	color: #999;
+}
+#main #content-wrap div.link-list,
+#main #content-wrap div.link-list li>div {
+	border-radius: 5px;
+	border: 1px #eee solid;
+	background-color: #fff;
+	padding: 15px 15px 0 15px;
+}
+#main #content-wrap div.link-list ul.row {
+	padding: 0 7px;
+}
+#main #content-wrap div.link-list li {
+	margin-bottom: 15px;
+	padding: 0 7px;
+}
+#main #content-wrap div.link-list li:nth-child(odd) {
+	/*padding-right: 15px;*/
+	/*padding-left: 15px;*/
+}
+#main #content-wrap div.link-list li:nth-child(even) {
+	/*padding-left: 0px;*/
+}
+#main #content-wrap div.link-list li>div {
+	min-height: 95px;
+}
+#main #content-wrap div.link-list li>div h5 {
+	margin: 0 0 10px 0;
+}
+#main #content-wrap div.link-list li>div p {
+	font-size: 12px;
+	color: #999;
+	line-height: 1.5em;
+	margin-bottom: 0;
 }

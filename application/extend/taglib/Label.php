@@ -83,7 +83,7 @@ class Label extends TagLib
 		$parseStr .= ' if (!empty($label["breadcrumb"])) {';
 		$parseStr .= ' $tag_count = count($label["breadcrumb"]);';
 		$parseStr .= ' foreach ($label["breadcrumb"] as $key => $vo) {';
-		$parseStr .= ' $vo["url"] = url("entry", ["cid"=>$vo["id"]]);?>';
+		$parseStr .= ' $vo["url"] = url("/entry/" . $vo["id"]);?>';
 		$parseStr .= $content;
 		$parseStr .= '<?php } } ?>';
 

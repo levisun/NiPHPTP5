@@ -1,0 +1,54 @@
+<div class="list-title">
+
+</div>
+
+<article class="content">
+	<header class="content-header align-c">
+		<h3>{$__SUB_TITLE__}</h3>
+	</header>
+
+	<div class="content-body">
+		<form action="" method="post">
+			<ul>
+				<li class="form-group">
+					<label for="" class="control-label">标题</label>
+					<input type="text" name="title" class="form-control">
+				</li>
+				<li class="form-group">
+					<label for="" class="control-label">姓名</label>
+					<input type="text" name="username" class="form-control">
+				</li>
+				{notempty name="data.type"}
+				<li class="form-group">
+					<label for="" class="control-label">分类</label>
+					<select name="type" class="form-control">
+						<option value="">请选择分类</option>
+						{volist name="data.type" id="vo"}
+						<option value="{$vo.id}">{$vo.name}</option>
+						{/volist}
+					</select>
+				</li>
+				{/notempty}
+				<li class="form-group">
+					<label for="" class="control-label">内容</label>
+					<textarea name="content" class="form-control"></textarea>
+				</li>
+				{volist name="data.field" id="vo"}
+				<li class="form-group">
+					<label for="" class="control-label">{$vo.field_name}</label>
+					{$vo.input}
+				</li>
+				{/volist}
+				<li>
+					<input type="text" name="captcha" class="form-control" placeholder="{:lang('captcha')}">
+					<img src="{:captcha_src()}" data-url="{:captcha_src()}" alt="captcha" class="np-verify" />
+				</li>
+				<li class="form-group">
+					<label for=""></label>
+					{:token()}
+					<input type="submit" class="btn btn-primary">
+				</li>
+			</ul>
+		</form>
+	</div>
+</article>

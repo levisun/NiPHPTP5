@@ -11,6 +11,7 @@
 	<meta name="format-detection" content="telephone=yes">
 	<meta name="format-detection" content="email=yes">
 	<meta http-equiv="Cache-Control" content="no-siteapp">
+	<link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
 	<link href="__STATIC__library/font-awesome/css/font-awesome.min.css" rel="stylesheet">
 	<link href="__STATIC__library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link href="__STATIC__library/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
@@ -20,34 +21,19 @@
 	<script src="__STATIC__library/jquery/jquery-2.2.3.min.js"></script>
 </head>
 <body>
-<header id="header" class="container-fluid">
-	<!-- <section id="member-menu" class="row">
-		<div id="member" class="col-md-3">
-			{label:member}
-			{empty name="label.member"}
-			欢迎回来，<a href="{$label.member_url.login}">请登录</a>!
-			<a href="{$label.member_url.reg}">注册</a>
-			{else/}
-			欢迎回来，<a href="{$label.member_url.logout}">注销</a>!
-			{/empty}
-			{/label:member}
-
-
-		</div>
-		<menu id="menu" class="col-md-9">
-			<ul class="nav nav-pills float-r">
-				{label:nav type="top"}
-				<li><a href="{$vo.url}">{$vo.name}</a></li>
-				{/label:nav}
-			</ul>
-		</menu>
-	</section> -->
+<header id="header" class="container-fluid pos-f">
 	<section id="logo-nav" class="row">
 		<hgroup id="logo" class="col-md-12 align-c">
-			<h1><a href="">LOGO</a></h1>
+			<div class="row">
+				<a href="{:url('/')}" class="col-xs-1 logo-home"><i class="icon-home"></i></a>
+				<h1 class="col-xs-10"><a href="">LOGO</a></h1>
+				<a href="#nav" class="col-xs-1" data-am-offcanvas><i class="icon-reorder"></i></a>
+			</div>
 		</hgroup>
-		<nav id="nav" class="col-md-12 pos-a">
-			<ul class="nav nav-pills nav-stacked">
+
+		<nav id="nav" class="am-offcanvas">
+			<div class="am-offcanvas-bar">
+			<ul class="nav nav-pills white nav-stacked am-offcanvas-content">
 				<li role="presentation"><a href="{:url('/')}">首页</a></li>
 				{label:nav type="main"}
 				<li role="presentation" {notempty name="vo.child"}class="dropdown"{/notempty}>
@@ -66,12 +52,76 @@
 				</li>
 				{/label:nav}
 			</ul>
+			<menu id="menu">
+				<ul class="nav nav-pills white">
+					{label:nav type="top"}
+					<li><a href="{$vo.url}">{$vo.name}</a></li>
+					{/label:nav}
+				</ul>
+			</menu>
+			<div class="align-c white">
+				{label:member}
+				{empty name="label.member"}
+				欢迎回来，<a href="{$label.member_url.login}">请登录</a>!
+				<a href="{$label.member_url.reg}">注册</a>
+				{else/}
+				欢迎回来，<a href="{$label.member_url.logout}">注销</a>!
+				{/empty}
+				{/label:member}
+			</div>
+			</div>
 		</nav>
 	</section>
 </header>
 
+<div id="main" class="container-fluid">
+	<section class="row">
+		<div id="content-wrap" class="col-xs-12">
+			{empty name="Request.param.cid"}
+			<article class="excerpt-see panel panel-default">
+				<div class="panel-body">
+					{label:article id="1" cid="3"}
+					<h2>
+						<a href="{$article.cat_url}">【{$article.cat_name}】</a>
+						<a href="{$article.url}">{$article.title}</a></h2>
+					<p>{$article.description}</p>
+					{/label:article}
+				</div>
+			</article>
+			{/empty}
 
-{__CONTENT__}
+			{notempty name="Request.param.cid"}
+			<ol class="breadcrumb black">
+				<li><a href="__DOMAIN__">首页</a></li>
+				{label:breadcrumb id="Think.get.cid"}
+				<li><a href="{$vo.url}">{$vo.name}</a></li>
+				{/label:breadcrumb}
+			</ol>
+			{/notempty}
 
+			{__CONTENT__}
+		</div>
+	</section>
+</div>
+
+
+<footer id="footer" class="container-fluid">
+	<section class="row">
+		<div class="col-md-12 footer align-c white">
+			<p>__COPYRIGHT__</p>
+			<p>__MESSAGE__</p>
+		</div>
+	</section>
+</footer>
+
+<script src="__STATIC__library/bootstrap/js/bootstrap.min.js"></script>
+<script src="__STATIC__library/moment/moment.min.js"></script>
+<script src="__STATIC__library/moment/locale/zh-cn.js"></script>
+<script src="__STATIC__library/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+<script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
+<script>
+var domain = "__DOMAIN__";
+</script>
+__SCRIPT__
 </body>
 </html>
