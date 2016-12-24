@@ -4,18 +4,18 @@
 			<h5 class="panel-title">{:lang('manage login')}</h5>
 		</div>
 		<div class="panel-body">
-			<form action="" method="post">
+			<form action="" method="post" data-parsley-validate="parsley" data-parsley-focus="last">
 			<ul>
 				<li class="input-group">
 					<span class="input-group-addon"><i class="icon-user"></i></span>
-					<input type="text" name="username" class="form-control" placeholder="{:lang('username')}">
+					<input type="text" name="username" class="form-control" placeholder="{:lang('username')}" data-parsley-required="true" data-parsley-length="[4, 20]">
 				</li>
 				<li class="input-group">
 					<span class="input-group-addon"><i class="icon-lock"></i></span>
-					<input type="password" name="password" class="form-control" placeholder="{:lang('password')}">
+					<input type="password" name="password" class="form-control" placeholder="{:lang('password')}" data-parsley-required="true">
 				</li>
-				<li>
-					<input type="text" name="captcha" class="form-control" placeholder="{:lang('captcha')}">
+				<li class="input-group">
+					<input type="text" name="captcha" class="form-control" placeholder="{:lang('captcha')}" data-parsley-required="true" data-parsley-maxlength="4" data-parsley-minlength="4">
 					<img src="{:captcha_src()}" data-url="{:captcha_src()}" alt="captcha" class="np-verify" />
 				</li>
 				<li>

@@ -44,7 +44,7 @@ class Link extends Model
 		$order = 'l.sort DESC, l.type_id ASC, l.update_time DESC';
 
 		$link = new IndexLink;
-		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+		$CACHE = check_key($map, __METHOD__);
 
 		$result =
 		$link->view('link l', 'id,logo,title,category_id,type_id,description')

@@ -56,7 +56,7 @@ class Common extends Model
 		];
 
 		$category = new IndexCategory;
-		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+		$CACHE = check_key($map, __METHOD__);
 
 		$result =
 		$category->field(['id', 'pid', 'name', 'seo_title', 'seo_keywords', 'seo_description'])
@@ -134,7 +134,7 @@ class Common extends Model
 		];
 
 		$category = new IndexCategory;
-		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+		$CACHE = check_key($map, __METHOD__);
 
 		$result =
 		$category->view('category c', 'id')

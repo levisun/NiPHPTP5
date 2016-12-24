@@ -300,8 +300,8 @@ class LabelFun
 	{
 		$map = [
 			'id' => $id_,
-			'end_time' => ['EGT', time()],
-			'start_time' => ['ELT', time()],
+			'end_time' => ['EGT', strtotime(date('Y-m-d'))],
+			'start_time' => ['ELT', strtotime(date('Y-m-d'))],
 			'lang' => Lang::detect()
 		];
 
@@ -394,7 +394,7 @@ class LabelFun
 			'a.id'          => $id_,
 			'a.category_id' => $cid_,
 			'a.is_pass'     => 1,
-			'a.show_time'   => ['ELT', time()],
+			'a.show_time'   => ['ELT', strtotime(date('Y-m-d'))],
 			'a.lang'        => Lang::detect()
 		];
 
@@ -454,7 +454,7 @@ class LabelFun
 		$map = [
 			'a.category_id' => ['IN', $id_],
 			'a.is_pass'     => 1,
-			'a.show_time'   => ['ELT', time()],
+			'a.show_time'   => ['ELT', strtotime(date('Y-m-d'))],
 			'a.lang'        => Lang::detect()
 		];
 

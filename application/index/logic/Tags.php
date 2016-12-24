@@ -89,7 +89,7 @@ class Tags extends Model
 			],
 			'is_pass'   => 1,
 			'lang'      => Lang::detect(),
-			'show_time' => ['ELT', time()]
+			'show_time' => ['ELT', strtotime(date('Y-m-d'))]
 		];
 
 		$download = new IndexDownload;

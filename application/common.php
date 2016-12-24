@@ -13,6 +13,28 @@
  */
 
 /**
+ * 生成缓存KEY
+ * @param  array  $array_
+ * @return string
+ */
+function check_key($array_, $method_)
+{
+	if (APP_DEBUG) {
+		return false;
+	}
+
+	$key = $method_;
+	foreach ($array_ as $value) {
+		if (is_array($value)) {
+			$key .= check_key($value, '');
+		} else {
+			$key .= $value;
+		}
+	}
+	return $key;
+}
+
+/**
  * 过滤XSS
  * @param  string $string_
  * @return string

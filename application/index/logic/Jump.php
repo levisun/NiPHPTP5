@@ -43,7 +43,7 @@ class Jump extends Model
 		];
 
 		$model = Loader::model(ucfirst($name_), 'model', false, 'admin');
-		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+		$CACHE = check_key($map, __METHOD__);
 
 		// 更新点击数
 		$model->where($map)

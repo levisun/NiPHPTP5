@@ -51,7 +51,7 @@ class Common extends Controller
 	 * @access public
 	 * @param  string $model_name    操作模型名
 	 * @param  string $validate_name 验证器名
-	 * @param  string $log_name      操作日志记录名|为空不做日志记录
+	 * @param  string $log_name      操作日志记录名|为空自动获取记录名
 	 * @return void
 	 */
 	protected function added($model_name, $validate_name='', $log_name='')
@@ -76,7 +76,7 @@ class Common extends Controller
 	 * @access public
 	 * @param  string $model_name    操作模型名
 	 * @param  string $validate_name 验证器名
-	 * @param  string $log_name      操作日志记录名|为空不做日志记录
+	 * @param  string $log_name      操作日志记录名|为空自动获取记录名
 	 * @return void
 	 */
 	protected function remove($model_name, $validate_name='', $log_name='')
@@ -104,9 +104,9 @@ class Common extends Controller
 	 * @access public
 	 * @param  string $model_name    操作模型名
 	 * @param  string $validate_name 验证器名
-	 * @param  string $log_name      操作日志记录名|为空不做日志记录
+	 * @param  string $log_name      操作日志记录名|为空自动获取记录名
 	 * @param  string $illegal_      是否自动验证合法信息 默认true
-	 * @return array
+	 * @return array                 编辑数据
 	 */
 	protected function editor($model_name, $validate_name='', $log_name='', $illegal_=true)
 	{
@@ -131,7 +131,6 @@ class Common extends Controller
 			$validate_name = ucfirst($this->request->action()) . '.illegal';
 		}
 
-
 		$this->illegal($validate_name, $illegal_);
 
 		return Loader::model($model_name, 'logic')->getEditorData();
@@ -141,8 +140,8 @@ class Common extends Controller
 	 * 查询方法
 	 * @access public
 	 * @param  string $model_name 操作模型名
-	 * @param  string $log_name   操作日志记录名|为空不做日志记录
-	 * @return array
+	 * @param  string $log_name   操作日志记录名|为空自动获取记录名
+	 * @return array              查询数据
 	 */
 	protected function select($model_name, $log_name='')
 	{
@@ -163,7 +162,7 @@ class Common extends Controller
 	 * 数据合法验证
 	 * @access protected
 	 * @param  string $validate_name 验证器名
-	 * @return boolean
+	 * @return mexid                 返回true or false or 提示信息
 	 */
 	protected function illegal($validate_name='', $illegal_=true)
 	{
@@ -192,7 +191,7 @@ class Common extends Controller
 	}
 
 	/**
-	 * 执行日志
+	 * 记录执行日志
 	 * @access protected
 	 * @param  string $action_name 行为名称
 	 * @param  intval $record_id   数据ID

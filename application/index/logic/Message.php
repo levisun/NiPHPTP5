@@ -113,7 +113,7 @@ class Message extends Model
 		$map = ['f.category_id' => $this->request->param('cid/f')];
 
 		$fields = new IndexFields;
-		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+		$CACHE = check_key($map, __METHOD__);
 
 		$result =
 		$fields->view('fields f', ['id', 'name' => 'field_name'])
@@ -143,7 +143,7 @@ class Message extends Model
 		$map = ['category_id' => $this->request->param('cid/f')];
 
 		$type = new IndexType;
-		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+		$CACHE = check_key($map, __METHOD__);
 
 		$result =
 		$type->field(true)

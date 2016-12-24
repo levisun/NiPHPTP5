@@ -58,13 +58,12 @@ class Article extends Model
 			'a.category_id' => $this->request->param('cid/f'),
 			'a.is_pass'     => 1,
 			'a.lang'        => Lang::detect(),
-			'a.show_time'   => ['ELT', time()]
+			'a.show_time'   => ['ELT', strtotime(date('Y-m-d'))]
 		];
 		$order = 'a.sort DESC, a.update_time DESC';
 
-
 		$model = Loader::model(ucfirst($this->model_name), 'model', false, 'admin');
-		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+		$CACHE = check_key($map, __METHOD__);
 
 		$result =
 		$model->view($this->model_name . ' a', 'id,title,keywords,description,thumb,category_id,hits,comment_count,create_time,update_time,type_id,access_id,is_link,url')
@@ -73,7 +72,7 @@ class Article extends Model
 		->view('category c', ['name' => 'cat_name'], 'c.id=a.category_id')
 		->view('admin ad', ['username' => 'editor_name'], 'a.user_id=ad.id')
 		->where($map)
-		->cache($CACHE)
+		->cache(true)
 		->paginate();
 
 		$list = [];
@@ -109,7 +108,7 @@ class Article extends Model
 		];
 
 		$category = new IndexCategory;
-		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+		$CACHE = check_key($map, __METHOD__);
 
 		$result =
 		$category->field(['id'])
@@ -148,13 +147,12 @@ class Article extends Model
 			'a.id'          => $this->request->param('id/f'),
 			'a.is_pass'     => 1,
 			'a.lang'        => Lang::detect(),
-			'a.show_time'   => ['ELT', time()]
+			'a.show_time'   => ['ELT', strtotime(date('Y-m-d'))]
 		];
 		$order = 'a.sort DESC, a.update_time DESC';
 
-
 		$model = Loader::model(ucfirst($this->model_name), 'model', false, 'admin');
-		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+		$CACHE = check_key($map, __METHOD__);
 
 		$result =
 		$model->view($this->model_name . ' a', true)
