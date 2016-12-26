@@ -12,7 +12,6 @@
  * @since     2016/10/22
  */
 return [
-
 	'sys_version' => '1.0.5',
 
 	// 系统设置
@@ -22,7 +21,7 @@ return [
 	'ADMIN_AUTH_KEY'    => 'ADMIN_ID',
 	'USER_AUTH_GATEWAY' => 'account/login',
 	'NOT_AUTH_MODULE'   => 'Account',
-	'NOT_AUTH_ACTION'   => 'login,logout,reg,forget,verify',
+	'NOT_AUTH_ACTION'   => 'login,verify',
 	'RBAC_ROLE_TABLE'   => 'np_role',
 	'RBAC_USER_TABLE'   => 'np_role_admin',
 	'RBAC_ACCESS_TABLE' => 'np_access',

@@ -29,18 +29,18 @@ function msubstr($str, $start=0, $length, $suffix=true, $charset="utf-8")
 
 /**
  * 自定义字段类型转换
- * @param  array $data_
+ * @param  array $data
  * @return string
  */
-function toFieldsType($data_)
+function toFieldsType($data)
 {
-	switch ($data_['field_type']) {
+	switch ($data['field_type']) {
 		case 'number':
 		case 'email':
 		case 'phone':
-			$input = '<input type="' . $data_['field_type'] . '"';
-			$input .= ' name="fields[' . $data_['id'] . ']"';
-			$input .= ' id="fields-' . $data_['id'] . '"';
+			$input = '<input type="' . $data['field_type'] . '"';
+			$input .= ' name="fields[' . $data['id'] . ']"';
+			$input .= ' id="fields-' . $data['id'] . '"';
 			$input .= ' value=""';
 			$input .= ' class="form-control">';
 			break;
@@ -52,22 +52,22 @@ function toFieldsType($data_)
 		case 'landline':
 		case 'age':
 			$input = '<input type="text"';
-			$input .= ' name="fields[' . $data_['id'] . ']"';
-			$input .= ' id="fields-' . $data_['id'] . '"';
+			$input .= ' name="fields[' . $data['id'] . ']"';
+			$input .= ' id="fields-' . $data['id'] . '"';
 			$input .= ' value=""';
 			$input .= ' class="form-control">';
 			break;
 
 		case 'date':
 			$input = '<input type="text"';
-			$input .= ' name="fields[' . $data_['id'] . ']"';
-			$input .= ' id="fields-' . $data_['id'] . '"';
+			$input .= ' name="fields[' . $data['id'] . ']"';
+			$input .= ' id="fields-' . $data['id'] . '"';
 			$input .= ' value=""';
 			$input .= ' class="form-control">';
 
 			$input .= '<script type="text/javascript">
 				$(function () {
-					$("#fields-' . $data_['id'] . '").datetimepicker(
+					$("#fields-' . $data['id'] . '").datetimepicker(
 						{format: "Y-M-D"}
 						);
 				});
@@ -75,8 +75,8 @@ function toFieldsType($data_)
 			break;
 
 		case 'text':
-			$input = '<textarea name="fields[' . $data_['id'] . ']"';
-			$input .= ' id="fields-' . $data_['id'] . '"';
+			$input = '<textarea name="fields[' . $data['id'] . ']"';
+			$input .= ' id="fields-' . $data['id'] . '"';
 			$input .= ' class="form-control">';
 			$input .= '</textarea>';
 			break;

@@ -124,6 +124,7 @@ class Common extends Controller
 			}
 		}
 
+		// 组合验证器名
 		if (!empty($validate_name)) {
 			$validate_name = explode('.', $validate_name);
 			$validate_name = $validate_name[0] . '.illegal';
@@ -244,10 +245,6 @@ class Common extends Controller
 		}
 		$this->assign('__TITLE__', $auth_data['title']);
 
-		$this->assign('module_name', $this->request->module());
-		$this->assign('controller_name', $this->request->controller());
-		$this->assign('action_name', $this->request->action());
-
 		$this->assign('submenu', 0);
 		$this->assign('submenu_button_added', 0);
 
@@ -278,12 +275,13 @@ class Common extends Controller
 		$default_theme .= Config::get('default_theme') . '/';
 
 		$replace = [
-			'__DOMAIN__' => $domain,
-			'__STATIC__' => $domain . '/static/',
-			'__THEME__'  => Config::get('default_theme'),
-			'__CSS__'    => $default_theme . 'css/',
-			'__JS__'     => $default_theme . 'js/',
-			'__IMG__'    => $default_theme . 'img/',
+			'__DOMAIN__'  => $domain,
+			'__STATIC__'  => $domain . '/static/',
+			'__LIBRARY__' => $domain . '/static/library/',
+			'__THEME__'   => Config::get('default_theme'),
+			'__CSS__'     => $default_theme . 'css/',
+			'__JS__'      => $default_theme . 'js/',
+			'__IMG__'     => $default_theme . 'img/',
 		];
 		$this->view->replace($replace);
 	}

@@ -16,7 +16,34 @@
 </head>
 <body>
 
-{__CONTENT__}
+{neq name="Request.controller" value="Index"}
+{include file="public/header" /}
+
+<section id="main" class="container-fluid">
+	<div class="row">
+		{include file="public/sidebar" /}
+
+		<section id="content" class="col-sm-10 col-sm-offset-2">
+		{__CONTENT__}
+		</section>
+	</div>
+</section>
+
+{else/}
+<div class="container-fluid">
+	<div class="row">
+		{__CONTENT__}
+	</div>
+</div>
+
+{/neq}
+<footer id="footer" class="container-fluid">
+	<section class="row">
+		<div class="col-md-12 footer align-c white">
+			__COPYRIGHT__ __MESSAGE__
+		</div>
+	</section>
+</footer>
 
 <script src="__STATIC__library/bootstrap/js/bootstrap.min.js"></script>
 <script src="__STATIC__library/moment/moment.min.js"></script>

@@ -1,17 +1,19 @@
-<form action="" method="post" class="form-horizontal">
-<ul>
-	<li class="form-group">
-		<label for="" class="control-label">用户名</label>
-		<input type="text" name="username" class="form-control">
-	</li>
-	<li class="form-group">
-		<label for="" class="control-label">密码</label>
-		<input type="password" name="password" class="form-control">
-	</li>
-	<li class="form-group">
-		<label for="" class="control-label">验证码</label>
-		<input type="text" name="captcha" class="form-control">
-		<img src="{:captcha_src()}" data-url="{:captcha_src()}" alt="captcha" class="np-verify" />
-	</li>
-</ul>
-</form>
+<div class="col-sm-4 col-sm-offset-4">
+	<form action="" method="post" class="form-horizontal">
+	<ul>
+		<li class="form-group">
+			<label for="" class="control-label">用户名</label>
+			<input type="text" name="username" class="form-control">
+		</li>
+		<li class="form-group">
+			<label for="" class="control-label">密码</label>
+			<input type="password" name="password" class="form-control">
+		</li>
+		<li class="form-group">
+			<label for="" class="control-label">验证码</label>
+			<input type="text" name="captcha" class="form-control">
+			<img src="{:captcha_src()}" data-url="{:captcha_src()}" alt="captcha" class="np-verify" />
+		</li>
+	</ul>
+	</form>
+</div>

@@ -84,6 +84,7 @@ class Common extends Controller
 		$replace = [
 			'__DOMAIN__'      => $domain,
 			'__STATIC__'      => $domain . '/static/',
+			'__LIBRARY__'     => $domain . '/static/library/',
 			'__THEME__'       => $this->website_data[$module . '_theme'],
 			'__CSS__'         => $default_theme . 'css/',
 			'__JS__'          => $default_theme . 'js/',

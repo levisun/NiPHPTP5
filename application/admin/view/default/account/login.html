@@ -1,4 +1,4 @@
-<div id="np-login">
+<div id="login">
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<h5 class="panel-title">{:lang('manage login')}</h5>
@@ -16,7 +16,7 @@
 				</li>
 				<li class="input-group">
 					<input type="text" name="captcha" class="form-control" placeholder="{:lang('captcha')}" data-parsley-required="true" data-parsley-maxlength="4" data-parsley-minlength="4">
-					<img src="{:captcha_src()}" data-url="{:captcha_src()}" alt="captcha" class="np-verify" />
+					<img src="{:captcha_src()}" data-url="{:captcha_src()}" alt="captcha" class="verify" />
 				</li>
 				<li>
 					{:token()}

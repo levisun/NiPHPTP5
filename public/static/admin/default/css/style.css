@@ -2,19 +2,19 @@ body {
 	background-color: #e4e5e6;
 }
 
-#np-login {
+#login {
 	margin-top: 25%;
 }
-#np-login li {
+#login li {
 	padding: 5px 0;
 }
-#np-login .icon-lock {
+#login .icon-lock {
 	font-size: 16px;
 }
 
 /* ========================================================================== */
 
-#np-header {
+#header {
 	height: 55px;
 	line-height: 55px;
 	position: fixed;
@@ -25,34 +25,34 @@ body {
 	border-bottom: 1px #d1d4d7 solid;
 	background-color: #fff;
 }
-#np-header #np-logo {
+#header #logo {
 	background-color: #20a8d8;
 	border-right: 1px #20a8d8 solid;
 }
-#np-header .breadcrumb {
+#header .breadcrumb {
 	background-color: #fff;
 	padding: 0;
 	height: 54px;
 }
-#np-header #np-menu>ul>li>a {
+#header #menu>ul>li>a {
 	height: 55px;
 	line-height: 55px;
 	padding-top: 0;
 	padding-bottom: 0;
 }
-#np-header #np-menu>ul>li>ul {
+#header #menu>ul>li>ul {
 	padding: 0;
 }
-#np-header #np-menu>ul>li>ul>li>a {
+#header #menu>ul>li>ul>li>a {
 	line-height: 30px;
 }
 
 /* ========================================================================== */
 
-#np-main {
+#main {
 	padding-top: 55px;
 }
-#np-main #np-sidebar {
+#main #sidebar {
 	position: fixed;
 	top: 55px;
 	bottom: 0;
@@ -64,55 +64,55 @@ body {
 	border-right: 1px #d1d4d7 solid;
 	background-color: #fff;
 }
-#np-main #np-sidebar a {
+#main #sidebar a {
 	display: block;
 	padding: 10px 15px;
 }
-#np-main #np-sidebar li {
+#main #sidebar li {
 	border: 0;
 	border-radius: 0;
 }
-#np-main #np-sidebar div {
+#main #sidebar div {
 	padding: 0;
 	background-color: #fff;
 }
-#np-main #np-sidebar li li a {
+#main #sidebar li li a {
 	padding-left: 35px;
 	font-size: 12px;
 }
-#np-main #np-sidebar .active {
+#main #sidebar .active {
     background-color: #20a8d8;
     color: #fff;
 }
 
 /* ========================================================================== */
 
-#np-main #np-content {
+#main #content {
 	padding-top: 15px;
 	padding-bottom: 50px;
 }
-#np-main #np-content .panel-heading .col-md-7 {
+#main #content .panel-heading .col-md-7 {
 	padding-right: 0;
 }
-#np-main #np-content header h5 {
+#main #content header h5 {
 	margin: 0;
 	line-height: 34px;
 	font-size: 16px;
 }
-#np-main #np-content .panel {
+#main #content .panel {
 	margin-bottom: 60px;
 }
-#np-main #np-content .panel-body>* {
+#main #content .panel-body>* {
 	margin-bottom: 0;
 }
-#np-main #np-content form ul {
+#main #content form ul {
 	padding-bottom: 15px;
 }
-#np-main #np-content form ul input.mini,
-#np-main #np-content form ul input.long {
+#main #content form ul input.mini,
+#main #content form ul input.long {
 	display: inline-block;
 }
-#np-main #np-content .form-button {
+#main #content .form-button {
 	position: fixed;
 	bottom: 49px;
 	margin-left: -30px;
@@ -121,16 +121,16 @@ body {
 	padding: 5px 15px;
 	z-index: 1002;
 }
-#np-main #np-content .thumbnail {
+#main #content .thumbnail {
 	border: 0;
 }
-#np-main #np-content .pagination {
+#main #content .pagination {
 	margin: 0;
 }
 
 /* ========================================================================== */
 
-#np-main #np-footer {
+#main #footer {
 	position: fixed;
 	bottom: 0;
 	z-index: 1003;

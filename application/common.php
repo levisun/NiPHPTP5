@@ -14,17 +14,17 @@
 
 /**
  * 生成缓存KEY
- * @param  array  $array_
+ * @param  array  $array
  * @return string
  */
-function check_key($array_, $method_)
+function check_key($array, $method)
 {
 	if (APP_DEBUG) {
 		return false;
 	}
 
-	$key = $method_;
-	foreach ($array_ as $value) {
+	$key = $method;
+	foreach ($array as $value) {
 		if (is_array($value)) {
 			$key .= check_key($value, '');
 		} else {
@@ -36,10 +36,10 @@ function check_key($array_, $method_)
 
 /**
  * 过滤XSS
- * @param  string $string_
+ * @param  string $data
  * @return string
  */
-function escape_xss($string_)
+function escape_xss($data)
 {
 	$search = [
 		// 过滤PHP
@@ -82,8 +82,8 @@ function escape_xss($string_)
 		$search[] = '/(' . $value . '.*?)["|\'](.*?)["|\']/si';
 	}
 
-	$string_ = preg_replace($search, '', $string_);
-	$string_ = preg_replace('/>[.\n\r]+</si', '><', $string_);
+	$data = preg_replace($search, '', $data);
+	$data = preg_replace('/>[.\n\r]+</si', '><', $data);
 
 	// 转义特殊字符
 	$strtr = array(
@@ -108,29 +108,29 @@ function escape_xss($string_)
 		'〃' => '&quot;', '”' => '&quot;', '“' => '&quot;',  '’' => '&acute;',
 		'‘' => '&acute;'
 		);
-	$string_ = strtr($string_, $strtr);
+	$data = strtr($data, $strtr);
 
-	return $string_;
+	return $data;
 }
 
 /**
  * 字符串加密
- * @param  mixed  $string_  加密前的字符串
- * @param  string $authkey_ 密钥
+ * @param  mixed  $data    加密前的字符串
+ * @param  string $authkey 密钥
  * @return mixed  加密后的字符串
  */
-function encrypt($string_, $authkey_='0af4769d381ece7b4fddd59dcf048da6') {
-	if (is_array($string_)) {
-		$_coded = array();
-		foreach ($string_ as $key => $value) {
-			$_coded[$key] = encrypt($value, $authkey_);
+function encrypt($data, $authkey='0af4769d381ece7b4fddd59dcf048da6') {
+	if (is_array($data)) {
+		$coded = array();
+		foreach ($data as $key => $value) {
+			$coded[$key] = encrypt($value, $authkey);
 		}
-		return $_coded;
+		return $coded;
 	} else {
 		$coded = '';
-		$keylength = strlen($authkey_);
-		for ($i = 0, $count = strlen($string_); $i < $count; $i += $keylength) {
-			$coded .= substr($string_, $i, $keylength) ^ $authkey_;
+		$keylength = strlen($authkey);
+		for ($i = 0, $count = strlen($data); $i < $count; $i += $keylength) {
+			$coded .= substr($data, $i, $keylength) ^ $authkey;
 		}
 		return str_replace('=', '', base64_encode($coded));
 	}
@@ -138,23 +138,23 @@ function encrypt($string_, $authkey_='0af4769d381ece7b4fddd59dcf048da6') {
 
 /**
  * 字符串解密
- * @param  mixed  $string_ 加密后的字符串
- * @param  string $key     密钥
+ * @param  mixed  $data    加密后的字符串
+ * @param  string $authkey 密钥
  * @return mixed  加密前的字符串
  */
-function decrypt($string_, $authkey_='0af4769d381ece7b4fddd59dcf048da6') {
-	if (is_array($string_)) {
-		$_coded = array();
-		foreach ($string_ as $key => $value) {
-			$_coded[$key] = decrypt($value, $authkey_);
+function decrypt($data, $authkey='0af4769d381ece7b4fddd59dcf048da6') {
+	if (is_array($data)) {
+		$coded = array();
+		foreach ($data as $key => $value) {
+			$coded[$key] = decrypt($value, $authkey);
 		}
-		return $_coded;
+		return $coded;
 	} else {
 		$coded = '';
-		$keylength = strlen($authkey_);
-		$string_ = base64_decode($string_);
-		for ($i = 0, $count = strlen($string_); $i < $count; $i += $keylength) {
-			$coded .= substr($string_, $i, $keylength) ^ $authkey_;
+		$keylength = strlen($authkey);
+		$data = base64_decode($data);
+		for ($i = 0, $count = strlen($data); $i < $count; $i += $keylength) {
+			$coded .= substr($data, $i, $keylength) ^ $authkey;
 		}
 		return $coded;
 	}

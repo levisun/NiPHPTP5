@@ -4,6 +4,4 @@
   'lang_switch_on' => true,
   // 'default_controller' => 'Settings',
   // 'default_action' => 'info',
-
-
 ];

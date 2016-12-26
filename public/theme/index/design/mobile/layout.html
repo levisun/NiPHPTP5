@@ -12,67 +12,16 @@
 	<meta name="format-detection" content="email=yes">
 	<meta http-equiv="Cache-Control" content="no-siteapp">
 	<link rel="stylesheet" href="http://cdn.amazeui.org/amazeui/2.7.2/css/amazeui.min.css">
-	<link href="__STATIC__library/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-	<link href="__STATIC__library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="__STATIC__library/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-	<link href="__STATIC__library/layout/css/layout-3.0.css" rel="stylesheet">
-	<link href="__CSS__style.css" rel="stylesheet">
+	{css href="__LIBRARY__font-awesome/css/font-awesome.min.css" /}
+	{css href="__LIBRARY__bootstrap/css/bootstrap.min.css" /}
+	{css href="__LIBRARY__datetimepicker/css/bootstrap-datetimepicker.min.css" /}
+	{css href="__LIBRARY__layout/css/layout-3.0.css" /}
+	{css href="__CSS__style.css" /}
 
-	<script src="__STATIC__library/jquery/jquery-2.2.3.min.js"></script>
+	{js href="__LIBRARY__jquery/jquery-2.2.3.min.js" /}
 </head>
 <body>
-<header id="header" class="container-fluid pos-f">
-	<section id="logo-nav" class="row">
-		<hgroup id="logo" class="col-md-12 align-c">
-			<div class="row">
-				<a href="{:url('/')}" class="col-xs-1 logo-home"><i class="icon-home"></i></a>
-				<h1 class="col-xs-10"><a href="">LOGO</a></h1>
-				<a href="#nav" class="col-xs-1" data-am-offcanvas><i class="icon-reorder"></i></a>
-			</div>
-		</hgroup>
-
-		<nav id="nav" class="am-offcanvas">
-			<div class="am-offcanvas-bar">
-			<ul class="nav nav-pills white nav-stacked am-offcanvas-content">
-				<li role="presentation"><a href="{:url('/')}">首页</a></li>
-				{label:nav type="main"}
-				<li role="presentation" {notempty name="vo.child"}class="dropdown"{/notempty}>
-					{notempty name="vo.child"}
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-						{$vo.name} <span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						{volist name="vo.child" id="cv"}
-						<li><a href="{$cv.url}">{$cv.name}</a></li>
-						{/volist}
-					</ul>
-					{else/}
-					<a href="{$vo.url}">{$vo.name}</a>
-					{/notempty}
-				</li>
-				{/label:nav}
-			</ul>
-			<menu id="menu">
-				<ul class="nav nav-pills white">
-					{label:nav type="top"}
-					<li><a href="{$vo.url}">{$vo.name}</a></li>
-					{/label:nav}
-				</ul>
-			</menu>
-			<div class="align-c white">
-				{label:member}
-				{empty name="label.member"}
-				欢迎回来，<a href="{$label.member_url.login}">请登录</a>!
-				<a href="{$label.member_url.reg}">注册</a>
-				{else/}
-				欢迎回来，<a href="{$label.member_url.logout}">注销</a>!
-				{/empty}
-				{/label:member}
-			</div>
-			</div>
-		</nav>
-	</section>
-</header>
+{include file="public/header" /}
 
 <div id="main" class="container-fluid">
 	<section class="row">
@@ -104,21 +53,13 @@
 	</section>
 </div>
 
+{include file="public/footer" /}
 
-<footer id="footer" class="container-fluid">
-	<section class="row">
-		<div class="col-md-12 footer align-c white">
-			<p>__COPYRIGHT__</p>
-			<p>__MESSAGE__</p>
-		</div>
-	</section>
-</footer>
-
-<script src="__STATIC__library/bootstrap/js/bootstrap.min.js"></script>
-<script src="__STATIC__library/moment/moment.min.js"></script>
-<script src="__STATIC__library/moment/locale/zh-cn.js"></script>
-<script src="__STATIC__library/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
-<script src="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js"></script>
+{js href="__LIBRARY__bootstrap/js/bootstrap.min.js" /}
+{js href="__LIBRARY__moment/moment.min.js" /}
+{js href="__LIBRARY__moment/locale/zh-cn.js" /}
+{js href="__LIBRARY__datetimepicker/js/bootstrap-datetimepicker.min.js" /}
+{js href="http://cdn.amazeui.org/amazeui/2.7.2/js/amazeui.min.js" /}
 <script>
 var domain = "__DOMAIN__";
 </script>

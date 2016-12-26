@@ -5,65 +5,17 @@
 	<title>__TITLE__</title>
 	<meta name="keywords" content="__KEYWORDS__">
 	<meta name="description" content="__DESCRIPTION__">
-	<link href="__STATIC__library/font-awesome/css/font-awesome.min.css" rel="stylesheet">
-	<link href="__STATIC__library/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	<link href="__STATIC__library/datetimepicker/css/bootstrap-datetimepicker.min.css" rel="stylesheet">
-	<link href="__STATIC__library/layout/css/layout-3.0.css" rel="stylesheet">
-	<link href="__CSS__style.css" rel="stylesheet">
+	{css href="__LIBRARY__font-awesome/css/font-awesome.min.css" /}
+	{css href="__LIBRARY__bootstrap/css/bootstrap.min.css" /}
+	{css href="__LIBRARY__datetimepicker/css/bootstrap-datetimepicker.min.css" /}
+	{css href="__LIBRARY__layout/css/layout-3.0.css" /}
+	{css href="__CSS__style.css" /}
 
-	<!--[if lte IE 9]><script src="__STATIC__library/layout/js/html5shiv.js"></script><![endif]-->
-	<script src="__STATIC__library/jquery/jquery-2.2.3.min.js"></script>
+	<!--[if lte IE 9]>{js href="__LIBRARY__layout/js/html5shiv.js" /}<![endif]-->
+	{js href="__LIBRARY__jquery/jquery-2.2.3.min.js" /}
 </head>
 <body>
-<header id="header" class="container-fluid">
-	<section id="member-menu" class="row">
-		<div id="member" class="col-md-3">
-			{label:member}
-			{empty name="label.member"}
-			欢迎回来，<a href="{$label.member_url.login}">请登录</a>!
-			<a href="{$label.member_url.reg}">注册</a>
-			{else/}
-			欢迎回来，<a href="{$label.member_url.logout}">注销</a>!
-			{/empty}
-			{/label:member}
-
-
-		</div>
-		<menu id="menu" class="col-md-9">
-			<ul class="nav nav-pills float-r">
-				{label:nav type="top"}
-				<li><a href="{$vo.url}">{$vo.name}</a></li>
-				{/label:nav}
-			</ul>
-		</menu>
-	</section>
-	<section id="logo-nav" class="row">
-		<hgroup id="logo" class="col-md-3">
-			<h1><a href="">LOGO</a></h1>
-		</hgroup>
-		<nav id="nav" class="col-md-9">
-			<ul class="nav nav-pills float-r">
-				<li role="presentation"><a href="{:url('/')}">首页</a></li>
-				{label:nav type="main"}
-				<li role="presentation" {notempty name="vo.child"}class="dropdown"{/notempty}>
-					{notempty name="vo.child"}
-					<a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-						{$vo.name} <span class="caret"></span>
-					</a>
-					<ul class="dropdown-menu">
-						{volist name="vo.child" id="cv"}
-						<li><a href="{$cv.url}">{$cv.name}</a></li>
-						{/volist}
-					</ul>
-					{else/}
-					<a href="{$vo.url}">{$vo.name}</a>
-					{/notempty}
-				</li>
-				{/label:nav}
-			</ul>
-		</nav>
-	</section>
-</header>
+{include file="public/header" /}
 
 <div id="main" class="container-fluid">
 	<section class="row">
@@ -77,127 +29,28 @@
 					{label:article id="1" cid="3"}
 					<h2>
 						<a href="{$article.cat_url}">【{$article.cat_name}】</a>
-						<a href="{$article.url}">{$article.title}</a></h2>
+						<a href="{$article.url}">{$article.title}</a>
+					</h2>
 					<p>{$article.description}</p>
 					{/label:article}
 				</div>
 			</article>
 
-			{notempty name="Request.param.cid"}
-			<ol class="breadcrumb black">
-				<li><a href="__DOMAIN__">首页</a></li>
-				{label:breadcrumb id="Think.get.cid"}
-				<li><a href="{$vo.url}">{$vo.name}</a></li>
-				{/label:breadcrumb}
-			</ol>
-			{/notempty}
+			{include file="public/breadcrumb" /}
 
 			{__CONTENT__}
 		</div>
 
-		<aside id="sidebar" class="col-md-4">
-			{notempty name="Request.param.cid"}
-			<div class="widget panel panel-default">
-				<div class="panel-heading">
-					{label:sidebar}
-					{/label:sidebar}
-					<h3 class="panel-title">{$label_sidebar_name}</h3>
-				</div>
-				<div class="panel-body">
-					<ul class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-						{label:sidebar}
-						{notempty name="vo.child"}
-						{volist name="vo.child" id="cv"}
-						<li >
-							{notempty name="cv.child"}
-							<div class="panel-heading" role="tab" id="heading-menu-{$key}">
-							<a role="button" data-toggle="collapse" data-parent="#accordion" href="#menu-{$key}" aria-expanded="false" aria-controls="menu-{$key}">
-								{$cv.name}
-							</a>
-							</div>
-							<ul id="menu-{$key}" class="panel-collapse collapse" role="tabpanel" aria-expanded="false" aria-labelledby="heading-menu-{$key}">
-								{volist name="cv.child" id="cc"}
-								<li><a href="{$cc.url}">{$cc.name}</a></li>
-								{/volist}
-							</ul>
-							{else/}
-							<div class="panel-heading" role="tab" id="heading-menu-{$key}">
-							<a href="{$cv.url}">{$cv.name}</a>
-							</div>
-							{/notempty}
-						</li>
-						{/volist}
-						{/notempty}
-
-						{/label:sidebar}
-					</ul>
-				</div>
-			</div>
-			{/notempty}
-
-
-			<div class="widget panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">程序开发</h3>
-				</div>
-				<div class="panel-body">
-					<ul class="row">
-						{label:list id="3" limit="5"}
-						<li class="{eq name="key" value="4"}col-md-12{else}col-md-6{/eq} align-c">
-							<h4>{$vo.title|msubstr=0,7,0}</h4>
-							<p>{$vo.description|msubstr=0,25}</p>
-							<a class="btn btn-default btn-sm" href="{$vo.url}">点击查看</a>
-						</li>
-						{/label:list}
-					</ul>
-				</div>
-			</div>
-
-			<div class="widget panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">前台开发</h3>
-				</div>
-				<div class="panel-body">
-					<ul class="row">
-						{label:list id="2" limit="5"}
-						<li class="{eq name="key" value="4"}col-md-12{else}col-md-6{/eq} align-c">
-							<h4>{$vo.title|msubstr=0,7,0}</h4>
-							<p>{$vo.description|msubstr=0,20}</p>
-							<a class="btn btn-default btn-sm" href="{$vo.url}">点击查看</a>
-						</li>
-						{/label:list}
-					</ul>
-				</div>
-			</div>
-
-			<div class="widget panel panel-default">
-				<div class="panel-heading">
-					<h3 class="panel-title">标签云</h3>
-				</div>
-				<div class="panel-body">
-					<ol class="row">
-						{label:tags}
-						<li class="col-md-4 align-c"><a href="{$vo.url}">{$vo.name|msubstr=0,4,0} ({$vo.count})</a></li>
-						{/label:tags}
-					</ul>
-				</div>
-			</div>
-		</aside>
+		{include file="public/sidebar" /}
 	</section>
 </div>
 
-<footer id="footer" class="container-fluid">
-	<section class="row">
-		<div class="col-md-12 footer align-c white">
-			__COPYRIGHT__ __MESSAGE__
-		</div>
-	</section>
-</footer>
+{include file="public/footer" /}
 
-<script src="__STATIC__library/bootstrap/js/bootstrap.min.js"></script>
-<script src="__STATIC__library/moment/moment.min.js"></script>
-<script src="__STATIC__library/moment/locale/zh-cn.js"></script>
-<script src="__STATIC__library/datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+{js href="__LIBRARY__bootstrap/js/bootstrap.min.js" /}
+{js href="__LIBRARY__moment/moment.min.js" /}
+{js href="__LIBRARY__moment/locale/zh-cn.js" /}
+{js href="__LIBRARY__datetimepicker/js/bootstrap-datetimepicker.min.js" /}
 <script>
 var domain = "__DOMAIN__";
 </script>

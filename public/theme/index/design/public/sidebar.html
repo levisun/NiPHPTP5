@@ -1,0 +1,88 @@
+<aside id="sidebar" class="col-md-4">
+	{notempty name="Request.param.cid"}
+	<div class="widget panel panel-default">
+		<div class="panel-heading">
+			{label:sidebar}
+			{/label:sidebar}
+			<h3 class="panel-title">{$label_sidebar_name}</h3>
+		</div>
+		<div class="panel-body">
+			<ul class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+				{label:sidebar}
+				{notempty name="vo.child"}
+				{volist name="vo.child" id="cv"}
+				<li >
+					{notempty name="cv.child"}
+					<div class="panel-heading" role="tab" id="heading-menu-{$key}">
+					<a role="button" data-toggle="collapse" data-parent="#accordion" href="#menu-{$key}" aria-expanded="false" aria-controls="menu-{$key}">
+						{$cv.name}
+					</a>
+					</div>
+					<ul id="menu-{$key}" class="panel-collapse collapse" role="tabpanel" aria-expanded="false" aria-labelledby="heading-menu-{$key}">
+						{volist name="cv.child" id="cc"}
+						<li><a href="{$cc.url}">{$cc.name}</a></li>
+						{/volist}
+					</ul>
+					{else/}
+					<div class="panel-heading" role="tab" id="heading-menu-{$key}">
+					<a href="{$cv.url}">{$cv.name}</a>
+					</div>
+					{/notempty}
+				</li>
+				{/volist}
+				{/notempty}
+
+				{/label:sidebar}
+			</ul>
+		</div>
+	</div>
+	{/notempty}
+
+
+	<div class="widget panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">程序开发</h3>
+		</div>
+		<div class="panel-body">
+			<ul class="row">
+				{label:list id="3" limit="5"}
+				<li class="{eq name="key" value="4"}col-md-12{else}col-md-6{/eq} align-c">
+					<h4>{$vo.title|msubstr=0,7,0}</h4>
+					<p>{$vo.description|msubstr=0,25}</p>
+					<a class="btn btn-default btn-sm" href="{$vo.url}">点击查看</a>
+				</li>
+				{/label:list}
+			</ul>
+		</div>
+	</div>
+
+	<div class="widget panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">前台开发</h3>
+		</div>
+		<div class="panel-body">
+			<ul class="row">
+				{label:list id="2" limit="5"}
+				<li class="{eq name="key" value="4"}col-md-12{else}col-md-6{/eq} align-c">
+					<h4>{$vo.title|msubstr=0,7,0}</h4>
+					<p>{$vo.description|msubstr=0,20}</p>
+					<a class="btn btn-default btn-sm" href="{$vo.url}">点击查看</a>
+				</li>
+				{/label:list}
+			</ul>
+		</div>
+	</div>
+
+	<div class="widget panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">标签云</h3>
+		</div>
+		<div class="panel-body">
+			<ol class="row">
+				{label:tags}
+				<li class="col-md-4 align-c"><a href="{$vo.url}">{$vo.name|msubstr=0,4,0} ({$vo.count})</a></li>
+				{/label:tags}
+			</ul>
+		</div>
+	</div>
+</aside>
