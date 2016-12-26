@@ -241,16 +241,16 @@ class ContentContent extends Model
 	/**
 	 * 添加编辑相册
 	 * @access protected
-	 * @param  mixed $id_ 添加文章ID
+	 * @param  mixed $master_id 添加文章ID
 	 * @return mixed
 	 */
-	protected function AEAlbum($id_=false)
+	protected function AEAlbum($master_id=false)
 	{
 		if (!in_array($this->table_name, ['picture', 'product'])) {
 			return true;
 		}
 
-		$id = $id_ ? $id_ : $this->request->post('id/f');
+		$id = $master_id ? $master_id : $this->request->post('id/f');
 
 		$model = Loader::model(ucfirst($this->table_name) . 'Album');
 
@@ -282,16 +282,16 @@ class ContentContent extends Model
 	/**
 	 * 添加编辑字段
 	 * @access protected
-	 * @param  mixed $id_ 添加文章ID
+	 * @param  mixed $master_id 添加文章ID
 	 * @return mixed
 	 */
-	protected function AEField($id_=false)
+	protected function AEField($master_id=false)
 	{
 		if (in_array($this->table_name, ['link', 'external'])) {
 			return true;
 		}
 
-		$id = $id_ ? $id_ : $this->request->post('id/f');
+		$id = $master_id ? $master_id : $this->request->post('id/f');
 
 		$fields = $this->request->post('fields/a', '', Config::get('content_filter'));
 		if (empty($fields)) {
@@ -334,16 +334,16 @@ class ContentContent extends Model
 	/**
 	 * 添加编辑字段
 	 * @access protected
-	 * @param  mixed $id_ 添加文章ID
+	 * @param  mixed $master_id 添加文章ID
 	 * @return mixed
 	 */
-	protected function AETags($id_=false)
+	protected function AETags($master_id=false)
 	{
 		if (in_array($this->table_name, ['link', 'external'])) {
 			return true;
 		}
 
-		$id = $id_ ? $id_ : $this->request->post('id/f');
+		$id = $master_id ? $master_id : $this->request->post('id/f');
 
 		$tags = $this->request->post('tags');
 		if (empty($tags)) {

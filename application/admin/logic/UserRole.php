@@ -61,16 +61,16 @@ class UserRole extends Model
 	/**
 	 * 获得权限节点
 	 * @access public
-	 * @param
+	 * @param  intval $parent_id 父ID
 	 * @return array
 	 */
-	public function getNode($pid_=0)
+	public function getNode($parent_id=0)
 	{
 		$map = [
 			'status' => 1,
-			'pid' => $pid_
+			'pid' => $parent_id
 		];
-		if (!$pid_) {
+		if (!$parent_id) {
 			$map['id'] = 1;
 		}
 		$order = 'sort ASC';

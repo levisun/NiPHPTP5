@@ -43,14 +43,14 @@ class CommonAccount extends Model
 	/**
 	 * 执行日志
 	 * @access public
-	 * @param  string $action_   行为名称
-	 * @param  intval $recordId_ 数据ID
-	 * @param  string $remark_   备注
+	 * @param  string $action_name 行为名称
+	 * @param  intval $record_id   数据ID
+	 * @param  string $remark      备注
 	 * @return void
 	 */
-	public function action_log($action_, $record_id_, $remark_)
+	public function action_log($action_name, $record_id, $remark)
 	{
-		$map = ['name' => $action_];
+		$map = ['name' => $action_name];
 
 		$action = new AdminAction;
 		$id =
@@ -69,8 +69,8 @@ class CommonAccount extends Model
 			'user_id'   => Session::get(Config::get('USER_AUTH_KEY')),
 			'action_ip' => $area['ip'] . '[' . $area['country'] . $area['area'] . ']',
 			'model'     => $this->request->controller() . '-' . $this->request->action(),
-			'record_id' => $record_id_,
-			'remark'    => $remark_
+			'record_id' => $record_id,
+			'remark'    => $remark
 		];
 
 		$action = new AdminActionLog;
@@ -167,10 +167,10 @@ class CommonAccount extends Model
 	/**
 	 * 获得面包屑父级栏目
 	 * @access protected
-	 * @param  intval $pid_
+	 * @param  intval $parent_id 父ID
 	 * @return intval
 	 */
-	protected function getBreadcrumbParent($pid_)
+	protected function getBreadcrumbParent($parent_id)
 	{
 		$field = [
 			'id',
@@ -178,7 +178,7 @@ class CommonAccount extends Model
 			'name'
 		];
 		$map = [
-			'id'   => $pid_,
+			'id'   => $parent_id,
 			'lang' => Lang::detect()
 		];
 

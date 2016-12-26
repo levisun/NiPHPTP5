@@ -126,20 +126,20 @@ class ContentContentData extends Model
 	/**
 	 * 查询编辑字段数据
 	 * @access public
-	 * @param  array  $data_       关联数据
-	 * @param  string $table_name_ 表名
+	 * @param  array  $master_data 主数据
+	 * @param  string $table_name  表名
 	 * @return array
 	 */
-	public function getEditorFieldsData($data_, $table_name_)
+	public function getEditorFieldsData($master_data, $table_name)
 	{
-		$map = ['f.category_id' => $data_['category_id']];
-		$table_name_ .= '_data d';
+		$map = ['f.category_id' => $master_data['category_id']];
+		$table_name .= '_data d';
 
 		$fields = new AdminFields;
 		$result =
 		$fields->view('fields f', ['id', 'name' => 'field_name'])
 		->view('fields_type t', ['name' => 'field_type'], 'f.type_id=t.id')
-		->view($table_name_, ['data' => 'field_data'], 'f.id=d.fields_id AND d.main_id=' . $data_['id'], 'LEFT')
+		->view($table_name, ['data' => 'field_data'], 'f.id=d.fields_id AND d.main_id=' . $master_data['id'], 'LEFT')
 		->where($map)
 		->select();
 
@@ -156,14 +156,14 @@ class ContentContentData extends Model
 	/**
 	 * 查询编辑标签数据
 	 * @access public
-	 * @param  array $data_
+	 * @param  array $master_data 主数据
 	 * @return array
 	 */
-	public function getEditorTagsData($data_)
+	public function getEditorTagsData($master_data)
 	{
 		$map = [
-			'a.category_id' => $data_['category_id'],
-			'a.article_id'  => $data_['id']
+			'a.category_id' => $master_data['category_id'],
+			'a.article_id'  => $master_data['id']
 		];
 
 		$tags = new AdminTagsArticle;
@@ -213,14 +213,14 @@ class ContentContentData extends Model
 	/**
 	 * 查询编辑相册数据
 	 * @access public
-	 * @param  string $table_name_
+	 * @param  string $table_name 表名
 	 * @return array
 	 */
-	public function getEditorAlbumData($table_name_)
+	public function getEditorAlbumData($table_name)
 	{
 		$map = ['main_id' => $this->request->param('id/f')];
 
-		$album = Loader::model(ucfirst($table_name_) . 'Album');
+		$album = Loader::model(ucfirst($table_name) . 'Album');
 		$result =
 		$album->field(true)
 		->where($map)

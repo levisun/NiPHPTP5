@@ -73,19 +73,24 @@ function toFieldsType($data)
 
 /**
  * 上传文件返回js代码
- * @param  array  $file_ 上传返回文件地址等数据
+ * @param  array  $update_file 上传返回文件地址等数据
  * @return string
  */
-function upload_to_javasecipt($file_)
+function upload_to_javasecipt($update_file)
 {
-	$domain = \think\Config::get('view_replace_str.__DOMAIN__');
 	$request = \think\Request::instance();
+
+	$domain = $request->root(true);
+	$domain_arr = explode('/', $domain);
+	array_pop($domain_arr);
+	$domain = implode('/', $domain_arr);
+
 	if ($request->param('type') == 'ckeditor') {
 		// 编辑器
 		$ckefn = $request->param('CKEditorFuncNum');
 		$javascript = '<script type="text/javascript">';
 		$javascript .= 'window.parent.CKEDITOR.tools.callFunction(';
-		$javascript .= $ckefn . ',\'' . $file_['file_name'] . '\',';
+		$javascript .= $ckefn . ',\'' . $update_file['file_name'] . '\',';
 		$javascript .= '\'' . \think\Lang::get('success upload') . '\'';
 		$javascript .= ');';
 		$javascript .= '</script>';
@@ -93,19 +98,19 @@ function upload_to_javasecipt($file_)
 		// 相册
 		$id = $request->post('id');
 		$javascript = '<script type="text/javascript">';
-		$javascript .= 'opener.document.getElementById("album-image-' . $id . '").value="' . $file_['file_name'] . '";';
-		$javascript .= 'opener.document.getElementById("album-thumb-' . $id . '").value="' . $file_['file_thumb_name'] . '";';
+		$javascript .= 'opener.document.getElementById("album-image-' . $id . '").value="' . $update_file['file_name'] . '";';
+		$javascript .= 'opener.document.getElementById("album-thumb-' . $id . '").value="' . $update_file['file_thumb_name'] . '";';
 		$javascript .= 'opener.document.getElementById("img-album-' . $id . '").style.display="";';
-		$javascript .= 'opener.document.getElementById("img-album-' . $id . '").src="' . $domain . $file_['file_thumb_name'] . '";';
+		$javascript .= 'opener.document.getElementById("img-album-' . $id . '").src="' . $domain . $update_file['file_thumb_name'] . '";';
 		$javascript .= 'window.close();';
 		$javascript .= '</script>';
 	} else {
 		// 普通缩略图
 		$id = $request->post('id');
 		$javascript = '<script type="text/javascript">';
-		$javascript .= 'opener.document.getElementById("' . $id . '").value="' . $file_['file_thumb_name'] . '";';
+		$javascript .= 'opener.document.getElementById("' . $id . '").value="' . $update_file['file_thumb_name'] . '";';
 		$javascript .= 'opener.document.getElementById("img-' . $id . '").style.display="";';
-		$javascript .= 'opener.document.getElementById("img-' . $id . '").src="' . $domain . $file_['file_thumb_name'] . '";';
+		$javascript .= 'opener.document.getElementById("img-' . $id . '").src="' . $domain . $update_file['file_thumb_name'] . '";';
 		$javascript .= 'window.close();';
 		$javascript .= '</script>';
 	}

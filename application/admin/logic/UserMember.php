@@ -64,17 +64,17 @@ class UserMember extends Model
 	/**
 	 * 获得地址
 	 * @access public
-	 * @param  intval $pid_ 父级地区ID
+	 * @param  intval $parent_id 父级地区ID
 	 * @return array
 	 */
-	public function getRegion($pid_=1)
+	public function getRegion($parent_id=1)
 	{
 		$field = [
 			'id',
 			'pid',
 			'name'
 		];
-		$map = ['pid' => $pid_];
+		$map = ['pid' => $parent_id];
 
 		$region = new AdminRegion;
 		$result =

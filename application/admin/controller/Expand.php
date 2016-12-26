@@ -58,6 +58,18 @@ class Expand extends Common
 			}
 		}
 
+		// 优化/修复表
+		if ($this->method == 'optimize') {
+			$result = $model->optimize();
+			if (true === $result) {
+				$this->actionLog('databack_optimize');
+				$url = Url::build($this->request->action());
+				$this->success(Lang::get('success optimize'), $url);
+			} else {
+				$this->error(Lang::get('error optimize', ['date'=>date('Y-m-d H:i:s')]));
+			}
+		}
+
 		// 下载
 		if ($this->method == 'down') {
 			$this->actionLog('databack_down');

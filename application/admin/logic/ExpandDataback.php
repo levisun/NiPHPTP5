@@ -131,6 +131,37 @@ class ExpandDataback extends Model
 		return true;
 	}
 
+	public function optimize()
+	{
+		$optimize = TEMP_PATH . 'optimize.php';
+
+		// 上次执行时间
+		// 无时赋值一月前时间
+		if (file_exists($optimize)) {
+			$time = include($optimize);
+		} else {
+			$time = strtotime('-30 days');
+		}
+
+		// 执行时间大于一个月前时不执行
+		if ($time > strtotime('-30 days')) {
+			return $time;
+		}
+
+		// 记录执行时间
+		$time = strtotime(date('Y-m-d H:i:s'));
+		file_put_contents($optimize, '<?php return ' . $time . ';');
+
+		$tables = $this->getTables();
+		$tables_sql = '';
+
+		$sql = 'REPAIR TABLE `' . implode('`,`', $tables) . '`;';
+		$sql .= ' OPTIMIZE TABLE `' . implode('`,`', $tables) . '`;';
+		$this->batchQuery($sql);
+
+		return true;
+	}
+
 	/**
 	 * 获得库中所有表
 	 * @access private

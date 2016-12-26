@@ -114,17 +114,17 @@ class CommonUpload extends Model
 	/**
 	 * 生成缩略图
 	 * @access protected
-	 * @param  array  $dir_        文件地址
-	 * @param  string $name_       文件名
-	 * @param  string $thumb_name_ 文件缩略图名
-	 * @param  string $type_       上传文件类型
+	 * @param  array  $file_dir   文件目录
+	 * @param  string $file_name  文件名
+	 * @param  string $thumb_name 文件缩略图名
+	 * @param  string $type       上传文件类型
 	 * @return string
 	 */
-	protected function water($dir_, $name_, $thumb_name_, $type_)
+	protected function water($file_dir, $file_name, $thumb_name, $type)
 	{
 		// 不添加水印
 		$no_water = ['water', 'ads', 'banner', 'comment', 'portrait', 'category'];
-		if (in_array($type_, $no_water)) {
+		if (in_array($type, $no_water)) {
 			return false;
 		}
 
@@ -160,27 +160,27 @@ class CommonUpload extends Model
 
 		if ($config_data['water_type']) {
 			// 图片水印
-			$image = Image::open($dir_ . $name_);
+			$image = Image::open($file_dir . $file_name);
 			$image->water(ROOT_PATH . 'public/' . $config_data['water_image'], $config_data['water_location'], 50);
-			$image->save($dir_ . $name_);
+			$image->save($file_dir . $file_name);
 
-			if ($thumb_name_) {
-				$image = Image::open($dir_ . $thumb_name_);
+			if ($thumb_name) {
+				$image = Image::open($file_dir . $thumb_name);
 				$image->water(ROOT_PATH . 'public/' . $config_data['water_image'], $config_data['water_location'], 50);
-				$image->save($dir_ . $thumb_name_);
+				$image->save($file_dir . $thumb_name);
 			}
 		} else {
 			// 文字水印
 			$font_path = EXTEND_PATH . 'fonts/HYQingKongTiJ.ttf';
 
-			$image = Image::open($dir_ . $name_);
+			$image = Image::open($file_dir . $file_name);
 			$image->text($config_data['water_text'], $font_path, 20, '#ffffff', $config_data['water_location']);
-			$image->save($dir_ . $name_);
+			$image->save($file_dir . $file_name);
 
-			if ($thumb_name_) {
-				$image = Image::open($dir_ . $thumb_name_);
+			if ($thumb_name) {
+				$image = Image::open($file_dir . $thumb_name);
 				$image->text($config_data['water_text'], $font_path, 20, '#ffffff', $config_data['water_location']);
-				$image->save($dir_ . $thumb_name_);
+				$image->save($file_dir . $thumb_name);
 			}
 		}
 	}
@@ -188,37 +188,37 @@ class CommonUpload extends Model
 	/**
 	 * 生成缩略图
 	 * @access protected
-	 * @param  array  $size_ 尺寸大小
-	 * @param  string $dir_  文件地址
-	 * @param  string $name_ 文件名称
-	 * @param  string $ext_  文件后缀
+	 * @param  array  $thumb_size 尺寸大小
+	 * @param  string $file_dir   文件地址
+	 * @param  string $file_name  文件名称
+	 * @param  string $ext        文件后缀
 	 * @return string
 	 */
-	protected function thumb($size_, $dir_, $name_, $ext_)
+	protected function thumb($thumb_size, $file_dir, $file_name, $ext)
 	{
 		// 不生成缩略图
-		if (false === $size_) {
+		if (false === $thumb_size) {
 			return false;
 		}
 
 		// 组合缩略图文件名
-		$save_name = str_replace('.' . $ext_, '_thumb.' . $ext_, $name_);
+		$save_name = str_replace('.' . $ext, '_thumb.' . $ext, $file_name);
 		// 生成缩略图
-		$image = Image::open($dir_ . $name_);
-		$image->thumb($size_['width'], $size_['height'], Image::THUMB_CENTER)
-		->save($dir_ . $save_name);
+		$image = Image::open($file_dir . $file_name);
+		$image->thumb($thumb_size['width'], $thumb_size['height'], Image::THUMB_CENTER)
+		->save($file_dir . $save_name);
 		return $save_name;
 	}
 
 	/**
 	 * 图片尺寸
 	 * @access protected
-	 * @param  string $type_ 图片类型
+	 * @param  string $type 图片类型
 	 * @return array  width|height
 	 */
-	protected function size($type_)
+	protected function size($type)
 	{
-		switch ($type_) {
+		switch ($type) {
 			case 'portrait':
 			case 'category':
 			case 'album':
