@@ -84,7 +84,7 @@ return [
 		'content'           => '内容',
 		'user'              => '用户',
 		'wechat'            => '微信',
-		'shop'              => '商城',
+		'mall'              => '商城',
 		'expand'            => '扩展',
 		],
 
@@ -98,7 +98,7 @@ return [
 
 		'theme_template'    => '网站界面设置',
 		'theme_member'      => '会员界面设置',
-		'theme_shop'        => '商城界面设置',
+		'theme_mall'        => '商城界面设置',
 
 		'category_category' => '管理栏目',
 		'category_model'    => '管理模型',
@@ -126,15 +126,15 @@ return [
 		'wechat_module'     => '营销推广模块',
 		'wechat_menu'       => '自定义菜单',
 
-		'shop_goods'        => '管理商品',
-		'shop_orders'       => '管理订单',
-		'shop_category'     => '管理商城导航',
-		'shop_type'         => '管理商品分类',
-		'shop_brand'        => '管理商品品牌',
-		'shop_brand'        => '管理商品品牌',
-		'shop_comment'      => '管理商品评论',
-		'shop_accountwater' => '账户流水',
-		'shop_settings'     => '商城设置',
+		'mall_goods'        => '管理商品',
+		'mall_orders'       => '管理订单',
+		'mall_category'     => '管理商城导航',
+		'mall_type'         => '管理商品分类',
+		'mall_brand'        => '管理商品品牌',
+		'mall_brand'        => '管理商品品牌',
+		'mall_comment'      => '管理商品评论',
+		'mall_accountwater' => '账户流水',
+		'mall_settings'     => '商城设置',
 
 		'expand_app'        => '应用中心',
 		'expand_upgrade'    => '在线升级',

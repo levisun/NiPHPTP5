@@ -4,19 +4,19 @@
  * 网站全局 - 控制器
  *
  * @package   NiPHPCMS
- * @category  member\controller\
+ * @category  mall\controller\
  * @author    失眠小枕头 [levisun.mail@gmail.com]
  * @copyright Copyright (c) 2013, 失眠小枕头, All rights reserved.
  * @version   CVS: $Id: Common.php v1.0.1 $
  * @link      http://www.NiPHP.com
  * @since     2016/10/22
  */
-namespace app\member\controller;
+namespace app\mall\controller;
 use think\Controller;
 use think\Lang;
 use think\Config;
 use app\index\logic\Visit as IndexVisit;
-use app\member\logic\Common as MemberCommon;
+use app\member\logic\Common as MallCommon;
 class Common extends Controller
 {
 	// 网站基本数据
@@ -30,19 +30,17 @@ class Common extends Controller
 	 */
 	protected function _initialize()
 	{
-		Config::load(CONF_PATH . 'website.php');
-
 		// 访问与搜索日志
 		$visit = new IndexVisit;
 		$visit->visit();
 
-		$common_model = new MemberCommon;
+		$common_model = new MallCommon;
 
 		// 权限
-		$result = $common_model->accountAuth();
-		if (true !== $result) {
-			$this->redirect($result);
-		}
+		// $result = $common_model->accountAuth();
+		// if (true !== $result) {
+		// 	$this->redirect($result);
+		// }
 
 		// 网站基本数据
 		$this->website_data = $common_model->getWetsiteData();

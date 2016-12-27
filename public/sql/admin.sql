@@ -1,5 +1,3 @@
-
-
 DROP TABLE IF EXISTS `np_access`;
 CREATE TABLE IF NOT EXISTS `np_access` (
   `role_id` smallint(6) unsigned NOT NULL COMMENT '组ID',
@@ -22,7 +20,7 @@ INSERT INTO `np_access` (`role_id`, `node_id`, `status`, `level`, `module`) VALU
 (1, 9, 1, 2, 'theme'),
 (1, 10, 1, 3, 'template'),
 (1, 11, 1, 3, 'member'),
-(1, 12, 1, 3, 'shop'),
+(1, 12, 1, 3, 'mall'),
 (1, 13, 1, 2, 'category'),
 (1, 14, 1, 3, 'category'),
 (1, 15, 1, 3, 'model'),
@@ -47,7 +45,7 @@ INSERT INTO `np_access` (`role_id`, `node_id`, `status`, `level`, `module`) VALU
 (1, 34, 1, 3, 'attention'),
 (1, 35, 1, 3, 'config'),
 (1, 36, 1, 3, 'menu'),
-(1, 37, 1, 2, 'shop'),
+(1, 37, 1, 2, 'mall'),
 (1, 38, 1, 3, 'goods'),
 (1, 39, 1, 3, 'orders'),
 (1, 40, 1, 3, 'category'),
@@ -92,7 +90,7 @@ INSERT INTO np_node(`id`, `name`, `title`, `status`, `remark`, `sort`, `pid`, `l
 (9, 'theme', '界面', 1, '界面控制器', 1, 1, 2),
 (10, 'template', '网站界面设置', 1, '网站界面设置方法', 2, 9, 3),
 (11, 'member', '会员界面设置', 1, '会员界面设置方法', 3, 9, 3),
-(12, 'shop', '商城界面设置', 1, '商城界面设置方法', 4, 9, 3),
+(12, 'mall', '商城界面设置', 1, '商城界面设置方法', 4, 9, 3),
 
 (13, 'category', '栏目', 1, '栏目控制器', 1, 1, 2),
 (14, 'category', '管理栏目', 1, '管理栏目方法', 2, 13, 3),
@@ -122,7 +120,7 @@ INSERT INTO np_node(`id`, `name`, `title`, `status`, `remark`, `sort`, `pid`, `l
 (35, 'config', '接口配置', 1, '接口配置方法', 5, 31, 3),
 (36, 'menu', '自定义菜单', 1, '自定义菜单方法', 6, 31, 3),
 
-(37, 'shop', '商城', 1, '商城控制器', 1, 1, 2),
+(37, 'mall', '商城', 1, '商城控制器', 1, 1, 2),
 (38, 'goods', '管理商品', 1, '管理商品方法', 2, 37, 3),
 (39, 'orders', '管理订单', 1, '管理订单方法', 3, 37, 3),
 (40, 'category', '管理商城导航', 1, '管理商城导航方法', 4, 37, 3),

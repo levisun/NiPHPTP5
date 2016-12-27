@@ -37,7 +37,7 @@ class SettingsLang extends Model
 		$data['lang_switch_on']   = Config::get('lang_switch_on');
 		$data['lang_list']        = Config::get('lang_list');
 		$data['sys_default_lang'] = Config::get('default_lang');
-		$data['web_default_lang'] = include_once(CONF_PATH . 'index/config.php');
+		$data['web_default_lang'] = include_once(CONF_PATH . 'website.php');
 		$data['web_default_lang'] = $data['web_default_lang']['default_lang'];
 		return $data;
 	}
@@ -63,14 +63,14 @@ class SettingsLang extends Model
 
 
 
-		$config = include(CONF_PATH . 'index/config.php');
+		$config = include(CONF_PATH . 'website.php');
 		$config['default_lang'] = $this->request->post('website');
 
 		$lang_switch_on = $this->request->post('lang_switch_on');
 		$config['lang_switch_on'] = $lang_switch_on ? true : false;
 		$config = var_export($config, true);
 		$config = '<?php return ' . strtr($config, $str) . ';';
-		file_put_contents(CONF_PATH . 'index/config.php', $config);
+		file_put_contents(CONF_PATH . 'website.php', $config);
 
 		return true;
 	}

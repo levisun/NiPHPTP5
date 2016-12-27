@@ -34,6 +34,8 @@ class Common extends Controller
 	 */
 	protected function _initialize()
 	{
+		Config::load(CONF_PATH . 'website.php');
+
 		// 访问与搜索日志
 		$visit = new IndexVisit;
 		$visit->searchengine();

@@ -14,6 +14,11 @@
 			<input type="text" name="captcha" class="form-control">
 			<img src="{:captcha_src()}" data-url="{:captcha_src()}" alt="captcha" class="np-verify" />
 		</li>
+		<li class="form-group">
+			<label for="" class="control-label"></label>
+			{:token()}
+			<input type="submit" class="btn btn-block btn-primary" value="登录">
+		</li>
 	</ul>
 	</form>
 </div>

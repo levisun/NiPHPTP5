@@ -47,7 +47,7 @@ class Theme extends Common
 	 * @param
 	 * @return mixed
 	 */
-	public function shop()
+	public function mall()
 	{
 		return $this->theme();
 	}

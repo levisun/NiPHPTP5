@@ -12,7 +12,10 @@
  * @since     2016/11/25
  */
 namespace app\member\controller;
+use think\Url;
+use think\Lang;
 use app\member\controller\Common;
+use app\member\logic\Account as MemberAccount;
 class Index extends Common
 {
 
@@ -21,31 +24,65 @@ class Index extends Common
 
 	}
 
+	/**
+	 * 登录
+	 * @access public
+	 * @param
+	 * @return string
+	 */
 	public function login()
 	{
 		if ($this->request->isPost()) {
 			$result = $this->validate($_POST, 'Account.login');
+
+			if(true === $result){
+				$model = new MemberAccount;
+				$result = $model->checkLogin();
+			}
+
+			if (true === $result) {
+				$this->redirect(Url::build('/member'));
+			} else {
+				$this->error(Lang::get($result));
+			}
 		}
 		return $this->fetch();
 	}
 
+	/**
+	 * 注销
+	 * @access public
+	 * @param
+	 * @return void
+	 */
 	public function logout()
 	{
-		# code...
+		$model = new MemberAccount;
+		$result = $model->logout();
+		if (true === $result) {
+			$this->redirect(Url::build('/member/login'));
+		}
 	}
 
+	/**
+	 * 注册
+	 * @access public
+	 * @param
+	 * @return string
+	 */
 	public function reg()
 	{
-		# code...
+		return $this->fetch();
 	}
 
+	/**
+	 * 找回密码
+	 * @access public
+	 * @param
+	 * @return string
+	 */
 	public function forget()
 	{
-		# code...
-	}
-
-	public function verify()
-	{
-		# code...
+		return $this->fetch();
 	}
 }

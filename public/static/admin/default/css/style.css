@@ -99,9 +99,6 @@ body {
 	line-height: 34px;
 	font-size: 16px;
 }
-#main #content .panel {
-	margin-bottom: 60px;
-}
 #main #content .panel-body>* {
 	margin-bottom: 0;
 }

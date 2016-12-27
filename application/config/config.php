@@ -12,7 +12,7 @@
  * @since     2016/10/22
  */
 return [
-	'sys_version' => '1.0.5',
+	'sys_version' => '0.2.0 Alpha 55',
 
 	// 系统设置
 	'USER_AUTH_ON'      => 1,
@@ -36,21 +36,14 @@ return [
 	// URL设置
 	'url_route_on'     => true,
 	'url_html_suffix'  => 'shtml',
+	// 路由配置文件
+	'route_complete_match' => true,
 	// 过滤方法
 	'default_filter'   => 'trim,strip_tags,escape_xss',
 	'content_filter'   => 'trim,escape_xss,htmlspecialchars',
 	// 语言
 	'lang_switch_on'   => true,
 	'default_lang'     => 'zh-cn',
-	'lang_list'        => [
-		'zh-cn',
-		'zh-tw',
-		'en-us'
-	],
-	// 扩展配置文件
-	'extra_config_list' => [
-		'database'
-	],
 	// 禁止访问模块
 	'deny_module_list' => [
 		'admin'

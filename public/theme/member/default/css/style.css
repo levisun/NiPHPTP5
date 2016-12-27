@@ -1,0 +1,28 @@
+body {
+	background-color: #f6f6f6;
+	font-size: 14px;
+}
+.nav>li>a:focus,
+.nav>li>a:hover {
+	background-color: transparent;
+}
+.label {
+	border-radius: 5px;
+}
+.label.label-info a {
+	color: #fff;
+	padding-left: 0;
+	font-size: 12px;
+}
+
+
+
+
+#footer {
+	margin-top: 15px;
+	background-color: #444;
+}
+#footer .footer {
+	padding: 25px 0;
+	font-size: 12px;
+}
