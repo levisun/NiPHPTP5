@@ -14,9 +14,9 @@
 namespace app\index\controller;
 use think\Url;
 use think\Lang;
-use app\index\controller\Common;
+use app\index\controller\Base;
 use app\index\logic\Article as IndexArticle;
-class Article extends Common
+class Article extends Base
 {
 
 	/**

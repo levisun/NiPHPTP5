@@ -7,7 +7,7 @@
  * @category  index\controller\
  * @author    失眠小枕头 [levisun.mail@gmail.com]
  * @copyright Copyright (c) 2013, 失眠小枕头, All rights reserved.
- * @version   CVS: $Id: Common.php v1.0.1 $
+ * @version   CVS: $Id: Base.php v1.0.1 $
  * @link      http://www.NiPHP.com
  * @since     2016/10/22
  */
@@ -17,7 +17,7 @@ use think\Lang;
 use think\Config;
 use app\index\logic\Visit as IndexVisit;
 use app\index\logic\Common as IndexCommon;
-class Common extends Controller
+class Base extends Controller
 {
 	// 公众业务
 	protected $common_model = null;

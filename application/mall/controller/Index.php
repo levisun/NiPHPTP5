@@ -14,8 +14,8 @@
 namespace app\mall\controller;
 use think\Url;
 use think\Lang;
-use app\mall\controller\Common;
-class Index extends Common
+use app\mall\controller\Base;
+class Index extends Base
 {
 
 	public function index()

@@ -14,12 +14,12 @@
 namespace app\admin\controller;
 use think\Lang;
 use think\Url;
-use app\admin\controller\Common;
+use app\admin\controller\Base;
 use app\admin\logic\ContentContent as AdminContentContent;
 use app\admin\logic\CategoryCategory as AdminCategoryCategory;
 use app\admin\logic\ContentRecycle as AdminContentRecycle;
 use app\admin\logic\ContentCache as AdminContentCache;
-class Content extends Common
+class Content extends Base
 {
 
 	/**

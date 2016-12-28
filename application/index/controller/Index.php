@@ -14,11 +14,11 @@
 namespace app\index\controller;
 use think\Url;
 use think\Lang;
-use app\index\controller\Common;
-class Index extends Common
+use app\index\controller\Base;
+class Index extends Base
 {
 	protected $beforeActionList = [
-		'first' => ['index', 'entry'],
+		'first',
 	];
 
 	/**

@@ -12,8 +12,8 @@
  * @since     2016/11/25
  */
 namespace app\member\controller;
-use app\member\controller\Common;
-class My extends Common
+use app\member\controller\Base;
+class My extends Base
 {
 
 	public function index()

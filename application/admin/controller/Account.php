@@ -14,9 +14,9 @@
 namespace app\admin\controller;
 use think\Url;
 use think\Lang;
-use app\admin\controller\Common;
+use app\admin\controller\Base;
 use app\admin\logic\CommonLogin as AdminCommonLogin;
-class Account extends Common
+class Account extends Base
 {
 	/**
 	 * 登录

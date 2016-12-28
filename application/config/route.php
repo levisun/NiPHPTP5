@@ -19,6 +19,7 @@ return [
 	'article/:cid/:id' => 'index/article/index',
 	'tags/:id'         => 'index/tags/index',
 	'jump/:cid/:id'    => 'index/jump/index',
+	'wechat'           => 'wechat/index/index',
 
 	// comment
 	'comment/:cid'     => 'index/comment/index',

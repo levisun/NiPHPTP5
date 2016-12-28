@@ -12,8 +12,8 @@
  * @since     2016/11/10
  */
 namespace app\admin\controller;
-use app\admin\controller\Common;
-class Wechat extends Common
+use app\admin\controller\Base;
+class Wechat extends Base
 {
 	/**
 	 * 关键词回复

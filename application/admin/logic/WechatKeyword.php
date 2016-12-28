@@ -14,6 +14,7 @@
 namespace app\admin\logic;
 use think\Model;
 use think\Request;
+use think\Lang;
 use app\admin\model\Reply as AdminReply;
 class WechatKeyword extends Model
 {

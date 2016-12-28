@@ -14,9 +14,9 @@
 namespace app\index\controller;
 use think\Url;
 use think\Lang;
-use app\index\controller\Common;
+use app\index\controller\Base;
 use app\index\logic\Tags as IndexTags;
-class Tags extends Common
+class Tags extends Base
 {
 	protected $beforeActionList = [
 		'first',

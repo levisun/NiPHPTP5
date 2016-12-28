@@ -14,9 +14,9 @@
 namespace app\member\controller;
 use think\Url;
 use think\Lang;
-use app\member\controller\Common;
+use app\member\controller\Base;
 use app\member\logic\Account as MemberAccount;
-class Index extends Common
+class Index extends Base
 {
 
 	public function index()

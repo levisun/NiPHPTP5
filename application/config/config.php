@@ -92,7 +92,7 @@ return [
 	'cache' => [
 		'type'   => 'File',
 		'prefix' => '',
-		'expire' => 10800,
+		'expire' => 1800,
     ],
 	// 验证码设置
 	'captcha' => [

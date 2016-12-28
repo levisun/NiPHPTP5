@@ -7,7 +7,7 @@
  * @category  admin\controller\
  * @author    失眠小枕头 [levisun.mail@gmail.com]
  * @copyright Copyright (c) 2013, 失眠小枕头, All rights reserved.
- * @version   CVS: $Id: Common.php v1.0.1 $
+ * @version   CVS: $Id: Base.php v1.0.1 $
  * @link      http://www.NiPHP.com
  * @since     2016/10/22
  */
@@ -19,9 +19,10 @@ use think\Lang;
 use think\Config;
 use think\View;
 use think\Session;
+use think\Cache;
 use app\admin\logic\CommonUpload as AdminCommonUpload;
 use app\admin\logic\CommonAccount as AdminCommonAccount;
-class Common extends Controller
+class Base extends Controller
 {
 	// 分支操作方法
 	protected $method = '';
@@ -62,6 +63,7 @@ class Common extends Controller
 
 			$result = Loader::model($model_name, 'logic')->added();
 			if (true === $result) {
+				Cache::clear();
 				$this->actionLog($log_name);
 				$url = Url::build($this->request->action());
 				$this->success(Lang::get('success added'), $url);
@@ -86,6 +88,7 @@ class Common extends Controller
 
 		$result = Loader::model($model_name, 'logic')->remove();
 		if (true === $result) {
+			Cache::clear();
 			// 获得操作数据ID,后期再做
 			$this->actionLog($log_name);
 			$url = Url::build($this->request->action());
@@ -116,6 +119,7 @@ class Common extends Controller
 
 			$result = Loader::model($model_name, 'logic')->editor();
 			if (true === $result) {
+				Cache::clear();
 				$this->actionLog($log_name);
 				$url = Url::build($this->request->action());
 				$this->success(Lang::get('success editor'));

@@ -14,9 +14,9 @@
 namespace app\index\controller;
 use think\Url;
 use think\Lang;
-use app\index\controller\Common;
+use app\index\controller\Base;
 use app\index\logic\Jump as IndexJump;
-class Jump extends Common
+class Jump extends Base
 {
 
 	/**

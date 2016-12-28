@@ -15,6 +15,7 @@ namespace app\admin\logic;
 use think\Model;
 use think\Request;
 use think\Session;
+use think\Cache;
 use app\admin\model\Config as AdminConfig;
 class SettingsSafe extends Model
 {
@@ -96,7 +97,7 @@ class SettingsSafe extends Model
 			->isUpdate(true)
 			->save($data, $map);
 		}
-
+		Cache::clear();
 		return true;
 	}
 }

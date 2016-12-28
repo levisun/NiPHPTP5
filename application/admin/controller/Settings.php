@@ -12,9 +12,9 @@
  * @since     2016/10/22
  */
 namespace app\admin\controller;
-use app\admin\controller\Common;
+use app\admin\controller\Base;
 use app\admin\logic\SettingsInfo as AdminSettingsInfo;
-class Settings extends Common
+class Settings extends Base
 {
 
 	/**

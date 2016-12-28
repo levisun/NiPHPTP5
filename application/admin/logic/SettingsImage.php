@@ -15,6 +15,7 @@ namespace app\admin\logic;
 use think\Model;
 use think\Request;
 use think\Lang;
+use think\Cache;
 use app\admin\model\Config as AdminConfig;
 class SettingsImage extends Model
 {
@@ -81,7 +82,7 @@ class SettingsImage extends Model
 			->isUpdate(true)
 			->save($data, $map);
 		}
-
+		Cache::clear();
 		return true;
 	}
 }

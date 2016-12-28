@@ -16,10 +16,10 @@ use think\Url;
 use think\Lang;
 use net\Http;
 use util\File;
-use app\admin\controller\Common;
+use app\admin\controller\Base;
 use app\admin\logic\ExpandDataback as AdminExpandDataback;
 use app\admin\logic\ExpandELog as AdminExpandELog;
-class Expand extends Common
+class Expand extends Base
 {
 
 	/**

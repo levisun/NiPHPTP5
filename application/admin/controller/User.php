@@ -12,12 +12,12 @@
  * @since     2016/10/22
  */
 namespace app\admin\controller;
-use app\admin\controller\Common;
+use app\admin\controller\Base;
 use app\admin\logic\UserMember as AdminUserMember;
 use app\admin\logic\UserAdmin as AdminUserAdmin;
 use app\admin\logic\UserRole as AdminUserRole;
 use app\admin\logic\UserNode as AdminUserNode;
-class User extends Common
+class User extends Base
 {
 
 	/**

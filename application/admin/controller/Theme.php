@@ -14,9 +14,9 @@
 namespace app\admin\controller;
 use think\Lang;
 use think\Url;
-use app\admin\controller\Common;
+use app\admin\controller\Base;
 use app\admin\logic\ThemeTemplate as AdminThemeTemplate;
-class Theme extends Common
+class Theme extends Base
 {
 
 	/**

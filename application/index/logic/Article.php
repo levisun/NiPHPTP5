@@ -17,6 +17,7 @@ use think\Request;
 use think\Lang;
 use think\Url;
 use think\Loader;
+use think\Cache;
 use app\admin\model\Category as IndexCategory;
 use app\admin\model\Fields as IndexFields;
 use app\admin\model\TagsArticle as IndexTagsArticle;
@@ -125,6 +126,7 @@ class Article extends Model
 			$value = $value->toArray();
 			$data[] = $value['id'];
 		}
+
 		$id = implode(',', $data);
 
 		$parent = $id ? $this->getChild($id) : '';
@@ -175,7 +177,29 @@ class Article extends Model
 			$data['album'] = $this->getAlbumData();
 		}
 
+		$this->hits();
 		return $data;
+	}
+
+	/**
+	 * 更新阅读数
+	 * @access protected
+	 * @param
+	 * @return void
+	 */
+	protected function hits()
+	{
+		$map = [
+			'category_id' => $this->request->param('cid/f'),
+			'id'          => $this->request->param('id/f'),
+			'is_pass'     => 1,
+			'lang'        => Lang::detect(),
+			'show_time'   => ['ELT', strtotime(date('Y-m-d'))]
+		];
+
+		$model = Loader::model(ucfirst($this->model_name), 'model', false, 'admin');
+		$model->where($map)
+		->setInc('hits');
 	}
 
 	/**

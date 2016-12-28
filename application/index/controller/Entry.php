@@ -15,9 +15,9 @@ namespace app\index\controller;
 use think\Loader;
 use think\Url;
 use think\Lang;
-use app\index\controller\Common;
+use app\index\controller\Base;
 use app\index\logic\Article as IndexArticle;
-class Entry extends Common
+class Entry extends Base
 {
 	protected $beforeActionList = [
 		'first',
