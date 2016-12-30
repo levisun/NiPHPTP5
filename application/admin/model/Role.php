@@ -17,11 +17,13 @@ class Role extends Model
 {
 	protected $name = 'role';
 	protected $autoWriteTimestamp = false;
+	protected $updateTime = false;
+	protected $pk = 'id';
 	protected $field = [
-		'id'     => 'int',
+		'id',
 		'name',
-		'pid'    => 'int',
-		'status' => 'int',
+		'pid',
+		'status',
 		'remark'
 	];
 }

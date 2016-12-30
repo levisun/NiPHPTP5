@@ -52,7 +52,7 @@
 					<label for="type_id" class="col-md-2 control-label">{:lang('type')}</label>
 					<div class="col-md-6">
 						<select name="type_id" id="type_id" class="form-control">
-							<option value="0">{:lang('select_type')}</option>
+							<option value="0">{:lang('select type')}</option>
 							{volist name="type" id="vo"}
 							<option value="{$vo.id}" {eq name="vo.id" value="$data.type_id"}selected="selected"{/eq}>{$vo.name}</option>
 							{/volist}
@@ -95,7 +95,7 @@
 					<label for="access_id" class="col-md-2 control-label">{:lang('access')}</label>
 					<div class="col-md-6">
 						<select name="access_id" id="access_id" class="form-control">
-							<option value="0" {eq name="data.access_id" value="0"selected="selected"{/eq}>{:lang('select_access')}</option>
+							<option value="0" {eq name="data.access_id" value="0"selected="selected"{/eq}>{:lang('select access')}</option>
 							{volist name="level" id="vo"}
 							<option value="{$vo.id}" {eq name="vo.id" value="$data['access_id']"}selected{/eq} >{$vo.name}</option>
 							{/volist}

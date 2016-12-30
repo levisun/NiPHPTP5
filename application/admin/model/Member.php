@@ -17,27 +17,29 @@ class Member extends Model
 {
 	protected $name = 'member';
 	protected $autoWriteTimestamp = true;
+	protected $updateTime = 'update_time';
+	protected $pk = 'id';
 	protected $field = [
-		'id'                  => 'int',
+		'id',
 		'username',
 		'password',
 		'email',
 		'realname',
 		'nickname',
 		'portrait',
-		'gender'              => 'int',
-		'birthday'            => 'int',
-		'province'            => 'int',
-		'city'                => 'int',
-		'area'                => 'int',
+		'gender',
+		'birthday',
+		'province',
+		'city',
+		'area',
 		'address',
 		'phone',
-		'status'              => 'int',
+		'status',
 		'salt',
 		'last_login_ip',
 		'last_login_ip_attr',
-		'last_login_time'     => 'int',
-		'create_time'         => 'int',
-		'update_time'         => 'int',
+		'last_login_time',
+		'create_time',
+		'update_time',
 	];
 }

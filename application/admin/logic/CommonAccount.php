@@ -153,6 +153,8 @@ class CommonAccount extends Model
 		if (!empty($bread)) {
 			$count = count($bread);
 			foreach ($bread as $key => $value) {
+				trace($key);
+				trace($count);
 				if ($key+1 == $count) {
 					$breadcrumb .= '<li class="active"><a>' . $value['name'] . '</a></li>';
 				} else {

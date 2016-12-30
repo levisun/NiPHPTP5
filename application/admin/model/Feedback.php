@@ -17,22 +17,23 @@ use traits\model\SoftDelete;
 class Feedback extends Model
 {
 	use SoftDelete;
-	protected $deleteTime = 'delete_time';
-
 	protected $name = 'feedback';
 	protected $autoWriteTimestamp = true;
+	protected $updateTime = 'update_time';
+	protected $deleteTime = 'delete_time';
+	protected $pk = 'id';
 	protected $field = [
-		'id'          => 'int',
+		'id',
 		'title',
 		'username',
 		'content',
-		'category_id' => 'int',
-		'type_id'     => 'int',
-		'mebmer_id'   => 'int',
-		'is_pass'     => 'int',
-		'create_time' => 'int',
-		'update_time' => 'int',
-		'delete_time' => 'int',
+		'category_id',
+		'type_id',
+		'mebmer_id',
+		'is_pass',
+		'create_time',
+		'update_time',
+		'delete_time',
 		'lang'
 	];
 }

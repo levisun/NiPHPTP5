@@ -17,9 +17,11 @@ class Tags extends Model
 {
 	protected $name = 'tags';
 	protected $autoWriteTimestamp = false;
+	protected $updateTime = false;
+	protected $pk = 'id';
 	protected $field = [
-		'id'    => 'int',
+		'id',
 		'name',
-		'count' => 'int',
+		'count',
 	];
 }

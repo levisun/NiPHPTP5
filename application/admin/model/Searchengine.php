@@ -17,9 +17,10 @@ class Searchengine extends Model
 {
 	protected $name = 'searchengine';
 	protected $autoWriteTimestamp = false;
+	protected $updateTime = false;
 	protected $field = [
-		'date'  => 'int',
+		'date',
 		'name',
-		'count' => 'int',
+		'count',
 	];
 }

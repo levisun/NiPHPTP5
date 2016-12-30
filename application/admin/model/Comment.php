@@ -18,20 +18,21 @@ class Comment extends Model
 	protected $name = 'comment';
 	protected $autoWriteTimestamp = true;
 	protected $updateTime = false;
+	protected $pk = 'id';
 	protected $field = [
-		'id' => 'int',
-		'category_id' => 'int',
-		'content_id'  => 'int',
-		'user_id'     => 'int',
-		'pid'         => 'int',
+		'id',
+		'category_id',
+		'content_id' ,
+		'user_id',
+		'pid',
 		'content',
-		'is_pass'     => 'int',
-		'is_report'   => 'int',
-		'support'     => 'int',
-		'report_time' => 'int',
+		'is_pass',
+		'is_report',
+		'support',
+		'report_time',
 		'ip',
 		'ip_attr',
-		'create_time' => 'int',
+		'create_time',
 		'lang'
 	];
 }

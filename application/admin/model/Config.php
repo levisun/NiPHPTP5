@@ -16,8 +16,10 @@ use think\Model;
 class Config extends Model
 {
 	protected $name = 'config';
+	protected $updateTime = false;
+	protected $pk = 'id';
 	protected $field = [
-		'id' => 'int',
+		'id',
 		'name',
 		'value',
 		'lang'

@@ -17,8 +17,10 @@ class FieldsType extends Model
 {
 	protected $name = 'fields_type';
 	protected $autoWriteTimestamp = false;
+	protected $updateTime = false;
+	protected $pk = 'id';
 	protected $field = [
-		'id' => 'int',
+		'id',
 		'name',
 		'description',
 		'regex'

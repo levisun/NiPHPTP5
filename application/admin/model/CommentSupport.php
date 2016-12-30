@@ -19,9 +19,9 @@ class CommentReport extends Model
 	protected $autoWriteTimestamp = true;
 	protected $updateTime = false;
 	protected $field = [
-		'create_time' => 'int',
-		'comment_id'  => 'int',
-		'user_id'     => 'int',
+		'create_time',
+		'comment_id',
+		'user_id',
 		'ip',
 		'ip_attr'
 	];

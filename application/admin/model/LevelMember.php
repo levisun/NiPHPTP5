@@ -17,8 +17,9 @@ class LevelMember extends Model
 {
 	protected $name = 'level_member';
 	protected $autoWriteTimestamp = false;
+	protected $updateTime = false;
 	protected $field = [
-		'user_id'  => 'int',
-		'level_id' => 'int',
+		'user_id',
+		'level_id',
 	];
 }

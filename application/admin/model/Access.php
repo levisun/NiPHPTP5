@@ -17,11 +17,12 @@ class Access extends Model
 {
 	protected $name = 'access';
 	protected $autoWriteTimestamp = false;
+	protected $updateTime = false;
 	protected $field = [
-		'role_id' => 'int',
-		'node_id' => 'int',
-		'status'  => 'int',
-		'level'   => 'int',
+		'role_id',
+		'node_id',
+		'status',
+		'level',
 		'module'
 	];
 }

@@ -16,12 +16,15 @@ use think\Model;
 class Models extends Model
 {
 	protected $name = 'model';
+	protected $autoWriteTimestamp = false;
+	protected $updateTime = false;
+	protected $pk = 'id';
 	protected $field = [
-		'id'         => 'int',
+		'id',
 		'name',
 		'tablename',
 		'remark',
-		'status'     => 'int',
-		'sort'       => 'int',
+		'status',
+		'sort',
 	];
 }

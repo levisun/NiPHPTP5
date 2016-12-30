@@ -36,7 +36,7 @@ class ExpandDataback extends Model
 	 */
 	public function getListData()
 	{
-		$list = File::get('./backup/');
+		$list = File::get(ROOT_PATH . 'public' . DS . 'backup' . DS);
 
 		rsort($list);
 
@@ -44,10 +44,10 @@ class ExpandDataback extends Model
 		$days = strtotime('-180 days');
 		foreach ($list as $key => $value) {
 			if (strtotime($value['time']) <= $days) {
-				File::delete('./backup/' . $value['name']);
+				File::delete(ROOT_PATH . 'public' . DS . 'backup' . DS . $value['name']);
 				unset($list[$key]);
 			} else {
-				$list[$key]['id'] = encrypt('./backup/' . $value['name']);
+				$list[$key]['id'] = encrypt($value['name']);
 			}
 		}
 
@@ -62,7 +62,7 @@ class ExpandDataback extends Model
 	 */
 	public function createZipSql($limit_=7000)
 	{
-		$dir = TEMP_PATH . 'BACK' . date('YmdHis') . '/';
+		$dir = TEMP_PATH . 'BACK' . date('YmdHis') . DS;
 		if (!is_dir($dir)) {
 			mkdir($dir, 0777, true);
 		}
@@ -122,7 +122,7 @@ class ExpandDataback extends Model
 
 		// 打包备份
 		$zip = new Pclzip('');
-		$zip->zipname = './backup/back ' . date('YmdHis') . '.zip';
+		$zip->zipname = ROOT_PATH . 'public' . DS . 'backup' . DS . 'back ' . date('YmdHis') . '.zip';
 		$zip->create($dir, PCLZIP_OPT_REMOVE_PATH, $dir);
 
 		// 删除临时文件
@@ -131,6 +131,12 @@ class ExpandDataback extends Model
 		return true;
 	}
 
+	/**
+	 * 优化/修复表
+	 * @access public
+	 * @param
+	 * @return boolean
+	 */
 	public function optimize()
 	{
 		$optimize = TEMP_PATH . 'optimize.php';
@@ -187,17 +193,15 @@ class ExpandDataback extends Model
 	public function reduction()
 	{
 		$file = decrypt($this->request->param('id'));
-		$dir = explode('/', $file);
-		$name = array_pop($dir);
-		$name = explode('.', $name);
+		$name = explode('.', $file);
 
-		$dir = TEMP_PATH . $name[0] . '/';
+		$dir = TEMP_PATH . $name[0] . DS;
 
 		$zip = new Pclzip('');
-		$zip->zipname = $file;
+		$zip->zipname = ROOT_PATH . 'public' . DS . 'backup' . DS . $file;
 		$zip->extract(PCLZIP_OPT_PATH, $dir);
 
-		$list = File::get($dir . '/');
+		$list = File::get($dir . DS);
 		foreach ($list as $key => $value) {
 			if ($value['name'] == 'tables.sql') {
 				$sql = file_get_contents($dir . $value['name']);

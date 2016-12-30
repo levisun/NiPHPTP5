@@ -17,14 +17,16 @@ class Node extends Model
 {
 	protected $name = 'node';
 	protected $autoWriteTimestamp = false;
+	protected $updateTime = false;
+	protected $pk = 'id';
 	protected $field = [
-		'id'      => 'int',
+		'id',
 		'name',
 		'title',
-		'status'  => 'int',
+		'status',
 		'remark',
-		'sort'    => 'int',
-		'pid'     => 'int',
-		'level'   => 'int',
+		'sort',
+		'pid',
+		'level',
 	];
 }

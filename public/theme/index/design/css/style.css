@@ -234,3 +234,6 @@ body {
 	padding: 25px 0;
 	font-size: 12px;
 }
+#footer .footer p {
+	margin-bottom: 0;
+}

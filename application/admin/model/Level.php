@@ -17,11 +17,13 @@ class Level extends Model
 {
 	protected $name = 'level';
 	protected $autoWriteTimestamp = false;
+	protected $updateTime = false;
+	protected $pk = 'id';
 	protected $field = [
-		'id'       => 'int',
+		'id',
 		'name',
-		'integral' => 'int',
-		'status'   => 'int',
+		'integral',
+		'status',
 		'remark'
 	];
 }

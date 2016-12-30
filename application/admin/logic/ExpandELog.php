@@ -35,7 +35,7 @@ class ExpandELog extends Model
 	public function getListData()
 	{
 		$dir = $this->request->param('name');
-		$dir = $dir ? decrypt($dir) . '/' : $dir;
+		$dir = $dir ? decrypt($dir) . DS : $dir;
 
 		$list = File::get(LOG_PATH . $dir);
 
@@ -45,7 +45,7 @@ class ExpandELog extends Model
 		$days = strtotime('-180 days');
 		foreach ($list as $key => $value) {
 			if (strtotime($value['time']) <= $days) {
-				File::delete(LOG_PATH . $value['name'] . '/');
+				File::delete(LOG_PATH . $value['name'] . DS);
 				unset($list[$key]);
 			} else {
 				$list[$key]['id'] = encrypt($value['name']);
@@ -64,7 +64,7 @@ class ExpandELog extends Model
 	public function getOneData()
 	{
 		$dir = $this->request->param('name');
-		$dir = $dir ? decrypt($dir) . '/' : $dir;
+		$dir = $dir ? decrypt($dir) . DS : $dir;
 
 		$name = $this->request->param('id');
 		$name = $name ? decrypt($name) : $name;

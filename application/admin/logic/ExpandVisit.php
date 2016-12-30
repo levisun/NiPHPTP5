@@ -45,6 +45,7 @@ class ExpandVisit extends Model
 
 		$result =
 		$obj->field(true)
+		->order('date DESC')
 		->paginate();
 
 		$list = [];

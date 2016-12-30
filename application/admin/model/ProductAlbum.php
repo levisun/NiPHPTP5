@@ -17,9 +17,11 @@ class ProductAlbum extends Model
 {
 	protected $name = 'product_album';
 	protected $autoWriteTimestamp = false;
+	protected $updateTime = false;
+	protected $pk = 'id';
 	protected $field = [
-		'id'      => 'int',
-		'main_id' => 'int',
+		'id',
+		'main_id',
 		'thumb',
 		'image'
 	];

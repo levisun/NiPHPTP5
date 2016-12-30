@@ -59,7 +59,9 @@ class ContentContent extends Model
 	 */
 	public function getListData()
 	{
-		$map = ['category_id' => $this->request->param('cid/f')];
+		$cid = $this->request->param('pid/f', 0);	// 用于内容管理中栏目显示
+
+		$map = ['category_id' => $this->request->param('cid/f', $cid)];
 		if ($key = $this->request->param('key')) {
 			$map['remark'] = ['LIKE', '%' . $key . '%'];
 		}

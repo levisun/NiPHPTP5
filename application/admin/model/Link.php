@@ -17,25 +17,27 @@ use traits\model\SoftDelete;
 class Link extends Model
 {
 	use SoftDelete;
-	protected $deleteTime = 'delete_time';
 	protected $name = 'link';
 	protected $autoWriteTimestamp = true;
+	protected $updateTime = 'update_time';
+	protected $deleteTime = 'delete_time';
+	protected $pk = 'id';
 	protected $field = [
-		'id'          => 'int',
+		'id',
 		'title',
 		'logo',
 		'description',
-		'category_id' => 'int',
-		'type_id'     => 'int',
-		'mebmer_id'   => 'int',
-		'is_pass'     => 'int',
-		'sort'        => 'int',
-		'hits'        => 'int',
-		'user_id'     => 'int',
+		'category_id',
+		'type_id',
+		'mebmer_id',
+		'is_pass',
+		'sort',
+		'hits',
+		'user_id',
 		'url',
-		'create_time' => 'int',
-		'update_time' => 'int',
-		'delete_time' => 'int',
+		'create_time',
+		'update_time',
+		'delete_time',
 		'lang'
 	];
 }

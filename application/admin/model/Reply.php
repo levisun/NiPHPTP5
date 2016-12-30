@@ -17,15 +17,17 @@ class Reply extends Model
 {
 	protected $name = 'reply';
 	protected $autoWriteTimestamp = false;
+	protected $updateTime = false;
+	protected $pk = 'id';
 	protected $field = [
-		'id'     => 'int',
+		'id',
 		'keyword',
 		'title',
 		'content',
-		'type'   => 'int',
+		'type',
 		'image',
 		'url',
-		'status' => 'int',
+		'status',
 		'lang'
 	];
 }

@@ -65,7 +65,14 @@ class Base extends Controller
 			if (true === $result) {
 				Cache::clear();
 				$this->actionLog($log_name);
-				$url = Url::build($this->request->action());
+
+				// $url = Url::build($this->request->action());
+				$url_param = [];
+				if ($this->request->has('cid')) {
+					$url_param = ['method' => 'manage', 'cid' => $this->request->param('cid')];
+				}
+				$url = Url::build($this->request->action(), $url_param);
+
 				$this->success(Lang::get('success added'), $url);
 			} else {
 				$this->error(Lang::get('error added'));
@@ -91,7 +98,13 @@ class Base extends Controller
 			Cache::clear();
 			// 获得操作数据ID,后期再做
 			$this->actionLog($log_name);
-			$url = Url::build($this->request->action());
+
+			$url_param = [];
+			if ($this->request->has('cid')) {
+				$url_param = ['method' => 'manage', 'cid' => $this->request->param('cid')];
+			}
+			$url = Url::build($this->request->action(), $url_param);
+
 			$this->success(Lang::get('success remove'), $url);
 		} else {
 			if (false === $result) {
@@ -121,7 +134,7 @@ class Base extends Controller
 			if (true === $result) {
 				Cache::clear();
 				$this->actionLog($log_name);
-				$url = Url::build($this->request->action());
+
 				$this->success(Lang::get('success editor'));
 			} else {
 				$this->error(Lang::get('error editor'));

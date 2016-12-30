@@ -45,7 +45,7 @@ class CategoryCategory extends Model
 			$map['c.name'] = ['LIKE', '%' . $key . '%'];
 		}
 
-		$cid = $this->request->param('cid/f', 0);	// 用于内容管理中栏目显示
+		$cid = $this->request->param('pid/f', 0);	// 用于内容管理中栏目显示
 
 		if ($pid = $this->request->param('id/f', $cid)) {
 			$map['c.pid'] = $pid;

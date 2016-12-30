@@ -39,7 +39,7 @@ class ThemeTemplate extends Model
 		$config_type = $this->config();
 
 		$type = $this->type();
-		$list = File::get('./theme/' . $type . '/');
+		$list = File::get(ROOT_PATH . 'public' . DS . 'theme' . DS . $type . DS);
 
 		return ['config' => $config_type, 'list' => $list, 'type' => $type];
 	}

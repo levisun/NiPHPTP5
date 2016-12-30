@@ -17,10 +17,12 @@ class PageData extends Model
 {
 	protected $name = 'page_data';
 	protected $autoWriteTimestamp = false;
+	protected $updateTime = false;
+	protected $pk = 'id';
 	protected $field = [
-		'id'        => 'int',
-		'main_id'   => 'int',
-		'fields_id' => 'int',
+		'id',
+		'main_id',
+		'fields_id',
 		'data'
 	];
 }

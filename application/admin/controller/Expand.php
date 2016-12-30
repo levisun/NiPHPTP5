@@ -74,14 +74,14 @@ class Expand extends Base
 		if ($this->method == 'down') {
 			$this->actionLog('databack_down');
 
-			define('UPLOAD_PATH', './pulbic/upload/');
-			$file = decrypt($this->request->param('id'));
+			// define('UPLOAD_PATH', './pulbic/upload/');
+			$file = ROOT_PATH . 'public' . DS . 'backup' . DS . decrypt($this->request->param('id'));
 			Http::download($file, 'databack ' . date('Ymd') . '.zip');
 		}
 
 		// 删除
 		if ($this->method == 'remove') {
-			$file = decrypt($this->request->param('id'));
+			$file = ROOT_PATH . 'public' . DS . 'backup' . DS .  decrypt($this->request->param('id'));
 			File::delete($file);
 			$this->actionLog('databack_remove');
 

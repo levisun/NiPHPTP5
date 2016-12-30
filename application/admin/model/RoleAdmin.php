@@ -17,8 +17,9 @@ class RoleAdmin extends Model
 {
 	protected $name = 'role_admin';
 	protected $autoWriteTimestamp = false;
+	protected $updateTime = false;
 	protected $field = [
-		'user_id' => 'int',
-		'role_id' => 'int',
+		'user_id',
+		'role_id',
 	];
 }

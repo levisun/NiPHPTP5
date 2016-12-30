@@ -17,8 +17,10 @@ class Action extends Model
 {
 	protected $name = 'action';
 	protected $autoWriteTimestamp = false;
+	protected $updateTime = false;
+	protected $pk = 'id';
 	protected $field = [
-		'id' => 'int',
+		'id',
 		'name',
 		'title',
 		'remark'

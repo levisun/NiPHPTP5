@@ -17,36 +17,37 @@ use traits\model\SoftDelete;
 class Product extends Model
 {
 	use SoftDelete;
-	protected $deleteTime = 'delete_time';
-
 	protected $name = 'product';
 	protected $autoWriteTimestamp = true;
+	protected $updateTime = 'update_time';
+	protected $deleteTime = 'delete_time';
+	protected $pk = 'id';
 	protected $field = [
-		'id'            => 'int',
+		'id',
 		'title',
 		'keywords',
 		'description',
 		'content',
 		'thumb',
-		'category_id'   => 'int',
-		'type_id'       => 'int',
-		'is_pass'       => 'int',
-		'is_com'        => 'int',
-		'is_top'        => 'int',
-		'is_hot'        => 'int',
-		'sort'          => 'int',
-		'hits'          => 'int',
-		'comment_count' => 'int',
+		'category_id',
+		'type_id',
+		'is_pass',
+		'is_com',
+		'is_top',
+		'is_hot',
+		'sort',
+		'hits',
+		'comment_count',
 		'username',
 		'origin',
-		'user_id'       => 'int',
+		'user_id',
 		'url',
-		'is_link'       => 'int',
-		'show_time'     => 'int',
-		'create_time'   => 'int',
-		'update_time'   => 'int',
-		'delete_time'   => 'int',
-		'access_id'     => 'int',
+		'is_link',
+		'show_time',
+		'create_time',
+		'update_time',
+		'delete_time',
+		'access_id',
 		'lang'
 	];
 }

@@ -17,9 +17,11 @@ class Type extends Model
 {
 	protected $name = 'type';
 	protected $autoWriteTimestamp = false;
+	protected $updateTime = false;
+	protected $pk = 'id';
 	protected $field = [
-		'id'          => 'int',
-		'category_id' => 'int',
+		'id',
+		'category_id',
 		'name',
 		'description'
 	];

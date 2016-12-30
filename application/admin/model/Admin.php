@@ -18,16 +18,17 @@ class Admin extends Model
 	protected $name = 'admin';
 	protected $autoWriteTimestamp = true;
 	protected $updateTime = 'last_login_time';
+	protected $pk = 'id';
 	protected $field = [
-		'id'              => 'int',
+		'id',
 		'username',
 		'password',
 		'email',
 		'salt',
 		'last_login_ip',
 		'last_login_ip_attr',
-		'last_login_time' => 'int',
-		'create_time'     => 'int',
-		'update_time'     => 'int',
+		'last_login_time',
+		'create_time',
+		'update_time'
 	];
 }

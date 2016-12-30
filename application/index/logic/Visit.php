@@ -14,6 +14,7 @@
 namespace app\index\logic;
 use think\Model;
 use think\Request;
+use net\IpLocation;
 use app\admin\model\Searchengine as IndexSearchengine;
 use app\admin\model\Visit as IndexVisit;
 class Visit extends Model
@@ -40,8 +41,8 @@ class Visit extends Model
 			return false;
 		}
 
-		$ip = new \net\IpLocation();
-		$area = $ip->getlocation($this->request->ip());
+		$ip = new IpLocation();
+		$area = $ip->getlocation($this->request->ip(0, true));
 		if ($area['ip'] == '0.0.0.0' || $area['ip'] == '127.0.0.1') {
 			return false;
 		}

@@ -17,12 +17,14 @@ class Fields extends Model
 {
 	protected $name = 'fields';
 	protected $autoWriteTimestamp = false;
+	protected $updateTime = false;
+	protected $pk = 'id';
 	protected $field = [
-		'id'          => 'int',
-		'category_id' => 'int',
-		'type_id'     => 'int',
+		'id',
+		'category_id',
+		'type_id',
 		'name',
 		'description',
-		'is_require'  => 'int',
+		'is_require',
 	];
 }
