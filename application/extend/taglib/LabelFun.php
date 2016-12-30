@@ -413,13 +413,15 @@ class LabelFun
 
 		$data = $result ? $result->toArray() : [];
 
-		$data['content'] = htmlspecialchars_decode($data['content']);
-		if ($data['is_link']) {
-			$data['url'] = Url::build('/jump/' . $data['category_id'] . '/' . $data['id']);
-		} else {
-			$data['url'] = Url::build('/article/' . $data['category_id'] . '/' . $data['id']);
+		if (!empty($data)) {
+			$data['content'] = htmlspecialchars_decode($data['content']);
+			if ($data['is_link']) {
+				$data['url'] = Url::build('/jump/' . $data['category_id'] . '/' . $data['id']);
+			} else {
+				$data['url'] = Url::build('/article/' . $data['category_id'] . '/' . $data['id']);
+			}
+			$data['cat_url'] = Url::build('/entry/' . $data['category_id']);
 		}
-		$data['cat_url'] = Url::build('/entry/' . $data['category_id']);
 
 		/*
 		TODO

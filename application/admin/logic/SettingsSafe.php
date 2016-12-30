@@ -83,8 +83,8 @@ class SettingsSafe extends Model
 			->value('value');
 
 			if ($post_data['system_portal'] != $config_system_portal) {
-				$old_name = ROOT_PATH . 'public/' . $config_system_portal . '.php';
-				$new_name = ROOT_PATH . 'public/' . $post_data['system_portal'] . '.php';
+				$old_name = ROOT_PATH . $config_system_portal . '.php';
+				$new_name = ROOT_PATH . $post_data['system_portal'] . '.php';
 				rename($old_name, $new_name);
 			}
 		}

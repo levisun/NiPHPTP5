@@ -224,7 +224,7 @@ class Base extends Controller
 	{
 		// 加载语言
 		$lang_path = APP_PATH . $this->request->module();
-		$lang_path .= '\lang\\' . Lang::detect() . '\\';
+		$lang_path .= DS . 'lang' . DS . Lang::detect() . DS;
 		Lang::load($lang_path . Lang::detect() . '.php');
 		Lang::load($lang_path . strtolower($this->request->controller()) . '.php');
 
@@ -265,8 +265,8 @@ class Base extends Controller
 	protected function themeConfig()
 	{
 		$template = Config::get('template');
-		$template['view_path'] = '../application/' . $this->request->module() . '/view/';
-		$template['view_path'] .= Config::get('default_theme') . '/';
+		$template['view_path'] = APP_PATH . $this->request->module() . DS . 'view' . DS;
+		$template['view_path'] .= Config::get('default_theme') . DS;
 		$this->view->engine($template);
 
 		// 获得域名地址
@@ -275,13 +275,13 @@ class Base extends Controller
 		array_pop($domain_arr);
 		$domain = implode('/', $domain_arr);
 
-		$default_theme = $domain . '/static/' . $this->request->module() . '/';
+		$default_theme = $domain . '/public/static/' . $this->request->module() . '/';
 		$default_theme .= Config::get('default_theme') . '/';
 
 		$replace = [
 			'__DOMAIN__'  => $domain,
-			'__STATIC__'  => $domain . '/static/',
-			'__LIBRARY__' => $domain . '/static/library/',
+			'__STATIC__'  => $domain . '/public/static/',
+			'__LIBRARY__' => $domain . '/public/static/library/',
 			'__THEME__'   => Config::get('default_theme'),
 			'__CSS__'     => $default_theme . 'css/',
 			'__JS__'      => $default_theme . 'js/',

@@ -3,6 +3,7 @@
 	<thead>
 		<tr>
 			<th>{:lang('sort')}</th>
+			<th>{:lang('id')}</th>
 			<th>{:lang('name')}</th>
 			<th>{:lang('type')}</th>
 			<th>{:lang('model')}</th>
@@ -17,6 +18,7 @@
 			<td>
 				<input type="text" name="sort[{$vo.id}]" class="form-control mini" value="{$vo.sort}">
 			</td>
+			<td>{$vo.id}</td>
 			<td>{$vo.name}</td>
 			<td>
 				{eq name="vo.type_id" value="1"}

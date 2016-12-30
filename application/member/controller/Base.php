@@ -71,8 +71,8 @@ class Base extends Controller
 		}
 
 		// 模板路径
-		$template['view_path'] = './theme/' . $module . '/';
-		$template['view_path'] .= $this->website_data[$module . '_theme'] . '/' . $mobile;
+		$template['view_path'] = ROOT_PATH . 'public' . DS . 'theme' . DS . $module . DS;
+		$template['view_path'] .= $this->website_data[$module . '_theme'] . DS . $mobile;
 
 		$this->view->engine($template);
 
@@ -80,13 +80,13 @@ class Base extends Controller
 		$domain = $this->request->root(true);
 		$domain = strtr($domain, ['/index.php' => '']);
 
-		$default_theme = $domain . '/theme/' . $module . '/';
+		$default_theme = $domain . '/public/theme/' . $module . '/';
 		$default_theme .= $this->website_data[$module . '_theme'] . '/' . $mobile;
 
 		$replace = [
 			'__DOMAIN__'      => $domain,
-			'__STATIC__'      => $domain . '/static/',
-			'__LIBRARY__'     => $domain . '/static/library/',
+			'__STATIC__'      => $domain . '/public/static/',
+			'__LIBRARY__'     => $domain . '/public/static/library/',
 			'__THEME__'       => $this->website_data[$module . '_theme'],
 			'__CSS__'         => $default_theme . 'css/',
 			'__JS__'          => $default_theme . 'js/',

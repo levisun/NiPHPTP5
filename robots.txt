@@ -1,0 +1,10 @@
+#
+# robots.txt for NiPHPCMS
+#
+User-agent: *
+Disallow: /application/
+Disallow: /public/
+Disallow: /runtime/
+Disallow: /thinkphp/
+Disallow: /vendor/
+Disallow: /admin.php
