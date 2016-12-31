@@ -348,6 +348,8 @@ class ContentContent extends Model
 		$id = $master_id ? $master_id : $this->request->post('id/f');
 
 		$tags = $this->request->post('tags');
+
+		// 标签为空删除关联关系
 		if (empty($tags)) {
 			$map = ['article_id' => $id];
 
@@ -393,12 +395,13 @@ class ContentContent extends Model
 			$tags_model->saveAll($added_data);
 		}
 
+		// 删除原有关联
 		$map = ['article_id' => $id];
-
 		$tags_art_model = new AdminTagsArticle;
 		$tags_art_model->where($map)
 		->delete();
 
+		// 插入新关联
 		foreach ($tags_id as $key => $value) {
 			$added_data[] = [
 				'tags_id' => $value,

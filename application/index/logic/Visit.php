@@ -49,7 +49,6 @@ class Visit extends Model
 
 		$map = [
 			'ip'      => $area['ip'],
-			'ip_attr' => $area['country'] . $area['area'],
 			'date'    => strtotime(date('Y-m-d'))
 		];
 
@@ -64,6 +63,7 @@ class Visit extends Model
 			$model->where($map)
 			->setInc('count');
 		} else {
+			$map['ip_attr'] = $area['country'] . $area['area'];
 			$model->allowField(true)
 			->isUpdate(false)
 			->data($map)

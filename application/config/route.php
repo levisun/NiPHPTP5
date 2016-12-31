@@ -12,14 +12,30 @@
  * @since     2016/10/22
  */
 return [
-	'/'                => 'index',
+	'/' => 'index',
 
 	// website
-	'entry/:cid'       => 'index/entry/index',
-	'article/:cid/:id' => 'index/article/index',
-	'tags/:id'         => 'index/tags/index',
-	'jump/:cid/:id'    => 'index/jump/index',
-	'wechat'           => 'wechat/index/index',
+	'entry/:cid' => [
+		'index/entry/index',
+		['method' => 'get', 'cache' => 1800],
+		['cid' => '\d+']
+	],
+	'article/:cid/:id' => [
+		'index/article/index',
+		['method' => 'get', 'cache' => 1800],
+		['cid' => '\d+', 'id' => '\d+']
+	],
+	'tags/:id' => [
+		'index/tags/index',
+		['method' => 'get'],
+		['id' => '\d+']
+	],
+	'jump/:cid/:id' => [
+		'index/jump/index',
+		['method' => 'get'],
+		['cid' => '\d+', 'id' => '\d+']
+	],
+	'wechat' => 'wechat/index/index',
 
 	// comment
 	'comment/:cid'     => 'index/comment/index',

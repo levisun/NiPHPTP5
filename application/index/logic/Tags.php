@@ -99,32 +99,22 @@ class Tags extends Model
 		$product = new IndexProduct;
 		$union[] = $product->name('product')->field($field)->where($map)->fetchSql()->select();
 
-		$download = new IndexDownload;
-		$count[] = $download->name('download')->field($field)->where($map)->fetchSql()->count();
-		$picture = new IndexPicture;
-		$count[] = $picture->name('picture')->field($field)->where($map)->fetchSql()->count();
-		$product = new IndexProduct;
-		$count[] = $product->name('product')->field($field)->where($map)->fetchSql()->count();
+		// $download = new IndexDownload;
+		// $count[] = $download->name('download')->field($field)->where($map)->fetchSql()->count();
+		// $picture = new IndexPicture;
+		// $count[] = $picture->name('picture')->field($field)->where($map)->fetchSql()->count();
+		// $product = new IndexProduct;
+		// $count[] = $product->name('product')->field($field)->where($map)->fetchSql()->count();
 
 
-		trace($count);
+		trace($union);
 
 		$article = new IndexArticle;
 		$result =
 		$article->field($field)
 		->where($map)
 		->union($union)
-		->select();
-
-
-		$map = 'is_pass=1 and lang=' . Lang::detect() . ' and show_time <=' . time();
-		$map .= ' and id in (' . implode(',', $article_id) . ') and category_id in (' . implode(',', $category_id) . ')';
-		$article = new IndexArticle;
-		$result =
-		$article->view('article', $field)
-		->view('download', $field, $map)
-		->where($map)
-		->select();
+		->paginate();halt(1);
 
 		/*$list = [];
 		foreach ($result as $value) {

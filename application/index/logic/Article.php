@@ -88,7 +88,7 @@ class Article extends Model
 			$list[] = $value;
 		}
 
-		$page = $result->render();
+		$page = !empty($result) ? $result->render() : '';
 
 		return ['list' => $list, 'page' => $page];
 	}
@@ -168,16 +168,18 @@ class Article extends Model
 
 		$data = $result ? $result->toArray() : [];
 
-		$data['content'] = htmlspecialchars_decode($data['content']);
+		if (!empty($data)) {
+			$data['content'] = htmlspecialchars_decode($data['content']);
 
-		$data['field'] = $this->getFieldsData();
-		$data['tags'] = $this->getTagsData();
+			$data['field'] = $this->getFieldsData();
+			$data['tags'] = $this->getTagsData();
 
-		if (in_array($this->model_name, ['picture', 'product'])) {
-			$data['album'] = $this->getAlbumData();
+			if (in_array($this->model_name, ['picture', 'product'])) {
+				$data['album'] = $this->getAlbumData();
+			}
+
+			$this->hits();
 		}
-
-		$this->hits();
 		return $data;
 	}
 

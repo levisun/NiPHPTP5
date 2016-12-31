@@ -62,7 +62,7 @@ class CommonAccount extends Model
 		}
 
 		$ip = new IpLocation();
-		$area = $ip->getlocation($this->request->ip());
+		$area = $ip->getlocation($this->request->ip(0, true));
 
 		$data = [
 			'action_id' => $id,

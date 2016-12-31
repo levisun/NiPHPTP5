@@ -77,9 +77,9 @@ return [
 		'prefix'         => 'niphp',
 		'type'           => '',
 		'auto_start'     => true,
-    ],
-    // cookie设置
-    'cookie' => [
+	],
+	// cookie设置
+	'cookie' => [
 		'prefix'    => 'niphp',
 		'expire'    => 0,
 		'path'      => '/',
@@ -87,13 +87,16 @@ return [
 		'secure'    => false,
 		'httponly'  => '',
 		'setcookie' => true,
-    ],
+	],
 	// 缓存设置
 	'cache' => [
 		'type'   => 'File',
 		'prefix' => '',
 		'expire' => 1800,
-    ],
+	],
+	'http_exception_template' => [
+		404 => ROOT_PATH . '404.html',
+	],
 	// 验证码设置
 	'captcha' => [
 		'length'   => 4,
