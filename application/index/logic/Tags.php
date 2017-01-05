@@ -93,28 +93,19 @@ class Tags extends Model
 		];
 
 		$download = new IndexDownload;
-		$union[] = $download->name('download')->field($field)->where($map)->fetchSql()->select();
+		$union[] = '(' . $download->field($field)->where($map)->limit(0, 10)->fetchSql()->select() . ')';
 		$picture = new IndexPicture;
-		$union[] = $picture->name('picture')->field($field)->where($map)->fetchSql()->select();
+		$union[] = '(' . $picture->field($field)->where($map)->limit(0, 10)->fetchSql()->select() . ')';
 		$product = new IndexProduct;
-		$union[] = $product->name('product')->field($field)->where($map)->fetchSql()->select();
-
-		// $download = new IndexDownload;
-		// $count[] = $download->name('download')->field($field)->where($map)->fetchSql()->count();
-		// $picture = new IndexPicture;
-		// $count[] = $picture->name('picture')->field($field)->where($map)->fetchSql()->count();
-		// $product = new IndexProduct;
-		// $count[] = $product->name('product')->field($field)->where($map)->fetchSql()->count();
-
-
-		trace($union);
+		$union[] = '(' . $product->field($field)->where($map)->limit(0, 10)->fetchSql()->select() . ')';
 
 		$article = new IndexArticle;
+		$union[] = '(' . $article->field($field)->where($map)->limit(0, 10)->fetchSql()->select() . ')';
+
 		$result =
-		$article->field($field)
-		->where($map)
+		$this
 		->union($union)
-		->paginate();halt(1);
+		->query();halt(1);
 
 		/*$list = [];
 		foreach ($result as $value) {

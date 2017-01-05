@@ -133,7 +133,7 @@ return [
 		'mall_brand'        => '管理商品品牌',
 		'mall_brand'        => '管理商品品牌',
 		'mall_comment'      => '管理商品评论',
-		'mall_accountwater' => '账户流水',
+		'mall_accountflow'  => '账户流水',
 		'mall_settings'     => '商城设置',
 
 		'expand_app'        => '应用中心',

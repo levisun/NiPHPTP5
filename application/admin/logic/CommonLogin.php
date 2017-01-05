@@ -54,10 +54,10 @@ class CommonLogin extends Model
 		}
 		unset($user_data['password']);
 
-		$user_data['last_login_ip'] = $this->request->ip();
+		$user_data['last_login_ip'] = $this->request->ip(0, true);
 
 		$ip = new IpLocation();
-		$area = $ip->getlocation($this->request->ip());
+		$area = $ip->getlocation($this->request->ip(0, true));
 		$user_data['last_login_ip_attr'] = $area['country'] . $area['area'];
 
 		$map = ['id' => $user_data['id']];

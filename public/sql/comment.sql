@@ -27,11 +27,13 @@ CREATE TABLE IF NOT EXISTS `np_comment` (
 
 DROP TABLE IF EXISTS `np_comment_support`;
 CREATE TABLE IF NOT EXISTS `np_comment_support` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `addtime` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '添加时间',
   `comment_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '评论ID',
   `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
   `ip` varchar(15) NOT NULL DEFAULT '' COMMENT 'IP',
   `ipattr` varchar(255) NOT NULL DEFAULT '' COMMENT 'IP地区',
+  PRIMARY KEY (`id`),
   KEY `comment_id` (`comment_id`),
   KEY `user_id` (`user_id`),
   KEY `ip` (`ip`)
@@ -39,11 +41,13 @@ CREATE TABLE IF NOT EXISTS `np_comment_support` (
 
 DROP TABLE IF EXISTS `np_comment_report`;
 CREATE TABLE IF NOT EXISTS `np_comment_report` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `comment_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '评论ID',
   `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '用户ID',
   `ip` varchar(15) NOT NULL DEFAULT '' COMMENT 'IP',
   `ip_attr` varchar(255) NOT NULL DEFAULT '' COMMENT 'IP地区',
+  PRIMARY KEY (`id`),
   KEY `comment_id` (`comment_id`),
   KEY `user_id` (`user_id`),
   KEY `ip` (`ip`)

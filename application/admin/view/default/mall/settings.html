@@ -1,0 +1,135 @@
+<form action="" method="post" class="form-horizontal">
+	<ul class="nav nav-tabs nav-justified" role="tablist">
+		<li role="presentation" class="active">
+			<a href="#CT-basic" id="tab-CT-basic" aria-controls="CT-basic" role="tab" data-toggle="tab">{:lang('basic')}</a>
+		</li>
+		<li role="presentation">
+			<a href="#CT-postage" id="tab-CT-postage" aria-controls="CT-postage" role="tab" data-toggle="tab">{:lang('postage')}</a>
+		</li>
+		<li role="presentation">
+			<a href="#CT-red" id="tab-CT-red" aria-controls="CT-red" role="tab" data-toggle="tab">{:lang('red')}</a>
+		</li>
+		<li role="presentation">
+			<a href="#CT-pay" id="tab-CT-pay" aria-controls="CT-pay" role="tab" data-toggle="tab">{:lang('pay')}</a>
+		</li>
+		<li role="presentation">
+			<a href="#CT-sms" id="tab-CT-sms" aria-controls="CT-sms" role="tab" data-toggle="tab">{:lang('sms')}</a>
+		</li>
+	</ul>
+	<div class="tab-content">
+		<div role="tabpanel" class="tab-pane active" id="CT-basic">
+			<ul>
+				<li class="form-group">
+					<label for="mall_name" class="col-md-2 control-label">{:lang('mall name')}</label>
+					<div class="col-md-6">
+						<input type="text" name="mall_name" id="mall_name" class="form-control" value="{$data.mall_name}">
+					</div>
+				</li>
+				<li class="form-group">
+					<label for="mall_keywords" class="col-md-2 control-label">{:lang('mall keywords')}</label>
+					<div class="col-md-6">
+						<input type="text" name="mall_keywords" id="mall_keywords" class="form-control" value="{$data.mall_keywords}">
+					</div>
+				</li>
+				<li class="form-group">
+					<label for="mall_description" class="col-md-2 control-label">{:lang('mall description')}</label>
+					<div class="col-md-6">
+						<textarea name="mall_description" id="mall_description" class="form-control">{$data.mall_description}</textarea>
+					</div>
+				</li>
+				<li class="form-group">
+					<label for="mall_bottom_message" class="col-md-2 control-label">{:lang('mall bottom message')}</label>
+					<div class="col-md-6">
+						<textarea name="mall_bottom_message" id="mall_bottom_message" class="form-control">{$data.mall_bottom_message}</textarea>
+					</div>
+					<div class="col-md-4">
+						<font class="grey align-t">{:lang('mall support html')}</font>
+					</div>
+				</li>
+				<li class="form-group">
+					<label for="mall_copyright" class="col-md-2 control-label">{:lang('mall copyright')}</label>
+					<div class="col-md-6">
+						<textarea name="mall_copyright" id="mall_copyright" class="form-control">{$data.mall_copyright}</textarea>
+					</div>
+					<div class="col-md-4">
+						<font class="grey align-t">{:lang('mall support html')}</font>
+					</div>
+				</li>
+				<li class="form-group">
+					<label for="mall_script" class="col-md-2 control-label">{:lang('mall script')}</label>
+					<div class="col-md-6">
+						<textarea name="mall_script" id="mall_script" class="form-control">{$data.mall_script}</textarea>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="CT-postage">
+			<ul>
+				<li class="form-group">
+					<label for="mall_postage" class="col-md-2 control-label">{:lang('mall postage')}</label>
+					<div class="col-md-6 input-group">
+						<input type="text" name="mall_postage" id="mall_postage" class="form-control" value="{$data.mall_postage}">
+						<span class="input-group-addon">.00{:lang('mall yuan')}</span>
+					</div>
+				</li>
+				<li class="form-group">
+					<label for="mall_free_postage" class="col-md-2 control-label">{:lang('mall free postage')}</label>
+					<div class="col-md-6 input-group">
+						<input type="text" name="mall_free_postage" id="mall_free_postage" class="form-control" value="{$data.mall_free_postage}">
+						<span class="input-group-addon">.00{:lang('mall yuan')}</span>
+					</div>
+				</li>
+				<li class="form-group">
+					<label for="mall_fast_mail" class="col-md-2 control-label">{:lang('mall fast mail')}</label>
+					<div class="col-md-6 input-group">
+						<textarea name="mall_fast_mail" id="mall_fast_mail" class="form-control">{$data.mall_fast_mail}</textarea>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="CT-red">
+			<ul>
+				<li class="form-group">
+					<label for="mall_integral" class="col-md-2 control-label">{:lang('mall integral')}</label>
+					<div class="col-md-6">
+						<label class="radio-inline"><input type="radio" name="mall_integral" {eq name="data.mall_integral" value="1"}checked{/eq} value="1">{:lang('button open')}</label>
+						<label class="radio-inline"><input type="radio" name="mall_integral" {eq name="data.mall_integral" value="0"}checked{/eq}value="0">{:lang('button close')}</label>
+					</div>
+				</li>
+				<li class="form-group">
+					<label for="mall_integral_ratio" class="col-md-2 control-label">{:lang('mall integral ratio')}</label>
+					<div class="col-md-6 input-group">
+						<input type="text" name="mall_integral_ratio" class="form-control" value="{$data.mall_integral_ratio}">
+						<span class="input-group-addon">1.00{:lang('mall yuan')}</span>
+					</div>
+				</li>
+				<li class="form-group">
+					<label for="mall_red" class="col-md-2 control-label">{:lang('mall red')}</label>
+					<div class="col-md-6">
+						<label class="radio-inline"><input type="radio" name="mall_red" {eq name="data.mall_red" value="1"}checked{/eq} value="1">{:lang('button open')}</label>
+						<label class="radio-inline"><input type="radio" name="mall_red" {eq name="data.mall_red" value="0"}checked{/eq}value="0">{:lang('button close')}</label>
+					</div>
+				</li>
+			</ul>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="CT-pay">
+			<table class="table">
+				<tr>
+					<td>微信支付</td>
+					<td class="align-r"><a href="">设置</a></td>
+				</tr>
+				<tr>
+					<td>支付宝支付</td>
+					<td class="align-r"><a href="">设置</a></td>
+				</tr>
+			</table>
+		</div>
+		<div role="tabpanel" class="tab-pane" id="CT-sms">
+			<ul>sms
+			</ul>
+		</div>
+	</div>
+	<div class="form-button col-md-10 col-md-offset-2">
+	<input type="submit" value="{:lang('button save')}" class="btn btn-danger btn-block">
+	</div>
+</form>

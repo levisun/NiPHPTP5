@@ -40,7 +40,16 @@ INSERT INTO `np_config` (`name`, `value`, `lang`) VALUES
 ('website_description', '腐朽的木屋是一个提供最新的php资讯、php技术、php编程技巧、前端开发、设计素材、psd模板的网站。', 'zh-cn'),
 ('bottom_message', '&lt;a href=&quot;http://www.miitbeian.gov.cn&quot; target=&quot;_blank&quot;&gt;陕icp备15001502号-1&lt;/a&gt;', 'zh-cn'),
 ('copyright', 'copyright &amp;copy; 2014-2015 &lt;a href=&quot;http://www.niphp.com&quot; target=&quot;_blank&quot;&gt;niphp.com&lt;/a&gt;版权所有', 'zh-cn'),
-('script', '', 'zh-cn'),
+('script', '&lt;script src=&quot;https://s4.cnzz.com/z_stat.php?id=1255299626&amp;web_id=1255299626&quot; language=&quot;JavaScript&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement(&quot;script&quot;);
+  hm.src = &quot;//hm.baidu.com/hm.js?10513d684eab5a784b249cd5f32f9c03&quot;;
+  var s = document.getElementsByTagName(&quot;script&quot;)[0];
+  s.parentNode.insertBefore(hm, s);
+})();
+&lt;/script&gt;', 'zh-cn'),
 
 -- 图片
 ('auto_image', '1', 'zh-cn'),
@@ -48,7 +57,7 @@ INSERT INTO `np_config` (`name`, `value`, `lang`) VALUES
 ('water_type', '1', 'zh-cn'),
 ('water_location', '1', 'zh-cn'),
 ('water_text', 'niphp', 'zh-cn'),
-('water_image', 'data/upload/20150209/54d8743270fbf.png', 'zh-cn'),
+('water_image', './upload/water/lots.png', 'zh-cn'),
 ('article_module_width', '200', 'zh-cn'),
 ('article_module_height', '150', 'zh-cn'),
 ('ask_module_width', '50', 'zh-cn'),
@@ -67,6 +76,20 @@ INSERT INTO `np_config` (`name`, `value`, `lang`) VALUES
 ('product_module_height', '150', 'zh-cn'),
 
 -- 模板设置
-('index_theme', 'default', 'zh-cn'),
+('index_theme', 'design', 'zh-cn'),
 ('member_theme', 'default', 'zh-cn'),
-('mall_theme', 'default', 'zh-cn');
+('mall_theme', 'default', 'zh-cn'),
+
+-- 商城设置
+('mall_name', '商城名称', 'zh-cn'),
+('mall_keywords', '商城关键词', 'zh-cn'),
+('mall_description', '商城描述', 'zh-cn'),
+('mall_bottom_message', '商城底部信息', 'zh-cn'),
+('mall_copyright', '商城版权', 'zh-cn'),
+('mall_script', '商城JS', 'zh-cn'),
+('mall_postage', '1500', 'zh-cn'),
+('mall_free_postage', '18000', 'zh-cn'),
+('mall_fast_mail', '商城快递名称', 'zh-cn'),
+('mall_integral', '1', 'zh-cn'),
+('mall_integral_ratio', '100', 'zh-cn'),
+('mall_red', '1', 'zh-cn');

@@ -12,9 +12,8 @@
  * @since     2016/10/22
  */
 namespace app\admin\controller;
-use think\Controller;
-use think\Url;
-class Mall extends Controller
+use app\admin\controller\Base;
+class Mall extends Base
 {
 
 	/**
@@ -25,6 +24,24 @@ class Mall extends Controller
 	 */
 	public function goods()
 	{
+		return $this->fetch();
+	}
+
+	public function accountflow()
+	{
+		return $this->fetch();
+	}
+
+	/**
+	 * 商城设置
+	 * @access public
+	 * @param
+	 * @return string
+	 */
+	public function settings()
+	{
+		$data = parent::editor('MallSettings', 'Config.mall', 'config_editor', false);
+		$this->assign('data', $data);
 		return $this->fetch();
 	}
 }

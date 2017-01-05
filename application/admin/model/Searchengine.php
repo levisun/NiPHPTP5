@@ -18,7 +18,9 @@ class Searchengine extends Model
 	protected $name = 'searchengine';
 	protected $autoWriteTimestamp = false;
 	protected $updateTime = false;
+	protected $pk = 'id';
 	protected $field = [
+		'id',
 		'date',
 		'name',
 		'count',

@@ -18,7 +18,9 @@ class ActionLog extends Model
 	protected $name = 'action_log';
 	protected $autoWriteTimestamp = true;
 	protected $updateTime = false;
+	protected $pk = 'id';
 	protected $field = [
+		'id',
 		'action_id',
 		'user_id',
 		'action_ip',

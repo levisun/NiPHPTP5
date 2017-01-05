@@ -379,20 +379,32 @@ class ContentContent extends Model
 		$data = $tags_id = $tags_name = [];
 		foreach ($result as $value) {
 			$data[] = $value = $value->toArray();
+			$tags_name[] = $value['name'];
 			if (in_array($value['name'], $tags)) {
-				$tags_id[] = $value['id'];
-				$tags_name[] = $value['name'];
+				// $tags_id[] = $value['id'];
+				// $tags_name[] = $value['name'];
 			}
 		}
 
 		// 关联标签数小于标签数，说明有新的标签，插入新标签
 		if (count($data) < count($tags)) {
-			foreach ($tags as $key => $value) {
+			$added_data = [];
+			foreach ($tags as $value) {
 				if (!in_array($value, $tags_name)) {
 					$added_data[] = ['name' => $value];
 				}
 			}
 			$tags_model->saveAll($added_data);
+		}
+
+		$result =
+		$tags_model->field(true)
+		->where($map)
+		->select();
+		$tags_id = [];
+		foreach ($result as $value) {
+			$value = $value->toArray();
+			$tags_id[] = $value['id'];
 		}
 
 		// 删除原有关联
@@ -402,10 +414,12 @@ class ContentContent extends Model
 		->delete();
 
 		// 插入新关联
+		$cid = $this->request->post('category_id/f');
+		$added_data = [];
 		foreach ($tags_id as $key => $value) {
 			$added_data[] = [
 				'tags_id' => $value,
-				'category_id' => $this->request->post('category_id/f'),
+				'category_id' => $cid,
 				'article_id' => $id
 			];
 
@@ -413,10 +427,13 @@ class ContentContent extends Model
 			$tags_art_model->where(['tags_id' => $value])
 			->count();
 
-			$tags_model->allowField(true)
-			->isUpdate(true)
-			->save(['number' => $count], ['id' => $value]);
+			if (!empty($count)) {
+				$tags_model->allowField(true)
+				->isUpdate(true)
+				->save(['count' => $count], ['id' => $value]);
+			}
 		}
+
 		if (!empty($added_data)) {
 			$tags_art_model->saveAll($added_data);
 		}

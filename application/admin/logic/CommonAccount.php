@@ -125,7 +125,7 @@ class CommonAccount extends Model
 			'Content'  => 'content',
 			'User'     => 'member',
 			'Wechat'   => 'keyword',
-			'Shop'     => 'goods',
+			'Mall'     => 'goods',
 			'Expand'   => 'log',
 		];
 

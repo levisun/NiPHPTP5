@@ -1,5 +1,3 @@
-
-
 DROP TABLE IF EXISTS `np_fields`;
 CREATE TABLE IF NOT EXISTS `np_fields` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,

@@ -77,6 +77,7 @@ INSERT INTO `np_action` (`id`, `name`, `title`, `remark`) VALUES
 
 DROP TABLE IF EXISTS `np_action_log`;
 CREATE TABLE IF NOT EXISTS `np_action_log` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `action_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '行为ID',
   `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '执行用户ID',
   `action_ip` varchar(255) NOT NULL COMMENT '执行行为者IP',
@@ -84,6 +85,7 @@ CREATE TABLE IF NOT EXISTS `np_action_log` (
   `record_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '触发行为的数据ID',
   `remark` varchar(255) NOT NULL DEFAULT '' COMMENT '日志备注',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '执行行为的时间',
+  PRIMARY KEY (`id`),
   KEY `action_ip` (`action_ip`),
   KEY `action_id` (`action_id`),
   KEY `user_id` (`user_id`)

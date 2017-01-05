@@ -73,6 +73,12 @@ class Config extends Validate
 		'wechat_encodingaeskey' => ['require'],
 		'wechat_appid'          => ['require'],
 		'wechat_appsecret'      => ['require'],
+
+		// 商城
+		'mall_name'         => ['require', 'max:500'],
+		'mall_postage'      => ['require', 'max:500'],
+		'mall_free_postage' => ['require', 'max:500'],
+		'mall_fast_mail'    => ['require', 'max:500'],
 	];
 
 	protected $message = [
@@ -158,6 +164,16 @@ class Config extends Validate
 		'wechat_encodingaeskey.require' => 'error wechatencodingaeskey require',
 		'wechat_appid.require'          => 'error wechatappid require',
 		'wechat_appsecret.require'      => 'error wechatappsecret require',
+
+		// 商城
+		'mall_name.require'         => 'please enter mall name',
+		'mall_name.max'             => 'mall name length shall not exceed 500',
+		'mall_postage.require'      => 'please enter mall postage name',
+		'mall_postage.max'          => 'mall postage name length shall not exceed 500',
+		'mall_free_postage.require' => 'please enter mall free postage name',
+		'mall_free_postage.max'     => 'mall free postage name length shall not exceed 500',
+		'mall_fast_mail.require'    => 'please enter mall fast mail name',
+		'mall_fast_mail.max'        => 'mall fast mail name length shall not exceed 500',
 	];
 
 	protected $scene = [
@@ -219,11 +235,20 @@ class Config extends Validate
 			'smtp_from_name',
 		],
 
+		// 微信接口
 		'wechat' => [
 			'wechat_token',
 			'wechat_encodingaeskey',
 			'wechat_appid',
 			'wechat_appsecret'
+		],
+
+		// 商城
+		'mall' => [
+			'mall_name',
+			'mall_postage',
+			'mall_free_postage',
+			'mall_fast_mail'
 		],
 	];
 }

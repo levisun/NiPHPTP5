@@ -41,7 +41,7 @@ class ExpandELog extends Model
 
 		rsort($list);
 
-		// 删除过期备份
+		// 删除过期日志
 		$days = strtotime('-180 days');
 		foreach ($list as $key => $value) {
 			if (strtotime($value['time']) <= $days) {

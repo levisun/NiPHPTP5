@@ -57,7 +57,7 @@ class Feedback extends Model
 	public function added()
 	{
 		$ip = new \net\IpLocation();
-		$area = $ip->getlocation($this->request->ip());
+		$area = $ip->getlocation($this->request->ip(0, true));
 
 		$data = [
 			'title'       => $this->request->post('title'),
@@ -67,7 +67,7 @@ class Feedback extends Model
 			'type_id'     => $this->request->post('type/f', 0),
 			'mebmer_id'   => Cookie::has(Config::get('USER_AUTH_KEY')) ?
 								Cookie::has(Config::get('USER_AUTH_KEY')) : 0,
-			'ip'          => $this->request->ip(),
+			'ip'          => $this->request->ip(0, true),
 			'ip_attr'     => $area['country'] . $area['area'],
 			'lang'        => Lang::detect(),
 		];

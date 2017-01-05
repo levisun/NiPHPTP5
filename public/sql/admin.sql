@@ -1,10 +1,12 @@
 DROP TABLE IF EXISTS `np_access`;
 CREATE TABLE IF NOT EXISTS `np_access` (
+  `id` smallint(6) unsigned NOT NULL AUTO_INCREMENT,
   `role_id` smallint(6) unsigned NOT NULL COMMENT '组ID',
   `node_id` smallint(6) unsigned NOT NULL COMMENT '节点ID',
   `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
   `level` tinyint(1) NOT NULL COMMENT '节点等级',
   `module` varchar(50) DEFAULT NULL COMMENT '节点名',
+  PRIMARY KEY (`id`),
   KEY `groupId` (`role_id`),
   KEY `nodeId` (`node_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '权限表';
@@ -52,7 +54,7 @@ INSERT INTO `np_access` (`role_id`, `node_id`, `status`, `level`, `module`) VALU
 (1, 41, 1, 3, 'type'),
 (1, 42, 1, 3, 'brand'),
 (1, 43, 1, 3, 'comment'),
-(1, 44, 1, 3, 'accountwater'),
+(1, 44, 1, 3, 'accountflow'),
 (1, 45, 1, 3, 'settings'),
 (1, 46, 1, 2, 'expand'),
 (1, 47, 1, 3, 'log'),
@@ -127,7 +129,7 @@ INSERT INTO np_node(`id`, `name`, `title`, `status`, `remark`, `sort`, `pid`, `l
 (41, 'type', '管理商品分类', 1, '管理商品分类方法', 5, 37, 3),
 (42, 'brand', '管理商品品牌', 1, '管理商品品牌方法', 6, 37, 3),
 (43, 'comment', '管理商品评论', 1, '管理商品评论方法', 7, 37, 3),
-(44, 'accountwater', '账户流水', 1, '账户流水方法', 8, 37, 3),
+(44, 'accountflow', '账户流水', 1, '账户流水方法', 8, 37, 3),
 (45, 'settings', '商城设置', 1, '商城设置方法', 9, 37, 3),
 
 (46, 'expand', '扩展', 1, '扩展控制器', 1, 1, 2),

@@ -18,7 +18,9 @@ class TagsArticle extends Model
 	protected $name = 'tags_article';
 	protected $autoWriteTimestamp = false;
 	protected $updateTime = false;
+	protected $pk = 'id';
 	protected $field = [
+		'id',
 		'tags_id',
 		'category_id',
 		'article_id',
