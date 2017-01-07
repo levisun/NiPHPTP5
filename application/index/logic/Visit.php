@@ -43,7 +43,9 @@ class Visit extends Model
 
 		$ip = new IpLocation();
 		$area = $ip->getlocation($this->request->ip(0, true));
-		if ($area['ip'] == '0.0.0.0' || $area['ip'] == '127.0.0.1') {
+
+		$visit_ip = include(CONF_PATH . 'visit.php');
+		if (in_array($area['ip'], $visit_ip)) {
 			return false;
 		}
 

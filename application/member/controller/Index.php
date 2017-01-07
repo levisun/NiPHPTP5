@@ -49,6 +49,12 @@ class Index extends Base
 		return $this->fetch();
 	}
 
+	public function oauth()
+	{
+		$oauth = new \app\member\logic\OAuth;
+		$this->redirect($oauth->login());
+	}
+
 	/**
 	 * 注销
 	 * @access public

@@ -11,6 +11,7 @@ return [
 	'info link' => '友情链接',
 	'info ads' => '广告',
 	'info visit count' => '访问统计',
+	'info day visit' => '日访问',
 	'info sys info' => '系统信息',
 	'info sys name' => '系统名称',
 	'info sys version' => '系统版本',

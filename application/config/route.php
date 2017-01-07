@@ -42,11 +42,12 @@ return [
 	'comment/added'    => 'index/comment/added',
 
 	// member
-	'member/login'     => 'member/index/login',
-	'member/logout'    => 'member/index/logout',
-	'member/reg'       => 'member/index/reg',
-	'member/forget'    => 'member/index/forget',
-	'member'           => 'member/my/index',
+	'member/login'                 => 'member/index/login',
+	'member/oauth/:type/[:method]' => 'member/index/oauth',
+	'member/logout'                => 'member/index/logout',
+	'member/reg'                   => 'member/index/reg',
+	'member/forget'                => 'member/index/forget',
+	'member'                       => 'member/my/index',
 
 	// mall
 	'mall'             => 'mall/index/index',

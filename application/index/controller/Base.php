@@ -148,6 +148,7 @@ class Base extends Controller
 			'__DOMAIN__'    => $domain,
 			'__STATIC__'    => $domain . '/public/static/',
 			'__LIBRARY__'   => $domain . '/public/static/library/',
+			'__LAYOUT__'    => $domain . '/public/static/layout/',
 			'__THEME__'     => $this->website_data[$module . '_theme'],
 			'__CSS__'       => $default_theme . 'css/',
 			'__JS__'        => $default_theme . 'js/',

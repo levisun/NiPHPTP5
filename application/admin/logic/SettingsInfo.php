@@ -20,6 +20,7 @@ use app\admin\model\Feedback as AdminFeedback;
 use app\admin\model\Message as AdminMessage;
 use app\admin\model\Link as AdminLink;
 use app\admin\model\Ads as AdminAds;
+use app\admin\model\Visit as AdminVisit;
 class SettingsInfo extends Model
 {
 	protected $request = null;
@@ -65,6 +66,24 @@ class SettingsInfo extends Model
 
 		$ads = new AdminAds;
 		$sys_data['ads'] = $ads->where(['end_time' => ['egt', time()]])->count();
+
+		$visit = new AdminVisit;
+		$result = $visit
+		->field(true)
+		->where(['date' => ['egt', strtotime('-7 days')]])
+		->select();
+
+		$date = $count = [];
+		foreach ($result as $key => $value) {
+			$value = $value->toArray();
+			$date[$value['date']] = date('Y-m-d', $value['date']);
+			if (empty($count[$value['date']])) {
+				$count[$value['date']] = $value['count'];
+			} else {
+				$count[$value['date']] += $value['count'];
+			}
+		}
+		$sys_data['visit'] = ['date' => '\'' . implode("','", $date) . '\'', 'count' => implode(',', $count)];
 
 		return $sys_data;
 	}

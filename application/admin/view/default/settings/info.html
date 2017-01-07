@@ -35,7 +35,26 @@
 				{:lang('info visit count')}
 			</header>
 			<div class="panel-body">
-				{$Request.ip}
+				<canvas id="myChart"></canvas>
+{js href="__LIBRARY__chart.min.js" /}
+<script>
+var data = {
+	labels : [{$data.visit.date}],
+	datasets : [
+		{
+			label: "{:lang('info day visit')}",
+			lineTension: 0.1,
+			data: [{$data.visit.count}],
+		}
+	]
+}
+var ctx = document.getElementById("myChart");
+var myChart = new Chart(ctx, {
+	type: 'line',
+	data: data,
+	options: {}
+});
+</script>
 			</div>
 		</div>
 	</div>
