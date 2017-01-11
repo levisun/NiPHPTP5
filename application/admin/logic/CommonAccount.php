@@ -79,8 +79,8 @@ class CommonAccount extends Model
 		->isUpdate(false)
 		->save();
 
-		// 删除过期的日志(保留半年)
-		$map = ['create_time' => ['ELT', strtotime('-180 days')]];
+		// 删除过期的日志(保留三个月)
+		$map = ['create_time' => ['ELT', strtotime('-90 days')]];
 		$action->where($map)
 		->delete();
 	}

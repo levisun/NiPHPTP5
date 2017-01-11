@@ -35,6 +35,12 @@ class ExpandActionLog extends Model
 	public function getListData()
 	{
 		$action = new AdminActionLog;
+
+		// 删除过期的日志(保留三个月)
+		$map = ['create_time' => ['ELT', strtotime('-90 days')]];
+		$action->where($map)
+		->delete();
+
 		$result =
 		$action->view('action_log l', 'action_ip,model,record_id,remark,create_time')
 		->view('action a', 'title', 'a.id=l.action_id')
@@ -43,7 +49,6 @@ class ExpandActionLog extends Model
 		->view('role r', ['name'=>'role_name'], 'r.id=ra.role_id')
 		->order('l.create_time DESC')
 		->paginate();
-
 
 		$list = [];
 		foreach ($result as $value) {

@@ -59,10 +59,13 @@ class Page extends Model
 		->find();
 
 		$list = $result ? $result->toArray() : '';
+		if (!empty($list)) {
+			$list['content'] = htmlspecialchars_decode($list['content']);
+			$list['field']   = $this->getFieldsData($list['id']);
+			$list['tags']    = $this->getTagsData($list['id']);
 
-		$list['content'] = htmlspecialchars_decode($list['content']);
-		$list['field']   = $this->getFieldsData($list['id']);
-		$list['tags']    = $this->getTagsData($list['id']);
+			$this->hits();
+		}
 
 		return ['list' => $list, 'page' => ''];
 	}
@@ -127,5 +130,23 @@ class Page extends Model
 		}
 
 		return implode(' ', $list);
+	}
+
+	/**
+	 * 更新阅读数
+	 * @access protected
+	 * @param
+	 * @return void
+	 */
+	protected function hits()
+	{
+		$map = [
+			'category_id' => $this->request->param('cid/f'),
+			'lang'        => Lang::detect(),
+		];
+
+		$model = new IndexPage;
+		$model->where($map)
+		->setInc('hits');
 	}
 }

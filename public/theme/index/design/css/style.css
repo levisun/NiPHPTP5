@@ -41,6 +41,18 @@ body {
 #header #logo-nav #nav {
 	font-size: 18px;
 }
+#header #logo span {
+	background-color: #45b6f7;
+	display: inline-block;
+	font-size: 32px;
+	line-height: 1em;
+	color: #fff;
+	padding: 5px 16px 10px 7px;
+	border-radius: 5px;
+	margin-right: 10px;
+	/*word-spacing: -8px;*/
+	letter-spacing: -9px;
+}
 
 #main #content-wrap #banner {
 	height: 200px;

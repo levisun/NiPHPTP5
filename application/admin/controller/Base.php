@@ -20,6 +20,7 @@ use think\Config;
 use think\View;
 use think\Session;
 use think\Cache;
+use think\Log;
 use app\admin\logic\CommonUpload as AdminCommonUpload;
 use app\admin\logic\CommonAccount as AdminCommonAccount;
 class Base extends Controller
@@ -235,6 +236,9 @@ class Base extends Controller
 	 */
 	protected function _initialize()
 	{
+		// 设置IP为授权Key
+		Log::key($this->request->ip(0, true));
+
 		// 加载语言
 		$lang_path = APP_PATH . $this->request->module();
 		$lang_path .= DS . 'lang' . DS . Lang::detect() . DS;
@@ -277,10 +281,18 @@ class Base extends Controller
 	 */
 	protected function themeConfig()
 	{
+		// 主题
 		$template = Config::get('template');
 		$template['view_path'] = APP_PATH . $this->request->module() . DS . 'view' . DS;
 		$template['view_path'] .= Config::get('default_theme') . DS;
 		$this->view->engine($template);
+
+		// 默认跳转页面对应的模板文件
+		$dispatch = [
+			'dispatch_success_tmpl' => $template['view_path'] . 'dispatch_jump.html',
+			'dispatch_error_tmpl'   => $template['view_path'] . 'dispatch_jump.html',
+		];
+		Config::set($dispatch);
 
 		// 获得域名地址
 		$domain = $this->request->root(true);

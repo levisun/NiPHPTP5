@@ -73,7 +73,8 @@ class Article extends Model
 		->view('category c', ['name' => 'cat_name'], 'c.id=a.category_id')
 		->view('admin ad', ['username' => 'editor_name'], 'a.user_id=ad.id')
 		->where($map)
-		->cache(true)
+		->order($order)
+		// ->cache(true)
 		->paginate();
 
 		$list = [];

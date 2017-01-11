@@ -2,6 +2,36 @@ body {
 	background-color: #e4e5e6;
 }
 
+.col-sm-offset-4 #dispatch {
+	margin-top: 25%;
+}
+#dispatch .icon-warning-sign,
+#dispatch .icon-ok {
+	padding-right: 10px;
+}
+#dispatch .icon-warning-sign {
+	color: red;
+}
+#dispatch .jump {
+	padding-top: 10px;
+	margin-bottom: 0;
+}
+#dispatch .jump a {
+	color: #333;
+}
+#dispatch .success,
+#dispatch .error {
+	line-height: 1.8em;
+	font-size: 24px;
+	margin-bottom: 0;
+}
+#dispatch .detail {
+	font-size: 12px;
+	line-height: 20px;
+	margin-top: 12px;
+	display: none;
+}
+
 #login {
 	margin-top: 25%;
 }

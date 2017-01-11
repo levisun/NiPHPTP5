@@ -12,30 +12,20 @@
  * @since     2016/10/22
  */
 return [
+	// 全局变量规则定义
+    '__pattern__' => [
+        'cid' => '\d+',
+        'id'  => '\d+',
+    ],
+
 	'/' => 'index',
 
 	// website
-	'entry/:cid' => [
-		'index/entry/index',
-		['method' => 'get', 'cache' => 1800],
-		['cid' => '\d+']
-	],
-	'article/:cid/:id' => [
-		'index/article/index',
-		['method' => 'get', 'cache' => 1800],
-		['cid' => '\d+', 'id' => '\d+']
-	],
-	'tags/:id' => [
-		'index/tags/index',
-		['method' => 'get'],
-		['id' => '\d+']
-	],
-	'jump/:cid/:id' => [
-		'index/jump/index',
-		['method' => 'get'],
-		['cid' => '\d+', 'id' => '\d+']
-	],
-	'wechat' => 'wechat/index/index',
+	'entry/:cid'       => 'index/entry/index',
+	'article/:cid/:id' => 'index/article/index',
+	'tags/:id'         => 'index/tags/index',
+	'jump/:cid/:id'    => 'index/jump/index',
+	'wechat'           => 'wechat/index/index',
 
 	// comment
 	'comment/:cid'     => 'index/comment/index',
@@ -50,9 +40,9 @@ return [
 	'member'                       => 'member/my/index',
 
 	// mall
-	'mall'             => 'mall/index/index',
-	'mall/item/:id'    => 'mall/index/item',
-	'mall/order/:id'   => 'mall/order/index',
-	'mall/cart'        => 'mall/cart/index',
-	'mall/shop/:id'    => 'mall/shop/index',
+	'mall'           => 'mall/index/index',
+	'mall/item/:id'  => 'mall/index/item',
+	'mall/order/:id' => 'mall/order/index',
+	'mall/cart'      => 'mall/cart/index',
+	'mall/shop/:id'  => 'mall/shop/index',
 ];

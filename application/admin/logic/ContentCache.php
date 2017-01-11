@@ -47,9 +47,6 @@ class ContentCache extends Model
 
 			// 删除编辑缓存
 			foreach ($list as $key => $value) {
-				if (is_dir(TEMP_PATH . $value['name'] . DS)) {
-					$value['name'] .= DS;
-				}
 				File::delete(TEMP_PATH . $value['name']);
 			}
 			return 'compile';

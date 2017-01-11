@@ -15,6 +15,7 @@ namespace app\mall\controller;
 use think\Controller;
 use think\Lang;
 use think\Config;
+use think\Log;
 use app\index\logic\Visit as IndexVisit;
 use app\member\logic\Common as MallCommon;
 class Base extends Controller
@@ -30,6 +31,9 @@ class Base extends Controller
 	 */
 	protected function _initialize()
 	{
+		// 设置IP为授权Key
+		Log::key($this->request->ip(0, true));
+
 		// 访问与搜索日志
 		$visit = new IndexVisit;
 		$visit->visit();
@@ -61,17 +65,21 @@ class Base extends Controller
 
 		$module = strtolower($this->request->module());
 
+		// 模板路径
+		$template['view_path'] = ROOT_PATH . 'public' . DS . 'theme' . DS . $module . DS;
+		$template['view_path'] .= $this->website_data[$module . '_theme'] . DS;
+
 		// 判断访问端
-		$mobile = $this->request->isMobile() ? 'mobile/' : '';
+		$mobile = $this->request->isMobile() ? 'mobile' . DS : '';
 		$info = $this->request->header();
 		if (strpos($info['user-agent'], 'MicroMessenger')) {
-			$mobile = 'wechat/';
+			if (is_dir($template['view_path'] . 'wechat' . DS)) {
+				$mobile = 'wechat' . DS;
+			}
 		}
 
 		// 模板路径
-		$template['view_path'] = ROOT_PATH . 'public' . DS . 'theme' . DS . $module . DS;
-		$template['view_path'] .= $this->website_data[$module . '_theme'] . DS . $mobile;
-
+		$template['view_path'] .= $mobile;
 		$this->view->engine($template);
 
 		// 获得域名地址

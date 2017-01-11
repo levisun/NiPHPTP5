@@ -85,9 +85,8 @@ class Visit extends Model
 	{
 		$key = $this->isSpider();
 		if ($key === false) {
-			// return false;
+			return false;
 		}
-		$key = 'GOOGLE';
 		$map = [
 			'name' => $key,
 			'date' => strtotime(date('Y-m-d'))
@@ -114,7 +113,7 @@ class Visit extends Model
 	}
 
 	/**
-	 * 删除过期的搜索日志(保留半年)
+	 * 删除过期的搜索日志(保留三个月)
 	 * @access protected
 	 * @param
 	 * @return void
@@ -122,7 +121,7 @@ class Visit extends Model
 	protected function remove($model_name)
 	{
 		$map = [
-			'date' => ['ELT', strtotime('-180 days')],
+			'date' => ['ELT', strtotime('-90 days')],
 		];
 
 		if ($model_name == 'IndexSearchengine') {

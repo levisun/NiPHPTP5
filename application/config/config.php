@@ -35,8 +35,9 @@ return [
 	'default_timezone' => 'PRC',
 	// URL设置
 	'url_route_on'     => true,
+	// URL伪静态后缀
 	'url_html_suffix'  => 'shtml',
-	// 路由配置文件
+	// 路由使用完整匹配
 	'route_complete_match' => true,
 	// 过滤方法
 	'default_filter'   => 'trim,strip_tags,escape_xss',
@@ -61,13 +62,15 @@ return [
 	],
 	// 日志设置
 	'log' => [
+		'type'        => 'File',
+		'path'        => LOG_PATH,
+		'file_size'   => 2097152,
+		'time_format' => 'c',
+		// 'allow_key'   => ['125.76.163.60'],
 		'apart_level' => [
-			// 'log',
 			'error',
 			'notice',
 			'sql',
-			// 'debug',
-			// 'info'
 		],
 	],
 	// session设置
@@ -94,9 +97,11 @@ return [
 		'prefix' => '',
 		'expire' => 1800,
 	],
+
 	'http_exception_template' => [
 		404 => ROOT_PATH . '404.html',
 	],
+	// 'exception_tmpl' => APP_PATH . 'think_exception.html',
 	// 验证码设置
 	'captcha' => [
 		'length'   => 4,

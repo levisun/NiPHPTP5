@@ -16,6 +16,7 @@ use think\Controller;
 use think\Url;
 use think\Lang;
 use think\Config;
+use think\Log;
 use net\Wechat;
 use app\wechat\logic\Api as WechatApi;
 use app\wechat\logic\Attention as WechatAttention;
@@ -32,6 +33,9 @@ class Index extends Controller
 	 */
 	protected function _initialize()
 	{
+		// 设置IP为授权Key
+		Log::key($this->request->ip(0, true));
+
 		Config::load(CONF_PATH . 'website.php');
 
 		$this->model = new WechatApi;
@@ -65,7 +69,12 @@ class Index extends Controller
 		// 关键词回复信息
 		$model = new WechatAutoKey;
 		$data = $model->reply($this->model->key['text']);
-		return $this->reply($data);
+		if (isset($data['item'])) {
+			return $this->model->wechat->text($data['item'])->reply();
+		} else {
+			return $this->model->wechat->text($data[0])->reply();
+		}
+
 	}
 
 	/**

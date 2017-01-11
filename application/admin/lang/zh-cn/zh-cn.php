@@ -58,6 +58,7 @@ return [
 	'operation'             => '操作',
 	'sex man'               => '男',
 	'sex woman'             => '女',
+	'dispatch title'        => '跳转提示',
 	'error status require'  => '状态格式不得为空',
 	'error status number'   => '状态格式不正确',
 	'error lang require'    => '语言标识符不得为空',
