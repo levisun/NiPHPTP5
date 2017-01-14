@@ -59,12 +59,16 @@
 {js href="__LIBRARY__datetimepicker/js/bootstrap-datetimepicker.min.js" /}
 {js href="__LIBRARY__parsley/parsley.min.js" /}
 {js href="__LIBRARY__parsley/i18n/zh_cn.js" /}
-{js href="__LAYOUT__js/layout-3.0.js" /}
-{js href="__LAYOUT__js/tools-1.0.js" /}
-{js href="__JS__main.js" /}
+
+{js href="__LAYOUT__js/layout-1.0.0.js" /}
+
 <script>
 var domain = "__DOMAIN__";
 parent.document.title = "{$__TITLE__}";
+Layout.domain = domain;
+Layout().captcha('.captcha');
+Layout().newWinUpload('#upload', '/admin.php/account/upload.shtml');
+Layout().newWinUpload('.np-upload', '/admin.php/account/upload.shtml');
 </script>
 </body>
 </html>

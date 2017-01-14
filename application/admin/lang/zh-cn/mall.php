@@ -21,4 +21,8 @@ return [
 	'mall red'            => '红包抵现',
 	'mall yuan'           => '元',
 
+	'basic info' => '基本',
+	'content' => '内容',
+	'album' => '相册',
+
 ];

@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	{label:meta}
 	<title>__TITLE__</title>
 	<meta name="keywords" content="__KEYWORDS__">
 	<meta name="description" content="__DESCRIPTION__">
@@ -47,12 +48,17 @@
 
 {include file="public/footer" /}
 
+<div class="scrollTop">ffff</div>
+
 {js href="__LIBRARY__bootstrap/js/bootstrap.min.js" /}
 {js href="__LIBRARY__moment/moment.min.js" /}
 {js href="__LIBRARY__moment/locale/zh-cn.js" /}
 {js href="__LIBRARY__datetimepicker/js/bootstrap-datetimepicker.min.js" /}
+{js href="__LAYOUT__js/layout-1.0.0.js" /}
 <script>
 var domain = "__DOMAIN__";
+Layout.domain = domain;
+Layout().scrollTop('.scrollTop');
 </script>
 </body>
 </html>

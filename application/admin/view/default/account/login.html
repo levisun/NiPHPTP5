@@ -15,12 +15,12 @@
 					<input type="password" name="password" class="form-control" placeholder="{:lang('password')}" data-parsley-required="true">
 				</li>
 				<li class="input-group">
-					<input type="text" name="captcha" class="form-control" placeholder="{:lang('captcha')}" data-parsley-required="true" data-parsley-maxlength="4" data-parsley-minlength="4">
-					<img src="{:captcha_src()}" data-url="{:captcha_src()}" alt="captcha" class="verify" />
+					<input type="text" name="captcha" class="form-control captcha" placeholder="{:lang('captcha')}" data-parsley-required="true" data-parsley-maxlength="4" data-parsley-minlength="4">
+					<img src="{:captcha_src()}" alt="captcha" class="captcha" />
 				</li>
 				<li>
 					{:token()}
-					<input type="submit" id="account-login" class="btn btn-block btn-primary" value="{:lang('button login')}">
+					<input type="submit" class="btn btn-block btn-primary" value="{:lang('button login')}">
 				</li>
 			</ul>
 			</form>

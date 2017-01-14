@@ -51,7 +51,7 @@
 	{:token()}
 	<input type="hidden" name="id" value="{$data.id}">
 	<div class="form-button col-md-10 col-md-offset-2">
-	<input type="submit" value="{:lang('button check')}" class="btn btn-danger btn-block" id="button-basic">
-	<a href="{:url('', array('method' => 'remove', 'id' => $data['id']))}" class="btn btn-warning btn-block" id="button-basic">{:lang('button delete')}</a>
+	<input type="submit" value="{:lang('button check')}" class="btn btn-danger btn-block">
+	<a href="{:url('', array('method' => 'remove', 'id' => $data['id']))}" class="btn btn-warning btn-block">{:lang('button delete')}</a>
 	</div>
 </form>

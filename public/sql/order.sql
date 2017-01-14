@@ -1,52 +1,9 @@
-DROP TABLE IF EXISTS `np_pay`;
-CREATE TABLE IF NOT EXISTS `np_pay` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) NOT NULL DEFAULT '' COMMENT '支付名称',
-  `config` text NOT NULL COMMENT '配置',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
-  PRIMARY KEY (`id`),
-  KEY `status` (`status`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '支付方法表';
-
-DROP TABLE IF EXISTS `np_account_log`;
-CREATE TABLE IF NOT EXISTS `np_account_log` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '会员ID',
-  `order_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '订单ID',
-  `money` int(11) NOT NULL DEFAULT '0' COMMENT '流入流出金额',
-  `integral` int(11) NOT NULL DEFAULT '0' COMMENT '流入流出积分',
-  `type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '类型 1充值 2支付 3提现 4转账',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
-  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
-  PRIMARY KEY (`id`),
-  KEY `user_id` (`user_id`),
-  KEY `order_id` (`order_id`),
-  KEY `status` (`status`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '会员帐户流水';
-
-DROP TABLE IF EXISTS `np_bonus`;
-CREATE TABLE IF NOT EXISTS `np_bonus` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `order_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '订单ID',
-  `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '会员ID',
-  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '红包类型',
-  `use_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '使用时间',
-  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
-  `overdue_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '过期时间',
-  PRIMARY KEY (`id`),
-  KEY `order_id` (`order_id`),
-  KEY `user_id` (`user_id`),
-  KEY `type` (`type`),
-  KEY `use_time` (`use_time`),
-  KEY `overdue_time` (`overdue_time`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '红包表';
-
 DROP TABLE IF EXISTS `np_order`;
 CREATE TABLE IF NOT EXISTS `np_order` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `trade_no` varchar(32) NOT NULL DEFAULT '0' COMMENT '订单号',
   `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '会员ID',
+  `seller_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商户ID',
   `amount` int(11) NOT NULL DEFAULT '0' COMMENT '金额',
   `bonus` int(11) NOT NULL DEFAULT '0' COMMENT '红包',
   `integral` int(11) NOT NULL DEFAULT '0' COMMENT '积分',
@@ -78,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `np_order_goods` (
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`),
   KEY `goods_id` (`goods_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '订单详情表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '订单商品表';
 
 DROP TABLE IF EXISTS `np_order_address`;
 CREATE TABLE IF NOT EXISTS `np_order_address` (
@@ -97,3 +54,22 @@ CREATE TABLE IF NOT EXISTS `np_order_address` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `order_id` (`order_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '订单收货地址';
+
+
+
+DROP TABLE IF EXISTS `np_bonus`;
+CREATE TABLE IF NOT EXISTS `np_bonus` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '订单ID',
+  `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '会员ID',
+  `type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '红包类型',
+  `use_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '使用时间',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  `overdue_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '过期时间',
+  PRIMARY KEY (`id`),
+  KEY `order_id` (`order_id`),
+  KEY `user_id` (`user_id`),
+  KEY `type` (`type`),
+  KEY `use_time` (`use_time`),
+  KEY `overdue_time` (`overdue_time`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '红包表';

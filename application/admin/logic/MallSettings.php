@@ -1,7 +1,7 @@
 <?php
 /**
  *
- * 基础设置 - 设置 - 逻辑层
+ * 基础设置 - 商城 - 逻辑层
  *
  * @package   NiPHPCMS
  * @category  admin\logic\

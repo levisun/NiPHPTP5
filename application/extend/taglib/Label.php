@@ -13,7 +13,6 @@
  */
 namespace taglib;
 use think\template\TagLib;
-
 class Label extends TagLib
 {
 	// 标签定义
@@ -27,7 +26,10 @@ class Label extends TagLib
 		'article'    => ['attr' => 'id,cid',                   'alias' => 'neirong'],
 		'list'       => ['attr' => 'id,num,order,com,top,hot', 'alias' => 'entry'],
 		'tags'       => ['attr' => '',                         'alias' => 'biaoqian'],
-		'member'     => ['attr' => '',           'alias' => 'huiyuan'],
+		'member'     => ['attr' => '',                         'alias' => 'huiyuan'],
+
+		'meta'       => ['attr' => '', 'close' => 0],
+
 	];
 
 	/**
@@ -235,5 +237,31 @@ class Label extends TagLib
 		$parseStr .= '} ?>';
 		$parseStr .= $content;
 		return $parseStr;*/
+	}
+
+	/**
+	 * tags标签解析 meta信息
+	 * @access public
+	 * @param  array  $tag     标签属性
+	 * @param  string $content 标签内容
+	 * @return string|void
+	 */
+	public function tagMeta($tag, $content)
+	{
+		$request = \think\Request::instance();
+
+		$meta = '<meta name="renderer" content="webkit">';
+		$meta .= '<meta http-equiv="Cache-Control" content="no-siteapp">';
+		if ($request->isMobile()) {
+			$meta .= '<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,minimum-scale=1,user-scalable=no">';
+			$meta .= '<meta name="apple-mobile-web-app-capable" content="yes">';
+			$meta .= '<meta name="apple-mobile-web-app-status-bar-style" content="black">';
+			$meta .= '<meta name="format-detection" content="telephone=yes">';
+			$meta .= '<meta name="format-detection" content="email=yes">';
+		} else {
+			$meta .= '<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">';
+		}
+
+		return $meta;
 	}
 }

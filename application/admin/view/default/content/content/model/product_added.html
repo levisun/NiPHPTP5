@@ -106,7 +106,7 @@
 				<li class="form-group">
 					<label for="website_description" class="col-md-2 control-label">{:lang('content')}</label>
 					<div class="col-md-10">
-						<textarea name="content" id="contentTextarea" class="form-control"></textarea>
+						<textarea name="content" class="form-control ckeditor"></textarea>
 					</div>
 				</li>
 			</ul>
@@ -193,12 +193,8 @@
 	{:token()}
 	<input type="hidden" name="category_id" value="{$Request.param.cid}">
 	<div class="form-button col-md-10 col-md-offset-2">
-	<input type="submit" value="{:lang('button save')}" class="btn btn-danger btn-block"" id="button-basic">
+	<input type="submit" value="{:lang('button save')}" class="btn btn-danger btn-block"">
 	</div>
 </form>
 <script type="text/javascript" src="__STATIC__library/ckeditor/ckeditor.js"></script>
 <script type="text/javascript" src="__STATIC__library/ckeditor/config.js"></script>
-
-<script type="text/javascript">
-var editor = CKEDITOR.replace('contentTextarea');
-</script>
