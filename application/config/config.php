@@ -12,7 +12,7 @@
  * @since     2016/10/22
  */
 return [
-	'sys_version' => '0.2.0 Alpha 55',
+	'sys_version' => '0.2.0 Alpha 356',
 
 	// 系统设置
 	'USER_AUTH_ON'      => 1,

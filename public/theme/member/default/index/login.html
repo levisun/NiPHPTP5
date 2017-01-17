@@ -1,24 +1,29 @@
-<div class="col-sm-4 col-sm-offset-4">
-	<form action="" method="post" class="form-horizontal">
-	<ul>
-		<li class="form-group">
-			<label for="" class="control-label">用户名</label>
-			<input type="text" name="username" class="form-control">
-		</li>
-		<li class="form-group">
-			<label for="" class="control-label">密码</label>
-			<input type="password" name="password" class="form-control">
-		</li>
-		<li class="form-group">
-			<label for="" class="control-label">验证码</label>
-			<input type="text" name="captcha" class="form-control">
-			<img src="{:captcha_src()}" data-url="{:captcha_src()}" alt="captcha" class="np-verify" />
-		</li>
-		<li class="form-group">
-			<label for="" class="control-label"></label>
-			{:token()}
-			<input type="submit" class="btn btn-block btn-primary" value="登录">
-		</li>
-	</ul>
-	</form>
+<div id="login">
+	<div class="panel panel-default">
+		<div class="panel-heading">
+			<h5 class="panel-title">{:lang('member login')}</h5>
+		</div>
+		<div class="panel-body">
+			<form action="" method="post" data-parsley-validate="parsley" data-parsley-focus="last">
+			<ul>
+				<li class="input-group">
+					<span class="input-group-addon"><i class="icon-user"></i></span>
+					<input type="text" name="username" class="form-control" placeholder="{:lang('username')}" data-parsley-required="true" data-parsley-length="[4, 20]">
+				</li>
+				<li class="input-group">
+					<span class="input-group-addon"><i class="icon-lock"></i></span>
+					<input type="password" name="password" class="form-control" placeholder="{:lang('password')}" data-parsley-required="true">
+				</li>
+				<li class="input-group">
+					<input type="text" name="captcha" class="form-control captcha" placeholder="{:lang('captcha')}" data-parsley-required="true" data-parsley-maxlength="4" data-parsley-minlength="4">
+					<img src="{:captcha_src()}" alt="captcha" class="captcha" />
+				</li>
+				<li>
+					{:token()}
+					<input type="submit" class="btn btn-block btn-primary" value="{:lang('button login')}">
+				</li>
+			</ul>
+			</form>
+		</div>
+	</div>
 </div>

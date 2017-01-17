@@ -44,7 +44,7 @@
 			<td>{$vo.update_time|date='Y-m-d H:i:s',###}</td>
 			<td>
 				<a href="{:url('', array('method' => 'editor', 'cid' => $Request.param.cid, 'id' => $vo['id']))}"><i class="icon-edit"></i>{:lang('button editor')}</a>
-				<a href="{:url('', array('method' => 'remove', 'cid' => $Request.param.cid, 'id' => $vo['id']))}"><i class="icon-remove"></i>{:lang('button delete')}</a>
+				<a href="{:url('', array('method' => 'remove', 'cid' => $Request.param.cid, 'id' => $vo['id']))}" class="remove"><i class="icon-remove"></i>{:lang('button delete')}</a>
 			</td>
 		</tr>
 		{/volist}

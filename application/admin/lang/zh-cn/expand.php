@@ -19,6 +19,7 @@ return [
 	'backname'          => '备份文件名',
 	'backtime'          => '创建时间',
 	'backsize'          => '文件大小',
+	'confirm reduction' => '您确认还原数据库？此操作不可逆请谨慎操作！！！',
 
 	// 访问统计
 	'visit'             => '访问日志',

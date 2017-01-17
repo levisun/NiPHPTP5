@@ -26,13 +26,13 @@ class LabelFun
 	/**
 	 * category标签函数
 	 * @access public
-	 * @param  intval $type_id_
+	 * @param  intval $type_id
 	 * @return array
 	 */
-	public static function tagCategory($type_id_)
+	public static function tagCategory($type_id)
 	{
 		$map = [
-			'type_id' => $type_id_,
+			'type_id' => $type_id,
 			'is_show' => 1,
 			'pid'     => 0,
 			'lang'    => Lang::detect()
@@ -51,7 +51,7 @@ class LabelFun
 		];
 
 		$category = new IndexCategory;
-		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+		$CACHE = check_key($map, __METHOD__);
 
 		$result =
 		$category->field($field)
@@ -71,10 +71,10 @@ class LabelFun
 	/**
 	 * 获得子导航
 	 * @access protected
-	 * @param  array $data_
+	 * @param  array $data
 	 * @return array
 	 */
-	protected static function __getChild($data_)
+	protected static function __getChild($data)
 	{
 		$nav = $id = [];
 
@@ -92,7 +92,7 @@ class LabelFun
 		];
 		$order = 'sort ASC,id DESC';
 
-		foreach ($data_ as $key => $value) {
+		foreach ($data as $key => $value) {
 			$nav[$key] = $value;
 			$nav[$key]['url'] = Url::build('/entry/' . $value['id']);
 
@@ -100,7 +100,7 @@ class LabelFun
 			$map['pid'] = $value['id'];
 
 			$category = new IndexCategory;
-			$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+			$CACHE = check_key($map, __METHOD__);
 
 			$result =
 			$category->field($field)
@@ -146,15 +146,15 @@ class LabelFun
 	/**
 	 * 获得父级栏目
 	 * @access protected
-	 * @param  intval $pid_
+	 * @param  intval $pid
 	 * @return intval
 	 */
-	protected static function __getParent($pid_)
+	protected static function __getParent($pid)
 	{
 		$parent = [];
 
 		$map = [
-			'id'   => $pid_,
+			'id'   => $pid,
 			'lang' => Lang::detect()
 		];
 
@@ -171,7 +171,7 @@ class LabelFun
 		];
 
 		$category = new IndexCategory;
-		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+		$CACHE = check_key($map, __METHOD__);
 
 		$result =
 		$category->field($field)
@@ -226,7 +226,7 @@ class LabelFun
 		];
 
 		$category = new IndexCategory;
-		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+		$CACHE = check_key($map, __METHOD__);
 
 		$result =
 		$category->field($field)
@@ -250,13 +250,13 @@ class LabelFun
 	/**
 	 * 获得父级ID
 	 * @access protected
-	 * @param  intval $cid_
+	 * @param  intval $cid
 	 * @return intval
 	 */
-	protected static function __toParent($cid_)
+	protected static function __toParent($cid)
 	{
 		$map = [
-			'id'   => $cid_,
+			'id'   => $cid,
 			'lang' => Lang::detect()
 		];
 
@@ -273,7 +273,7 @@ class LabelFun
 		];
 
 		$category = new IndexCategory;
-		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+		$CACHE = check_key($map, __METHOD__);
 
 		$result =
 		$category->field($field)
@@ -293,20 +293,20 @@ class LabelFun
 	/**
 	 * ads标签函数
 	 * @access public
-	 * @param  intval $id_
+	 * @param  intval $id
 	 * @return array
 	 */
-	public static function tagAds($id_)
+	public static function tagAds($id)
 	{
 		$map = [
-			'id' => $id_,
+			'id' => $id,
 			'end_time' => ['EGT', strtotime(date('Y-m-d'))],
 			'start_time' => ['ELT', strtotime(date('Y-m-d'))],
 			'lang' => Lang::detect()
 		];
 
 		$category = new IndexAds;
-		$CACHE = !APP_DEBUG ? __METHOD__ . $id_ : false;
+		$CACHE = check_key($map, __METHOD__);
 
 		$result =
 		$category->field(true)
@@ -320,17 +320,17 @@ class LabelFun
 	/**
 	 * 幻灯片标签函数
 	 * @access public
-	 * @param  intval $id_
+	 * @param  intval $id
 	 * @return array
 	 */
-	public static function tagBanner($id_)
+	public static function tagBanner($id)
 	{
-		if (empty($id_)) {
+		if (empty($id)) {
 			return ;
 		}
 
 		$map = [
-			'id' => $id_,
+			'id' => $id,
 			'lang' => Lang::detect()
 		];
 		$banner = new IndexBanner;
@@ -349,10 +349,10 @@ class LabelFun
 		}
 
 		$map = [
-			'pid' => $id_,
+			'pid' => $id,
 			'lang' => Lang::detect()
 		];
-		$CACHE = !APP_DEBUG ? __METHOD__ . 'CHILD' . implode('', $map) : false;
+		$CACHE = check_key($map, __METHOD__);
 
 		$result =
 		$banner->field(true)
@@ -375,31 +375,31 @@ class LabelFun
 	/**
 	 * 文章标签函数
 	 * @access public
-	 * @param  intval $id_
-	 * @param  intval $cid_
+	 * @param  intval $id
+	 * @param  intval $cid
 	 * @return array
 	 */
-	public static function tagArticle($id_, $cid_)
+	public static function tagArticle($id, $cid)
 	{
-		if (empty($id_) || empty($cid_)) {
+		if (empty($id) || empty($cid)) {
 			return ;
 		}
 
-		$table_name = self::__getModelTable($cid_);
+		$table_name = self::__getModelTable($cid);
 		if (empty($table_name)) {
 			return ;
 		}
 
 		$map = [
-			'a.id'          => $id_,
-			'a.category_id' => $cid_,
+			'a.id'          => $id,
+			'a.category_id' => $cid,
 			'a.is_pass'     => 1,
 			'a.show_time'   => ['ELT', strtotime(date('Y-m-d'))],
 			'a.lang'        => Lang::detect()
 		];
 
 		$model = Loader::model(ucfirst($table_name), 'model', false, 'admin');
-		$CACHE = !APP_DEBUG ? __METHOD__ . $id_ . $cid_ : false;
+		$CACHE = check_key($map, __METHOD__);
 
 		$result =
 		$model->view($table_name . ' a', true)
@@ -438,13 +438,13 @@ class LabelFun
 	/**
 	 * list标签函数
 	 * @access public
-	 * @param  intval $id_
-	 * @param  array  $param_
+	 * @param  intval $id
+	 * @param  array  $param
 	 * @return array
 	 */
-	public static function tagList($id_, $param_)
+	public static function tagList($id, $param)
 	{
-		$table_name = self::__getModelTable($id_);
+		$table_name = self::__getModelTable($id);
 		if (empty($table_name)) {
 			return ;
 		}
@@ -454,30 +454,30 @@ class LabelFun
 		}
 
 		$map = [
-			'a.category_id' => ['IN', $id_],
+			'a.category_id' => ['IN', $id],
 			'a.is_pass'     => 1,
 			'a.show_time'   => ['ELT', strtotime(date('Y-m-d'))],
 			'a.lang'        => Lang::detect()
 		];
 
 		// 推荐
-		if (!empty($param_['com'])) {
+		if (!empty($param['com'])) {
 			$map['a.is_com'] = 1;
 		}
 		// 置顶
-		if (!empty($param_['top'])) {
+		if (!empty($param['top'])) {
 			$map['a.is_top'] = 1;
 		}
 		// 最热
-		if (!empty($param_['hot'])) {
+		if (!empty($param['hot'])) {
 			$map['a.is_hot'] = 1;
 		}
 
-		$limit = !empty($param_['limit']) ? (float) $param_['limit'] : 10;
-		$order = !empty($param_['order']) ? $param_['order'] : 'a.sort DESC, a.id DESC';
+		$limit = !empty($param['limit']) ? (float) $param['limit'] : 10;
+		$order = !empty($param['order']) ? $param['order'] : 'a.sort DESC, a.id DESC';
 
 		$model = Loader::model(ucfirst($table_name), 'model', false, 'admin');
-		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $param_) : false;
+		$CACHE = check_key($map, __METHOD__);
 
 		$result =
 		$model->view($table_name . ' a', true)
@@ -517,7 +517,7 @@ class LabelFun
 		$map = ['lang' => Lang::detect()];
 
 		$tags = new IndexTags;
-		$CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+		$CACHE = check_key($map, __METHOD__);
 
 		$result =
 		$tags->field(true)
@@ -541,15 +541,15 @@ class LabelFun
 	 * @param
 	 * @return array
 	 */
-	protected static function __getModelTable($cid_)
+	protected static function __getModelTable($cid)
 	{
 		$map = [
-			'c.id' => $cid_,
+			'c.id' => $cid,
 			'c.lang' => Lang::detect()
 		];
 
 		$category = new IndexCategory;
-		$CACHE = !APP_DEBUG ? __METHOD__ . $cid_ : false;
+		$CACHE = check_key($map, __METHOD__);
 
 		$result =
 		$category->view('category c', 'id')

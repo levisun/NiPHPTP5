@@ -1,9 +1,8 @@
-var Layout = function () {
-	return Layout;
-}
+var Layout = new Object;
 
 Layout.VERSION = '1.0.0';
 Layout.domain  = null;
+Layout.phpself = null;
 
 /**
  * 删除元素
@@ -12,7 +11,14 @@ Layout.remove = function (element) {
 	jQuery(element).remove();
 }
 
-
+/**
+ * 确认操作
+ */
+Layout.confirmOperation = function (element, lang) {
+	jQuery(element).click(function(){
+		return confirm(lang);
+	});
+}
 
 /**
  * 上传窗口

@@ -19,9 +19,9 @@
 			<td>{$vo.time}</td>
 			<td>{$vo.size}</td>
 			<td>
-				<a href="{:url('', array('method' => 'reduction', 'id' => $vo['id']))}"><i class="icon-retweet"></i>{:lang('button reduction')}</a>
+				<a href="{:url('', array('method' => 'reduction', 'id' => $vo['id']))}" class="reduction"><i class="icon-retweet"></i>{:lang('button reduction')}</a>
 				<a href="{:url('', array('method' => 'down', 'id' => $vo['id']))}"><i class="icon-download-alt"></i>{:lang('button download')}</a>
-				<a href="{:url('', array('method' => 'remove', 'id' => $vo['id']))}"><i class="icon-remove"></i>{:lang('button delete')}</a>
+				<a href="{:url('', array('method' => 'remove', 'id' => $vo['id']))}" class="remove"><i class="icon-remove"></i>{:lang('button delete')}</a>
 			</td>
 		</tr>
 		{/volist}

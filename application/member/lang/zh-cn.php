@@ -1,5 +1,9 @@
 <?php
 return [
+	'member login'               => '会员登录',
+	'username'                   => '用户名',
+	'password'                   => '密码',
+	'captcha'                    => '验证码',
 	'error username require'     => '请输入用户名',
 	'error username length not'  => '用户名不得小于4位并大于20位',
 	'error password require'     => '请输入密码',

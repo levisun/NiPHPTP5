@@ -93,6 +93,7 @@ class Base extends Controller
 
 		$replace = [
 			'__DOMAIN__'      => $domain,
+			'__PHP_SELF__'    => basename($this->request->baseFile()),
 			'__STATIC__'      => $domain . '/public/static/',
 			'__LIBRARY__'     => $domain . '/public/static/library/',
 			'__LAYOUT__'      => $domain . '/public/static/layout/',

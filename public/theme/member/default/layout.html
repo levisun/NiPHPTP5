@@ -32,7 +32,9 @@
 {else/}
 <div class="container-fluid">
 	<div class="row">
+		<div class="col-sm-4 col-sm-offset-4">
 		{__CONTENT__}
+		</div>
 	</div>
 </div>
 
@@ -41,17 +43,23 @@
 	<section class="row">
 		<div class="col-md-12 footer align-c white">
 			__COPYRIGHT__ __MESSAGE__
+			__SCRIPT__
 		</div>
 	</section>
 </footer>
 
-<script src="__LIBRARY__bootstrap/js/bootstrap.min.js"></script>
-<script src="__LIBRARY__moment/moment.min.js"></script>
-<script src="__LIBRARY__moment/locale/zh-cn.js"></script>
-<script src="__LIBRARY__datetimepicker/js/bootstrap-datetimepicker.min.js"></script>
+{js href="__LIBRARY__bootstrap/js/bootstrap.min.js" /}
+{js href="__LIBRARY__moment/moment.min.js" /}
+{js href="__LIBRARY__moment/locale/zh-cn.js" /}
+{js href="__LIBRARY__datetimepicker/js/bootstrap-datetimepicker.min.js" /}
+
+{js href="__LAYOUT__js/layout-1.0.0.js" /}
 <script>
 var domain = "__DOMAIN__";
+Layout.domain = "__DOMAIN__";
+Layout.phpself = "__PHP_SELF__";
+Layout.captcha(".captcha");
 </script>
-__SCRIPT__
+
 </body>
 </html>

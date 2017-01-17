@@ -17,7 +17,7 @@
 			<td>{$vo.start_time|date='Y-m-d',###}/{$vo.end_time|date='Y-m-d',###}</td>
 			<td>
 				<a href="{:url('', array('method' => 'editor', 'id' => $vo['id']))}"><i class="icon-edit"></i>{:lang('button editor')}</a>
-				<a href="{:url('', array('method' => 'remove', 'id' => $vo['id']))}"><i class="icon-remove"></i>{:lang('button delete')}</a>
+				<a href="{:url('', array('method' => 'remove', 'id' => $vo['id']))}" class="remove"><i class="icon-remove"></i>{:lang('button delete')}</a>
 			</td>
 		</tr>
 		{/volist}

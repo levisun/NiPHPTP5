@@ -24,7 +24,7 @@
 			<td>
 				<a href="{:url('', array('pid' => $vo['id']))}"><span class="icon-eye-open"></span>{:lang('manage image')}</a>
 				<a href="{:url('', array('method' => 'editor', 'id' => $vo['id']))}"><i class="icon-edit"></i>{:lang('button editor')}</a>
-				<a href="{:url('', array('method' => 'remove', 'id' => $vo['id']))}"><i class="icon-remove"></i>{:lang('button delete')}</a>
+				<a href="{:url('', array('method' => 'remove', 'id' => $vo['id']))}" class="remove"><i class="icon-remove"></i>{:lang('button delete')}</a>
 			</td>
 		</tr>
 		{/volist}

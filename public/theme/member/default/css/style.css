@@ -26,3 +26,13 @@ body {
 	padding: 25px 0;
 	font-size: 12px;
 }
+
+#login {
+	margin-top: 25%;
+}
+#login li {
+	padding: 5px 0;
+}
+#login .icon-lock {
+	font-size: 16px;
+}

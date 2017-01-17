@@ -249,3 +249,20 @@ body {
 #footer .footer p {
 	margin-bottom: 0;
 }
+
+.scrollTop {
+	position: fixed;
+	right: 15px;
+	bottom: 30px;
+	width: 50px;
+	height: 50px;
+	z-index: 999;
+	border-radius: 5px;
+	font-size: 60px;
+	padding: 7px 5px;
+	background-color: rgba(0, 0, 0, 0.2);
+}
+.scrollTop i {
+	line-height: 0.5em;
+	color: #fff;
+}

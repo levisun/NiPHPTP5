@@ -304,14 +304,15 @@ class Base extends Controller
 		$default_theme .= Config::get('default_theme') . '/';
 
 		$replace = [
-			'__DOMAIN__'  => $domain,
-			'__STATIC__'  => $domain . '/public/static/',
-			'__LIBRARY__' => $domain . '/public/static/library/',
-			'__LAYOUT__'  => $domain . '/public/static/layout/',
-			'__THEME__'   => Config::get('default_theme'),
-			'__CSS__'     => $default_theme . 'css/',
-			'__JS__'      => $default_theme . 'js/',
-			'__IMG__'     => $default_theme . 'img/',
+			'__DOMAIN__'   => $domain,
+			'__PHP_SELF__' => basename($this->request->baseFile()),
+			'__STATIC__'   => $domain . '/public/static/',
+			'__LIBRARY__'  => $domain . '/public/static/library/',
+			'__LAYOUT__'   => $domain . '/public/static/layout/',
+			'__THEME__'    => Config::get('default_theme'),
+			'__CSS__'      => $default_theme . 'css/',
+			'__JS__'       => $default_theme . 'js/',
+			'__IMG__'      => $default_theme . 'img/',
 		];
 		$this->view->replace($replace);
 	}

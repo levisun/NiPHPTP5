@@ -65,6 +65,7 @@ return [
 	'error lang max'        => '语言标识符长度不得大于50位',
 	'success update'        => '更新成功',
 	'error update'          => '更新失败',
+	'confirm remove'        => '您确认删除此信息？',
 
 	/* 模型 */
 	'model article'         => '文章模型',
