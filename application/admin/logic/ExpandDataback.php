@@ -20,6 +20,18 @@ use util\Pclzip;
 class ExpandDataback extends Model
 {
 	protected $request = null;
+	protected $not_back_table = [
+		'admin',
+		'access',
+		'action',
+		'action_log',
+		'config',
+		'node',
+		'role',
+		'role_admin',
+		'searchengine',
+		'visit',
+	];
 
 	protected function initialize()
 	{
@@ -69,11 +81,19 @@ class ExpandDataback extends Model
 
 		$tables = $this->getTables();
 		$tables_sql = '';
+
+		foreach ($this->not_back_table as $key => $value) {
+			$this->not_back_table[$key] = Config::get('database.prefix') . $value;
+		}
+
 		foreach ($tables as $table) {
+			if (in_array($table, $this->not_back_table)) {
+				continue;
+			}
 			$tableRs = $this->query('SHOW CREATE TABLE `' . $table . '`');
 			if (!empty($tableRs[0]['Create Table'])) {
-				$tables_sql .= "\r\nDROP TABLE IF EXISTS `{$table}`;\r\n";
-				$tables_sql .= $tableRs[0]['Create Table'] . ';';
+				$tables_sql .= "DROP TABLE IF EXISTS `{$table}`;\r\n";
+				$tables_sql .= $tableRs[0]['Create Table'] . ";\r\n";
 
 				$field = $this->query('SHOW COLUMNS FROM `' . $table . '`');
 				$fieldRs = array();
@@ -208,13 +228,14 @@ class ExpandDataback extends Model
 				unset($list[$key]);
 			}
 		}
-		$execute_sql = explode(';', $sql);
-		array_pop($execute_sql);
+		$execute_table_sql = explode(';', $sql);
+		array_pop($execute_table_sql);
+		$this->batchQuery($execute_table_sql);
 
 		foreach ($list as $key => $value) {
-			$execute_sql[] = file_get_contents($dir . $value['name']);
+			$execute_insert_sql = [file_get_contents($dir . $value['name'])];
+			$this->batchQuery($execute_insert_sql);
 		}
-		$this->batchQuery($execute_sql);
 
 		// 删除临时文件
 		File::delete($dir);

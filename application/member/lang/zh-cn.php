@@ -12,4 +12,27 @@ return [
 	'error captcha length'       => '验证码不得小于4位',
 	'error captcha'              => '验证码输入不正确',
 	'error username or password' => '用户名或密码错误',
+
+
+	// 导航
+	'_nav' => [
+		'settings' => '个人设置',
+		'article'  => '我的文章',
+		'collect'  => '我的收藏',
+		'review'   => '我的信息',
+		],
+
+	'_menu' => [
+		'settings_bases'   => '基本信息',
+		'settings_pics'    => '修改头像',
+		'settings_pwds'    => '修改密码',
+
+		'article_feedback' => '反馈',
+		'article_message'  => '留言',
+		'article_common'   => '评论',
+
+		'collect_article'  => '文章',
+		'collect_common'   => '评论',
+		'collect_goods'    => '商品',
+		]
 ];

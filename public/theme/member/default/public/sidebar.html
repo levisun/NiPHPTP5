@@ -1,3 +1,20 @@
-<aside id="sidebar" class="col-sm-2">
-
+<aside id="sidebar" class="col-sm-3">
+	<div class="widget panel panel-default">
+		<div class="panel-heading">
+			<h3 class="panel-title">???</h3>
+		</div>
+		<div class="panel-body">
+			<ul class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+				{empty name="nav[$Request.controller]"}
+				{volist name="nav" id="vo"}
+				<li><a href="{$vo.url}">{$vo.name}</a></li>
+				{/volist}
+				{else/}
+				{volist name="nav[$Request.controller]['menu']" id="vo"}
+				<li><a href="{$vo.url}">{$vo.name}</a></li>
+				{/volist}
+				{/empty}
+			</ul>
+		</div>
+	</div>
 </aside>

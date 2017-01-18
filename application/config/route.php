@@ -38,6 +38,20 @@ return [
 	'member/reg'                   => 'member/index/reg',
 	'member/forget'                => 'member/index/forget',
 	'member'                       => 'member/my/index',
+	'member/settings'              => 'member/settings/bases',
+	'member/settings/bases'        => 'member/settings/bases',
+	'member/settings/pics'         => 'member/settings/pics',
+	'member/settings/pwds'         => 'member/settings/pwds',
+
+	'member/article'               => 'member/article/feedback',
+	'member/article/feedback'      => 'member/article/feedback',
+	'member/article/message'       => 'member/article/message',
+	'member/article/common'        => 'member/article/common',
+
+	'member/collect'               => 'member/collect/article',
+	'member/collect/article'       => 'member/collect/article',
+	'member/collect/common'        => 'member/collect/common',
+	'member/collect/goods'         => 'member/collect/goods',
 
 	// mall
 	'mall'           => 'mall/index/index',

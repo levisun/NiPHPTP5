@@ -52,6 +52,8 @@ class Base extends Controller
 		$this->website_data = $common_model->getWetsiteData();
 
 		$this->themeConfig();
+
+		$this->assign('nav', $common_model->getAuthMenu());
 	}
 
 	/**

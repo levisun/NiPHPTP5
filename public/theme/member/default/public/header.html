@@ -1,3 +1,27 @@
 <header id="header" class="container-fluid">
-	header
+	<section id="member-menu" class="row">
+		<div id="member" class="col-md-3">
+			{label:member}
+			{empty name="label.member"}
+			欢迎回来，<a href="{$label.member_url.login}">请登录</a>!
+			<a href="{$label.member_url.reg}">注册</a>
+			{else/}
+			欢迎回来，<a href="{$label.member_url.home}">会员中心</a> <a href="{$label.member_url.logout}">注销</a>!
+			{/empty}
+			{/label:member}
+		</div>
+	</section>
+	<section id="logo-nav" class="row">
+		<hgroup id="logo" class="col-md-3">
+			<h1><a class="blue" href=""><span>NP</span>腐朽的木屋</a></h1>
+		</hgroup>
+		<nav id="nav" class="col-md-9">
+			<ul class="nav nav-pills float-r">
+				<li role="presentation"><a href="{:url('/')}">首页</a></li>
+				{volist name="nav" id="vo"}
+				<li role="presentation"><a href="{$vo.url}">{$vo.name}</a></li>
+				{/volist}
+			</ul>
+		</nav>
+	</section>
 </header>

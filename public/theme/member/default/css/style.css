@@ -15,7 +15,44 @@ body {
 	font-size: 12px;
 }
 
+#header {
+	background-color: #fff;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 15px;
+}
+#header #member-menu {
+	line-height: 35px;
+}
+#header #member-menu .nav a {
+	padding-top: 0;
+	padding-bottom: 0;
+}
 
+#header #logo-nav {
+	padding-top: 15px;
+	padding-bottom: 15px;
+}
+#header #logo-nav #logo {
+
+}
+#header #logo-nav #logo>h1 {
+	margin: 0;
+}
+#header #logo-nav #nav {
+	font-size: 18px;
+}
+#header #logo span {
+	background-color: #45b6f7;
+	display: inline-block;
+	font-size: 32px;
+	line-height: 1em;
+	color: #fff;
+	padding: 5px 16px 10px 7px;
+	border-radius: 5px;
+	margin-right: 10px;
+	/*word-spacing: -8px;*/
+	letter-spacing: -9px;
+}
 
 
 #footer {

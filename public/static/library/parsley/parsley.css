@@ -16,16 +16,16 @@ textarea.parsley-error {
 
 .parsley-errors-list {
 	position: absolute;
-	right: 0;
+	right: 15px;
 	z-index: 1060;
 	max-width: 276px;
 	font-size: 14px;
-	padding: 0 10px 0;
+	padding: 0;
 	white-space: normal;
 	color: red;
 	height: 30px;
 	margin-top: 1px;
-	background-color: #fcf8e3;
+	/*background-color: #fcf8e3;*/
 }
 .parsley-errors-list>li {
 

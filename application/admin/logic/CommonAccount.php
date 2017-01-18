@@ -241,11 +241,11 @@ class CommonAccount extends Model
 			foreach ($value as $k => $val) {
 				$action = strtolower($k);
 				$auth_menu[$controller]['name'] = $_nav[$controller];
-				$auth_menu[$controller]['menu'][] = array(
+				$auth_menu[$controller]['menu'][] = [
 					'action' => $action,
 					'url'    => Url::build($controller . '/' . $action),
 					'lang'   => $_menu[$controller . '_' . $action],
-					);
+				];
 			}
 		}
 		return $auth_menu;

@@ -36,6 +36,37 @@ class Common extends Model
 	}
 
 	/**
+	 * 权限菜单
+	 * @access public
+	 * @param
+	 * @return array
+	 */
+	public function getAuthMenu()
+	{
+		$nav  = Lang::get('_nav');
+		$menu = Lang::get('_menu');
+		$auth_menu = array();
+		foreach ($nav as $key => $value) {
+			$controller = strtolower($key);
+			$auth_menu[$controller]['name'] = $nav[$controller];
+			$auth_menu[$controller]['url'] = Url::build('/member/' . $controller);
+
+			foreach ($menu as $k => $val) {
+				$arr = explode('_', strtolower($k));
+				if ($arr[0] !== $controller) {
+					continue;
+				}
+				$auth_menu[$arr[0]]['menu'][] = [
+					'action' => $arr[1],
+					'url'    => Url::build('/member/' . $controller . '/' . $arr[1]),
+					'lang'   => $menu[$controller . '_' . $arr[1]],
+				];
+			}
+		}
+		return $auth_menu;
+	}
+
+	/**
 	 * 权限验证
 	 * @access public
 	 * @param

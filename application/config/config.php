@@ -12,7 +12,7 @@
  * @since     2016/10/22
  */
 return [
-	'sys_version' => '0.2.0 Alpha 356',
+	'sys_version' => '0.2.0 Alpha 429',
 
 	// 系统设置
 	'USER_AUTH_ON'      => 1,
@@ -77,13 +77,13 @@ return [
 	'session' => [
 		'id'             => '',
 		'var_session_id' => '',
-		'prefix'         => 'niphp',
+		'prefix'         => 'niphp_',
 		'type'           => '',
 		'auto_start'     => true,
 	],
 	// cookie设置
 	'cookie' => [
-		'prefix'    => 'niphp',
+		'prefix'    => 'niphp_',
 		'expire'    => 0,
 		'path'      => '/',
 		'domain'    => '',
