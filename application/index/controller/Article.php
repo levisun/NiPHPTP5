@@ -19,35 +19,35 @@ use app\index\logic\Article as IndexArticle;
 class Article extends Base
 {
 
-	/**
-	 * 内容页
-	 * @access public
-	 * @param
-	 * @return string
-	 */
-	public function index()
-	{
-		$model = new IndexArticle;
-		$model->setTableModel($this->table_name);
+    /**
+     * 内容页
+     * @access public
+     * @param
+     * @return string
+     */
+    public function index()
+    {
+        $model = new IndexArticle;
+        $model->setTableModel($this->table_name);
 
-		$data = $model->getArticle();
+        $data = $model->getArticle();
 
-		if ($data['is_link']) {
-			$this->redirect(Url::build('/jump/' . $data['category_id'] . '/' . $data['id']), 302);
-		}
+        if ($data['is_link']) {
+            $this->redirect(Url::build('/jump/' . $data['category_id'] . '/' . $data['id']), 302);
+        }
 
-		$this->assign('data', $data);
+        $this->assign('data', $data);
 
-		$web_info = $this->getCatWebInfo();
-		$replace = [
-			'__TITLE__'       => $data['title'] . ' - ' . $web_info['title'],
-			'__KEYWORDS__'    => $data['keywords'] ? $data['keywords'] : $web_info['keywords'],
-			'__DESCRIPTION__' => $data['description'] ?
-									$data['description'] :
-									$web_info['description'],
-		];
-		$this->view->replace($replace);
+        $web_info = $this->getCatWebInfo();
+        $replace = [
+            '__TITLE__'       => $data['title'] . ' - ' . $web_info['title'],
+            '__KEYWORDS__'    => $data['keywords'] ? $data['keywords'] : $web_info['keywords'],
+            '__DESCRIPTION__' => $data['description'] ?
+                                    $data['description'] :
+                                    $web_info['description'],
+        ];
+        $this->view->replace($replace);
 
-		return $this->fetch('article/' . $this->table_name);
-	}
+        return $this->fetch('article/' . $this->table_name);
+    }
 }

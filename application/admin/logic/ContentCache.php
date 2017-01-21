@@ -18,40 +18,40 @@ use think\Cache;
 use util\File;
 class ContentCache extends Model
 {
-	protected $request = null;
+    protected $request = null;
 
-	protected function initialize()
-	{
-		parent::initialize();
+    protected function initialize()
+    {
+        parent::initialize();
 
-		$this->request = Request::instance();
-	}
+        $this->request = Request::instance();
+    }
 
-	/**
-	 * 删除缓存
-	 * @access public
-	 * @param
-	 * @return boolean
-	 */
-	public function remove()
-	{
-		$type = $this->request->param('type');
+    /**
+     * 删除缓存
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function remove()
+    {
+        $type = $this->request->param('type');
 
-		if ($type == 'cache') {
-			Cache::clear();
-			return 'cache';
-		}
+        if ($type == 'cache') {
+            Cache::clear();
+            return 'cache';
+        }
 
-		if ($type == 'compile') {
-			$list = File::get(TEMP_PATH);
+        if ($type == 'compile') {
+            $list = File::get(TEMP_PATH);
 
-			// 删除编辑缓存
-			foreach ($list as $key => $value) {
-				File::delete(TEMP_PATH . $value['name']);
-			}
-			return 'compile';
-		}
+            // 删除编辑缓存
+            foreach ($list as $key => $value) {
+                File::delete(TEMP_PATH . $value['name']);
+            }
+            return 'compile';
+        }
 
-		return false;
-	}
+        return false;
+    }
 }

@@ -15,14 +15,14 @@ namespace app\admin\model;
 use think\Model;
 class FeedbackData extends Model
 {
-	protected $name = 'feedback_data';
-	protected $autoWriteTimestamp = false;
-	protected $updateTime = false;
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'main_id',
-		'fields_id',
-		'data'
-	];
+    protected $name = 'feedback_data';
+    protected $autoWriteTimestamp = false;
+    protected $updateTime = false;
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'main_id',
+        'fields_id',
+        'data'
+    ];
 }

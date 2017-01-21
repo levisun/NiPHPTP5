@@ -15,20 +15,20 @@ namespace app\index\validate;
 use think\Validate;
 class Feedback extends Validate
 {
-	protected $rule = [
-		'title'    => ['require', 'length:4,255', 'token'],
-		'username' => ['require', 'length:4,20'],
-		'content'  => ['require', 'max:500'],
-		'captcha'  => ['require', 'length:4', 'captcha'],
-	];
+    protected $rule = [
+        'title'    => ['require', 'length:4,255', 'token'],
+        'username' => ['require', 'length:4,20'],
+        'content'  => ['require', 'max:500'],
+        'captcha'  => ['require', 'length:4', 'captcha'],
+    ];
 
-	protected $message = [
-		'title.require'    => 'error feedback title require',
-		'title.length'     => 'error feedback title length not',
-		'username.require' => 'error feedback username require',
-		'username.length'  => 'error feedback username length not',
-		'content.require'  => 'error feedback content require',
-		'content.max'      => 'error feedback content length not',
-	];
+    protected $message = [
+        'title.require'    => 'error feedback title require',
+        'title.length'     => 'error feedback title length not',
+        'username.require' => 'error feedback username require',
+        'username.length'  => 'error feedback username length not',
+        'content.require'  => 'error feedback content require',
+        'content.max'      => 'error feedback content length not',
+    ];
 
 }

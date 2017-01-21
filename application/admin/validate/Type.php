@@ -15,35 +15,35 @@ namespace app\admin\validate;
 use think\Validate;
 class Type extends Validate
 {
-	protected $rule = [
-		'id'          => ['require', 'number'],
-		'name'        => ['require', 'length:2,255', 'token'],
-		'category_id' => ['require', 'number'],
-		'description' => ['max:500'],
-	];
+    protected $rule = [
+        'id'          => ['require', 'number'],
+        'name'        => ['require', 'length:2,255', 'token'],
+        'category_id' => ['require', 'number'],
+        'description' => ['max:500'],
+    ];
 
-	protected $message = [
-		'id.require'          => 'illegal operation',
-		'id.number'           => 'illegal operation',
-		'name.require'        => 'error typename require',
-		'name.length'         => 'error typename length not',
-		'category_id.require' => 'error category_id require',
-		'category_id.number'  => 'error category_id number',
-		'description.max'     => 'error description length not',
-	];
+    protected $message = [
+        'id.require'          => 'illegal operation',
+        'id.number'           => 'illegal operation',
+        'name.require'        => 'error typename require',
+        'name.length'         => 'error typename length not',
+        'category_id.require' => 'error category_id require',
+        'category_id.number'  => 'error category_id number',
+        'description.max'     => 'error description length not',
+    ];
 
-	protected $scene = [
-		'added' => [
-			'name',
-			'category_id',
-			'description'
-		],
-		'editor' => [
-			'id',
-			'name',
-			'description'
-		],
-		'illegal' => ['id'],
-		'remove' => ['id'],
-	];
+    protected $scene = [
+        'added' => [
+            'name',
+            'category_id',
+            'description'
+        ],
+        'editor' => [
+            'id',
+            'name',
+            'description'
+        ],
+        'illegal' => ['id'],
+        'remove' => ['id'],
+    ];
 }

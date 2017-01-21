@@ -15,14 +15,14 @@ namespace app\admin\model;
 use think\Model;
 class MessageData extends Model
 {
-	protected $name = 'message_data';
-	protected $autoWriteTimestamp = false;
-	protected $updateTime = false;
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'main_id',
-		'fields_id',
-		'data'
-	];
+    protected $name = 'message_data';
+    protected $autoWriteTimestamp = false;
+    protected $updateTime = false;
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'main_id',
+        'fields_id',
+        'data'
+    ];
 }

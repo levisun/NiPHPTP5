@@ -18,66 +18,66 @@ use think\Cache;
 use app\admin\model\Config AS AdminConfig;
 class SettingsEmail extends Model
 {
-	protected $request = null;
+    protected $request = null;
 
-	protected function initialize()
-	{
-		parent::initialize();
+    protected function initialize()
+    {
+        parent::initialize();
 
-		$this->request = Request::instance();
-	}
+        $this->request = Request::instance();
+    }
 
-	/**
-	 * 邮件设置数据
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	public function getEditorData()
-	{
-		$map = [
-			'name' => [
-				'in',
-				'smtp_host,smtp_port,smtp_username,smtp_password,smtp_from_email,smtp_from_name'
-			],
-			'lang' => 'niphp'
-		];
+    /**
+     * 邮件设置数据
+     * @access public
+     * @param
+     * @return array
+     */
+    public function getEditorData()
+    {
+        $map = [
+            'name' => [
+                'in',
+                'smtp_host,smtp_port,smtp_username,smtp_password,smtp_from_email,smtp_from_name'
+            ],
+            'lang' => 'niphp'
+        ];
 
-		$config = new AdminConfig;
-		$result =
-		$config->field(true)
-		->where($map)
-		->select();
+        $config = new AdminConfig;
+        $result =
+        $config->field(true)
+        ->where($map)
+        ->select();
 
-		$data = [];
-		foreach ($result as $value) {
-			$value = $value->toArray();
-			$data[$value['name']] = $value['value'];
-		}
+        $data = [];
+        foreach ($result as $value) {
+            $value = $value->toArray();
+            $data[$value['name']] = $value['value'];
+        }
 
-		return $data;
-	}
+        return $data;
+    }
 
-	/**
-	 * 修改邮件设置
-	 * @access public
-	 * @param
-	 * @return mixed
-	 */
-	public function editor()
-	{
-		$config = new AdminConfig;
+    /**
+     * 修改邮件设置
+     * @access public
+     * @param
+     * @return mixed
+     */
+    public function editor()
+    {
+        $config = new AdminConfig;
 
-		$post_data = $this->request->post();
-		foreach ($post_data as $key => $value) {
-			$map = ['name' => $key];
-			$data = ['value' => $value];
+        $post_data = $this->request->post();
+        foreach ($post_data as $key => $value) {
+            $map = ['name' => $key];
+            $data = ['value' => $value];
 
-			$config->allowField(true)
-			->isUpdate(true)
-			->save($data, $map);
-		}
-		Cache::clear();
-		return true;
-	}
+            $config->allowField(true)
+            ->isUpdate(true)
+            ->save($data, $map);
+        }
+        Cache::clear();
+        return true;
+    }
 }

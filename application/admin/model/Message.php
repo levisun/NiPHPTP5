@@ -16,25 +16,25 @@ use think\Model;
 use traits\model\SoftDelete;
 class Message extends Model
 {
-	use SoftDelete;
-	protected $name = 'message';
-	protected $autoWriteTimestamp = true;
-	protected $updateTime = 'update_time';
-	protected $deleteTime = 'delete_time';
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'title',
-		'username',
-		'content',
-		'reply',
-		'category_id',
-		'type_id',
-		'mebmer_id',
-		'is_pass',
-		'create_time',
-		'update_time',
-		'delete_time',
-		'lang'
-	];
+    use SoftDelete;
+    protected $name = 'message';
+    protected $autoWriteTimestamp = true;
+    protected $updateTime = 'update_time';
+    protected $deleteTime = 'delete_time';
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'title',
+        'username',
+        'content',
+        'reply',
+        'category_id',
+        'type_id',
+        'mebmer_id',
+        'is_pass',
+        'create_time',
+        'update_time',
+        'delete_time',
+        'lang'
+    ];
 }

@@ -16,8 +16,8 @@ use app\member\controller\Base;
 class My extends Base
 {
 
-	public function index()
-	{
-		return $this->fetch();
-	}
+    public function index()
+    {
+        return $this->fetch();
+    }
 }

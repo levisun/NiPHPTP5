@@ -18,13 +18,13 @@ use app\mall\controller\Base;
 class Index extends Base
 {
 
-	public function index()
-	{
+    public function index()
+    {
 
-	}
+    }
 
-	public function item()
-	{
-		# code...
-	}
+    public function item()
+    {
+        # code...
+    }
 }

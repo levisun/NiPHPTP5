@@ -144,7 +144,7 @@ class IpLocation {
      */
     public function getlocation($ip='') {
         if (!$this->fp) return null;            // 如果数据文件没有被正确打开，则直接返回空
-		if(empty($ip)) $ip = get_client_ip();
+        if(empty($ip)) $ip = get_client_ip();
         $location['ip'] = gethostbyname($ip);   // 将输入的域名转化为IP地址
         $ip = $this->packip($location['ip']);   // 将输入的IP地址转化为可比较的IP地址
                                                 // 不合法的IP地址会被转化为255.255.255.255

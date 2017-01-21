@@ -23,8 +23,8 @@
  */
 function msubstr($str, $start=0, $length, $suffix=true, $charset="utf-8")
 {
-	$ext = mb_strlen($str) > $length && $suffix ? '...' : '';
-	return mb_substr($str, $start, $length, $charset) . $ext;
+    $ext = mb_strlen($str) > $length && $suffix ? '...' : '';
+    return mb_substr($str, $start, $length, $charset) . $ext;
 }
 
 /**
@@ -34,53 +34,53 @@ function msubstr($str, $start=0, $length, $suffix=true, $charset="utf-8")
  */
 function toFieldsType($data)
 {
-	switch ($data['field_type']) {
-		case 'number':
-		case 'email':
-		case 'phone':
-			$input = '<input type="' . $data['field_type'] . '"';
-			$input .= ' name="fields[' . $data['id'] . ']"';
-			$input .= ' id="fields-' . $data['id'] . '"';
-			$input .= ' value=""';
-			$input .= ' class="form-control">';
-			break;
+    switch ($data['field_type']) {
+        case 'number':
+        case 'email':
+        case 'phone':
+            $input = '<input type="' . $data['field_type'] . '"';
+            $input .= ' name="fields[' . $data['id'] . ']"';
+            $input .= ' id="fields-' . $data['id'] . '"';
+            $input .= ' value=""';
+            $input .= ' class="form-control">';
+            break;
 
-		case 'url':
-		case 'currency':
-		case 'abc':
-		case 'idcards':
-		case 'landline':
-		case 'age':
-			$input = '<input type="text"';
-			$input .= ' name="fields[' . $data['id'] . ']"';
-			$input .= ' id="fields-' . $data['id'] . '"';
-			$input .= ' value=""';
-			$input .= ' class="form-control">';
-			break;
+        case 'url':
+        case 'currency':
+        case 'abc':
+        case 'idcards':
+        case 'landline':
+        case 'age':
+            $input = '<input type="text"';
+            $input .= ' name="fields[' . $data['id'] . ']"';
+            $input .= ' id="fields-' . $data['id'] . '"';
+            $input .= ' value=""';
+            $input .= ' class="form-control">';
+            break;
 
-		case 'date':
-			$input = '<input type="text"';
-			$input .= ' name="fields[' . $data['id'] . ']"';
-			$input .= ' id="fields-' . $data['id'] . '"';
-			$input .= ' value=""';
-			$input .= ' class="form-control">';
+        case 'date':
+            $input = '<input type="text"';
+            $input .= ' name="fields[' . $data['id'] . ']"';
+            $input .= ' id="fields-' . $data['id'] . '"';
+            $input .= ' value=""';
+            $input .= ' class="form-control">';
 
-			$input .= '<script type="text/javascript">
-				$(function () {
-					$("#fields-' . $data['id'] . '").datetimepicker(
-						{format: "Y-M-D"}
-						);
-				});
-				</script>';
-			break;
+            $input .= '<script type="text/javascript">
+                $(function () {
+                    $("#fields-' . $data['id'] . '").datetimepicker(
+                        {format: "Y-M-D"}
+                        );
+                });
+                </script>';
+            break;
 
-		case 'text':
-			$input = '<textarea name="fields[' . $data['id'] . ']"';
-			$input .= ' id="fields-' . $data['id'] . '"';
-			$input .= ' class="form-control">';
-			$input .= '</textarea>';
-			break;
-	}
+        case 'text':
+            $input = '<textarea name="fields[' . $data['id'] . ']"';
+            $input .= ' id="fields-' . $data['id'] . '"';
+            $input .= ' class="form-control">';
+            $input .= '</textarea>';
+            break;
+    }
 
-	return $input;
+    return $input;
 }

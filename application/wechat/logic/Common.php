@@ -18,17 +18,17 @@ use app\admin\model\Reply as WechatReply;
 class Common extends Model
 {
 
-	protected $request = null;
-	protected $domain;
+    protected $request = null;
+    protected $domain;
 
-	protected function initialize()
-	{
-		parent::initialize();
+    protected function initialize()
+    {
+        parent::initialize();
 
-		$this->request = Request::instance();
+        $this->request = Request::instance();
 
-		// 获得域名地址
-		$domain = $this->request->root(true);
-		$this->domain = strtr($domain, ['/index.php' => '']);
-	}
+        // 获得域名地址
+        $domain = $this->request->root(true);
+        $this->domain = strtr($domain, ['/index.php' => '']);
+    }
 }

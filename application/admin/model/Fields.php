@@ -15,16 +15,16 @@ namespace app\admin\model;
 use think\Model;
 class Fields extends Model
 {
-	protected $name = 'fields';
-	protected $autoWriteTimestamp = false;
-	protected $updateTime = false;
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'category_id',
-		'type_id',
-		'name',
-		'description',
-		'is_require',
-	];
+    protected $name = 'fields';
+    protected $autoWriteTimestamp = false;
+    protected $updateTime = false;
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'category_id',
+        'type_id',
+        'name',
+        'description',
+        'is_require',
+    ];
 }

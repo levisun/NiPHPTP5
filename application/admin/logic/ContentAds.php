@@ -18,134 +18,134 @@ use think\Lang;
 use app\admin\model\Ads as AdminAds;
 class ContentAds extends Model
 {
-	protected $request = null;
+    protected $request = null;
 
-	protected function initialize()
-	{
-		parent::initialize();
+    protected function initialize()
+    {
+        parent::initialize();
 
-		$this->request = Request::instance();
-	}
+        $this->request = Request::instance();
+    }
 
-	/**
-	 * 列表数据
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	public function getListData()
-	{
-		$map = [];
-		if ($key = $this->request->param('key')) {
-			$map['name'] = ['LIKE', '%' . $key . '%'];
-		}
+    /**
+     * 列表数据
+     * @access public
+     * @param
+     * @return array
+     */
+    public function getListData()
+    {
+        $map = [];
+        if ($key = $this->request->param('key')) {
+            $map['name'] = ['LIKE', '%' . $key . '%'];
+        }
 
-		$ads = new AdminAds;
-		$result =
-		$ads->field(true)
-		->where($map)
-		->paginate();
+        $ads = new AdminAds;
+        $result =
+        $ads->field(true)
+        ->where($map)
+        ->paginate();
 
-		$list = [];
-		foreach ($result as $value) {
-			$list[] = $value->toArray();
-		}
+        $list = [];
+        foreach ($result as $value) {
+            $list[] = $value->toArray();
+        }
 
-		$page = $result->render();
+        $page = $result->render();
 
-		return ['list' => $list, 'page' => $page];
-	}
+        return ['list' => $list, 'page' => $page];
+    }
 
-	/**
-	 * 添加数据
-	 * @access public
-	 * @param
-	 * @return boolean
-	 */
-	public function added()
-	{
-		$data = [
-			'name'       => $this->request->post('name'),
-			'width'      => $this->request->post('width/d'),
-			'height'     => $this->request->post('height/d'),
-			'image'      => $this->request->post('image'),
-			'url'        => $this->request->post('url'),
-			'start_time' => $this->request->post('start_time/f', 0, 'trim,strtotime'),
-			'end_time'   => $this->request->post('end_time/f', 0, 'trim,strtotime'),
-			'lang'       => Lang::detect(),
-		];
+    /**
+     * 添加数据
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function added()
+    {
+        $data = [
+            'name'       => $this->request->post('name'),
+            'width'      => $this->request->post('width/d'),
+            'height'     => $this->request->post('height/d'),
+            'image'      => $this->request->post('image'),
+            'url'        => $this->request->post('url'),
+            'start_time' => $this->request->post('start_time/f', 0, 'trim,strtotime'),
+            'end_time'   => $this->request->post('end_time/f', 0, 'trim,strtotime'),
+            'lang'       => Lang::detect(),
+        ];
 
-		$ads = new AdminAds;
-		$ads->data($data)
-		->allowField(true)
-		->isUpdate(false)
-		->save();
+        $ads = new AdminAds;
+        $ads->data($data)
+        ->allowField(true)
+        ->isUpdate(false)
+        ->save();
 
-		return $ads->id ? true : false;
-	}
+        return $ads->id ? true : false;
+    }
 
-	/**
-	 * 查询编辑数据
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	public function getEditorData()
-	{
-		$map = ['id' => $this->request->param('id/f')];
+    /**
+     * 查询编辑数据
+     * @access public
+     * @param
+     * @return array
+     */
+    public function getEditorData()
+    {
+        $map = ['id' => $this->request->param('id/f')];
 
-		$ads = new AdminAds;
-		$result =
-		$ads->field(true)
-		->where($map)
-		->find();
+        $ads = new AdminAds;
+        $result =
+        $ads->field(true)
+        ->where($map)
+        ->find();
 
-		return !empty($result) ? $result->toArray() : [];
-	}
+        return !empty($result) ? $result->toArray() : [];
+    }
 
-	/**
-	 * 编辑数据
-	 * @access public
-	 * @param
-	 * @return boolean
-	 */
-	public function editor()
-	{
-		$data = [
-			'name'       => $this->request->post('name'),
-			'width'      => $this->request->post('width/d'),
-			'height'     => $this->request->post('height/d'),
-			'image'      => $this->request->post('image'),
-			'url'        => $this->request->post('url'),
-			'start_time' => $this->request->post('start_time/f', 0, 'trim,strtotime'),
-			'end_time'   => $this->request->post('end_time/f', 0, 'trim,strtotime'),
-		];
-		$map = ['id' => $this->request->post('id/f')];
+    /**
+     * 编辑数据
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function editor()
+    {
+        $data = [
+            'name'       => $this->request->post('name'),
+            'width'      => $this->request->post('width/d'),
+            'height'     => $this->request->post('height/d'),
+            'image'      => $this->request->post('image'),
+            'url'        => $this->request->post('url'),
+            'start_time' => $this->request->post('start_time/f', 0, 'trim,strtotime'),
+            'end_time'   => $this->request->post('end_time/f', 0, 'trim,strtotime'),
+        ];
+        $map = ['id' => $this->request->post('id/f')];
 
-		$ads = new AdminAds;
-		$result =
-		$ads->allowField(true)
-		->isUpdate(true)
-		->save($data, $map);
+        $ads = new AdminAds;
+        $result =
+        $ads->allowField(true)
+        ->isUpdate(true)
+        ->save($data, $map);
 
-		return $result ? true : false;
-	}
+        return $result ? true : false;
+    }
 
-	/**
-	 * 删除数据
-	 * @access public
-	 * @param
-	 * @return boolean
-	 */
-	public function remove()
-	{
-		$map = ['id' => $this->request->param('id/f')];
+    /**
+     * 删除数据
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function remove()
+    {
+        $map = ['id' => $this->request->param('id/f')];
 
-		$ads = new AdminAds;
-		$result =
-		$ads->where($map)
-		->delete();
+        $ads = new AdminAds;
+        $result =
+        $ads->where($map)
+        ->delete();
 
-		return $result ? true : false;
-	}
+        return $result ? true : false;
+    }
 }

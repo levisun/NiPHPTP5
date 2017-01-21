@@ -15,22 +15,22 @@ namespace app\admin\model;
 use think\Model;
 class Ads extends Model
 {
-	protected $name = 'ads';
-	protected $autoWriteTimestamp = true;
-	protected $updateTime = 'update_time';
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'name',
-		'width',
-		'height',
-		'image',
-		'url',
-		'hits',
-		'start_time',
-		'end_time',
-		'create_time',
-		'update_time',
-		'lang'
-	];
+    protected $name = 'ads';
+    protected $autoWriteTimestamp = true;
+    protected $updateTime = 'update_time';
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'name',
+        'width',
+        'height',
+        'image',
+        'url',
+        'hits',
+        'start_time',
+        'end_time',
+        'create_time',
+        'update_time',
+        'lang'
+    ];
 }

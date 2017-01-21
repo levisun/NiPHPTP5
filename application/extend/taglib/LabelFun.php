@@ -23,544 +23,544 @@ use app\admin\model\Tags as IndexTags;
 class LabelFun
 {
 
-	/**
-	 * category标签函数
-	 * @access public
-	 * @param  intval $type_id
-	 * @return array
-	 */
-	public static function tagCategory($type_id)
-	{
-		$map = [
-			'type_id' => $type_id,
-			'is_show' => 1,
-			'pid'     => 0,
-			'lang'    => Lang::detect()
-		];
-		$order = 'sort ASC, id DESC';
-		$field = [
-			'id',
-			'name',
-			'pid',
-			'aliases',
-			'seo_title',
-			'seo_keywords',
-			'seo_description',
-			'image',
-			'url'
-		];
-
-		$category = new IndexCategory;
-		$CACHE = check_key($map, __METHOD__);
-
-		$result =
-		$category->field($field)
-		->where($map)
-		->order($order)
-		->cache($CACHE)
-		->select();
-
-		$data = [];
-		foreach ($result as $value) {
-			$data[] = $value->toArray();
-		}
-
-		return self::__getChild($data);
-	}
-
-	/**
-	 * 获得子导航
-	 * @access protected
-	 * @param  array $data
-	 * @return array
-	 */
-	protected static function __getChild($data)
-	{
-		$nav = $id = [];
-
-		$map   = ['lang' => Lang::detect()];
-		$field = [
-			'id',
-			'name',
-			'pid',
-			'aliases',
-			'seo_title',
-			'seo_keywords',
-			'seo_description',
-			'image',
-			'url'
-		];
-		$order = 'sort ASC,id DESC';
-
-		foreach ($data as $key => $value) {
-			$nav[$key] = $value;
-			$nav[$key]['url'] = Url::build('/entry/' . $value['id']);
-
-			// 查询子类
-			$map['pid'] = $value['id'];
-
-			$category = new IndexCategory;
-			$CACHE = check_key($map, __METHOD__);
-
-			$result =
-			$category->field($field)
-			->where($map)
-			->order($order)
-			->cache($CACHE)
-			->select();
-
-			$child = [];
-			foreach ($result as $value) {
-				$child[] = $value->toArray();
-			}
-
-			if (!empty($child)) {
-				// 递归查询子类
-				$_child = self::__getChild($child);
-				$child = !empty($_child) ? $_child : $child;
-				$nav[$key]['child'] = $child;
-			}
-		}
-
-		return $nav;
-	}
-
-	/**
-	 * breadcrumb标签函数
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	public static function tagBreadcrumb()
-	{
-		$request = Request::instance();
-		if (!$request->has('cid', 'param')) {
-			return [];
-		}
-
-		$id = $request->param('cid/f');
-
-		return self::__getParent($id);
-	}
-
-	/**
-	 * 获得父级栏目
-	 * @access protected
-	 * @param  intval $pid
-	 * @return intval
-	 */
-	protected static function __getParent($pid)
-	{
-		$parent = [];
-
-		$map = [
-			'id'   => $pid,
-			'lang' => Lang::detect()
-		];
-
-		$field = [
-			'id',
-			'name',
-			'pid',
-			'aliases',
-			'seo_title',
-			'seo_keywords',
-			'seo_description',
-			'image',
-			'url'
-		];
-
-		$category = new IndexCategory;
-		$CACHE = check_key($map, __METHOD__);
-
-		$result =
-		$category->field($field)
-		->where($map)
-		->cache($CACHE)
-		->find();
-
-		$data = $result ? $result->toArray() : [];
-
-		if (!empty($data['pid'])) {
-			$parent = self::__getParent($data['pid']);
-		}
-
-		$parent[] = $data;
-
-		return $parent;
-	}
-
-	/**
-	 * sidebar标签函数
-	 * @access public
-	 * @param
-	 * @return string|void
-	 */
-	public static function tagSidebar()
-	{
-		$request = Request::instance();
-		if (!$request->has('cid', 'param')) {
-			return [];
-		}
-
-		$id = $request->param('cid/f');
-
-		$id = self::__toParent($id);
-
-		$map = [
-			'id'      => $id,
-			'is_show' => 1,
-			'pid'     => 0,
-			'lang'    => Lang::detect()
-		];
-		$field = [
-			'id',
-			'name',
-			'pid',
-			'aliases',
-			'seo_title',
-			'seo_keywords',
-			'seo_description',
-			'image',
-			'url'
-		];
-
-		$category = new IndexCategory;
-		$CACHE = check_key($map, __METHOD__);
-
-		$result =
-		$category->field($field)
-		->where($map)
-		->cache($CACHE)
-		->select();
-
-		$data = [];
-		foreach ($result as $value) {
-			$data[] = $value->toArray();
-		}
-
-		if (empty($data)) {
-			return ;
-		}
-
-		return self::__getChild($data);
-
-	}
-
-	/**
-	 * 获得父级ID
-	 * @access protected
-	 * @param  intval $cid
-	 * @return intval
-	 */
-	protected static function __toParent($cid)
-	{
-		$map = [
-			'id'   => $cid,
-			'lang' => Lang::detect()
-		];
-
-		$field = [
-			'id',
-			'name',
-			'pid',
-			'aliases',
-			'seo_title',
-			'seo_keywords',
-			'seo_description',
-			'image',
-			'url'
-		];
-
-		$category = new IndexCategory;
-		$CACHE = check_key($map, __METHOD__);
-
-		$result =
-		$category->field($field)
-		->where($map)
-		->cache($CACHE)
-		->find();
-
-		$data = $result ? $result->toArray() : [];
-
-		if (!empty($data['pid'])) {
-			return self::__toParent($data['pid']);
-		}
-
-		return $data['id'];
-	}
-
-	/**
-	 * ads标签函数
-	 * @access public
-	 * @param  intval $id
-	 * @return array
-	 */
-	public static function tagAds($id)
-	{
-		$map = [
-			'id' => $id,
-			'end_time' => ['EGT', strtotime(date('Y-m-d'))],
-			'start_time' => ['ELT', strtotime(date('Y-m-d'))],
-			'lang' => Lang::detect()
-		];
-
-		$category = new IndexAds;
-		$CACHE = check_key($map, __METHOD__);
-
-		$result =
-		$category->field(true)
-		->where($map)
-		->cache($CACHE)
-		->find();
-
-		return $result ? $result->toArray() : [];
-	}
-
-	/**
-	 * 幻灯片标签函数
-	 * @access public
-	 * @param  intval $id
-	 * @return array
-	 */
-	public static function tagBanner($id)
-	{
-		if (empty($id)) {
-			return ;
-		}
-
-		$map = [
-			'id' => $id,
-			'lang' => Lang::detect()
-		];
-		$banner = new IndexBanner;
-		$CACHE = !APP_DEBUG ? __METHOD__ . 'PARENT' . implode('', $map) : false;
-
-		$result =
-		$banner->field(true)
-		->where($map)
-		->cache($CACHE)
-		->find();
-
-		$size = $result ? $result->toArray() : [];
-
-		if (empty($size)) {
-			return ;
-		}
-
-		$map = [
-			'pid' => $id,
-			'lang' => Lang::detect()
-		];
-		$CACHE = check_key($map, __METHOD__);
-
-		$result =
-		$banner->field(true)
-		->where($map)
-		->cache($CACHE)
-		->select();
-
-		$data = [];
-		foreach ($result as $value) {
-			$value = $value->toArray();
-			$value['url'] = Url::build('/banner/' . $vo['id']);
-			$value['width'] = $size['width'];
-			$value['height'] = $size['height'];
-			$data[] = $value;
-		}
-
-		return ['data' => $data, 'size' => $size];
-	}
-
-	/**
-	 * 文章标签函数
-	 * @access public
-	 * @param  intval $id
-	 * @param  intval $cid
-	 * @return array
-	 */
-	public static function tagArticle($id, $cid)
-	{
-		if (empty($id) || empty($cid)) {
-			return ;
-		}
-
-		$table_name = self::__getModelTable($cid);
-		if (empty($table_name)) {
-			return ;
-		}
-
-		$map = [
-			'a.id'          => $id,
-			'a.category_id' => $cid,
-			'a.is_pass'     => 1,
-			'a.show_time'   => ['ELT', strtotime(date('Y-m-d'))],
-			'a.lang'        => Lang::detect()
-		];
-
-		$model = Loader::model(ucfirst($table_name), 'model', false, 'admin');
-		$CACHE = check_key($map, __METHOD__);
-
-		$result =
-		$model->view($table_name . ' a', true)
-		->view('type t', ['name' => 'type_name'], 't.id=a.type_id', 'LEFT')
-		->view('level l', ['name' => 'level_name'], 'l.id=a.access_id', 'LEFT')
-		->view('category c', ['name' => 'cat_name'], 'c.id=a.category_id')
-		->view('admin ad', ['username' => 'editor_name'], 'a.user_id=ad.id')
-		->where($map)
-		->cache($CACHE)
-		->find();
-
-		$data = $result ? $result->toArray() : [];
-
-		if (!empty($data)) {
-			$data['content'] = htmlspecialchars_decode($data['content']);
-			if ($data['is_link']) {
-				$data['url'] = Url::build('/jump/' . $data['category_id'] . '/' . $data['id']);
-			} else {
-				$data['url'] = Url::build('/article/' . $data['category_id'] . '/' . $data['id']);
-			}
-			$data['cat_url'] = Url::build('/entry/' . $data['category_id']);
-		}
-
-		/*
-		TODO
-		$data['field'] = $this->getFieldsData();
-		$data['tags'] = $this->getTagsData();
-
-		if (in_array($this->model_name, ['picture', 'product'])) {
-			$data['album'] = $this->getAlbumData();
-		}*/
-
-		return $data;
-	}
-
-	/**
-	 * list标签函数
-	 * @access public
-	 * @param  intval $id
-	 * @param  array  $param
-	 * @return array
-	 */
-	public static function tagList($id, $param)
-	{
-		$table_name = self::__getModelTable($id);
-		if (empty($table_name)) {
-			return ;
-		}
-
-		if (in_array($table_name, ['link', 'feedback', 'message'])) {
-			return ;
-		}
-
-		$map = [
-			'a.category_id' => ['IN', $id],
-			'a.is_pass'     => 1,
-			'a.show_time'   => ['ELT', strtotime(date('Y-m-d'))],
-			'a.lang'        => Lang::detect()
-		];
-
-		// 推荐
-		if (!empty($param['com'])) {
-			$map['a.is_com'] = 1;
-		}
-		// 置顶
-		if (!empty($param['top'])) {
-			$map['a.is_top'] = 1;
-		}
-		// 最热
-		if (!empty($param['hot'])) {
-			$map['a.is_hot'] = 1;
-		}
-
-		$limit = !empty($param['limit']) ? (float) $param['limit'] : 10;
-		$order = !empty($param['order']) ? $param['order'] : 'a.sort DESC, a.id DESC';
-
-		$model = Loader::model(ucfirst($table_name), 'model', false, 'admin');
-		$CACHE = check_key($map, __METHOD__);
-
-		$result =
-		$model->view($table_name . ' a', true)
-		->view('type t', ['name' => 'type_name'], 't.id=a.type_id', 'LEFT')
-		->view('level l', ['name' => 'level_name'], 'l.id=a.access_id', 'LEFT')
-		->view('category c', ['name' => 'cat_name'], 'c.id=a.category_id')
-		->view('admin ad', ['username' => 'editor_name'], 'a.user_id=ad.id')
-		->where($map)
-		->limit($limit)
-		->order($order)
-		->cache($CACHE)
-		->select();
-
-		$list = [];
-		foreach ($result as $value) {
-			$value = $value->toArray();
-			if ($value['is_link']) {
-				$value['url'] = Url::build('/jump/' . $value['category_id'] . '/' . $value['id']);
-			} else {
-				$value['url'] = Url::build('/article/' . $value['category_id'] . '/' . $value['id']);
-			}
-			$value['cat_url'] = Url::build('/entry/' . $value['category_id']);
-			$list[] = $value;
-		}
-
-		return $list;
-	}
-
-	/**
-	 * tags标签函数
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	public static function tagTags()
-	{
-		$map = ['lang' => Lang::detect()];
-
-		$tags = new IndexTags;
-		$CACHE = check_key($map, __METHOD__);
-
-		$result =
-		$tags->field(true)
-		->where($map)
-		->cache($CACHE)
-		->select();
-
-		$data = [];
-		foreach ($result as $value) {
-			$value = $value->toArray();
-			$value['url'] = Url::build('/tags/' . $value['id']);
-			$data[] = $value;
-		}
-
-		return $data;
-	}
-
-	/**
-	 * 获得模型表
-	 * @access protected
-	 * @param
-	 * @return array
-	 */
-	protected static function __getModelTable($cid)
-	{
-		$map = [
-			'c.id' => $cid,
-			'c.lang' => Lang::detect()
-		];
-
-		$category = new IndexCategory;
-		$CACHE = check_key($map, __METHOD__);
-
-		$result =
-		$category->view('category c', 'id')
-		->view('model m', ['name' => 'model_name'], 'm.id=c.model_id AND m.name!=\'external\'')
-		->view('category cc', 'pid', 'c.id=cc.pid', 'LEFT')
-		->where($map)
-		->cache($CACHE)
-		->find();
-
-		$data = $result ? $result->toArray() : [];
-
-		return $data ? $data['model_name'] : '';
-	}
+    /**
+     * category标签函数
+     * @access public
+     * @param  intval $type_id
+     * @return array
+     */
+    public static function tagCategory($type_id)
+    {
+        $map = [
+            'type_id' => $type_id,
+            'is_show' => 1,
+            'pid'     => 0,
+            'lang'    => Lang::detect()
+        ];
+        $order = 'sort ASC, id DESC';
+        $field = [
+            'id',
+            'name',
+            'pid',
+            'aliases',
+            'seo_title',
+            'seo_keywords',
+            'seo_description',
+            'image',
+            'url'
+        ];
+
+        $category = new IndexCategory;
+        $CACHE = check_key($map, __METHOD__);
+
+        $result =
+        $category->field($field)
+        ->where($map)
+        ->order($order)
+        ->cache($CACHE)
+        ->select();
+
+        $data = [];
+        foreach ($result as $value) {
+            $data[] = $value->toArray();
+        }
+
+        return self::__getChild($data);
+    }
+
+    /**
+     * 获得子导航
+     * @access protected
+     * @param  array $data
+     * @return array
+     */
+    protected static function __getChild($data)
+    {
+        $nav = $id = [];
+
+        $map   = ['lang' => Lang::detect()];
+        $field = [
+            'id',
+            'name',
+            'pid',
+            'aliases',
+            'seo_title',
+            'seo_keywords',
+            'seo_description',
+            'image',
+            'url'
+        ];
+        $order = 'sort ASC,id DESC';
+
+        foreach ($data as $key => $value) {
+            $nav[$key] = $value;
+            $nav[$key]['url'] = Url::build('/entry/' . $value['id']);
+
+            // 查询子类
+            $map['pid'] = $value['id'];
+
+            $category = new IndexCategory;
+            $CACHE = check_key($map, __METHOD__);
+
+            $result =
+            $category->field($field)
+            ->where($map)
+            ->order($order)
+            ->cache($CACHE)
+            ->select();
+
+            $child = [];
+            foreach ($result as $value) {
+                $child[] = $value->toArray();
+            }
+
+            if (!empty($child)) {
+                // 递归查询子类
+                $_child = self::__getChild($child);
+                $child = !empty($_child) ? $_child : $child;
+                $nav[$key]['child'] = $child;
+            }
+        }
+
+        return $nav;
+    }
+
+    /**
+     * breadcrumb标签函数
+     * @access public
+     * @param
+     * @return array
+     */
+    public static function tagBreadcrumb()
+    {
+        $request = Request::instance();
+        if (!$request->has('cid', 'param')) {
+            return [];
+        }
+
+        $id = $request->param('cid/f');
+
+        return self::__getParent($id);
+    }
+
+    /**
+     * 获得父级栏目
+     * @access protected
+     * @param  intval $pid
+     * @return intval
+     */
+    protected static function __getParent($pid)
+    {
+        $parent = [];
+
+        $map = [
+            'id'   => $pid,
+            'lang' => Lang::detect()
+        ];
+
+        $field = [
+            'id',
+            'name',
+            'pid',
+            'aliases',
+            'seo_title',
+            'seo_keywords',
+            'seo_description',
+            'image',
+            'url'
+        ];
+
+        $category = new IndexCategory;
+        $CACHE = check_key($map, __METHOD__);
+
+        $result =
+        $category->field($field)
+        ->where($map)
+        ->cache($CACHE)
+        ->find();
+
+        $data = $result ? $result->toArray() : [];
+
+        if (!empty($data['pid'])) {
+            $parent = self::__getParent($data['pid']);
+        }
+
+        $parent[] = $data;
+
+        return $parent;
+    }
+
+    /**
+     * sidebar标签函数
+     * @access public
+     * @param
+     * @return string|void
+     */
+    public static function tagSidebar()
+    {
+        $request = Request::instance();
+        if (!$request->has('cid', 'param')) {
+            return [];
+        }
+
+        $id = $request->param('cid/f');
+
+        $id = self::__toParent($id);
+
+        $map = [
+            'id'      => $id,
+            'is_show' => 1,
+            'pid'     => 0,
+            'lang'    => Lang::detect()
+        ];
+        $field = [
+            'id',
+            'name',
+            'pid',
+            'aliases',
+            'seo_title',
+            'seo_keywords',
+            'seo_description',
+            'image',
+            'url'
+        ];
+
+        $category = new IndexCategory;
+        $CACHE = check_key($map, __METHOD__);
+
+        $result =
+        $category->field($field)
+        ->where($map)
+        ->cache($CACHE)
+        ->select();
+
+        $data = [];
+        foreach ($result as $value) {
+            $data[] = $value->toArray();
+        }
+
+        if (empty($data)) {
+            return ;
+        }
+
+        return self::__getChild($data);
+
+    }
+
+    /**
+     * 获得父级ID
+     * @access protected
+     * @param  intval $cid
+     * @return intval
+     */
+    protected static function __toParent($cid)
+    {
+        $map = [
+            'id'   => $cid,
+            'lang' => Lang::detect()
+        ];
+
+        $field = [
+            'id',
+            'name',
+            'pid',
+            'aliases',
+            'seo_title',
+            'seo_keywords',
+            'seo_description',
+            'image',
+            'url'
+        ];
+
+        $category = new IndexCategory;
+        $CACHE = check_key($map, __METHOD__);
+
+        $result =
+        $category->field($field)
+        ->where($map)
+        ->cache($CACHE)
+        ->find();
+
+        $data = $result ? $result->toArray() : [];
+
+        if (!empty($data['pid'])) {
+            return self::__toParent($data['pid']);
+        }
+
+        return $data['id'];
+    }
+
+    /**
+     * ads标签函数
+     * @access public
+     * @param  intval $id
+     * @return array
+     */
+    public static function tagAds($id)
+    {
+        $map = [
+            'id' => $id,
+            'end_time' => ['EGT', strtotime(date('Y-m-d'))],
+            'start_time' => ['ELT', strtotime(date('Y-m-d'))],
+            'lang' => Lang::detect()
+        ];
+
+        $category = new IndexAds;
+        $CACHE = check_key($map, __METHOD__);
+
+        $result =
+        $category->field(true)
+        ->where($map)
+        ->cache($CACHE)
+        ->find();
+
+        return $result ? $result->toArray() : [];
+    }
+
+    /**
+     * 幻灯片标签函数
+     * @access public
+     * @param  intval $id
+     * @return array
+     */
+    public static function tagBanner($id)
+    {
+        if (empty($id)) {
+            return ;
+        }
+
+        $map = [
+            'id' => $id,
+            'lang' => Lang::detect()
+        ];
+        $banner = new IndexBanner;
+        $CACHE = !APP_DEBUG ? __METHOD__ . 'PARENT' . implode('', $map) : false;
+
+        $result =
+        $banner->field(true)
+        ->where($map)
+        ->cache($CACHE)
+        ->find();
+
+        $size = $result ? $result->toArray() : [];
+
+        if (empty($size)) {
+            return ;
+        }
+
+        $map = [
+            'pid' => $id,
+            'lang' => Lang::detect()
+        ];
+        $CACHE = check_key($map, __METHOD__);
+
+        $result =
+        $banner->field(true)
+        ->where($map)
+        ->cache($CACHE)
+        ->select();
+
+        $data = [];
+        foreach ($result as $value) {
+            $value = $value->toArray();
+            $value['url'] = Url::build('/banner/' . $vo['id']);
+            $value['width'] = $size['width'];
+            $value['height'] = $size['height'];
+            $data[] = $value;
+        }
+
+        return ['data' => $data, 'size' => $size];
+    }
+
+    /**
+     * 文章标签函数
+     * @access public
+     * @param  intval $id
+     * @param  intval $cid
+     * @return array
+     */
+    public static function tagArticle($id, $cid)
+    {
+        if (empty($id) || empty($cid)) {
+            return ;
+        }
+
+        $table_name = self::__getModelTable($cid);
+        if (empty($table_name)) {
+            return ;
+        }
+
+        $map = [
+            'a.id'          => $id,
+            'a.category_id' => $cid,
+            'a.is_pass'     => 1,
+            'a.show_time'   => ['ELT', strtotime(date('Y-m-d'))],
+            'a.lang'        => Lang::detect()
+        ];
+
+        $model = Loader::model(ucfirst($table_name), 'model', false, 'admin');
+        $CACHE = check_key($map, __METHOD__);
+
+        $result =
+        $model->view($table_name . ' a', true)
+        ->view('type t', ['name' => 'type_name'], 't.id=a.type_id', 'LEFT')
+        ->view('level l', ['name' => 'level_name'], 'l.id=a.access_id', 'LEFT')
+        ->view('category c', ['name' => 'cat_name'], 'c.id=a.category_id')
+        ->view('admin ad', ['username' => 'editor_name'], 'a.user_id=ad.id')
+        ->where($map)
+        ->cache($CACHE)
+        ->find();
+
+        $data = $result ? $result->toArray() : [];
+
+        if (!empty($data)) {
+            $data['content'] = htmlspecialchars_decode($data['content']);
+            if ($data['is_link']) {
+                $data['url'] = Url::build('/jump/' . $data['category_id'] . '/' . $data['id']);
+            } else {
+                $data['url'] = Url::build('/article/' . $data['category_id'] . '/' . $data['id']);
+            }
+            $data['cat_url'] = Url::build('/entry/' . $data['category_id']);
+        }
+
+        /*
+        TODO
+        $data['field'] = $this->getFieldsData();
+        $data['tags'] = $this->getTagsData();
+
+        if (in_array($this->model_name, ['picture', 'product'])) {
+            $data['album'] = $this->getAlbumData();
+        }*/
+
+        return $data;
+    }
+
+    /**
+     * list标签函数
+     * @access public
+     * @param  intval $id
+     * @param  array  $param
+     * @return array
+     */
+    public static function tagList($id, $param)
+    {
+        $table_name = self::__getModelTable($id);
+        if (empty($table_name)) {
+            return ;
+        }
+
+        if (in_array($table_name, ['link', 'feedback', 'message'])) {
+            return ;
+        }
+
+        $map = [
+            'a.category_id' => ['IN', $id],
+            'a.is_pass'     => 1,
+            'a.show_time'   => ['ELT', strtotime(date('Y-m-d'))],
+            'a.lang'        => Lang::detect()
+        ];
+
+        // 推荐
+        if (!empty($param['com'])) {
+            $map['a.is_com'] = 1;
+        }
+        // 置顶
+        if (!empty($param['top'])) {
+            $map['a.is_top'] = 1;
+        }
+        // 最热
+        if (!empty($param['hot'])) {
+            $map['a.is_hot'] = 1;
+        }
+
+        $limit = !empty($param['limit']) ? (float) $param['limit'] : 10;
+        $order = !empty($param['order']) ? $param['order'] : 'a.sort DESC, a.id DESC';
+
+        $model = Loader::model(ucfirst($table_name), 'model', false, 'admin');
+        $CACHE = check_key($map, __METHOD__);
+
+        $result =
+        $model->view($table_name . ' a', true)
+        ->view('type t', ['name' => 'type_name'], 't.id=a.type_id', 'LEFT')
+        ->view('level l', ['name' => 'level_name'], 'l.id=a.access_id', 'LEFT')
+        ->view('category c', ['name' => 'cat_name'], 'c.id=a.category_id')
+        ->view('admin ad', ['username' => 'editor_name'], 'a.user_id=ad.id')
+        ->where($map)
+        ->limit($limit)
+        ->order($order)
+        ->cache($CACHE)
+        ->select();
+
+        $list = [];
+        foreach ($result as $value) {
+            $value = $value->toArray();
+            if ($value['is_link']) {
+                $value['url'] = Url::build('/jump/' . $value['category_id'] . '/' . $value['id']);
+            } else {
+                $value['url'] = Url::build('/article/' . $value['category_id'] . '/' . $value['id']);
+            }
+            $value['cat_url'] = Url::build('/entry/' . $value['category_id']);
+            $list[] = $value;
+        }
+
+        return $list;
+    }
+
+    /**
+     * tags标签函数
+     * @access public
+     * @param
+     * @return array
+     */
+    public static function tagTags()
+    {
+        $map = ['lang' => Lang::detect()];
+
+        $tags = new IndexTags;
+        $CACHE = check_key($map, __METHOD__);
+
+        $result =
+        $tags->field(true)
+        ->where($map)
+        ->cache($CACHE)
+        ->select();
+
+        $data = [];
+        foreach ($result as $value) {
+            $value = $value->toArray();
+            $value['url'] = Url::build('/tags/' . $value['id']);
+            $data[] = $value;
+        }
+
+        return $data;
+    }
+
+    /**
+     * 获得模型表
+     * @access protected
+     * @param
+     * @return array
+     */
+    protected static function __getModelTable($cid)
+    {
+        $map = [
+            'c.id' => $cid,
+            'c.lang' => Lang::detect()
+        ];
+
+        $category = new IndexCategory;
+        $CACHE = check_key($map, __METHOD__);
+
+        $result =
+        $category->view('category c', 'id')
+        ->view('model m', ['name' => 'model_name'], 'm.id=c.model_id AND m.name!=\'external\'')
+        ->view('category cc', 'pid', 'c.id=cc.pid', 'LEFT')
+        ->where($map)
+        ->cache($CACHE)
+        ->find();
+
+        $data = $result ? $result->toArray() : [];
+
+        return $data ? $data['model_name'] : '';
+    }
 }

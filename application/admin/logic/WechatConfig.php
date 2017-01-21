@@ -17,65 +17,65 @@ use think\Request;
 use app\admin\model\Config as AdminConfig;
 class WechatConfig extends Model
 {
-	protected $request = null;
+    protected $request = null;
 
-	protected function initialize()
-	{
-		parent::initialize();
+    protected function initialize()
+    {
+        parent::initialize();
 
-		$this->request = Request::instance();
-	}
+        $this->request = Request::instance();
+    }
 
-	/**
-	 * 微信接口数据
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	public function getEditorData()
-	{
-		$map = [
-			'name' => [
-				'in', 'wechat_token,wechat_encodingaeskey,wechat_appid,wechat_appsecret'
-			],
-			'lang' => 'niphp'
-		];
+    /**
+     * 微信接口数据
+     * @access public
+     * @param
+     * @return array
+     */
+    public function getEditorData()
+    {
+        $map = [
+            'name' => [
+                'in', 'wechat_token,wechat_encodingaeskey,wechat_appid,wechat_appsecret'
+            ],
+            'lang' => 'niphp'
+        ];
 
-		$config = new AdminConfig;
-		$result =
-		$config->field(true)
-		->where($map)
-		->select();
+        $config = new AdminConfig;
+        $result =
+        $config->field(true)
+        ->where($map)
+        ->select();
 
-		$data = [];
-		foreach ($result as $value) {
-			$value = $value->toArray();
-			$data[$value['name']] = $value['value'];
-		}
+        $data = [];
+        foreach ($result as $value) {
+            $value = $value->toArray();
+            $data[$value['name']] = $value['value'];
+        }
 
-		return $data;
-	}
+        return $data;
+    }
 
-	/**
-	 * 修改邮件设置
-	 * @access public
-	 * @param
-	 * @return mixed
-	 */
-	public function editor()
-	{
-		$config = new AdminConfig;
+    /**
+     * 修改邮件设置
+     * @access public
+     * @param
+     * @return mixed
+     */
+    public function editor()
+    {
+        $config = new AdminConfig;
 
-		$post_data = $this->request->post();
-		foreach ($post_data as $key => $value) {
-			$map = ['name' => $key];
-			$data = ['value' => $value];
+        $post_data = $this->request->post();
+        foreach ($post_data as $key => $value) {
+            $map = ['name' => $key];
+            $data = ['value' => $value];
 
-			$config->allowField(true)
-			->isUpdate(true)
-			->save($data, $map);
-		}
+            $config->allowField(true)
+            ->isUpdate(true)
+            ->save($data, $map);
+        }
 
-		return true;
-	}
+        return true;
+    }
 }

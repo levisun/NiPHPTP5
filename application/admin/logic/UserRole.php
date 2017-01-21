@@ -19,239 +19,239 @@ use app\admin\model\Node as AdminNode;
 use app\admin\model\Access as AdminAccess;
 class UserRole extends Model
 {
-	protected $request = null;
+    protected $request = null;
 
-	protected function initialize()
-	{
-		parent::initialize();
+    protected function initialize()
+    {
+        parent::initialize();
 
-		$this->request = Request::instance();
-	}
+        $this->request = Request::instance();
+    }
 
-	/**
-	 * 列表数据
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	public function getListData()
-	{
-		$map = ['id' => ['neq', 1]];
-		if ($key = $this->request->param('key')) {
-			$map['name'] = ['LIKE', '%' . $key . '%'];
-		}
+    /**
+     * 列表数据
+     * @access public
+     * @param
+     * @return array
+     */
+    public function getListData()
+    {
+        $map = ['id' => ['neq', 1]];
+        if ($key = $this->request->param('key')) {
+            $map['name'] = ['LIKE', '%' . $key . '%'];
+        }
 
-		$role = new AdminRole;
-		$result =
-		$role->field(true)
-		->where($map)
-		->order('id DESC')
-		->paginate();
+        $role = new AdminRole;
+        $result =
+        $role->field(true)
+        ->where($map)
+        ->order('id DESC')
+        ->paginate();
 
-		$list = [];
-		foreach ($result as $value) {
-			$list[] = $value->toArray();
-		}
+        $list = [];
+        foreach ($result as $value) {
+            $list[] = $value->toArray();
+        }
 
-		$page = $result->render();
+        $page = $result->render();
 
-		return ['list' => $list, 'page' => $page];
-	}
+        return ['list' => $list, 'page' => $page];
+    }
 
-	/**
-	 * 获得权限节点
-	 * @access public
-	 * @param  intval $parent_id 父ID
-	 * @return array
-	 */
-	public function getNode($parent_id=0)
-	{
-		$map = [
-			'status' => 1,
-			'pid' => $parent_id
-		];
-		if (!$parent_id) {
-			$map['id'] = 1;
-		}
-		$order = 'sort ASC';
+    /**
+     * 获得权限节点
+     * @access public
+     * @param  intval $parent_id 父ID
+     * @return array
+     */
+    public function getNode($parent_id=0)
+    {
+        $map = [
+            'status' => 1,
+            'pid' => $parent_id
+        ];
+        if (!$parent_id) {
+            $map['id'] = 1;
+        }
+        $order = 'sort ASC';
 
-		$node = new AdminNode;
-		$result =
-		$node->field(true)
-		->where($map)
-		->order($order)
-		->select();
+        $node = new AdminNode;
+        $result =
+        $node->field(true)
+        ->where($map)
+        ->order($order)
+        ->select();
 
-		$data = [];
-		foreach ($result as $key => $value) {
-			$array = $value->toArray();
-			$data[$key] = $array;
-			$child = $this->getNode($array['id']);
-			if (!empty($child)) {
-				$data[$key]['child'] = $child;
-			}
+        $data = [];
+        foreach ($result as $key => $value) {
+            $array = $value->toArray();
+            $data[$key] = $array;
+            $child = $this->getNode($array['id']);
+            if (!empty($child)) {
+                $data[$key]['child'] = $child;
+            }
 
-		}
-		return $data;
-	}
+        }
+        return $data;
+    }
 
-	/**
-	 * 添加数据
-	 * @access public
-	 * @param
-	 * @return boolean
-	 */
-	public function added()
-	{
-		$data = [
-			'name'   => $this->request->post('name'),
-			'status' => $this->request->post('status/d'),
-			'remark' => $this->request->post('remark'),
-		];
+    /**
+     * 添加数据
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function added()
+    {
+        $data = [
+            'name'   => $this->request->post('name'),
+            'status' => $this->request->post('status/d'),
+            'remark' => $this->request->post('remark'),
+        ];
 
-		$role = new AdminRole;
-		$role->data($data)
-		->isUpdate(false)
-		->save();
+        $role = new AdminRole;
+        $role->data($data)
+        ->isUpdate(false)
+        ->save();
 
-		if (!$role->id) {
-			return false;
-		}
+        if (!$role->id) {
+            return false;
+        }
 
-		$map = ['role_id' => $role->id];
+        $map = ['role_id' => $role->id];
 
-		$access = new AdminAccess;
-		$access->where($map)
-		->delete();
+        $access = new AdminAccess;
+        $access->where($map)
+        ->delete();
 
-		$node = $this->request->post('node/a');
-		$data = [
-			'role_id' => $role->id,
-			'status' => 1,
-		];
-		foreach ($node as $key => $value) {
-			foreach ($value as $k => $val) {
-				$k = explode('_', $k);
-				$k = !empty($k[1]) ? $k[1] : $k[0];
-				$data['node_id'] = $val;
-				$data['level'] = $key;
-				$data['module'] = $k;
+        $node = $this->request->post('node/a');
+        $data = [
+            'role_id' => $role->id,
+            'status' => 1,
+        ];
+        foreach ($node as $key => $value) {
+            foreach ($value as $k => $val) {
+                $k = explode('_', $k);
+                $k = !empty($k[1]) ? $k[1] : $k[0];
+                $data['node_id'] = $val;
+                $data['level'] = $key;
+                $data['module'] = $k;
 
-				$access->data($data)
-				->allowField(true)
-				->isUpdate(false)
-				->save();
-			}
-		}
+                $access->data($data)
+                ->allowField(true)
+                ->isUpdate(false)
+                ->save();
+            }
+        }
 
-		return $role->id ? true : false;
-	}
+        return $role->id ? true : false;
+    }
 
-	/**
-	 * 查询编辑数据
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	public function getEditorData()
-	{
-		$map = ['id' => $this->request->param('id/f')];
+    /**
+     * 查询编辑数据
+     * @access public
+     * @param
+     * @return array
+     */
+    public function getEditorData()
+    {
+        $map = ['id' => $this->request->param('id/f')];
 
-		$role = new AdminRole;
-		$result =
-		$role->field(true)
-		->where($map)
-		->find();
+        $role = new AdminRole;
+        $result =
+        $role->field(true)
+        ->where($map)
+        ->find();
 
-		$data = !empty($result) ? $result->toArray() : [];
+        $data = !empty($result) ? $result->toArray() : [];
 
-		$map = ['role_id' => $this->request->param('id/f')];
+        $map = ['role_id' => $this->request->param('id/f')];
 
-		$access = new AdminAccess;
-		$result =
-		$access->field(true)
-		->where($map)
-		->select();
+        $access = new AdminAccess;
+        $result =
+        $access->field(true)
+        ->where($map)
+        ->select();
 
-		foreach ($result as $value) {
-			$value = $value->toArray();
-			$data['node'][] = $value['node_id'];
-		}
+        foreach ($result as $value) {
+            $value = $value->toArray();
+            $data['node'][] = $value['node_id'];
+        }
 
-		return $data;
-	}
+        return $data;
+    }
 
-	/**
-	 * 编辑数据
-	 * @access public
-	 * @param
-	 * @return boolean
-	 */
-	public function editor()
-	{
-		$data = [
-			'name'   => $this->request->post('name'),
-			'status' => $this->request->post('status/d'),
-			'remark' => $this->request->post('remark'),
-		];
-		$id = $this->request->post('id/f');
-		$map = ['id' => $id];
+    /**
+     * 编辑数据
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function editor()
+    {
+        $data = [
+            'name'   => $this->request->post('name'),
+            'status' => $this->request->post('status/d'),
+            'remark' => $this->request->post('remark'),
+        ];
+        $id = $this->request->post('id/f');
+        $map = ['id' => $id];
 
-		$role = new AdminRole;
-		$role->where($map)
-		->update($data);
+        $role = new AdminRole;
+        $role->where($map)
+        ->update($data);
 
-		$map = ['role_id' => $id];
+        $map = ['role_id' => $id];
 
-		$access = new AdminAccess;
-		$access->where($map)
-		->delete();
+        $access = new AdminAccess;
+        $access->where($map)
+        ->delete();
 
-		$node = $this->request->post('node/a');
-		$data = [
-			'role_id' => $id,
-			'status' => 1,
-		];
-		foreach ($node as $key => $value) {
-			foreach ($value as $k => $val) {
-				$k = explode('_', $k);
-				$k = !empty($k[1]) ? $k[1] : $k[0];
-				$data['node_id'] = $val;
-				$data['level'] = $key;
-				$data['module'] = $k;
+        $node = $this->request->post('node/a');
+        $data = [
+            'role_id' => $id,
+            'status' => 1,
+        ];
+        foreach ($node as $key => $value) {
+            foreach ($value as $k => $val) {
+                $k = explode('_', $k);
+                $k = !empty($k[1]) ? $k[1] : $k[0];
+                $data['node_id'] = $val;
+                $data['level'] = $key;
+                $data['module'] = $k;
 
-				$access->allowField(true)
-				->isUpdate(true)
-				->save($data, $map);
-			}
-		}
+                $access->allowField(true)
+                ->isUpdate(true)
+                ->save($data, $map);
+            }
+        }
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * 删除数据
-	 * @access public
-	 * @param
-	 * @return boolean
-	 */
-	public function remove()
-	{
-		$id = $this->request->param('id/f');
-		$map = ['id' => $id];
+    /**
+     * 删除数据
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function remove()
+    {
+        $id = $this->request->param('id/f');
+        $map = ['id' => $id];
 
-		$role = new AdminRole;
-		$result =
-		$role->where($map)
-		->delete();
+        $role = new AdminRole;
+        $result =
+        $role->where($map)
+        ->delete();
 
-		$map = ['role_id' => $id];
+        $map = ['role_id' => $id];
 
-		$access = new AdminAccess;
-		$result =
-		$access->where($map)
-		->delete();
+        $access = new AdminAccess;
+        $result =
+        $access->where($map)
+        ->delete();
 
-		return $result ? true : false;
-	}
+        return $result ? true : false;
+    }
 }

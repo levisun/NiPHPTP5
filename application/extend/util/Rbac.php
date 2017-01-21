@@ -85,25 +85,25 @@ class Rbac {
         // 如果使用普通权限模式，保存当前用户的访问权限列表
         // 对管理员开发所有权限
         if(config('USER_AUTH_TYPE') !=2 && !session(config('ADMIN_AUTH_KEY')) )
-            $_SESSION['_ACCESS_LIST']	=	self::getAccessList($authId);
+            $_SESSION['_ACCESS_LIST'] = self::getAccessList($authId);
         return ;
     }
 
-	// 取得模块的所属记录访问权限列表 返回有权限的记录ID数组
-	static function getRecordAccessList($authId=null,$module='') {
+    // 取得模块的所属记录访问权限列表 返回有权限的记录ID数组
+    static function getRecordAccessList($authId=null,$module='') {
         if(null===$authId)   $authId = session(config('USER_AUTH_KEY'));
-        if(empty($module))  $module	=	request()->controller();
+        if(empty($module))  $module = request()->controller();
         //获取权限访问列表
         $accessList = self::getModuleAccessList($authId,$module);
         return $accessList;
-	}
+    }
 
     //检查当前操作是否需要认证
     static function checkAccess() {
         //如果项目要求认证，并且当前模块需要认证，则进行权限认证
         if( config('USER_AUTH_ON') ){
-			$_module	=	array();
-			$_action	=	array();
+            $_module = array();
+            $_action = array();
             if("" != config('REQUIRE_AUTH_MODULE')) {
                 //需要认证的模块
                 $_module['yes'] = explode(',',strtoupper(config('REQUIRE_AUTH_MODULE')));
@@ -113,19 +113,19 @@ class Rbac {
             }
             //检查当前模块是否需要认证
             if((!empty($_module['no']) && !in_array(strtoupper(request()->controller()),$_module['no'])) || (!empty($_module['yes']) && in_array(strtoupper(request()->controller()),$_module['yes']))) {
-				if("" != config('REQUIRE_AUTH_ACTION')) {
-					//需要认证的操作
-					$_action['yes'] = explode(',',strtoupper(config('REQUIRE_AUTH_ACTION')));
-				}else {
-					//无需认证的操作
-					$_action['no'] = explode(',',strtoupper(config('NOT_AUTH_ACTION')));
-				}
-				//检查当前操作是否需要认证
-				if((!empty($_action['no']) && !in_array(strtoupper(request()->action()),$_action['no'])) || (!empty($_action['yes']) && in_array(strtoupper(request()->action()),$_action['yes']))) {
-					return true;
-				}else {
-					return false;
-				}
+                if("" != config('REQUIRE_AUTH_ACTION')) {
+                    //需要认证的操作
+                    $_action['yes'] = explode(',',strtoupper(config('REQUIRE_AUTH_ACTION')));
+                }else {
+                    //无需认证的操作
+                    $_action['no'] = explode(',',strtoupper(config('NOT_AUTH_ACTION')));
+                }
+                //检查当前操作是否需要认证
+                if((!empty($_action['no']) && !in_array(strtoupper(request()->action()),$_action['no'])) || (!empty($_action['yes']) && in_array(strtoupper(request()->action()),$_action['yes']))) {
+                    return true;
+                }else {
+                    return false;
+                }
             }else {
                 return false;
             }
@@ -133,8 +133,8 @@ class Rbac {
         return false;
     }
 
-	// 登录检查
-	static public function checkLogin() {
+    // 登录检查
+    static public function checkLogin() {
         //检查当前操作是否需要认证
         if(self::checkAccess()) {
             //检查认证识别号
@@ -151,7 +151,7 @@ class Rbac {
             }
         }
         return true;
-	}
+    }
 
     //权限认证的过滤器方法
     static public function AccessDecision($appName='') {
@@ -179,12 +179,12 @@ class Rbac {
                     return false;
                 }
                 else {
-                    $_SESSION[$accessGuid]	=	true;
+                    $_SESSION[$accessGuid] = true;
                 }
             }else{
                 //管理员无需认证
-				return true;
-			}
+                return true;
+            }
         }
         return true;
     }
@@ -211,8 +211,8 @@ class Rbac {
         $apps =   $db->query($sql);
         $access =  array();
         foreach($apps as $key=>$app) {
-            $appId	=	$app['id'];
-            $appName	 =	 $app['name'];
+            $appId = $app['id'];
+            $appName  =  $app['name'];
             // 读取项目的模块权限
             $access[strtoupper($appName)]   =  array();
             $sql    =   "select node.id,node.name from ".
@@ -225,7 +225,7 @@ class Rbac {
             // 判断是否存在公共模块的权限
             $publicAction  = array();
             foreach($modules as $key=>$module) {
-                $moduleId	 =	 $module['id'];
+                $moduleId  =  $module['id'];
                 $moduleName = $module['name'];
                 if('PUBLIC'== strtoupper($moduleName)) {
                 $sql    =   "select node.id,node.name from ".
@@ -236,7 +236,7 @@ class Rbac {
                     "where user.user_id='{$authId}' and user.role_id=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=1 and access.node_id=node.id and node.level=3 and node.pid={$moduleId} and node.status=1";
                     $rs =   $db->query($sql);
                     foreach ($rs as $a){
-                        $publicAction[$a['name']]	 =	 $a['id'];
+                        $publicAction[$a['name']]  =  $a['id'];
                     }
                     unset($modules[$key]);
                     break;
@@ -244,7 +244,7 @@ class Rbac {
             }
             // 依次读取模块的操作权限
             foreach($modules as $key=>$module) {
-                $moduleId	 =	 $module['id'];
+                $moduleId  =  $module['id'];
                 $moduleName = $module['name'];
                 $sql    =   "select node.id,node.name from ".
                     $table['role']." as role,".
@@ -255,7 +255,7 @@ class Rbac {
                 $rs =   $db->query($sql);
                 $action = array();
                 foreach ($rs as $a){
-                    $action[$a['name']]	 =	 $a['id'];
+                    $action[$a['name']]  =  $a['id'];
                 }
                 // 和公共模块的操作权限合并
                 $action += $publicAction;
@@ -265,8 +265,8 @@ class Rbac {
         return $access;
     }
 
-	// 读取模块所属的记录访问权限
-	static public function getModuleAccessList($authId,$module) {
+    // 读取模块所属的记录访问权限
+    static public function getModuleAccessList($authId,$module) {
         // Db方式
         $db     =   Db::getInstance(config('RBAC_DB_DSN'));
         $table = array('role'=>config('RBAC_ROLE_TABLE'),'user'=>config('RBAC_USER_TABLE'),'access'=>config('RBAC_ACCESS_TABLE'));
@@ -276,10 +276,10 @@ class Rbac {
                     $table['access']." as access ".
                     "where user.user_id='{$authId}' and user.role_id=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=1 and  access.module='{$module}' and access.status=1";
         $rs =   $db->query($sql);
-        $access	=	array();
+        $access = array();
         foreach ($rs as $node){
-            $access[]	=	$node['node_id'];
+            $access[] = $node['node_id'];
         }
-		return $access;
-	}
+        return $access;
+    }
 }

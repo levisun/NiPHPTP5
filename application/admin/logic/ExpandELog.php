@@ -17,58 +17,58 @@ use think\Request;
 use util\File;
 class ExpandELog extends Model
 {
-	protected $request = null;
+    protected $request = null;
 
-	protected function initialize()
-	{
-		parent::initialize();
+    protected function initialize()
+    {
+        parent::initialize();
 
-		$this->request = Request::instance();
-	}
+        $this->request = Request::instance();
+    }
 
-	/**
-	 * 列表数据
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	public function getListData()
-	{
-		$dir = $this->request->param('name');
-		$dir = $dir ? decrypt($dir) . DS : $dir;
+    /**
+     * 列表数据
+     * @access public
+     * @param
+     * @return array
+     */
+    public function getListData()
+    {
+        $dir = $this->request->param('name');
+        $dir = $dir ? decrypt($dir) . DS : $dir;
 
-		$list = File::get(LOG_PATH . $dir);
+        $list = File::get(LOG_PATH . $dir);
 
-		rsort($list);
+        rsort($list);
 
-		// 删除过期日志
-		$days = strtotime('-180 days');
-		foreach ($list as $key => $value) {
-			if (strtotime($value['time']) <= $days) {
-				File::delete(LOG_PATH . $value['name'] . DS);
-				unset($list[$key]);
-			} else {
-				$list[$key]['id'] = encrypt($value['name']);
-			}
-		}
+        // 删除过期日志
+        $days = strtotime('-180 days');
+        foreach ($list as $key => $value) {
+            if (strtotime($value['time']) <= $days) {
+                File::delete(LOG_PATH . $value['name'] . DS);
+                unset($list[$key]);
+            } else {
+                $list[$key]['id'] = encrypt($value['name']);
+            }
+        }
 
-		return $list;
-	}
+        return $list;
+    }
 
-	/**
-	 * 查看数据
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	public function getOneData()
-	{
-		$dir = $this->request->param('name');
-		$dir = $dir ? decrypt($dir) . DS : $dir;
+    /**
+     * 查看数据
+     * @access public
+     * @param
+     * @return array
+     */
+    public function getOneData()
+    {
+        $dir = $this->request->param('name');
+        $dir = $dir ? decrypt($dir) . DS : $dir;
 
-		$name = $this->request->param('id');
-		$name = $name ? decrypt($name) : $name;
+        $name = $this->request->param('id');
+        $name = $name ? decrypt($name) : $name;
 
-		return file_get_contents(LOG_PATH . $dir . $name);
-	}
+        return file_get_contents(LOG_PATH . $dir . $name);
+    }
 }

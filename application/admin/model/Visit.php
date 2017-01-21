@@ -15,15 +15,15 @@ namespace app\admin\model;
 use think\Model;
 class Visit extends Model
 {
-	protected $name = 'visit';
-	protected $autoWriteTimestamp = false;
-	protected $updateTime = false;
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'date',
-		'ip',
-		'ip_attr',
-		'count',
-	];
+    protected $name = 'visit';
+    protected $autoWriteTimestamp = false;
+    protected $updateTime = false;
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'date',
+        'ip',
+        'ip_attr',
+        'count',
+    ];
 }

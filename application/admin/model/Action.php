@@ -15,14 +15,14 @@ namespace app\admin\model;
 use think\Model;
 class Action extends Model
 {
-	protected $name = 'action';
-	protected $autoWriteTimestamp = false;
-	protected $updateTime = false;
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'name',
-		'title',
-		'remark'
-	];
+    protected $name = 'action';
+    protected $autoWriteTimestamp = false;
+    protected $updateTime = false;
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'name',
+        'title',
+        'remark'
+    ];
 }

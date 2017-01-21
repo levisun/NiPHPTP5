@@ -18,14 +18,14 @@ use app\index\controller\Base;
 use app\index\logic\Tags as IndexTags;
 class Tags extends Base
 {
-	protected $beforeActionList = [
-		'first',
-	];
+    protected $beforeActionList = [
+        'first',
+    ];
 
-	public function index()
-	{
-		$tags = new IndexTags;
-		$tags->getListData();
-		return $this->fetch('entry/tags');
-	}
+    public function index()
+    {
+        $tags = new IndexTags;
+        $tags->getListData();
+        return $this->fetch('entry/tags');
+    }
 }

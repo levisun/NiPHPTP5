@@ -17,65 +17,65 @@ use app\admin\logic\MallGoods as AdminMallGoods;
 class Mall extends Base
 {
 
-	/**
-	 * 商品管理
-	 * @access public
-	 * @param
-	 * @return string
-	 */
-	public function goods()
-	{
-		$this->assign('submenu', 1);
-		$this->assign('submenu_button_added', 1);
+    /**
+     * 商品管理
+     * @access public
+     * @param
+     * @return string
+     */
+    public function goods()
+    {
+        $this->assign('submenu', 1);
+        $this->assign('submenu_button_added', 1);
 
-		// 新增
-		if ($this->method == 'added') {
-			parent::added('MallGoods');
-			return $this->fetch('goods_added');
-		}
+        // 新增
+        if ($this->method == 'added') {
+            parent::added('MallGoods');
+            return $this->fetch('goods_added');
+        }
 
-		// 删除
-		if ($this->method == 'remove') {
-			parent::remove('MallGoods');
-			return ;
-		}
+        // 删除
+        if ($this->method == 'remove') {
+            parent::remove('MallGoods');
+            return ;
+        }
 
-		// 编辑
-		if ($this->method == 'editor') {
-			$data = parent::editor('MallGoods');
-			$this->assign('data', $data);
-			return $this->fetch('goods_editor');
-		}
+        // 编辑
+        if ($this->method == 'editor') {
+            $data = parent::editor('MallGoods');
+            $this->assign('data', $data);
+            return $this->fetch('goods_editor');
+        }
 
-		$data = parent::select('MallGoods');
-		$this->assign('list', $data);
+        $data = parent::select('MallGoods');
+        $this->assign('list', $data);
 
-		return $this->fetch();
-	}
+        return $this->fetch();
+    }
 
-	/**
-	 * 帐户流水
-	 * @access public
-	 * @param
-	 * @return string
-	 */
-	public function accountflow()
-	{
-		$this->assign('submenu', 1);
+    /**
+     * 帐户流水
+     * @access public
+     * @param
+     * @return string
+     */
+    public function accountflow()
+    {
+        $this->assign('submenu', 1);
 
-		return $this->fetch();
-	}
+        return $this->fetch();
+    }
 
-	/**
-	 * 商城设置
-	 * @access public
-	 * @param
-	 * @return string
-	 */
-	public function settings()
-	{
-		$data = parent::editor('MallSettings', 'Config.mall', 'config_editor', false);
-		$this->assign('data', $data);
-		return $this->fetch();
-	}
+    /**
+     * 商城设置
+     * @access public
+     * @param
+     * @return string
+     */
+    public function settings()
+    {
+        $data = parent::editor('MallSettings', 'Config.mall', 'config_editor', false);
+        $this->assign('data', $data);
+        return $this->fetch();
+    }
 }

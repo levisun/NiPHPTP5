@@ -15,18 +15,18 @@ namespace app\admin\model;
 use think\Model;
 class Node extends Model
 {
-	protected $name = 'node';
-	protected $autoWriteTimestamp = false;
-	protected $updateTime = false;
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'name',
-		'title',
-		'status',
-		'remark',
-		'sort',
-		'pid',
-		'level',
-	];
+    protected $name = 'node';
+    protected $autoWriteTimestamp = false;
+    protected $updateTime = false;
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'name',
+        'title',
+        'status',
+        'remark',
+        'sort',
+        'pid',
+        'level',
+    ];
 }

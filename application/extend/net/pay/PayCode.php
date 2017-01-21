@@ -15,58 +15,58 @@ namespace net\pay;
 use net\pay\library\WxPay;
 class PayCode
 {
-	protected $type;
-	protected $config;
-	protected $param;
+    protected $type;
+    protected $config;
+    protected $param;
 
-	function __construct($type, $config, $param)
-	{
-		$this->type = $type;
-		$this->config = $config;
-		$this->param = $param;
-	}
+    function __construct($type, $config, $param)
+    {
+        $this->type = $type;
+        $this->config = $config;
+        $this->param = $param;
+    }
 
-	public function getCode()
-	{
-		if ($this->type == 'wxjspay') {
-			return $this->WxJsPay();
-		}
-	}
+    public function getCode()
+    {
+        if ($this->type == 'wxjspay') {
+            return $this->WxJsPay();
+        }
+    }
 
-	/**
-	 * 微信统一支付
-	 * @access protected
-	 * @param
-	 * @return string
-	 */
-	protected function WxJsPay()
-	{
-		$this->param['trade_type']  = 'JSAPI';
-		$this->param['device_info'] = 'WEB';
+    /**
+     * 微信统一支付
+     * @access protected
+     * @param
+     * @return string
+     */
+    protected function WxJsPay()
+    {
+        $this->param['trade_type']  = 'JSAPI';
+        $this->param['device_info'] = 'WEB';
 
-		$pay = new WxPay($this->config, $this->param);
-		$data = $pay->getJsApi();
+        $pay = new WxPay($this->config, $this->param);
+        $data = $pay->getJsApi();
 
-		$return = $data['js'];
-		$return .= '<button style="width:210px; height:50px; border-radius: 15px;background-color:#FE6714; border:0px #FE6714 solid; cursor: pointer;  color:white;  font-size:16px;" type="button" onclick="callpay()" >立即支付</button>';
+        $return = $data['js'];
+        $return .= '<button style="width:210px; height:50px; border-radius: 15px;background-color:#FE6714; border:0px #FE6714 solid; cursor: pointer;  color:white;  font-size:16px;" type="button" onclick="callpay()" >立即支付</button>';
 
-		return $return;
-	}
+        return $return;
+    }
 
-	/**
-	 * 微信二维码支付
-	 * @access protected
-	 * @param
-	 * @return string
-	 */
-	protected function WxQrcode()
-	{
-		$this->param['trade_type']  = 'NATIVE';
-		$this->param['device_info'] = 'WEB';
+    /**
+     * 微信二维码支付
+     * @access protected
+     * @param
+     * @return string
+     */
+    protected function WxQrcode()
+    {
+        $this->param['trade_type']  = 'NATIVE';
+        $this->param['device_info'] = 'WEB';
 
-		$pay = new WxPay($this->config, $this->$param);
-		$data = $pay->qrcode();
+        $pay = new WxPay($this->config, $this->$param);
+        $data = $pay->qrcode();
 
-		return $data;
-	}
+        return $data;
+    }
 }

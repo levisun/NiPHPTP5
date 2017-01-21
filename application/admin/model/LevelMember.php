@@ -15,12 +15,12 @@ namespace app\admin\model;
 use think\Model;
 class LevelMember extends Model
 {
-	protected $name = 'level_member';
-	protected $autoWriteTimestamp = false;
-	protected $updateTime = false;
-	protected $pk = 'user_id';
-	protected $field = [
-		'user_id',
-		'level_id',
-	];
+    protected $name = 'level_member';
+    protected $autoWriteTimestamp = false;
+    protected $updateTime = false;
+    protected $pk = 'user_id';
+    protected $field = [
+        'user_id',
+        'level_id',
+    ];
 }

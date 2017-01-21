@@ -15,23 +15,23 @@ namespace app\admin\model;
 use think\Model;
 class Banner extends Model
 {
-	protected $name = 'banner';
-	protected $autoWriteTimestamp = true;
-	protected $updateTime = 'update_time';
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'pid',
-		'name',
-		'title',
-		'width',
-		'height',
-		'image',
-		'url',
-		'hits',
-		'sort',
-		'create_time',
-		'update_time',
-		'lang'
-	];
+    protected $name = 'banner';
+    protected $autoWriteTimestamp = true;
+    protected $updateTime = 'update_time';
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'pid',
+        'name',
+        'title',
+        'width',
+        'height',
+        'image',
+        'url',
+        'hits',
+        'sort',
+        'create_time',
+        'update_time',
+        'lang'
+    ];
 }

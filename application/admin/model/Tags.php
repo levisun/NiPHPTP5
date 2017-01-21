@@ -15,13 +15,13 @@ namespace app\admin\model;
 use think\Model;
 class Tags extends Model
 {
-	protected $name = 'tags';
-	protected $autoWriteTimestamp = false;
-	protected $updateTime = false;
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'name',
-		'count',
-	];
+    protected $name = 'tags';
+    protected $autoWriteTimestamp = false;
+    protected $updateTime = false;
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'name',
+        'count',
+    ];
 }

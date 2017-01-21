@@ -15,14 +15,14 @@ namespace app\admin\model;
 use think\Model;
 class Region extends Model
 {
-	protected $name = 'region';
-	protected $autoWriteTimestamp = false;
-	protected $updateTime = false;
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'pid',
-		'name',
-		'type'
-	];
+    protected $name = 'region';
+    protected $autoWriteTimestamp = false;
+    protected $updateTime = false;
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'pid',
+        'name',
+        'type'
+    ];
 }

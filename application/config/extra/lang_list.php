@@ -12,7 +12,7 @@
  * @since     2016/10/22
  */
 return [
-	'zh-cn',
-	'zh-tw',
-	'en-us'
+    'zh-cn',
+    'zh-tw',
+    'en-us'
 ];

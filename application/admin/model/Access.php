@@ -15,16 +15,16 @@ namespace app\admin\model;
 use think\Model;
 class Access extends Model
 {
-	protected $name = 'access';
-	protected $autoWriteTimestamp = false;
-	protected $updateTime = false;
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'role_id',
-		'node_id',
-		'status',
-		'level',
-		'module'
-	];
+    protected $name = 'access';
+    protected $autoWriteTimestamp = false;
+    protected $updateTime = false;
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'role_id',
+        'node_id',
+        'status',
+        'level',
+        'module'
+    ];
 }

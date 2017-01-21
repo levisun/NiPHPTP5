@@ -15,14 +15,14 @@ namespace app\admin\model;
 use think\Model;
 class ArticleData extends Model
 {
-	protected $name = 'article_data';
-	protected $autoWriteTimestamp = false;
-	protected $updateTime = false;
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'main_id',
-		'fields_id',
-		'data'
-	];
+    protected $name = 'article_data';
+    protected $autoWriteTimestamp = false;
+    protected $updateTime = false;
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'main_id',
+        'fields_id',
+        'data'
+    ];
 }

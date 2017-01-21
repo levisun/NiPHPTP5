@@ -15,28 +15,28 @@ namespace app\admin\model;
 use think\Model;
 class Category extends Model
 {
-	protected $name = 'category';
-	protected $autoWriteTimestamp = true;
-	protected $updateTime = 'update_time';
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'pid',
-		'name',
-		'aliases',
-		'seo_title',
-		'seo_keywords',
-		'seo_description',
-		'image',
-		'type_id',
-		'model_id',
-		'is_show',
-		'is_channel',
-		'sort',
-		'access_id',
-		'url',
-		'create_time',
-		'update_time',
-		'lang'
-	];
+    protected $name = 'category';
+    protected $autoWriteTimestamp = true;
+    protected $updateTime = 'update_time';
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'pid',
+        'name',
+        'aliases',
+        'seo_title',
+        'seo_keywords',
+        'seo_description',
+        'image',
+        'type_id',
+        'model_id',
+        'is_show',
+        'is_channel',
+        'sort',
+        'access_id',
+        'url',
+        'create_time',
+        'update_time',
+        'lang'
+    ];
 }

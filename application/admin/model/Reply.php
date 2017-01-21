@@ -15,19 +15,19 @@ namespace app\admin\model;
 use think\Model;
 class Reply extends Model
 {
-	protected $name = 'reply';
-	protected $autoWriteTimestamp = false;
-	protected $updateTime = false;
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'keyword',
-		'title',
-		'content',
-		'type',
-		'image',
-		'url',
-		'status',
-		'lang'
-	];
+    protected $name = 'reply';
+    protected $autoWriteTimestamp = false;
+    protected $updateTime = false;
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'keyword',
+        'title',
+        'content',
+        'type',
+        'image',
+        'url',
+        'status',
+        'lang'
+    ];
 }

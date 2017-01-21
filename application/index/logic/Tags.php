@@ -23,105 +23,105 @@ use app\admin\model\Picture as IndexPicture;
 use app\admin\model\Product as IndexProduct;
 class Tags extends Model
 {
-	protected $request    = null;
+    protected $request    = null;
 
-	protected function initialize()
-	{
-		parent::initialize();
+    protected function initialize()
+    {
+        parent::initialize();
 
-		$this->request = Request::instance();
-	}
+        $this->request = Request::instance();
+    }
 
-	/**
-	 * 列表数据
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	public function getListData()
-	{
-		$map = [
-			't.lang' => Lang::detect(),
-		];
+    /**
+     * 列表数据
+     * @access public
+     * @param
+     * @return array
+     */
+    public function getListData()
+    {
+        $map = [
+            't.lang' => Lang::detect(),
+        ];
 
-		$tags = new IndexTags;
-		$result =
-		$tags->view('tags t', ['name'=>'tags_name'])
-		->view('tags_article ta', true, 'ta.tags_id=t.id')
-		->where($map)
-		->select();
+        $tags = new IndexTags;
+        $result =
+        $tags->view('tags t', ['name'=>'tags_name'])
+        ->view('tags_article ta', true, 'ta.tags_id=t.id')
+        ->where($map)
+        ->select();
 
-		$article_id = $category_id = [];
-		foreach ($result as $value) {
-			$value = $value->toArray();
-			$article_id[] = $value['article_id'];
-			$category_id[] = $value['category_id'];
-		}
-		$article_id  = array_unique($article_id);
-		$category_id = array_unique($category_id);
+        $article_id = $category_id = [];
+        foreach ($result as $value) {
+            $value = $value->toArray();
+            $article_id[] = $value['article_id'];
+            $category_id[] = $value['category_id'];
+        }
+        $article_id  = array_unique($article_id);
+        $category_id = array_unique($category_id);
 
 
-		$field = [
-			'id',
-			'title',
-			'keywords',
-			'description',
-			'thumb',
-			'category_id',
-			'type_id',
-			'is_com',
-			'is_top',
-			'is_hot',
-			'hits',
-			'comment_count',
-			'username',
-			'url',
-			'is_link',
-			'create_time',
-			'update_time',
-		];
-		$map = [
-			'id' => [
-				'in', implode(',', $article_id)
-			],
-			'category_id' => [
-				'in', implode(',', $category_id)
-			],
-			'is_pass'   => 1,
-			'lang'      => Lang::detect(),
-			'show_time' => ['ELT', strtotime(date('Y-m-d'))]
-		];
+        $field = [
+            'id',
+            'title',
+            'keywords',
+            'description',
+            'thumb',
+            'category_id',
+            'type_id',
+            'is_com',
+            'is_top',
+            'is_hot',
+            'hits',
+            'comment_count',
+            'username',
+            'url',
+            'is_link',
+            'create_time',
+            'update_time',
+        ];
+        $map = [
+            'id' => [
+                'in', implode(',', $article_id)
+            ],
+            'category_id' => [
+                'in', implode(',', $category_id)
+            ],
+            'is_pass'   => 1,
+            'lang'      => Lang::detect(),
+            'show_time' => ['ELT', strtotime(date('Y-m-d'))]
+        ];
 
-		$download = new IndexDownload;
-		$union[] = '(' . $download->field($field)->where($map)->limit(0, 10)->fetchSql()->select() . ')';
-		$picture = new IndexPicture;
-		$union[] = '(' . $picture->field($field)->where($map)->limit(0, 10)->fetchSql()->select() . ')';
-		$product = new IndexProduct;
-		$union[] = '(' . $product->field($field)->where($map)->limit(0, 10)->fetchSql()->select() . ')';
+        $download = new IndexDownload;
+        $union[] = '(' . $download->field($field)->where($map)->limit(0, 10)->fetchSql()->select() . ')';
+        $picture = new IndexPicture;
+        $union[] = '(' . $picture->field($field)->where($map)->limit(0, 10)->fetchSql()->select() . ')';
+        $product = new IndexProduct;
+        $union[] = '(' . $product->field($field)->where($map)->limit(0, 10)->fetchSql()->select() . ')';
 
-		$article = new IndexArticle;
-		$union[] = '(' . $article->field($field)->where($map)->limit(0, 10)->fetchSql()->select() . ')';
+        $article = new IndexArticle;
+        $union[] = '(' . $article->field($field)->where($map)->limit(0, 10)->fetchSql()->select() . ')';
 
-		$result =
-		$this
-		->union($union)
-		->query();halt(1);
+        $result =
+        $this
+        ->union($union)
+        ->query();halt(1);
 
-		/*$list = [];
-		foreach ($result as $value) {
-			$value = $value->toArray();
-			if ($value['is_link']) {
-				$value['url'] = Url::build('/jump/' . $value['category_id'] . '/' . $value['id']);
-			} else {
-				$value['url'] = Url::build('/article/' . $value['category_id'] . '/' . $value['id']);
-			}
-			$value['cat_url'] = Url::build('/entry/' . $value['category_id']);
-			$list[] = $value;
-		}
+        /*$list = [];
+        foreach ($result as $value) {
+            $value = $value->toArray();
+            if ($value['is_link']) {
+                $value['url'] = Url::build('/jump/' . $value['category_id'] . '/' . $value['id']);
+            } else {
+                $value['url'] = Url::build('/article/' . $value['category_id'] . '/' . $value['id']);
+            }
+            $value['cat_url'] = Url::build('/entry/' . $value['category_id']);
+            $list[] = $value;
+        }
 
-		$page = $result->render();*/
+        $page = $result->render();*/
 
-		trace($tags->getLastSql());
-		// trace($tags_list);
-	}
+        trace($tags->getLastSql());
+        // trace($tags_list);
+    }
 }

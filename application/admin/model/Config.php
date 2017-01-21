@@ -15,13 +15,13 @@ namespace app\admin\model;
 use think\Model;
 class Config extends Model
 {
-	protected $name = 'config';
-	protected $updateTime = false;
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'name',
-		'value',
-		'lang'
-	];
+    protected $name = 'config';
+    protected $updateTime = false;
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'name',
+        'value',
+        'lang'
+    ];
 }

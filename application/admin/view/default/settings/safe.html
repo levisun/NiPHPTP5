@@ -1,10 +1,10 @@
-<form action="" method="post" class="form-horizontal">
+<form action="" method="post" class="form-horizontal" data-parsley-validate="parsley" data-parsley-focus="last">
 	<ul>
 		{eq name="data.founder" value="1"}
 		<li class="form-group">
 			<label for="system_portal" class="col-md-2 control-label">{:lang('safe system portal')}</label>
 			<div class="col-md-6">
-				<input type="text" name="system_portal" id="system_portal" class="form-control long" value="{$data.system_portal}">
+				<input type="text" name="system_portal" id="system_portal" class="form-control long" value="{$data.system_portal}" data-parsley-required="true" data-parsley-maxlength="500">
 				<font class="grey">{:lang('safe system portal info')}</font>
 			</div>
 		</li>
@@ -40,13 +40,13 @@
 		<li class="form-group">
 			<label for="upload_file_max" class="col-md-2 control-label">{:lang('safe upload file max')}</label>
 			<div class="col-md-6">
-				<input type="text" name="upload_file_max" id="upload_file_max" class="mini form-control" value="{$data.upload_file_max}"> MB
+				<input type="text" name="upload_file_max" id="upload_file_max" class="mini form-control" value="{$data.upload_file_max}" data-parsley-required="true" data-parsley-type="integer"> MB
 			</div>
 		</li>
 		<li class="form-group">
 			<label for="upload_file_type" class="col-md-2 control-label">{:lang('safe upload file type')}</label>
 			<div class="col-md-6">
-				<textarea name="upload_file_type" id="upload_file_type" class="form-control">{$data.upload_file_type}</textarea>
+				<textarea name="upload_file_type" id="upload_file_type" class="form-control" data-parsley-required="true" data-parsley-maxlength="500">{$data.upload_file_type}</textarea>
 			</div>
 			<div class="col-md-2">
 				<font class="grey align-t">{:lang('safe upload file type info')}</font>

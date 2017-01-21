@@ -20,73 +20,73 @@ use net\IpLocation;
 use app\admin\model\Admin as AdminAdmin;
 class CommonLogin extends Model
 {
-	protected $request = null;
+    protected $request = null;
 
-	protected function initialize()
-	{
-		parent::initialize();
+    protected function initialize()
+    {
+        parent::initialize();
 
-		$this->request = Request::instance();
-	}
+        $this->request = Request::instance();
+    }
 
-	/**
-	 * 登录验证
-	 * @access public
-	 * @param
-	 * @return mixed
-	 */
-	public function checkLogin()
-	{
-		$map = ['a.username' => $this->request->post('username')];
-		$admin = new AdminAdmin;
-		$result =
-		$admin->view('admin a', 'id,username,password,email,salt')
-		->view('role_admin ra', 'user_id', 'a.id=ra.user_id')
-		->view('role r', ['id'=>'role_id', 'name'=>'role_name'], 'r.id=ra.role_id')
-		->where($map)
-		->find();
+    /**
+     * 登录验证
+     * @access public
+     * @param
+     * @return mixed
+     */
+    public function checkLogin()
+    {
+        $map = ['a.username' => $this->request->post('username')];
+        $admin = new AdminAdmin;
+        $result =
+        $admin->view('admin a', 'id,username,password,email,salt')
+        ->view('role_admin ra', 'user_id', 'a.id=ra.user_id')
+        ->view('role r', ['id'=>'role_id', 'name'=>'role_name'], 'r.id=ra.role_id')
+        ->where($map)
+        ->find();
 
-		$user_data = !empty($result) ? $result->toArray() : [];
+        $user_data = !empty($result) ? $result->toArray() : [];
 
-		$password = $this->request->post('password', '', 'trim,md5');
-		if (empty($user_data) || $user_data['password'] !== md5($password . $user_data['salt'])) {
-			return 'error username or password';
-		}
-		unset($user_data['password']);
+        $password = $this->request->post('password', '', 'trim,md5');
+        if (empty($user_data) || $user_data['password'] !== md5($password . $user_data['salt'])) {
+            return 'error username or password';
+        }
+        unset($user_data['password']);
 
-		$user_data['last_login_ip'] = $this->request->ip(0, true);
+        $user_data['last_login_ip'] = $this->request->ip(0, true);
 
-		$ip = new IpLocation();
-		$area = $ip->getlocation($this->request->ip(0, true));
-		$user_data['last_login_ip_attr'] = $area['country'] . $area['area'];
+        $ip = new IpLocation();
+        $area = $ip->getlocation($this->request->ip(0, true));
+        $user_data['last_login_ip_attr'] = $area['country'] . $area['area'];
 
-		$map = ['id' => $user_data['id']];
-		$field = [
-			'last_login_time',
-			'last_login_ip',
-			'last_login_ip_attr'
-		];
+        $map = ['id' => $user_data['id']];
+        $field = [
+            'last_login_time',
+            'last_login_ip',
+            'last_login_ip_attr'
+        ];
 
-		$admin->allowField($field)
-		->save($user_data, $map);
+        $admin->allowField($field)
+        ->save($user_data, $map);
 
-		Session::set('ADMIN_DATA', $user_data);
-		Session::set(Config::get('USER_AUTH_KEY'), $user_data['id']);
+        Session::set('ADMIN_DATA', $user_data);
+        Session::set(Config::get('USER_AUTH_KEY'), $user_data['id']);
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * 注销
-	 * @access public
-	 * @param
-	 * @return boolean
-	 */
-	public function logout()
-	{
-		Session::delete('ADMIN_DATA');
-		Session::delete(Config::get('USER_AUTH_KEY'));
-		Session::delete('_ACCESS_LIST');
-		return true;
-	}
+    /**
+     * 注销
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function logout()
+    {
+        Session::delete('ADMIN_DATA');
+        Session::delete(Config::get('USER_AUTH_KEY'));
+        Session::delete('_ACCESS_LIST');
+        return true;
+    }
 }

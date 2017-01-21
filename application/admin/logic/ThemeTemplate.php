@@ -19,94 +19,94 @@ use util\File;
 use app\admin\model\Config as AdminConfig;
 class ThemeTemplate extends Model
 {
-	protected $request = null;
+    protected $request = null;
 
-	protected function initialize()
-	{
-		parent::initialize();
+    protected function initialize()
+    {
+        parent::initialize();
 
-		$this->request = Request::instance();
-	}
+        $this->request = Request::instance();
+    }
 
-	/**
-	 * 列表数据
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	public function getListData()
-	{
-		$config_type = $this->config();
+    /**
+     * 列表数据
+     * @access public
+     * @param
+     * @return array
+     */
+    public function getListData()
+    {
+        $config_type = $this->config();
 
-		$type = $this->type();
-		$list = File::get(ROOT_PATH . 'public' . DS . 'theme' . DS . $type . DS);
+        $type = $this->type();
+        $list = File::get(ROOT_PATH . 'public' . DS . 'theme' . DS . $type . DS);
 
-		return ['config' => $config_type, 'list' => $list, 'type' => $type];
-	}
+        return ['config' => $config_type, 'list' => $list, 'type' => $type];
+    }
 
-	/**
-	 * 编辑数据
-	 * @access public
-	 * @param
-	 * @return boolean
-	 */
-	public function editor()
-	{
-		$type = $this->type();
+    /**
+     * 编辑数据
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function editor()
+    {
+        $type = $this->type();
 
-		$map = [
-			'name' => $type . '_theme',
-			'lang' => Lang::detect()
-		];
+        $map = [
+            'name' => $type . '_theme',
+            'lang' => Lang::detect()
+        ];
 
-		$data = ['value' => $this->request->param('id')];
+        $data = ['value' => $this->request->param('id')];
 
-		$config = new AdminConfig;
-		$result =
-		$config->allowField(true)
-		->isUpdate(true)
-		->save($data, $map);
+        $config = new AdminConfig;
+        $result =
+        $config->allowField(true)
+        ->isUpdate(true)
+        ->save($data, $map);
 
-		return $result ? true : false;
-	}
+        return $result ? true : false;
+    }
 
-	/**
-	 * 模板设置
-	 * @access protected
-	 * @param
-	 * @return string
-	 */
-	protected function config()
-	{
-		$type = $this->type();
+    /**
+     * 模板设置
+     * @access protected
+     * @param
+     * @return string
+     */
+    protected function config()
+    {
+        $type = $this->type();
 
-		$map = [
-			'name' => $type . '_theme',
-			'lang' => Lang::detect()
-		];
+        $map = [
+            'name' => $type . '_theme',
+            'lang' => Lang::detect()
+        ];
 
-		$config = new AdminConfig;
-		return
-		$config->field(true)
-		->where($map)
-		->value('value');
-	}
+        $config = new AdminConfig;
+        return
+        $config->field(true)
+        ->where($map)
+        ->value('value');
+    }
 
-	/**
-	 * 模板类型
-	 * @access protected
-	 * @param
-	 * @return string
-	 */
-	protected function type()
-	{
-		$action = $this->request->action();
-		if ($action == 'template') {
-			$type = 'index';
-		} else {
-			$type = $action;
-		}
+    /**
+     * 模板类型
+     * @access protected
+     * @param
+     * @return string
+     */
+    protected function type()
+    {
+        $action = $this->request->action();
+        if ($action == 'template') {
+            $type = 'index';
+        } else {
+            $type = $action;
+        }
 
-		return $type;
-	}
+        return $type;
+    }
 }

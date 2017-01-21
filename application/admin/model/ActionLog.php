@@ -15,18 +15,18 @@ namespace app\admin\model;
 use think\Model;
 class ActionLog extends Model
 {
-	protected $name = 'action_log';
-	protected $autoWriteTimestamp = true;
-	protected $updateTime = false;
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'action_id',
-		'user_id',
-		'action_ip',
-		'model',
-		'record_id',
-		'remark',
-		'create_time'
-	];
+    protected $name = 'action_log';
+    protected $autoWriteTimestamp = true;
+    protected $updateTime = false;
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'action_id',
+        'user_id',
+        'action_ip',
+        'model',
+        'record_id',
+        'remark',
+        'create_time'
+    ];
 }

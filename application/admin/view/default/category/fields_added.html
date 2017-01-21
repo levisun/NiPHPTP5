@@ -1,4 +1,4 @@
-<form action="" method="post" class="form-horizontal">
+<form action="" method="post" class="form-horizontal" data-parsley-validate="parsley" data-parsley-focus="last">
 	<ul>
 		<li class="form-group">
 			<label for="name" class="col-md-2 control-label">{:lang('fieldsname')}</label>
@@ -9,7 +9,7 @@
 		<li class="form-group">
 			<label for="type_id" class="col-md-2 control-label">{:lang('fieldstype')}</label>
 			<div class="col-md-6">
-				<select name="type_id" id="type_id" class="form-control">
+				<select name="type_id" id="type_id" class="form-control" data-parsley-required="true">
 					<option value="">{:lang('select type')}</option>
 					{volist name="type_list" id="vo"}
 					<option value="{$vo.id}">{:lang('type ' . $vo['name'])}</option>
@@ -20,7 +20,7 @@
 		<li class="form-group">
 			<label for="category_id" class="col-md-2 control-label">{:lang('fieldscategory')}</label>
 			<div class="col-md-6">
-				<select name="category_id[]" id="category_id_1" class="form-control" data-type="1" onchange="fieldsCategory(this)">
+				<select name="category_id[]" id="category_id_1" class="form-control" data-type="1" onchange="fieldsCategory(this)" data-parsley-required="true">
 					<option value="">{:lang('select category')}</option>
 					{volist name="category_list" id="vo"}
 					<option value="{$vo.id}">{$vo.name}</option>

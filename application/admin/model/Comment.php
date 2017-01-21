@@ -15,24 +15,24 @@ namespace app\admin\model;
 use think\Model;
 class Comment extends Model
 {
-	protected $name = 'comment';
-	protected $autoWriteTimestamp = true;
-	protected $updateTime = false;
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'category_id',
-		'content_id' ,
-		'user_id',
-		'pid',
-		'content',
-		'is_pass',
-		'is_report',
-		'support',
-		'report_time',
-		'ip',
-		'ip_attr',
-		'create_time',
-		'lang'
-	];
+    protected $name = 'comment';
+    protected $autoWriteTimestamp = true;
+    protected $updateTime = false;
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'category_id',
+        'content_id' ,
+        'user_id',
+        'pid',
+        'content',
+        'is_pass',
+        'is_report',
+        'support',
+        'report_time',
+        'ip',
+        'ip_attr',
+        'create_time',
+        'lang'
+    ];
 }

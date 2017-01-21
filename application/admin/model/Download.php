@@ -16,39 +16,39 @@ use think\Model;
 use traits\model\SoftDelete;
 class Download extends Model
 {
-	use SoftDelete;
-	protected $name = 'download';
-	protected $autoWriteTimestamp = true;
-	protected $updateTime = 'update_time';
-	protected $deleteTime = 'delete_time';
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'title',
-		'keywords',
-		'description',
-		'content',
-		'thumb',
-		'category_id',
-		'type_id',
-		'is_pass',
-		'is_com',
-		'is_top',
-		'is_hot',
-		'sort',
-		'hits',
-		'comment_count',
-		'username',
-		'origin',
-		'user_id',
-		'url',
-		'is_link',
-		'show_time',
-		'create_time',
-		'update_time',
-		'delete_time',
-		'access_id',
-		'down_url',
-		'lang'
-	];
+    use SoftDelete;
+    protected $name = 'download';
+    protected $autoWriteTimestamp = true;
+    protected $updateTime = 'update_time';
+    protected $deleteTime = 'delete_time';
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'title',
+        'keywords',
+        'description',
+        'content',
+        'thumb',
+        'category_id',
+        'type_id',
+        'is_pass',
+        'is_com',
+        'is_top',
+        'is_hot',
+        'sort',
+        'hits',
+        'comment_count',
+        'username',
+        'origin',
+        'user_id',
+        'url',
+        'is_link',
+        'show_time',
+        'create_time',
+        'update_time',
+        'delete_time',
+        'access_id',
+        'down_url',
+        'lang'
+    ];
 }

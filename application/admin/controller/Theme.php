@@ -19,57 +19,57 @@ use app\admin\logic\ThemeTemplate as AdminThemeTemplate;
 class Theme extends Base
 {
 
-	/**
-	 * 网站
-	 * @access public
-	 * @param
-	 * @return mixed
-	 */
-	public function template()
-	{
-		return $this->theme();
-	}
+    /**
+     * 网站
+     * @access public
+     * @param
+     * @return mixed
+     */
+    public function template()
+    {
+        return $this->theme();
+    }
 
-	/**
-	 * 会员
-	 * @access public
-	 * @param
-	 * @return mixed
-	 */
-	public function member()
-	{
-		return $this->theme();
-	}
+    /**
+     * 会员
+     * @access public
+     * @param
+     * @return mixed
+     */
+    public function member()
+    {
+        return $this->theme();
+    }
 
-	/**
-	 * 商城
-	 * @access public
-	 * @param
-	 * @return mixed
-	 */
-	public function mall()
-	{
-		return $this->theme();
-	}
+    /**
+     * 商城
+     * @access public
+     * @param
+     * @return mixed
+     */
+    public function mall()
+    {
+        return $this->theme();
+    }
 
-	protected function theme()
-	{
-		if ($this->method == 'update') {
-			$model = new AdminThemeTemplate;
-			$result = $model->editor();
-			if (true === $result) {
-				$this->actionLog('config_editor');
-				$url = Url::build($this->request->action());
-				$this->success(Lang::get('success update'), $url);
-			} else {
-				$this->error(Lang::get('error update'));
-			}
-		}
+    protected function theme()
+    {
+        if ($this->method == 'update') {
+            $model = new AdminThemeTemplate;
+            $result = $model->editor();
+            if (true === $result) {
+                $this->actionLog('config_editor');
+                $url = Url::build($this->request->action());
+                $this->success(Lang::get('success update'), $url);
+            } else {
+                $this->error(Lang::get('error update'));
+            }
+        }
 
-		$data = parent::select('ThemeTemplate');
-		$this->assign('list', $data['list']);
-		$this->assign('config', $data['config']);
-		$this->assign('type', $data['type']);
-		return $this->fetch('template');
-	}
+        $data = parent::select('ThemeTemplate');
+        $this->assign('list', $data['list']);
+        $this->assign('config', $data['config']);
+        $this->assign('type', $data['type']);
+        return $this->fetch('template');
+    }
 }

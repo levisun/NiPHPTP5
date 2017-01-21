@@ -15,14 +15,14 @@ namespace app\admin\model;
 use think\Model;
 class Type extends Model
 {
-	protected $name = 'type';
-	protected $autoWriteTimestamp = false;
-	protected $updateTime = false;
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'category_id',
-		'name',
-		'description'
-	];
+    protected $name = 'type';
+    protected $autoWriteTimestamp = false;
+    protected $updateTime = false;
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'category_id',
+        'name',
+        'description'
+    ];
 }

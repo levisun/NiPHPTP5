@@ -16,8 +16,8 @@ use think\Controller;
 use think\Url;
 class Index extends Controller
 {
-	public function index()
-	{
-		$this->redirect(Url::build('settings/info'));
-	}
+    public function index()
+    {
+        $this->redirect(Url::build('settings/info'));
+    }
 }

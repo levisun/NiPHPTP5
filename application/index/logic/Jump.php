@@ -19,53 +19,53 @@ use think\Url;
 use think\Loader;
 class Jump extends Model
 {
-	protected $request = null;
+    protected $request = null;
 
-	protected function initialize()
-	{
-		parent::initialize();
+    protected function initialize()
+    {
+        parent::initialize();
 
-		$this->request = Request::instance();
-	}
+        $this->request = Request::instance();
+    }
 
-	/**
-	 * 获得跳转链接
-	 * @access public
-	 * @param
-	 * @return string
-	 */
-	public function jump($name_)
-	{
-		$map = [
-			'category_id' => $this->request->param('cid/f'),
-			'id'          => $this->request->param('id/f'),
-			'lang'        => Lang::detect(),
-		];
+    /**
+     * 获得跳转链接
+     * @access public
+     * @param
+     * @return string
+     */
+    public function jump($name_)
+    {
+        $map = [
+            'category_id' => $this->request->param('cid/f'),
+            'id'          => $this->request->param('id/f'),
+            'lang'        => Lang::detect(),
+        ];
 
-		$model = Loader::model(ucfirst($name_), 'model', false, 'admin');
-		$CACHE = check_key($map, __METHOD__);
+        $model = Loader::model(ucfirst($name_), 'model', false, 'admin');
+        $CACHE = check_key($map, __METHOD__);
 
-		// 更新点击数
-		$model->where($map)
-		->setInc('hits');
+        // 更新点击数
+        $model->where($map)
+        ->setInc('hits');
 
-		// 查询跳转链接
-		$result =
-		$model->field(true)
-		->where($map)
-		->cache($CACHE)
-		->find();
+        // 查询跳转链接
+        $result =
+        $model->field(true)
+        ->where($map)
+        ->cache($CACHE)
+        ->find();
 
-		$data = $result ? $result->toArray() : [];
+        $data = $result ? $result->toArray() : [];
 
-		if (isset($data['is_link']) && !$data['is_link']) {
-			if (in_array($name_, ['article', 'download', 'picture', 'product'])) {
-				$data['url'] = Url::build('/article/' . $data['category_id'] . '/' . $data['id']);
-			} else {
-				$data['url'] = Url::build('/entry/' . $data['category_id']);
-			}
-		}
+        if (isset($data['is_link']) && !$data['is_link']) {
+            if (in_array($name_, ['article', 'download', 'picture', 'product'])) {
+                $data['url'] = Url::build('/article/' . $data['category_id'] . '/' . $data['id']);
+            } else {
+                $data['url'] = Url::build('/entry/' . $data['category_id']);
+            }
+        }
 
-		return $data['url'];
-	}
+        return $data['url'];
+    }
 }

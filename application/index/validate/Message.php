@@ -15,20 +15,20 @@ namespace app\index\validate;
 use think\Validate;
 class Message extends Validate
 {
-	protected $rule = [
-		'title'    => ['require', 'length:4,255', 'token'],
-		'username' => ['require', 'length:4,20'],
-		'content'  => ['require', 'max:500'],
-		'captcha'  => ['require', 'length:4', 'captcha'],
-	];
+    protected $rule = [
+        'title'    => ['require', 'length:4,255', 'token'],
+        'username' => ['require', 'length:4,20'],
+        'content'  => ['require', 'max:500'],
+        'captcha'  => ['require', 'length:4', 'captcha'],
+    ];
 
-	protected $message = [
-		'title.require'    => 'error message title require',
-		'title.length'     => 'error message title length not',
-		'username.require' => 'error message username require',
-		'username.length'  => 'error message username length not',
-		'content.require'  => 'error message content require',
-		'content.max'      => 'error message content length not',
-	];
+    protected $message = [
+        'title.require'    => 'error message title require',
+        'title.length'     => 'error message title length not',
+        'username.require' => 'error message username require',
+        'username.length'  => 'error message username length not',
+        'content.require'  => 'error message content require',
+        'content.max'      => 'error message content length not',
+    ];
 
 }

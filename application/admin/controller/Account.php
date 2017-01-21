@@ -18,45 +18,45 @@ use app\admin\controller\Base;
 use app\admin\logic\CommonLogin as AdminCommonLogin;
 class Account extends Base
 {
-	/**
-	 * 登录
-	 * @access public
-	 * @param
-	 * @return string
-	 */
-	public function login()
-	{
-		if ($this->request->isPost()) {
-			$result = $this->validate($_POST, 'Account.login');
-			if(true === $result){
-				$model = new AdminCommonLogin;
-				$result = $model->checkLogin();
-			}
+    /**
+     * 登录
+     * @access public
+     * @param
+     * @return string
+     */
+    public function login()
+    {
+        if ($this->request->isPost()) {
+            $result = $this->validate($_POST, 'Account.login');
+            if(true === $result){
+                $model = new AdminCommonLogin;
+                $result = $model->checkLogin();
+            }
 
-			if (true === $result) {
-				$this->actionLog('admin_login');
-				$this->redirect(Url::build('settings/info'));
-			} else {
-				$this->error(Lang::get($result));
-			}
-		}
+            if (true === $result) {
+                $this->actionLog('admin_login');
+                $this->redirect(Url::build('settings/info'));
+            } else {
+                $this->error(Lang::get($result));
+            }
+        }
 
-		return $this->fetch();
-	}
+        return $this->fetch();
+    }
 
-	/**
-	 * 注销
-	 * @access public
-	 * @param
-	 * @return void
-	 */
-	public function logout()
-	{
-		$this->actionLog('admin_logout');
-		$model = new AdminCommonLogin;
-		$result = $model->logout();
-		if (true === $result) {
-			$this->redirect(Url::build('account/login'));
-		}
-	}
+    /**
+     * 注销
+     * @access public
+     * @param
+     * @return void
+     */
+    public function logout()
+    {
+        $this->actionLog('admin_logout');
+        $model = new AdminCommonLogin;
+        $result = $model->logout();
+        if (true === $result) {
+            $this->redirect(Url::build('account/login'));
+        }
+    }
 }

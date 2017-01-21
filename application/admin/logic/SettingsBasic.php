@@ -19,79 +19,79 @@ use think\Cache;
 use app\admin\model\Config as AdminConfig;
 class SettingsBasic extends Model
 {
-	protected $request = null;
+    protected $request = null;
 
-	protected $to_html = [
-		'bottom_message',
-		'copyright',
-		'script'
-	];
+    protected $to_html = [
+        'bottom_message',
+        'copyright',
+        'script'
+    ];
 
-	protected function initialize()
-	{
-		parent::initialize();
+    protected function initialize()
+    {
+        parent::initialize();
 
-		$this->request = Request::instance();
-	}
+        $this->request = Request::instance();
+    }
 
-	/**
-	 * 基本设置数据
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	public function getEditorData()
-	{
-		$map = [
-			'name' => [
-				'in',
-				'website_name,website_keywords,website_description,bottom_message,copyright,script'
-			],
-			'lang' => Lang::detect()
-		];
+    /**
+     * 基本设置数据
+     * @access public
+     * @param
+     * @return array
+     */
+    public function getEditorData()
+    {
+        $map = [
+            'name' => [
+                'in',
+                'website_name,website_keywords,website_description,bottom_message,copyright,script'
+            ],
+            'lang' => Lang::detect()
+        ];
 
-		$config = new AdminConfig;
-		$result =
-		$config->field(true)
-		->where($map)
-		->select();
+        $config = new AdminConfig;
+        $result =
+        $config->field(true)
+        ->where($map)
+        ->select();
 
-		$data = [];
-		foreach ($result as $value) {
-			$value = $value->toArray();
-			if (in_array($value['name'], $this->to_html)) {
-				$data[$value['name']] = htmlspecialchars_decode($value['value']);
-			} else {
-				$data[$value['name']] = $value['value'];
-			}
-		}
+        $data = [];
+        foreach ($result as $value) {
+            $value = $value->toArray();
+            if (in_array($value['name'], $this->to_html)) {
+                $data[$value['name']] = htmlspecialchars_decode($value['value']);
+            } else {
+                $data[$value['name']] = $value['value'];
+            }
+        }
 
-		return $data;
-	}
+        return $data;
+    }
 
-	/**
-	 * 修改基本设置
-	 * @access public
-	 * @param
-	 * @return mixed
-	 */
-	public function editor()
-	{
-		$config = new AdminConfig;
+    /**
+     * 修改基本设置
+     * @access public
+     * @param
+     * @return mixed
+     */
+    public function editor()
+    {
+        $config = new AdminConfig;
 
-		foreach ($_POST as $key => $value) {
-			$map = ['name' => $key];
-			if (in_array($key, $this->to_html)) {
-				$data = ['value' => $this->request->post($key, '', 'trim,htmlspecialchars')];
-			} else {
-				$data = ['value' => $this->request->post($key)];
-			}
+        foreach ($_POST as $key => $value) {
+            $map = ['name' => $key];
+            if (in_array($key, $this->to_html)) {
+                $data = ['value' => $this->request->post($key, '', 'trim,htmlspecialchars')];
+            } else {
+                $data = ['value' => $this->request->post($key)];
+            }
 
-			$config->allowField(true)
-			->isUpdate(true)
-			->save($data, $map);
-		}
-		Cache::clear();
-		return true;
-	}
+            $config->allowField(true)
+            ->isUpdate(true)
+            ->save($data, $map);
+        }
+        Cache::clear();
+        return true;
+    }
 }

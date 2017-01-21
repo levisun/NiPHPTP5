@@ -20,40 +20,40 @@ use app\admin\model\Reply as WechatReply;
 class Attention extends Common
 {
 
-	public function reply()
-	{
-		$map = [
-			'type' => 2,
-			'lang' => Lang::detect()
-		];
+    public function reply()
+    {
+        $map = [
+            'type' => 2,
+            'lang' => Lang::detect()
+        ];
 
-		$model = new WechatReply;
+        $model = new WechatReply;
 
-		$result =
-		$model->field(true)
-		->where($map)
-		->select();
+        $result =
+        $model->field(true)
+        ->where($map)
+        ->select();
 
-		$data = [];
-		foreach ($result as $value) {
-			$value = $value->toArray();
+        $data = [];
+        foreach ($result as $value) {
+            $value = $value->toArray();
 
-			if (!empty($value['image']) && !empty($value['url'])) {
-				if (file_exists($value['image'])) {
-					$value['image'] = $this->domain . $value['image'];
-				}
-				$data['item'][] = [
-					'Title' => $value['title'],
-					'Description' => $value['content'],
-					'PicUrl' => $value['image'],
-					'Url' => $value['url']
-				];
-			} elseif(!empty($value['url'])) {
-				$data[] = '<a href="' . $value['url'] . '">' . $value['content'] . '</a>';
-			} else {
-				$data[] = $value['content'];
-			}
-		}
-		return $data;
-	}
+            if (!empty($value['image']) && !empty($value['url'])) {
+                if (file_exists($value['image'])) {
+                    $value['image'] = $this->domain . $value['image'];
+                }
+                $data['item'][] = [
+                    'Title' => $value['title'],
+                    'Description' => $value['content'],
+                    'PicUrl' => $value['image'],
+                    'Url' => $value['url']
+                ];
+            } elseif(!empty($value['url'])) {
+                $data[] = '<a href="' . $value['url'] . '">' . $value['content'] . '</a>';
+            } else {
+                $data[] = $value['content'];
+            }
+        }
+        return $data;
+    }
 }

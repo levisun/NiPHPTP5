@@ -23,68 +23,68 @@ use app\admin\model\Ads as AdminAds;
 use app\admin\model\Visit as AdminVisit;
 class SettingsInfo extends Model
 {
-	protected $request = null;
+    protected $request = null;
 
-	protected function initialize()
-	{
-		parent::initialize();
+    protected function initialize()
+    {
+        parent::initialize();
 
-		$this->request = Request::instance();
-	}
+        $this->request = Request::instance();
+    }
 
-	/**
-	 * 获得系统信息
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	public function getSysInfo()
-	{
-		$sys_data = [
-			'os' => PHP_OS,
-			'env' => $_SERVER['SERVER_SOFTWARE'],
-			'php_version' => PHP_VERSION,
-			'db_type' => Config::get('database.type'),
-		];
+    /**
+     * 获得系统信息
+     * @access public
+     * @param
+     * @return array
+     */
+    public function getSysInfo()
+    {
+        $sys_data = [
+            'os' => PHP_OS,
+            'env' => $_SERVER['SERVER_SOFTWARE'],
+            'php_version' => PHP_VERSION,
+            'db_type' => Config::get('database.type'),
+        ];
 
-		$db_version =
-		$this->query('SELECT version()');
-		$sys_data['db_version'] = $db_version[0]['version()'];
+        $db_version =
+        $this->query('SELECT version()');
+        $sys_data['db_version'] = $db_version[0]['version()'];
 
-		$member = new AdminMember;
-		$sys_data['member'] = $member->count();
-		$sys_data['member_reg'] = $member->where(['status' => 0])->count();
+        $member = new AdminMember;
+        $sys_data['member'] = $member->count();
+        $sys_data['member_reg'] = $member->where(['status' => 0])->count();
 
-		$feedback = new AdminFeedback;
-		$sys_data['feedback'] = $feedback->count();
+        $feedback = new AdminFeedback;
+        $sys_data['feedback'] = $feedback->count();
 
-		$message = new AdminMessage;
-		$sys_data['message'] = $message->count();
+        $message = new AdminMessage;
+        $sys_data['message'] = $message->count();
 
-		$link = new AdminLink;
-		$sys_data['link'] = $link->count();
+        $link = new AdminLink;
+        $sys_data['link'] = $link->count();
 
-		$ads = new AdminAds;
-		$sys_data['ads'] = $ads->where(['end_time' => ['egt', time()]])->count();
+        $ads = new AdminAds;
+        $sys_data['ads'] = $ads->where(['end_time' => ['egt', time()]])->count();
 
-		$visit = new AdminVisit;
-		$result = $visit
-		->field(true)
-		->where(['date' => ['egt', strtotime('-7 days')]])
-		->select();
+        $visit = new AdminVisit;
+        $result = $visit
+        ->field(true)
+        ->where(['date' => ['egt', strtotime('-7 days')]])
+        ->select();
 
-		$date = $count = [];
-		foreach ($result as $key => $value) {
-			$value = $value->toArray();
-			$date[$value['date']] = date('Y-m-d', $value['date']);
-			if (empty($count[$value['date']])) {
-				$count[$value['date']] = $value['count'];
-			} else {
-				$count[$value['date']] += $value['count'];
-			}
-		}
-		$sys_data['visit'] = ['date' => '\'' . implode("','", $date) . '\'', 'count' => implode(',', $count)];
+        $date = $count = [];
+        foreach ($result as $key => $value) {
+            $value = $value->toArray();
+            $date[$value['date']] = date('Y-m-d', $value['date']);
+            if (empty($count[$value['date']])) {
+                $count[$value['date']] = $value['count'];
+            } else {
+                $count[$value['date']] += $value['count'];
+            }
+        }
+        $sys_data['visit'] = ['date' => '\'' . implode("','", $date) . '\'', 'count' => implode(',', $count)];
 
-		return $sys_data;
-	}
+        return $sys_data;
+    }
 }

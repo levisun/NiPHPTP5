@@ -17,18 +17,18 @@ use think\Lang;
 use app\index\controller\Base;
 class Index extends Base
 {
-	protected $beforeActionList = [
-		'first',
-	];
+    protected $beforeActionList = [
+        'first',
+    ];
 
-	/**
-	 * 首页
-	 * @access public
-	 * @param
-	 * @return string
-	 */
-	public function index()
-	{
-		return $this->fetch();
-	}
+    /**
+     * 首页
+     * @access public
+     * @param
+     * @return string
+     */
+    public function index()
+    {
+        return $this->fetch();
+    }
 }

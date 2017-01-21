@@ -15,14 +15,14 @@ namespace app\admin\model;
 use think\Model;
 class FieldsType extends Model
 {
-	protected $name = 'fields_type';
-	protected $autoWriteTimestamp = false;
-	protected $updateTime = false;
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'name',
-		'description',
-		'regex'
-	];
+    protected $name = 'fields_type';
+    protected $autoWriteTimestamp = false;
+    protected $updateTime = false;
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'name',
+        'description',
+        'regex'
+    ];
 }

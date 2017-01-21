@@ -15,23 +15,23 @@ namespace app\admin\validate;
 use think\Validate;
 class Account extends Validate
 {
-	protected $rule = [
-		'username' => ['require', 'length:4,20', 'token'],
-		'password' => ['require', 'length:6,20'],
-		'captcha'  => ['require', 'length:4', 'captcha'],
-	];
+    protected $rule = [
+        'username' => ['require', 'length:4,20', 'token'],
+        'password' => ['require', 'length:6,20'],
+        'captcha'  => ['require', 'length:4', 'captcha'],
+    ];
 
-	protected $message = [
-		'username.require' => 'error username require',
-		'username.length'  => 'error username length not',
-		'password.require' => 'error password require',
-		'password.length'  => 'error password length not',
-		'captcha.require'  => 'error captcha require',
-		'captcha.length'   => 'error captcha length',
-		'captcha.captcha'  => 'error captcha',
-	];
+    protected $message = [
+        'username.require' => 'error username require',
+        'username.length'  => 'error username length not',
+        'password.require' => 'error password require',
+        'password.length'  => 'error password length not',
+        'captcha.require'  => 'error captcha require',
+        'captcha.length'   => 'error captcha length',
+        'captcha.captcha'  => 'error captcha',
+    ];
 
-	protected $scene = [
-		'login'  =>  ['username', 'password', 'captcha'],
-	];
+    protected $scene = [
+        'login'  =>  ['username', 'password', 'captcha'],
+    ];
 }

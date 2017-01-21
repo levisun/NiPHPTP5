@@ -19,16 +19,16 @@ use app\index\logic\Jump as IndexJump;
 class Jump extends Base
 {
 
-	/**
-	 * 跳转
-	 * @access public
-	 * @param
-	 * @return string
-	 */
-	public function index()
-	{
-		$model = new IndexJump;
-		$url = $model->jump($this->table_name);
-		$this->redirect($url, 302);
-	}
+    /**
+     * 跳转
+     * @access public
+     * @param
+     * @return string
+     */
+    public function index()
+    {
+        $model = new IndexJump;
+        $url = $model->jump($this->table_name);
+        $this->redirect($url, 302);
+    }
 }

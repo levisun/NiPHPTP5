@@ -15,14 +15,14 @@ namespace app\admin\model;
 use think\Model;
 class Searchengine extends Model
 {
-	protected $name = 'searchengine';
-	protected $autoWriteTimestamp = false;
-	protected $updateTime = false;
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'date',
-		'name',
-		'count',
-	];
+    protected $name = 'searchengine';
+    protected $autoWriteTimestamp = false;
+    protected $updateTime = false;
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'date',
+        'name',
+        'count',
+    ];
 }

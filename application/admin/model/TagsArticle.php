@@ -15,14 +15,14 @@ namespace app\admin\model;
 use think\Model;
 class TagsArticle extends Model
 {
-	protected $name = 'tags_article';
-	protected $autoWriteTimestamp = false;
-	protected $updateTime = false;
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'tags_id',
-		'category_id',
-		'article_id',
-	];
+    protected $name = 'tags_article';
+    protected $autoWriteTimestamp = false;
+    protected $updateTime = false;
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'tags_id',
+        'category_id',
+        'article_id',
+    ];
 }

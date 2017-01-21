@@ -15,15 +15,15 @@ namespace app\admin\model;
 use think\Model;
 class Role extends Model
 {
-	protected $name = 'role';
-	protected $autoWriteTimestamp = false;
-	protected $updateTime = false;
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'name',
-		'pid',
-		'status',
-		'remark'
-	];
+    protected $name = 'role';
+    protected $autoWriteTimestamp = false;
+    protected $updateTime = false;
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'name',
+        'pid',
+        'status',
+        'remark'
+    ];
 }

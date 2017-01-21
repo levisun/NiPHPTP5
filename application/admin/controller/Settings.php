@@ -17,84 +17,84 @@ use app\admin\logic\SettingsInfo as AdminSettingsInfo;
 class Settings extends Base
 {
 
-	/**
-	 * 系统信息
-	 * @access public
-	 * @param
-	 * @return string
-	 */
-	public function info()
-	{
-		$model = new AdminSettingsInfo;
-		$this->assign('data', $model->getSysInfo());
-		return $this->fetch();
-	}
+    /**
+     * 系统信息
+     * @access public
+     * @param
+     * @return string
+     */
+    public function info()
+    {
+        $model = new AdminSettingsInfo;
+        $this->assign('data', $model->getSysInfo());
+        return $this->fetch();
+    }
 
-	/**
-	 * 基本设置
-	 * @access public
-	 * @param
-	 * @return string
-	 */
-	public function basic()
-	{
-		$data = parent::editor('SettingsBasic', 'Config.basic', 'config_editor', false);
-		$this->assign('data', $data);
-		return $this->fetch();
-	}
+    /**
+     * 基本设置
+     * @access public
+     * @param
+     * @return string
+     */
+    public function basic()
+    {
+        $data = parent::editor('SettingsBasic', 'Config.basic', 'config_editor', false);
+        $this->assign('data', $data);
+        return $this->fetch();
+    }
 
-	/**
-	 * 语言设置
-	 * @access public
-	 * @param
-	 * @return string
-	 */
-	public function lang()
-	{
-		$data = parent::editor('SettingsLang', 'Config.lang', 'config_editor', false);
-		$this->assign('lang_list', $data['lang_list']);
-		$this->assign('sys_default_lang', $data['sys_default_lang']);
-		$this->assign('web_default_lang', $data['web_default_lang']);
-		$this->assign('lang_switch_on', $data['lang_switch_on']);
-		return $this->fetch();
-	}
+    /**
+     * 语言设置
+     * @access public
+     * @param
+     * @return string
+     */
+    public function lang()
+    {
+        $data = parent::editor('SettingsLang', 'Config.lang', 'config_editor', false);
+        $this->assign('lang_list', $data['lang_list']);
+        $this->assign('sys_default_lang', $data['sys_default_lang']);
+        $this->assign('web_default_lang', $data['web_default_lang']);
+        $this->assign('lang_switch_on', $data['lang_switch_on']);
+        return $this->fetch();
+    }
 
-	/**
-	 * 图片设置
-	 * @access public
-	 * @param
-	 * @return string
-	 */
-	public function image()
-	{
-		$data = parent::editor('SettingsImage', 'Config.image', 'config_editor', false);
-		$this->assign('data', $data);
-		return $this->fetch();
-	}
+    /**
+     * 图片设置
+     * @access public
+     * @param
+     * @return string
+     */
+    public function image()
+    {
+        $data = parent::editor('SettingsImage', 'Config.image', 'config_editor', false);
+        $this->assign('data', $data);
+        return $this->fetch();
+    }
 
-	/**
-	 * 安全与效率
-	 * @access public
-	 * @param
-	 * @return string
-	 */
-	public function safe()
-	{
-		$data = parent::editor('SettingsSafe', 'Config.safe', 'config_editor', false);
-		$this->assign('data', $data);
-		return $this->fetch();
-	}
+    /**
+     * 安全与效率
+     * @access public
+     * @param
+     * @return string
+     */
+    public function safe()
+    {
+        $data = parent::editor('SettingsSafe', 'Config.safe', 'config_editor', false);
+        $this->assign('data', $data);
+        return $this->fetch();
+    }
 
-	/**
-	 * 邮箱设置
-	 * @access public
-	 * @param
-	 * @return string
-	 */
-	public function email()
-	{
-		$data = parent::editor('SettingsEmail', 'Config.email', 'config_editor', false);
-		$this->assign('data', $data);
-		return $this->fetch();
-	}
+    /**
+     * 邮箱设置
+     * @access public
+     * @param
+     * @return string
+     */
+    public function email()
+    {
+        $data = parent::editor('SettingsEmail', 'Config.email', 'config_editor', false);
+        $this->assign('data', $data);
+        return $this->fetch();
+    }
 }

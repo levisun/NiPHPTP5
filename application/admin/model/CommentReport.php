@@ -15,16 +15,16 @@ namespace app\admin\model;
 use think\Model;
 class CommentReport extends Model
 {
-	protected $name = 'comment_report';
-	protected $autoWriteTimestamp = true;
-	protected $updateTime = false;
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'create_time',
-		'comment_id',
-		'user_id',
-		'ip',
-		'ip_attr'
-	];
+    protected $name = 'comment_report';
+    protected $autoWriteTimestamp = true;
+    protected $updateTime = false;
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'create_time',
+        'comment_id',
+        'user_id',
+        'ip',
+        'ip_attr'
+    ];
 }

@@ -19,48 +19,48 @@ use think\Url;
 use app\admin\model\Link as IndexLink;
 class Link extends Model
 {
-	protected $request = null;
+    protected $request = null;
 
-	protected function initialize()
-	{
-		parent::initialize();
+    protected function initialize()
+    {
+        parent::initialize();
 
-		$this->request = Request::instance();
-	}
+        $this->request = Request::instance();
+    }
 
-	/**
-	 * 列表数据
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	public function getListData()
-	{
-		$map = [
-			'l.category_id' => $this->request->param('cid/f'),
-			'l.is_pass'     => 1,
-			'l.lang'        => Lang::detect()
-		];
-		$order = 'l.sort DESC, l.type_id ASC, l.update_time DESC';
+    /**
+     * 列表数据
+     * @access public
+     * @param
+     * @return array
+     */
+    public function getListData()
+    {
+        $map = [
+            'l.category_id' => $this->request->param('cid/f'),
+            'l.is_pass'     => 1,
+            'l.lang'        => Lang::detect()
+        ];
+        $order = 'l.sort DESC, l.type_id ASC, l.update_time DESC';
 
-		$link = new IndexLink;
-		$CACHE = check_key($map, __METHOD__);
+        $link = new IndexLink;
+        $CACHE = check_key($map, __METHOD__);
 
-		$result =
-		$link->view('link l', 'id,logo,title,category_id,type_id,description')
-		->view('type t', ['name' => 'type_name'], 't.id=l.type_id', 'LEFT')
-		->where($map)
-		->order($order)
-		->cache($CACHE)
-		->select();
+        $result =
+        $link->view('link l', 'id,logo,title,category_id,type_id,description')
+        ->view('type t', ['name' => 'type_name'], 't.id=l.type_id', 'LEFT')
+        ->where($map)
+        ->order($order)
+        ->cache($CACHE)
+        ->select();
 
-		$list = [];
-		foreach ($result as $value) {
-			$value = $value->toArray();
-			$value['url'] = Url::build('/jump/' . $value['category_id'] . '/' . $value['id']);
-			$list[] = $value;
-		}
+        $list = [];
+        foreach ($result as $value) {
+            $value = $value->toArray();
+            $value['url'] = Url::build('/jump/' . $value['category_id'] . '/' . $value['id']);
+            $list[] = $value;
+        }
 
-		return ['list' => $list, 'page' => ''];
-	}
+        return ['list' => $list, 'page' => ''];
+    }
 }

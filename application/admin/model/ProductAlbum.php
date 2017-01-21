@@ -15,14 +15,14 @@ namespace app\admin\model;
 use think\Model;
 class ProductAlbum extends Model
 {
-	protected $name = 'product_album';
-	protected $autoWriteTimestamp = false;
-	protected $updateTime = false;
-	protected $pk = 'id';
-	protected $field = [
-		'id',
-		'main_id',
-		'thumb',
-		'image'
-	];
+    protected $name = 'product_album';
+    protected $autoWriteTimestamp = false;
+    protected $updateTime = false;
+    protected $pk = 'id';
+    protected $field = [
+        'id',
+        'main_id',
+        'thumb',
+        'image'
+    ];
 }

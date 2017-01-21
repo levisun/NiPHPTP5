@@ -19,19 +19,19 @@
  */
 function check_key($array, $method)
 {
-	if (APP_DEBUG) {
-		return false;
-	}
+    if (APP_DEBUG) {
+        return false;
+    }
 
-	$key = $method;
-	foreach ($array as $value) {
-		if (is_array($value)) {
-			$key .= check_key($value, '');
-		} else {
-			$key .= $value;
-		}
-	}
-	return $key;
+    $key = $method;
+    foreach ($array as $value) {
+        if (is_array($value)) {
+            $key .= check_key($value, '');
+        } else {
+            $key .= $value;
+        }
+    }
+    return $key;
 }
 
 /**
@@ -41,76 +41,76 @@ function check_key($array, $method)
  */
 function escape_xss($data)
 {
-	$search = [
-		// 过滤PHP
-		'/<\?php(.*?)\?>/si',
-		'/<\?(.*?)\?>/si',
-		'/<%(.*?)%>/si',
-		'/<\?php|<\?|\?>|<%|%>/si'
-	];
+    $search = [
+        // 过滤PHP
+        '/<\?php(.*?)\?>/si',
+        '/<\?(.*?)\?>/si',
+        '/<%(.*?)%>/si',
+        '/<\?php|<\?|\?>|<%|%>/si'
+    ];
 
-	$param = [
-		'javascript', 'vbscript', 'expression', 'applet', 'meta', 'xml', 'blink',
-		'link', 'script', 'embed', 'object', 'iframe', 'frame', 'frameset',
-		'ilayer', 'layer', 'bgsound', 'title', 'base'
-	];
-	foreach ($param as $value) {
-		$search[] = '/<(' . $value . '.*?)>(.*?)<(\/' . $value . '.*?)>/si';
-		$search[] = '/<(\/?' . $value . '.*?)>/si';
-	}
+    $param = [
+        'javascript', 'vbscript', 'expression', 'applet', 'meta', 'xml', 'blink',
+        'link', 'script', 'embed', 'object', 'iframe', 'frame', 'frameset',
+        'ilayer', 'layer', 'bgsound', 'title', 'base'
+    ];
+    foreach ($param as $value) {
+        $search[] = '/<(' . $value . '.*?)>(.*?)<(\/' . $value . '.*?)>/si';
+        $search[] = '/<(\/?' . $value . '.*?)>/si';
+    }
 
-	$param = [
-		'onabort', 'onactivate', 'onafterprint', 'onafterupdate',
-		'onbeforeactivate', 'onbeforecopy', 'onbeforecut', 'onbeforedeactivate',
-		'onbeforeeditfocus', 'onbeforepaste', 'onbeforeprint', 'onbeforeunload',
-		'onbeforeupdate', 'onblur', 'onbounce', 'oncellchange', 'onchange',
-		'onclick', 'oncontextmenu', 'oncontrolselect', 'oncopy', 'oncut',
-		'ondataavailable', 'ondatasetchanged', 'ondatasetcomplete', 'ondblclick',
-		'ondeactivate', 'ondrag', 'ondragend', 'ondragenter', 'ondragleave',
-		'ondragover', 'ondragstart', 'ondrop', 'onerror', 'onerrorupdate',
-		'onfilterchange', 'onfinish', 'onfocus', 'onfocusin', 'onfocusout',
-		'onhelp', 'onkeydown', 'onkeypress', 'onkeyup', 'onlayoutcomplete',
-		'onload', 'onlosecapture', 'onmousedown', 'onmouseenter', 'onmouseleave',
-		'onmousemove', 'onmouseout', 'onmouseover', 'onmouseup', 'onmousewheel',
-		'onmove', 'onmoveend', 'onmovestart', 'onpaste', 'onpropertychange',
-		'onreadystatechange', 'onreset', 'onresize', 'onresizeend',
-		'onresizestart', 'onrowenter', 'onrowexit', 'onrowsdelete',
-		'onrowsinserted', 'onscroll', 'onselect', 'onselectionchange',
-		'onselectstart', 'onstart', 'onstop', 'onsubmit', 'onunload'
-	];
-	foreach ($param as $value) {
-		$search[] = '/(' . $value . '.*?)["|\'](.*?)["|\']/si';
-	}
+    $param = [
+        'onabort', 'onactivate', 'onafterprint', 'onafterupdate',
+        'onbeforeactivate', 'onbeforecopy', 'onbeforecut', 'onbeforedeactivate',
+        'onbeforeeditfocus', 'onbeforepaste', 'onbeforeprint', 'onbeforeunload',
+        'onbeforeupdate', 'onblur', 'onbounce', 'oncellchange', 'onchange',
+        'onclick', 'oncontextmenu', 'oncontrolselect', 'oncopy', 'oncut',
+        'ondataavailable', 'ondatasetchanged', 'ondatasetcomplete', 'ondblclick',
+        'ondeactivate', 'ondrag', 'ondragend', 'ondragenter', 'ondragleave',
+        'ondragover', 'ondragstart', 'ondrop', 'onerror', 'onerrorupdate',
+        'onfilterchange', 'onfinish', 'onfocus', 'onfocusin', 'onfocusout',
+        'onhelp', 'onkeydown', 'onkeypress', 'onkeyup', 'onlayoutcomplete',
+        'onload', 'onlosecapture', 'onmousedown', 'onmouseenter', 'onmouseleave',
+        'onmousemove', 'onmouseout', 'onmouseover', 'onmouseup', 'onmousewheel',
+        'onmove', 'onmoveend', 'onmovestart', 'onpaste', 'onpropertychange',
+        'onreadystatechange', 'onreset', 'onresize', 'onresizeend',
+        'onresizestart', 'onrowenter', 'onrowexit', 'onrowsdelete',
+        'onrowsinserted', 'onscroll', 'onselect', 'onselectionchange',
+        'onselectstart', 'onstart', 'onstop', 'onsubmit', 'onunload'
+    ];
+    foreach ($param as $value) {
+        $search[] = '/(' . $value . '.*?)["|\'](.*?)["|\']/si';
+    }
 
-	$data = preg_replace($search, '', $data);
-	$data = preg_replace('/>[.\n\r]+</si', '><', $data);
+    $data = preg_replace($search, '', $data);
+    $data = preg_replace('/>[.\n\r]+</si', '><', $data);
 
-	// 转义特殊字符
-	$strtr = array(
-		'*' => '&lowast;', '`' => '&acute;',
-		'￥' => '&yen;', '™' => '&trade;', '®' => '&reg;', '©' => '&copy;',
-		// '\'' => '&#39;', '"' => '&quot;', '<' => '&lt;', '>' => '&gt;',
-		'　' => ' ',
-		'０' => '0', '１' => '1', '２' => '2', '３' => '3', '４' => '4', '５' => '5',
-		'６' => '6', '７' => '7', '８' => '8', '９' => '9', 'Ａ' => 'A', 'Ｂ' => 'B',
-		'Ｃ' => 'C', 'Ｄ' => 'D', 'Ｅ' => 'E', 'Ｆ' => 'F', 'Ｇ' => 'G', 'Ｈ' => 'H',
-		'Ｉ' => 'I', 'Ｊ' => 'J', 'Ｋ' => 'K', 'Ｌ' => 'L', 'Ｍ' => 'M', 'Ｎ' => 'N',
-		'Ｏ' => 'O', 'Ｐ' => 'P', 'Ｑ' => 'Q', 'Ｒ' => 'R', 'Ｓ' => 'S', 'Ｔ' => 'T',
-		'Ｕ' => 'U', 'Ｖ' => 'V', 'Ｗ' => 'W', 'Ｘ' => 'X', 'Ｙ' => 'Y', 'Ｚ' => 'Z',
-		'ａ' => 'a', 'ｂ' => 'b', 'ｃ' => 'c', 'ｄ' => 'd', 'ｅ' => 'e', 'ｆ' => 'f',
-		'ｇ' => 'g', 'ｈ' => 'h', 'ｉ' => 'i', 'ｊ' => 'j', 'ｋ' => 'k', 'ｌ' => 'l',
-		'ｍ' => 'm', 'ｎ' => 'n', 'ｏ' => 'o', 'ｐ' => 'p', 'ｑ' => 'q', 'ｒ' => 'r',
-		'ｓ' => 's', 'ｔ' => 't', 'ｕ' => 'u', 'ｖ' => 'v', 'ｗ' => 'w', 'ｘ' => 'x',
-		'ｙ' => 'y', 'ｚ' => 'z', '（' => '(', '）' => ')', '〔' => '[', '〕' => ']',
-		'【' => '[', '】' => ']', '〖' => '[', '〗' => ']', '｛' => '{', '｝' => '}',
-		'％' => '%', '＋' => '+', '—' => '-', '－' => '-', '～' => '-', '：' => ':',
-		'？' => '?', '！' => '!', '…' => '...', '‖' => '|', '｜' => '|',
-		'〃' => '&quot;', '”' => '&quot;', '“' => '&quot;',  '’' => '&acute;',
-		'‘' => '&acute;'
-		);
-	$data = strtr($data, $strtr);
+    // 转义特殊字符
+    $strtr = array(
+        '*' => '&lowast;', '`' => '&acute;',
+        '￥' => '&yen;', '™' => '&trade;', '®' => '&reg;', '©' => '&copy;',
+        // '\'' => '&#39;', '"' => '&quot;', '<' => '&lt;', '>' => '&gt;',
+        '　' => ' ',
+        '０' => '0', '１' => '1', '２' => '2', '３' => '3', '４' => '4', '５' => '5',
+        '６' => '6', '７' => '7', '８' => '8', '９' => '9', 'Ａ' => 'A', 'Ｂ' => 'B',
+        'Ｃ' => 'C', 'Ｄ' => 'D', 'Ｅ' => 'E', 'Ｆ' => 'F', 'Ｇ' => 'G', 'Ｈ' => 'H',
+        'Ｉ' => 'I', 'Ｊ' => 'J', 'Ｋ' => 'K', 'Ｌ' => 'L', 'Ｍ' => 'M', 'Ｎ' => 'N',
+        'Ｏ' => 'O', 'Ｐ' => 'P', 'Ｑ' => 'Q', 'Ｒ' => 'R', 'Ｓ' => 'S', 'Ｔ' => 'T',
+        'Ｕ' => 'U', 'Ｖ' => 'V', 'Ｗ' => 'W', 'Ｘ' => 'X', 'Ｙ' => 'Y', 'Ｚ' => 'Z',
+        'ａ' => 'a', 'ｂ' => 'b', 'ｃ' => 'c', 'ｄ' => 'd', 'ｅ' => 'e', 'ｆ' => 'f',
+        'ｇ' => 'g', 'ｈ' => 'h', 'ｉ' => 'i', 'ｊ' => 'j', 'ｋ' => 'k', 'ｌ' => 'l',
+        'ｍ' => 'm', 'ｎ' => 'n', 'ｏ' => 'o', 'ｐ' => 'p', 'ｑ' => 'q', 'ｒ' => 'r',
+        'ｓ' => 's', 'ｔ' => 't', 'ｕ' => 'u', 'ｖ' => 'v', 'ｗ' => 'w', 'ｘ' => 'x',
+        'ｙ' => 'y', 'ｚ' => 'z', '（' => '(', '）' => ')', '〔' => '[', '〕' => ']',
+        '【' => '[', '】' => ']', '〖' => '[', '〗' => ']', '｛' => '{', '｝' => '}',
+        '％' => '%', '＋' => '+', '—' => '-', '－' => '-', '～' => '-', '：' => ':',
+        '？' => '?', '！' => '!', '…' => '...', '‖' => '|', '｜' => '|',
+        '〃' => '&quot;', '”' => '&quot;', '“' => '&quot;',  '’' => '&acute;',
+        '‘' => '&acute;'
+        );
+    $data = strtr($data, $strtr);
 
-	return $data;
+    return $data;
 }
 
 /**
@@ -120,20 +120,20 @@ function escape_xss($data)
  * @return mixed  加密后的字符串
  */
 function encrypt($data, $authkey='0af4769d381ece7b4fddd59dcf048da6') {
-	if (is_array($data)) {
-		$coded = array();
-		foreach ($data as $key => $value) {
-			$coded[$key] = encrypt($value, $authkey);
-		}
-		return $coded;
-	} else {
-		$coded = '';
-		$keylength = strlen($authkey);
-		for ($i = 0, $count = strlen($data); $i < $count; $i += $keylength) {
-			$coded .= substr($data, $i, $keylength) ^ $authkey;
-		}
-		return str_replace('=', '', base64_encode($coded));
-	}
+    if (is_array($data)) {
+        $coded = array();
+        foreach ($data as $key => $value) {
+            $coded[$key] = encrypt($value, $authkey);
+        }
+        return $coded;
+    } else {
+        $coded = '';
+        $keylength = strlen($authkey);
+        for ($i = 0, $count = strlen($data); $i < $count; $i += $keylength) {
+            $coded .= substr($data, $i, $keylength) ^ $authkey;
+        }
+        return str_replace('=', '', base64_encode($coded));
+    }
 }
 
 /**
@@ -143,19 +143,19 @@ function encrypt($data, $authkey='0af4769d381ece7b4fddd59dcf048da6') {
  * @return mixed  加密前的字符串
  */
 function decrypt($data, $authkey='0af4769d381ece7b4fddd59dcf048da6') {
-	if (is_array($data)) {
-		$coded = array();
-		foreach ($data as $key => $value) {
-			$coded[$key] = decrypt($value, $authkey);
-		}
-		return $coded;
-	} else {
-		$coded = '';
-		$keylength = strlen($authkey);
-		$data = base64_decode($data);
-		for ($i = 0, $count = strlen($data); $i < $count; $i += $keylength) {
-			$coded .= substr($data, $i, $keylength) ^ $authkey;
-		}
-		return $coded;
-	}
+    if (is_array($data)) {
+        $coded = array();
+        foreach ($data as $key => $value) {
+            $coded[$key] = decrypt($value, $authkey);
+        }
+        return $coded;
+    } else {
+        $coded = '';
+        $keylength = strlen($authkey);
+        $data = base64_decode($data);
+        for ($i = 0, $count = strlen($data); $i < $count; $i += $keylength) {
+            $coded .= substr($data, $i, $keylength) ^ $authkey;
+        }
+        return $coded;
+    }
 }

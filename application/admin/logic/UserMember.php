@@ -20,252 +20,252 @@ use app\admin\model\Region as AdminRegion;
 use app\admin\model\Level as AdminLevel;
 class UserMember extends Model
 {
-	protected $request = null;
+    protected $request = null;
 
-	protected function initialize()
-	{
-		parent::initialize();
+    protected function initialize()
+    {
+        parent::initialize();
 
-		$this->request = Request::instance();
-	}
+        $this->request = Request::instance();
+    }
 
-	/**
-	 * 列表数据
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	public function getListData()
-	{
-		$map = [];
-		if ($key = $this->request->param('key')) {
-			$map['m.username'] = ['LIKE', '%' . $key . '%'];
-		}
+    /**
+     * 列表数据
+     * @access public
+     * @param
+     * @return array
+     */
+    public function getListData()
+    {
+        $map = [];
+        if ($key = $this->request->param('key')) {
+            $map['m.username'] = ['LIKE', '%' . $key . '%'];
+        }
 
-		$member = new AdminMember;
-		$result =
-		$member->view('member m', 'id,username,realname,nickname,email,phone,status')
-		->view('level_member lm', 'user_id', 'lm.user_id=m.id')
-		->view('level l', ['name'=>'level_name'], 'l.id=lm.level_id')
-		->where($map)
-		->order('m.id DESC')
-		->paginate();
+        $member = new AdminMember;
+        $result =
+        $member->view('member m', 'id,username,realname,nickname,email,phone,status')
+        ->view('level_member lm', 'user_id', 'lm.user_id=m.id')
+        ->view('level l', ['name'=>'level_name'], 'l.id=lm.level_id')
+        ->where($map)
+        ->order('m.id DESC')
+        ->paginate();
 
-		$list = [];
-		foreach ($result as $value) {
-			$list[] = $value->toArray();
-		}
+        $list = [];
+        foreach ($result as $value) {
+            $list[] = $value->toArray();
+        }
 
-		$page = $result->render();
+        $page = $result->render();
 
-		return ['list' => $list, 'page' => $page];
-	}
+        return ['list' => $list, 'page' => $page];
+    }
 
-	/**
-	 * 获得地址
-	 * @access public
-	 * @param  intval $parent_id 父级地区ID
-	 * @return array
-	 */
-	public function getRegion($parent_id=1)
-	{
-		$field = [
-			'id',
-			'pid',
-			'name'
-		];
-		$map = ['pid' => $parent_id];
+    /**
+     * 获得地址
+     * @access public
+     * @param  intval $parent_id 父级地区ID
+     * @return array
+     */
+    public function getRegion($parent_id=1)
+    {
+        $field = [
+            'id',
+            'pid',
+            'name'
+        ];
+        $map = ['pid' => $parent_id];
 
-		$region = new AdminRegion;
-		$result =
-		$region->field($field)
-		->where($map)
-		->select();
+        $region = new AdminRegion;
+        $result =
+        $region->field($field)
+        ->where($map)
+        ->select();
 
-		$data = [];
-		foreach ($result as $key => $value) {
-			$data[] = $value->toArray();
-		}
+        $data = [];
+        foreach ($result as $key => $value) {
+            $data[] = $value->toArray();
+        }
 
-		return $data;
-	}
+        return $data;
+    }
 
-	/**
-	 * 获得会员组数据
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	public function getLevel()
-	{
-		$map = ['status' => 1];
+    /**
+     * 获得会员组数据
+     * @access public
+     * @param
+     * @return array
+     */
+    public function getLevel()
+    {
+        $map = ['status' => 1];
 
-		$level = new AdminLevel;
-		$result =
-		$level->field(true)
-		->where($map)
-		->order('id DESC')
-		->select();
+        $level = new AdminLevel;
+        $result =
+        $level->field(true)
+        ->where($map)
+        ->order('id DESC')
+        ->select();
 
-		$data = [];
-		foreach ($result as $key => $value) {
-			$data[] = $value->toArray();
-		}
+        $data = [];
+        foreach ($result as $key => $value) {
+            $data[] = $value->toArray();
+        }
 
-		return $data;
-	}
+        return $data;
+    }
 
-	/**
-	 * 添加数据
-	 * @access public
-	 * @param
-	 * @return boolean
-	 */
-	public function added()
-	{
-		$data = [
-			'username' => $this->request->post('username'),
-			'password' => $this->request->post('password', '', 'trim,md5'),
-			'email'    => $this->request->post('email'),
-			'realname' => $this->request->post('realname'),
-			'nickname' => $this->request->post('nickname'),
-			'portrait' => $this->request->post('portrait'),
-			'gender'   => $this->request->post('gender/f'),
-			'birthday' => $this->request->post('birthday/f', '', 'trim,strtotime'),
-			'province' => $this->request->post('province/f'),
-			'city'     => $this->request->post('city/f'),
-			'area'     => $this->request->post('area/f'),
-			'address'  => $this->request->post('address'),
-			'phone'    => $this->request->post('phone'),
-			'status'   => $this->request->post('status/d'),
-		];
+    /**
+     * 添加数据
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function added()
+    {
+        $data = [
+            'username' => $this->request->post('username'),
+            'password' => $this->request->post('password', '', 'trim,md5'),
+            'email'    => $this->request->post('email'),
+            'realname' => $this->request->post('realname'),
+            'nickname' => $this->request->post('nickname'),
+            'portrait' => $this->request->post('portrait'),
+            'gender'   => $this->request->post('gender/f'),
+            'birthday' => $this->request->post('birthday/f', '', 'trim,strtotime'),
+            'province' => $this->request->post('province/f'),
+            'city'     => $this->request->post('city/f'),
+            'area'     => $this->request->post('area/f'),
+            'address'  => $this->request->post('address'),
+            'phone'    => $this->request->post('phone'),
+            'status'   => $this->request->post('status/d'),
+        ];
 
-		$password         = $this->request->post('password', '', 'trim,md5');
-		$data['salt']     = substr(encrypt($password), 0, 6);
-		$data['password'] = md5($password . $data['salt']);
+        $password         = $this->request->post('password', '', 'trim,md5');
+        $data['salt']     = substr(encrypt($password), 0, 6);
+        $data['password'] = md5($password . $data['salt']);
 
-		$member = new AdminMember;
-		$member->data($data)
-		->isUpdate(false)
-		->save();
+        $member = new AdminMember;
+        $member->data($data)
+        ->isUpdate(false)
+        ->save();
 
-		if (!$member->id) {
-			return false;
-		}
+        if (!$member->id) {
+            return false;
+        }
 
-		// 会员组
-		$data = [
-			'user_id' => $member->id,
-			'level_id' => $this->request->post('level/d')
-		];
+        // 会员组
+        $data = [
+            'user_id' => $member->id,
+            'level_id' => $this->request->post('level/d')
+        ];
 
-		$level_member = new AdminLevelMember;
-		$level_member->data($data)
-		->allowField(true)
-		->isUpdate(false)
-		->save();
+        $level_member = new AdminLevelMember;
+        $level_member->data($data)
+        ->allowField(true)
+        ->isUpdate(false)
+        ->save();
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * 查询编辑数据
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	public function getEditorData()
-	{
-		$map = [
-			'm.id' => $this->request->param('id/f')
-		];
+    /**
+     * 查询编辑数据
+     * @access public
+     * @param
+     * @return array
+     */
+    public function getEditorData()
+    {
+        $map = [
+            'm.id' => $this->request->param('id/f')
+        ];
 
-		$member = new AdminMember;
-		$result =
-		$member->view('member m', true)
-		->view('level_member lm', 'user_id', 'lm.user_id=m.id')
-		->view('level l', ['id'=>'level_id', 'name'=>'level_name'], 'l.id=lm.level_id')
-		->where($map)
-		->find();
+        $member = new AdminMember;
+        $result =
+        $member->view('member m', true)
+        ->view('level_member lm', 'user_id', 'lm.user_id=m.id')
+        ->view('level l', ['id'=>'level_id', 'name'=>'level_name'], 'l.id=lm.level_id')
+        ->where($map)
+        ->find();
 
-		return !empty($result) ? $result->toArray() : [];
-	}
+        return !empty($result) ? $result->toArray() : [];
+    }
 
-	/**
-	 * 编辑数据
-	 * @access public
-	 * @param
-	 * @return boolean
-	 */
-	public function editor()
-	{
-		$data = [
-			'username' => $this->request->post('username'),
-			'password' => $this->request->post('password', '', 'trim,md5'),
-			'email'    => $this->request->post('email'),
-			'realname' => $this->request->post('realname'),
-			'nickname' => $this->request->post('nickname'),
-			'portrait' => $this->request->post('portrait'),
-			'gender'   => $this->request->post('gender/f'),
-			'birthday' => $this->request->post('birthday/f', '', 'trim,strtotime'),
-			'province' => $this->request->post('province/f'),
-			'city'     => $this->request->post('city/f'),
-			'area'     => $this->request->post('area/f'),
-			'address'  => $this->request->post('address'),
-			'phone'    => $this->request->post('phone'),
-			'status'   => $this->request->post('status/d'),
-		];
+    /**
+     * 编辑数据
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function editor()
+    {
+        $data = [
+            'username' => $this->request->post('username'),
+            'password' => $this->request->post('password', '', 'trim,md5'),
+            'email'    => $this->request->post('email'),
+            'realname' => $this->request->post('realname'),
+            'nickname' => $this->request->post('nickname'),
+            'portrait' => $this->request->post('portrait'),
+            'gender'   => $this->request->post('gender/f'),
+            'birthday' => $this->request->post('birthday/f', '', 'trim,strtotime'),
+            'province' => $this->request->post('province/f'),
+            'city'     => $this->request->post('city/f'),
+            'area'     => $this->request->post('area/f'),
+            'address'  => $this->request->post('address'),
+            'phone'    => $this->request->post('phone'),
+            'status'   => $this->request->post('status/d'),
+        ];
 
-		$password         = $this->request->post('password', '', 'trim,md5');
-		$data['salt']     = substr(encrypt($password), 0, 6);
-		$data['password'] = md5($password . $data['salt']);
+        $password         = $this->request->post('password', '', 'trim,md5');
+        $data['salt']     = substr(encrypt($password), 0, 6);
+        $data['password'] = md5($password . $data['salt']);
 
-		$map = ['id' => $this->request->post('id/f')];
+        $map = ['id' => $this->request->post('id/f')];
 
-		$member = new AdminMember;
-		$result =
-		$member->allowField(true)
-		->isUpdate(true)
-		->save($data, $map);
+        $member = new AdminMember;
+        $result =
+        $member->allowField(true)
+        ->isUpdate(true)
+        ->save($data, $map);
 
-		if (!$result) {
-			return false;
-		}
+        if (!$result) {
+            return false;
+        }
 
-		// 会员组
-		$map = ['user_id' => $this->request->post('id/f')];
-		$data = ['level_id' => $this->request->post('level/d')];
+        // 会员组
+        $map = ['user_id' => $this->request->post('id/f')];
+        $data = ['level_id' => $this->request->post('level/d')];
 
-		$level_member = new AdminLevelMember;
-		$result =
-		$level_member->allowField(true)
-		->isUpdate(true)
-		->save($data, $map);
+        $level_member = new AdminLevelMember;
+        $result =
+        $level_member->allowField(true)
+        ->isUpdate(true)
+        ->save($data, $map);
 
-		return true;
-	}
+        return true;
+    }
 
-	/**
-	 * 删除数据
-	 * @access public
-	 * @param
-	 * @return boolean
-	 */
-	public function remove()
-	{
-		$map = ['id' => $this->request->param('id/f')];
-		$member = new AdminMember;
-		$result =
-		$member->where($map)
-		->delete();
+    /**
+     * 删除数据
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function remove()
+    {
+        $map = ['id' => $this->request->param('id/f')];
+        $member = new AdminMember;
+        $result =
+        $member->where($map)
+        ->delete();
 
-		// 会员组
-		$map = ['user_id' => $this->request->param('id/f')];
-		$level_member = new AdminLevelMember;
-		$result =
-		$level_member->where($map)
-		->delete();
+        // 会员组
+        $map = ['user_id' => $this->request->param('id/f')];
+        $level_member = new AdminLevelMember;
+        $result =
+        $level_member->where($map)
+        ->delete();
 
-		return $result ? true : false;
-	}
+        return $result ? true : false;
+    }
 }

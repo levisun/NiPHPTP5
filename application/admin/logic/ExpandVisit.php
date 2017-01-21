@@ -18,68 +18,68 @@ use app\admin\model\Visit as AdminVisit;
 use app\admin\model\Searchengine as AdminSearchengine;
 class ExpandVisit extends Model
 {
-	protected $request = null;
+    protected $request = null;
 
-	protected function initialize()
-	{
-		parent::initialize();
+    protected function initialize()
+    {
+        parent::initialize();
 
-		$this->request = Request::instance();
-	}
+        $this->request = Request::instance();
+    }
 
-	/**
-	 * 列表数据
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	public function getListData()
-	{
-		$this->delLog();
+    /**
+     * 列表数据
+     * @access public
+     * @param
+     * @return array
+     */
+    public function getListData()
+    {
+        $this->delLog();
 
-		if ($this->request->param('method')) {
-			$obj = new AdminSearchengine;
-		} else {
-			$obj = new AdminVisit;
-		}
+        if ($this->request->param('method')) {
+            $obj = new AdminSearchengine;
+        } else {
+            $obj = new AdminVisit;
+        }
 
-		$result =
-		$obj->field(true)
-		->order('date DESC, count DESC')
-		->paginate();
+        $result =
+        $obj->field(true)
+        ->order('date DESC, count DESC')
+        ->paginate();
 
-		$list = [];
-		foreach ($result as $value) {
-			$list[] = $value->toArray();
-		}
+        $list = [];
+        foreach ($result as $value) {
+            $list[] = $value->toArray();
+        }
 
-		$page = $result->render();
+        $page = $result->render();
 
-		return ['list' => $list, 'page' => $page];
-	}
+        return ['list' => $list, 'page' => $page];
+    }
 
-	/**
-	 * 删除过期日志
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	private function delLog()
-	{
-		$map = [
-			'date' => [
-				'ELT', strtotime('-90 days')
-			],
-		];
+    /**
+     * 删除过期日志
+     * @access public
+     * @param
+     * @return array
+     */
+    private function delLog()
+    {
+        $map = [
+            'date' => [
+                'ELT', strtotime('-90 days')
+            ],
+        ];
 
-		// 删除过期的搜索日志(保留三个月)
-		$searchengine = new AdminSearchengine;
-		$searchengine->where($map)
-		->delete();
+        // 删除过期的搜索日志(保留三个月)
+        $searchengine = new AdminSearchengine;
+        $searchengine->where($map)
+        ->delete();
 
-		// 删除过期的访问日志(保留三个月)
-		$visit = new AdminVisit;
-		$visit->where($map)
-		->delete();
-	}
+        // 删除过期的访问日志(保留三个月)
+        $visit = new AdminVisit;
+        $visit->where($map)
+        ->delete();
+    }
 }

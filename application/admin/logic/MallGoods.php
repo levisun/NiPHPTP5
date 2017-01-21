@@ -19,88 +19,88 @@ use think\Cache;
 use app\admin\model\Goods as AdminGoods;
 class MallGoods extends Model
 {
-	protected $request = null;
+    protected $request = null;
 
-	protected function initialize()
-	{
-		parent::initialize();
+    protected function initialize()
+    {
+        parent::initialize();
 
-		$this->request = Request::instance();
-	}
+        $this->request = Request::instance();
+    }
 
-	/**
-	 * 列表数据
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	public function getListData()
-	{
-		if ($key = $this->request->param('key')) {
-			$map['c.name'] = ['LIKE', '%' . $key . '%'];
-		}
-	}
+    /**
+     * 列表数据
+     * @access public
+     * @param
+     * @return array
+     */
+    public function getListData()
+    {
+        if ($key = $this->request->param('key')) {
+            $map['c.name'] = ['LIKE', '%' . $key . '%'];
+        }
+    }
 
-	/**
-	 * 添加数据
-	 * @access public
-	 * @param
-	 * @return boolean
-	 */
-	public function added()
-	{
-	}
+    /**
+     * 添加数据
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function added()
+    {
+    }
 
-	/**
-	 * 查询编辑数据
-	 * @access public
-	 * @param
-	 * @return array
-	 */
-	public function getEditorData()
-	{
-		$map = ['c.id' => $this->request->param('id/f')];
-	}
+    /**
+     * 查询编辑数据
+     * @access public
+     * @param
+     * @return array
+     */
+    public function getEditorData()
+    {
+        $map = ['c.id' => $this->request->param('id/f')];
+    }
 
-	/**
-	 * 编辑数据
-	 * @access public
-	 * @param
-	 * @return boolean
-	 */
-	public function editor()
-	{}
+    /**
+     * 编辑数据
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function editor()
+    {}
 
-	/**
-	 * 删除数据
-	 * @access public
-	 * @param
-	 * @return boolean
-	 */
-	public function remove()
-	{
-	}
+    /**
+     * 删除数据
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function remove()
+    {
+    }
 
-	/**
-	 * 排序
-	 * @access public
-	 * @param
-	 * @return boolean
-	 */
-	public function listSort()
-	{
-		$post = $this->request->post('sort/a');
-		foreach ($post as $key => $value) {
-			$data[] = [
-				'id' => $key,
-				'sort' => $value,
-			];
-		}
+    /**
+     * 排序
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function listSort()
+    {
+        $post = $this->request->post('sort/a');
+        foreach ($post as $key => $value) {
+            $data[] = [
+                'id' => $key,
+                'sort' => $value,
+            ];
+        }
 
-		$goods = new AdminGoods;
-		$result =
-		$goods->saveAll($data);
+        $goods = new AdminGoods;
+        $result =
+        $goods->saveAll($data);
 
-		return true;
-	}
+        return true;
+    }
 }
