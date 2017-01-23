@@ -10,9 +10,11 @@
  * @since     2017/01/03
  */
 namespace net\oauth;
-class Http {
 
-    private static function init() {
+class Http
+{
+    private static function init()
+    {
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_HEADER, false);
         curl_setopt($ch, CURLOPT_TIMEOUT, 30);

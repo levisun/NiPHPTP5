@@ -12,10 +12,12 @@
  * @since     2016/11/14
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Request;
 use think\Cache;
 use util\File;
+
 class ContentCache extends Model
 {
     protected $request = null;

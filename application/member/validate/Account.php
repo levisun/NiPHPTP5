@@ -12,7 +12,9 @@
  * @since     2016/12/27
  */
 namespace app\member\validate;
+
 use think\Validate;
+
 class Account extends Validate
 {
     protected $rule = [

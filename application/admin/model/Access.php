@@ -12,7 +12,9 @@
  * @since     2016/10/29
  */
 namespace app\admin\model;
+
 use think\Model;
+
 class Access extends Model
 {
     protected $name = 'access';

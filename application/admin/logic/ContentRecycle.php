@@ -12,10 +12,12 @@
  * @since     2016/11/14
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Request;
 use think\Loader;
 use app\admin\logic\ContentContentData as AdminContentContentData;
+
 class ContentRecycle extends Model
 {
     protected $request       = null;

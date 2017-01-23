@@ -12,9 +12,11 @@
  * @since     2016/11/25
  */
 namespace app\member\logic;
+
 use think\Model;
 use think\Request;
 use think\Url;
+
 class OAuth extends Model
 {
     protected $request = null;

@@ -119,7 +119,7 @@ function escape_xss($data)
  * @param  string $authkey 密钥
  * @return mixed  加密后的字符串
  */
-function encrypt($data, $authkey='0af4769d381ece7b4fddd59dcf048da6') {
+function encrypt($data, $authkey = '0af4769d381ece7b4fddd59dcf048da6') {
     if (is_array($data)) {
         $coded = array();
         foreach ($data as $key => $value) {
@@ -142,7 +142,7 @@ function encrypt($data, $authkey='0af4769d381ece7b4fddd59dcf048da6') {
  * @param  string $authkey 密钥
  * @return mixed  加密前的字符串
  */
-function decrypt($data, $authkey='0af4769d381ece7b4fddd59dcf048da6') {
+function decrypt($data, $authkey = '0af4769d381ece7b4fddd59dcf048da6') {
     if (is_array($data)) {
         $coded = array();
         foreach ($data as $key => $value) {

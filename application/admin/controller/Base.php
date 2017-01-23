@@ -12,6 +12,7 @@
  * @since     2016/10/22
  */
 namespace app\admin\controller;
+
 use think\Controller;
 use think\Loader;
 use think\Url;
@@ -23,6 +24,7 @@ use think\Cache;
 use think\Log;
 use app\admin\logic\CommonUpload as AdminCommonUpload;
 use app\admin\logic\CommonAccount as AdminCommonAccount;
+
 class Base extends Controller
 {
     // 分支操作方法
@@ -56,7 +58,7 @@ class Base extends Controller
      * @param  string $log_name      操作日志记录名|为空自动获取记录名
      * @return void
      */
-    protected function added($model_name, $validate_name='', $log_name='')
+    protected function added($model_name, $validate_name = '', $log_name = '')
     {
         if ($this->request->isPost()) {
             // 数据验证
@@ -70,7 +72,10 @@ class Base extends Controller
                 // $url = Url::build($this->request->action());
                 $url_param = [];
                 if ($this->request->has('cid')) {
-                    $url_param = ['method' => 'manage', 'cid' => $this->request->param('cid')];
+                    $url_param = [
+                        'method' => 'manage',
+                        'cid' => $this->request->param('cid')
+                    ];
                 }
                 $url = Url::build($this->request->action(), $url_param);
 
@@ -89,7 +94,7 @@ class Base extends Controller
      * @param  string $log_name      操作日志记录名|为空自动获取记录名
      * @return void
      */
-    protected function remove($model_name, $validate_name='', $log_name='')
+    protected function remove($model_name, $validate_name = '', $log_name = '')
     {
         // 数据验证
         $this->illegal($validate_name);
@@ -102,7 +107,10 @@ class Base extends Controller
 
             $url_param = [];
             if ($this->request->has('cid')) {
-                $url_param = ['method' => 'manage', 'cid' => $this->request->param('cid')];
+                $url_param = [
+                    'method' => 'manage',
+                    'cid' => $this->request->param('cid')
+                ];
             }
             $url = Url::build($this->request->action(), $url_param);
 
@@ -125,7 +133,7 @@ class Base extends Controller
      * @param  string $illegal_      是否自动验证合法信息 默认true
      * @return array                 编辑数据
      */
-    protected function editor($model_name, $validate_name='', $log_name='', $illegal_=true)
+    protected function editor($model_name, $validate_name = '', $log_name = '', $illegal_ = true)
     {
         if ($this->request->isPost()) {
             // 数据验证
@@ -162,7 +170,7 @@ class Base extends Controller
      * @param  string $log_name   操作日志记录名|为空自动获取记录名
      * @return array              查询数据
      */
-    protected function select($model_name, $log_name='')
+    protected function select($model_name, $log_name = '')
     {
         if ($this->request->isPost()) {
             $result = Loader::model($model_name, 'logic')->listSort();
@@ -183,7 +191,7 @@ class Base extends Controller
      * @param  string $validate_name 验证器名
      * @return mexid                 返回true or false or 提示信息
      */
-    protected function illegal($validate_name='', $illegal_=true)
+    protected function illegal($validate_name = '', $illegal_ = true)
     {
         // 不进行数据合法验证
         if (false === $illegal_) {
@@ -217,7 +225,7 @@ class Base extends Controller
      * @param  string $remark      备注
      * @return void
      */
-    protected function actionLog($action_name, $record_id='', $remark='')
+    protected function actionLog($action_name, $record_id = '', $remark = '')
     {
         // 行为为空自动获得
         if (empty($action_name)) {

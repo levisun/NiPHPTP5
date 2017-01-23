@@ -1,20 +1,20 @@
 <?php
-// +----------------------------------------------------------------------
-// | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2009 http://thinkphp.cn All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
-// +----------------------------------------------------------------------
-// | Author: liu21st <liu21st@gmail.com>
-// +----------------------------------------------------------------------
-namespace net;
 /**
- *  IP 地理位置查询类 修改自 CoolCode.CN
- *  由于使用UTF8编码 如果使用纯真IP地址库的话 需要对返回结果进行编码转换
- * @author    liu21st <liu21st@gmail.com>
+ *
+ * IP 地理位置查询类 修改自 CoolCode.CN
+ *
+ * @package   NiPHPCMS
+ * @category  net\
+ * @author    失眠小枕头 [levisun.mail@gmail.com]
+ * @copyright Copyright (c) 2013, 失眠小枕头, All rights reserved.
+ * @version   CVS: $Id: Http.php v1.0.1 $
+ * @link      http://www.NiPHP.com
+ * @since     2017/01/03
  */
-class IpLocation {
+namespace net;
+
+class IpLocation
+{
     /**
      * QQWry.Dat文件指针
      *
@@ -49,7 +49,8 @@ class IpLocation {
      * @param string $filename
      * @return IpLocation
      */
-    public function __construct($filename = "UTFWry.dat") {
+    public function __construct($filename = "UTFWry.dat")
+    {
         $this->fp = 0;
         if (($this->fp      = fopen(dirname(__FILE__).'/'.$filename, 'rb')) !== false) {
             $this->firstip  = $this->getlong();
@@ -64,7 +65,8 @@ class IpLocation {
      * @access private
      * @return int
      */
-    private function getlong() {
+    private function getlong()
+    {
         //将读取的little-endian编码的4个字节转化为长整型数
         $result = unpack('Vlong', fread($this->fp, 4));
         return $result['long'];
@@ -76,7 +78,8 @@ class IpLocation {
      * @access private
      * @return int
      */
-    private function getlong3() {
+    private function getlong3()
+    {
         //将读取的little-endian编码的3个字节转化为长整型数
         $result = unpack('Vlong', fread($this->fp, 3).chr(0));
         return $result['long'];
@@ -89,7 +92,8 @@ class IpLocation {
      * @param string $ip
      * @return string
      */
-    private function packip($ip) {
+    private function packip($ip)
+    {
         // 将IP地址转化为长整型数，如果在PHP5中，IP地址错误，则返回False，
         // 这时intval将Flase转化为整数-1，之后压缩成big-endian编码的字符串
         return pack('N', intval(ip2long($ip)));
@@ -102,7 +106,8 @@ class IpLocation {
      * @param string $data
      * @return string
      */
-    private function getstring($data = "") {
+    private function getstring($data = '')
+    {
         $char = fread($this->fp, 1);
         while (ord($char) > 0) {        // 字符串按照C格式保存，以\0结束
             $data  .= $char;             // 将读取的字符连接到给定字符串之后
@@ -117,7 +122,8 @@ class IpLocation {
      * @access private
      * @return string
      */
-    private function getarea() {
+    private function getarea()
+    {
         $byte = fread($this->fp, 1);    // 标志字节
         switch (ord($byte)) {
             case 0:                     // 没有区域信息
@@ -142,7 +148,8 @@ class IpLocation {
      * @param string $ip
      * @return array
      */
-    public function getlocation($ip='') {
+    public function getlocation($ip='')
+    {
         if (!$this->fp) return null;            // 如果数据文件没有被正确打开，则直接返回空
         if(empty($ip)) $ip = get_client_ip();
         $location['ip'] = gethostbyname($ip);   // 将输入的域名转化为IP地址
@@ -223,11 +230,11 @@ class IpLocation {
      * 析构函数，用于在页面执行结束后自动关闭打开的文件。
      *
      */
-    public function __destruct() {
+    public function __destruct()
+    {
         if ($this->fp) {
             fclose($this->fp);
         }
         $this->fp = 0;
     }
-
 }

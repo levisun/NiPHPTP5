@@ -12,9 +12,11 @@
  * @since     2016/11/11
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Request;
 use app\admin\model\Config as AdminConfig;
+
 class WechatConfig extends Model
 {
     protected $request = null;

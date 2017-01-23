@@ -12,11 +12,13 @@
  * @since     2016/11/25
  */
 namespace app\index\logic;
+
 use think\Model;
 use think\Request;
 use think\Lang;
 use think\Url;
 use app\admin\model\Link as IndexLink;
+
 class Link extends Model
 {
     protected $request = null;

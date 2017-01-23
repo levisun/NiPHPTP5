@@ -12,9 +12,11 @@
  * @since     2016/10/27
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Request;
 use app\admin\model\ActionLog as AdminActionLog;
+
 class ExpandActionLog extends Model
 {
     protected $request = null;

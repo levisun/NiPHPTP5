@@ -12,6 +12,7 @@
  * @since     2016/11/25
  */
 namespace app\index\logic;
+
 use think\Model;
 use think\Request;
 use think\Lang;
@@ -20,6 +21,7 @@ use think\Loader;
 use app\admin\model\Page as IndexPage;
 use app\admin\model\Fields as IndexFields;
 use app\admin\model\TagsArticle as IndexTagsArticle;
+
 class Page extends Model
 {
     protected $request    = null;

@@ -12,8 +12,10 @@
  * @since     2016/10/22
  */
 namespace app\admin\controller;
+
 use think\Controller;
 use think\Url;
+
 class Index extends Controller
 {
     public function index()

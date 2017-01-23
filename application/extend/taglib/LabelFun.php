@@ -12,6 +12,7 @@
  * @since     2016/10/22
  */
 namespace taglib;
+
 use think\Request;
 use think\Lang;
 use think\Loader;
@@ -20,6 +21,7 @@ use app\admin\model\Category as IndexCategory;
 use app\admin\model\Ads as IndexAds;
 use app\admin\model\Banner as IndexBanner;
 use app\admin\model\Tags as IndexTags;
+
 class LabelFun
 {
 

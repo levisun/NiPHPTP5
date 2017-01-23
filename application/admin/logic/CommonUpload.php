@@ -12,11 +12,13 @@
  * @since     2016/10/27
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Lang;
 use think\Request;
 use think\Image;
 use app\admin\model\Config as AdminConfig;
+
 class CommonUpload extends Model
 {
     protected $ext = ['gif', 'jpg', 'jpeg', 'bmp', 'png'];

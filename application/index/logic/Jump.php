@@ -12,11 +12,13 @@
  * @since     2016/12/06
  */
 namespace app\index\logic;
+
 use think\Model;
 use think\Request;
 use think\Lang;
 use think\Url;
 use think\Loader;
+
 class Jump extends Model
 {
     protected $request = null;

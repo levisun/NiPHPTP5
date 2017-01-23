@@ -12,9 +12,11 @@
  * @since     2016/11/07
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Request;
 use app\admin\model\Node as AdminNode;
+
 class UserNode extends Model
 {
     protected $request = null;

@@ -12,12 +12,14 @@
  * @since     2016/10/25
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Request;
 use think\Lang;
 use app\admin\model\Category as AdminCategory;
 use app\admin\model\Models as AdminModels;
 use app\admin\model\Level as AdminLevel;
+
 class CategoryCategory extends Model
 {
     protected $request = null;

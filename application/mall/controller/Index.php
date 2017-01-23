@@ -12,9 +12,11 @@
  * @since     2016/11/25
  */
 namespace app\mall\controller;
+
 use think\Url;
 use think\Lang;
 use app\mall\controller\Base;
+
 class Index extends Base
 {
 

@@ -12,7 +12,9 @@
  * @link      http://www.NiPHP.com
  */
 namespace taglib;
+
 use think\template\TagLib;
+
 class Label extends TagLib
 {
     // 标签定义

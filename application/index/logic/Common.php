@@ -12,11 +12,13 @@
  * @since     2016/11/25
  */
 namespace app\index\logic;
+
 use think\Model;
 use think\Request;
 use think\Lang;
 use app\admin\model\Config as IndexConfig;
 use app\admin\model\Category as IndexCategory;
+
 class Common extends Model
 {
     protected $request = null;

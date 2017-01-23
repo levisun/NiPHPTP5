@@ -12,10 +12,12 @@
  * @since     2016/11/14
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Request;
 use think\Lang;
 use app\admin\model\Banner as AdminBanner;
+
 class ContentBanner extends Model
 {
     protected $request = null;

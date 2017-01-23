@@ -12,11 +12,13 @@
  * @since     2016/10/22
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Request;
 use think\Session;
 use think\Cache;
 use app\admin\model\Config as AdminConfig;
+
 class SettingsSafe extends Model
 {
     protected $request = null;
@@ -39,7 +41,9 @@ class SettingsSafe extends Model
         $map = [
             'name' => [
                 'in',
-                'system_portal,content_check,member_login_captcha,website_submit_captcha,upload_file_max,upload_file_type,website_static'
+                'system_portal,content_check,member_login_captcha,
+                website_submit_captcha,upload_file_max,upload_file_type,
+                website_static'
             ],
             'lang' => 'niphp'
         ];

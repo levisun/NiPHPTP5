@@ -12,10 +12,12 @@
  * @since     2016/11/14
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Request;
 use app\admin\model\Visit as AdminVisit;
 use app\admin\model\Searchengine as AdminSearchengine;
+
 class ExpandVisit extends Model
 {
     protected $request = null;

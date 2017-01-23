@@ -12,7 +12,9 @@
  * @since     2016/11/03
  */
 namespace app\admin\model;
+
 use think\Model;
+
 class Region extends Model
 {
     protected $name = 'region';

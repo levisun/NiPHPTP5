@@ -1,19 +1,18 @@
 <?php
-// +----------------------------------------------------------------------
-// | ThinkPHP [ WE CAN DO IT JUST THINK IT ]
-// +----------------------------------------------------------------------
-// | Copyright (c) 2009 http://thinkphp.cn All rights reserved.
-// +----------------------------------------------------------------------
-// | Licensed ( http://www.apache.org/licenses/LICENSE-2.0 )
-// +----------------------------------------------------------------------
-// | Author: liu21st <liu21st@gmail.com>
-// +----------------------------------------------------------------------
-namespace net;
 /**
+ *
  * Http 工具类
- * 提供一系列的Http方法
- * @author    liu21st <liu21st@gmail.com>
+ *
+ * @package   NiPHPCMS
+ * @category  net\
+ * @author    失眠小枕头 [levisun.mail@gmail.com]
+ * @copyright Copyright (c) 2013, 失眠小枕头, All rights reserved.
+ * @version   CVS: $Id: Http.php v1.0.1 $
+ * @link      http://www.NiPHP.com
+ * @since     2017/01/03
  */
+namespace net;
+
 class Http {
 
     /**
@@ -23,7 +22,8 @@ class Http {
      * @param string $local 本地保存文件名
      * @return mixed
      */
-    static public function curlDownload($remote,$local) {
+    static public function curlDownload($remote, $local)
+    {
         $cp = curl_init($remote);
         $fp = fopen($local,"w");
         curl_setopt($cp, CURLOPT_FILE, $fp);
@@ -49,7 +49,8 @@ class Http {
     *        bool   block 是否阻塞访问,默认为true
     * @return mixed
     */
-    static public function fsockopenDownload($url, $conf = array()) {
+    public static function fsockopenDownload($url, $conf = array())
+    {
         $return = '';
         if(!is_array($conf)) return $return;
 
@@ -73,9 +74,8 @@ class Http {
 
         foreach (array_merge($conf_arr, $conf) as $k=>$v) ${$k} = $v;
 
-        if($post) {
-            if(is_array($post))
-            {
+        if ($post) {
+            if (is_array($post)) {
                 $post = http_build_query($post);
             }
             $out  = "POST $path HTTP/1.0\r\n";
@@ -101,7 +101,7 @@ class Http {
             $out .= "Cookie: $cookie\r\n\r\n";
         }
         $fp = @fsockopen(($ip ? $ip : $host), $port, $errno, $errstr, $timeout);
-        if(!$fp) {
+        if (!$fp) {
             return '';
         } else {
             stream_set_blocking($fp, $block);
@@ -142,7 +142,8 @@ class Http {
      * @param integer $expire  下载内容浏览器缓存时间
      * @return void
      */
-    static public function download ($filename, $showname='',$content='',$expire=180) {
+    public static function download ($filename, $showname = '',$content = '',$expire = 180)
+    {
         if(is_file($filename)) {
             $length = filesize($filename);
         }elseif(is_file(UPLOAD_PATH.$filename)) {
@@ -186,7 +187,8 @@ class Http {
      * 显示HTTP Header 信息
      * @return string
      */
-    static function getHeaderInfo($header='',$echo=true) {
+    public static function getHeaderInfo($header='',$echo = true)
+    {
         ob_start();
         $headers       = getallheaders();
         if(!empty($header)) {
@@ -210,7 +212,8 @@ class Http {
      * HTTP Protocol defined status codes
      * @param int $num
      */
-    static function sendHttpStatus($code) {
+    public static function sendHttpStatus($code)
+    {
         static $_status = array(
             // Informational 1xx
             100 => 'Continue',

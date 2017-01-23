@@ -12,12 +12,14 @@
  * @since     2016/11/25
  */
 namespace app\member\logic;
+
 use think\Model;
 use think\Request;
 use think\Config;
 use think\Cookie;
 use net\IpLocation;
 use app\admin\model\Member as MemberMember;
+
 class Account extends Model
 {
     protected $request = null;

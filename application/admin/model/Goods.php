@@ -12,7 +12,9 @@
  * @since     2016/11/02
  */
 namespace app\admin\model;
+
 use think\Model;
+
 class Goods extends Model
 {
     protected $name = 'goods';

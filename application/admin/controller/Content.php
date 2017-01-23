@@ -12,6 +12,7 @@
  * @since     2016/11/12
  */
 namespace app\admin\controller;
+
 use think\Lang;
 use think\Url;
 use app\admin\controller\Base;
@@ -19,6 +20,7 @@ use app\admin\logic\ContentContent as AdminContentContent;
 use app\admin\logic\CategoryCategory as AdminCategoryCategory;
 use app\admin\logic\ContentRecycle as AdminContentRecycle;
 use app\admin\logic\ContentCache as AdminContentCache;
+
 class Content extends Base
 {
 

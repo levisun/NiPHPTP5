@@ -12,6 +12,7 @@
  * @since     2016/11/25
  */
 namespace app\index\logic;
+
 use think\Model;
 use think\Request;
 use think\Lang;
@@ -21,6 +22,7 @@ use app\admin\model\Article as IndexArticle;
 use app\admin\model\Download as IndexDownload;
 use app\admin\model\Picture as IndexPicture;
 use app\admin\model\Product as IndexProduct;
+
 class Tags extends Model
 {
     protected $request    = null;

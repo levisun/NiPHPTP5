@@ -12,12 +12,14 @@
  * @since     2016/10/29
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Config;
 use think\Request;
 use think\Session;
 use net\IpLocation;
 use app\admin\model\Admin as AdminAdmin;
+
 class CommonLogin extends Model
 {
     protected $request = null;

@@ -12,9 +12,11 @@
  * @since     2016/11/25
  */
 namespace app\member\controller;
+
 use think\Url;
 use think\Lang;
 use app\member\controller\Base;
+
 class Setup extends Base
 {
 

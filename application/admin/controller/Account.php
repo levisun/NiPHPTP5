@@ -12,10 +12,12 @@
  * @since     2016/10/22
  */
 namespace app\admin\controller;
+
 use think\Url;
 use think\Lang;
 use app\admin\controller\Base;
 use app\admin\logic\CommonLogin as AdminCommonLogin;
+
 class Account extends Base
 {
     /**

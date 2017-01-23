@@ -12,9 +12,11 @@
  * @since     2017/01/03
  */
 namespace net\oauth;
+
 use net\oauth\Http as OAuthHttp;
 use think\exception\HttpException;
 use think\Cookie;
+
 abstract class OAuth
 {
     protected $config = [];                // 第三方配置属性

@@ -12,6 +12,7 @@
  * @since     2016/12/06
  */
 namespace app\index\logic;
+
 use think\Model;
 use think\Request;
 use think\Lang;
@@ -21,6 +22,7 @@ use app\admin\model\Feedback as IndexFeedback;
 use app\admin\model\FeedbackData as IndexFeedbackData;
 use app\admin\model\Fields as IndexFields;
 use app\admin\model\Type as IndexType;
+
 class Feedback extends Model
 {
     protected $request = null;

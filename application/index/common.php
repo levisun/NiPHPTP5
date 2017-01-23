@@ -21,7 +21,7 @@
  * @param string $suffix 截断显示字符
  * @return string
  */
-function msubstr($str, $start=0, $length, $suffix=true, $charset="utf-8")
+function msubstr($str, $start = 0, $length, $suffix  =true, $charset = 'utf-8')
 {
     $ext = mb_strlen($str) > $length && $suffix ? '...' : '';
     return mb_substr($str, $start, $length, $charset) . $ext;

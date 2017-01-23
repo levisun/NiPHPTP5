@@ -12,6 +12,7 @@
  * @since     2016/10/28
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Config;
 use think\Lang;
@@ -24,6 +25,7 @@ use app\admin\model\Config as AdminConfig;
 use app\admin\model\Category as AdminCategory;
 use app\admin\model\Action as AdminAction;
 use app\admin\model\ActionLog as AdminActionLog;
+
 class CommonAccount extends Model
 {
     protected $request = null;

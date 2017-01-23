@@ -12,7 +12,9 @@
  * @since     2017/01/03
  */
 namespace net\pay;
+
 use net\pay\library\WxPay;
+
 class PayCode
 {
     protected $type;

@@ -12,6 +12,7 @@
  * @since     2016/10/25
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Request;
 use think\Lang;
@@ -19,6 +20,7 @@ use think\Loader;
 use app\admin\model\Fields as AdminFields;
 use app\admin\model\Category as AdminCategory;
 use app\admin\model\FieldsType as AdminFieldsType;
+
 class CategoryFields extends Model
 {
     protected $request = null;

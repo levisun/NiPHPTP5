@@ -12,9 +12,11 @@
  * @since     2016/11/07
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Request;
 use app\admin\model\Level as AdminLeval;
+
 class UserLevel extends Model
 {
     protected $request = null;

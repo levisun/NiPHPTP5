@@ -12,6 +12,7 @@
  * @since     2016/11/14
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Request;
 use think\Lang;
@@ -21,6 +22,7 @@ use think\Session;
 use app\admin\logic\ContentContentData as AdminContentContentData;
 use app\admin\model\Tags as AdminTags;
 use app\admin\model\TagsArticle as AdminTagsArticle;
+
 class ContentContent extends Model
 {
     protected $request       = null;

@@ -12,11 +12,13 @@
  * @since     2016/10/22
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Request;
 use think\Lang;
 use think\Cache;
 use app\admin\model\Config as AdminConfig;
+
 class SettingsBasic extends Model
 {
     protected $request = null;

@@ -12,12 +12,14 @@
  * @since     2016/11/07
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Request;
 use app\admin\model\Member as AdminMember;
 use app\admin\model\LevelMember as AdminLevelMember;
 use app\admin\model\Region as AdminRegion;
 use app\admin\model\Level as AdminLevel;
+
 class UserMember extends Model
 {
     protected $request = null;

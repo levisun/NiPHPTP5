@@ -12,6 +12,7 @@
  * @since     2016/11/25
  */
 namespace app\wechat\controller;
+
 use think\Controller;
 use think\Url;
 use think\Lang;
@@ -21,6 +22,7 @@ use net\Wechat;
 use app\wechat\logic\Api as WechatApi;
 use app\wechat\logic\Attention as WechatAttention;
 use app\wechat\logic\AutoKey as WechatAutoKey;
+
 class Index extends Controller
 {
     protected $model;

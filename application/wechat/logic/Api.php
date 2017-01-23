@@ -12,9 +12,11 @@
  * @since     2016/11/25
  */
 namespace app\wechat\logic;
+
 use think\Model;
 use app\admin\model\Config as WechatConfig;
 use net\Wechat;
+
 class Api extends Model
 {
     public $wechat;

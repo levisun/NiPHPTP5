@@ -12,11 +12,13 @@
  * @since     2016/11/07
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Request;
 use app\admin\model\Admin as AdminAdmin;
 use app\admin\model\Role as AdminRole;
 use app\admin\model\RoleAdmin as AdminRoleAdmin;
+
 class UserAdmin extends Model
 {
     protected $request = null;

@@ -12,6 +12,7 @@
  * @since     2016/11/25
  */
 namespace app\member\logic;
+
 use think\Model;
 use think\Request;
 use think\Lang;
@@ -19,6 +20,7 @@ use think\Config;
 use think\Cookie;
 use think\Url;
 use app\admin\model\Config as MemberConfig;
+
 class Common extends Model
 {
     protected $request = null;

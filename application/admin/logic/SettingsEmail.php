@@ -12,10 +12,12 @@
  * @since     2016/10/22
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Request;
 use think\Cache;
 use app\admin\model\Config AS AdminConfig;
+
 class SettingsEmail extends Model
 {
     protected $request = null;

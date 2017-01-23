@@ -24,5 +24,4 @@ return [
     'basic info' => '基本',
     'content' => '内容',
     'album' => '相册',
-
 ];

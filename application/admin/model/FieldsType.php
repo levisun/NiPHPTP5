@@ -12,7 +12,9 @@
  * @since     2016/11/02
  */
 namespace app\admin\model;
+
 use think\Model;
+
 class FieldsType extends Model
 {
     protected $name = 'fields_type';

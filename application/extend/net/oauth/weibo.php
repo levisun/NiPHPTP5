@@ -12,10 +12,12 @@
  * @since     2017/01/03
  */
 namespace net\oauth;
+
 use net\oauth\OAuth;
 use net\oauth\Http as OAuthHttp;
 use think\Cookie;
 use think\exception\HttpException;
+
 class weibo extends OAuth
 {
     protected $AuthorizeURL = 'https://api.weibo.com/oauth2/authorize';

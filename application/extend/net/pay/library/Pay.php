@@ -12,6 +12,7 @@
  * @since     2017/01/03
  */
 namespace net\pay\library;
+
 class Pay
 {
     // 支付配置

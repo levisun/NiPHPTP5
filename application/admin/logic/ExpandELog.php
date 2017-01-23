@@ -12,9 +12,11 @@
  * @since     2016/11/15
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Request;
 use util\File;
+
 class ExpandELog extends Model
 {
     protected $request = null;

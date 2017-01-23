@@ -12,7 +12,9 @@
  * @since     2016/11/10
  */
 namespace app\admin\validate;
+
 use think\Validate;
+
 class Node extends Validate
 {
     protected $rule = [

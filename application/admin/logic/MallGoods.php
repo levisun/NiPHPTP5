@@ -12,11 +12,13 @@
  * @since     2017/01/03
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Request;
 use think\Lang;
 use think\Cache;
 use app\admin\model\Goods as AdminGoods;
+
 class MallGoods extends Model
 {
     protected $request = null;

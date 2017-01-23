@@ -12,11 +12,13 @@
  * @since     2016/11/25
  */
 namespace app\index\logic;
+
 use think\Model;
 use think\Request;
 use net\IpLocation;
 use app\admin\model\Searchengine as IndexSearchengine;
 use app\admin\model\Visit as IndexVisit;
+
 class Visit extends Model
 {
     protected $request    = null;

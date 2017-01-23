@@ -12,7 +12,9 @@
  * @since     2016/10/29
  */
 namespace app\admin\model;
+
 use think\Model;
+
 class Ads extends Model
 {
     protected $name = 'ads';

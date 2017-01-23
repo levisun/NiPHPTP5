@@ -12,6 +12,7 @@
  * @since     2016/12/06
  */
 namespace app\index\logic;
+
 use think\Model;
 use think\Request;
 use think\Lang;
@@ -21,6 +22,7 @@ use app\admin\model\Message as IndexMessage;
 use app\admin\model\MessageData as IndexMessageData;
 use app\admin\model\Fields as IndexFields;
 use app\admin\model\Type as IndexType;
+
 class Message extends Model
 {
     protected $request = null;

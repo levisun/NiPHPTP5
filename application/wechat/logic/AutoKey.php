@@ -12,11 +12,13 @@
  * @since     2016/11/25
  */
 namespace app\wechat\logic;
+
 use think\Model;
 use think\Lang;
 use think\Request;
 use app\wechat\logic\Common;
 use app\admin\model\Reply as WechatReply;
+
 class AutoKey extends Common
 {
 

@@ -12,7 +12,9 @@
  * @since     2017/01/03
  */
 namespace net\pay\library;
+
 use net\pay\library\Pay;
+
 class WxPay extends Pay
 {
 
@@ -216,13 +218,3 @@ class WxPay extends Pay
         return strtoupper($sign);
     }
 }
-
-
-
-
-
-
-
-
-
-

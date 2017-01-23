@@ -12,10 +12,12 @@
  * @since     2016/11/16
  */
 namespace app\admin\controller;
+
 use think\Lang;
 use think\Url;
 use app\admin\controller\Base;
 use app\admin\logic\ThemeTemplate as AdminThemeTemplate;
+
 class Theme extends Base
 {
 

@@ -12,12 +12,14 @@
  * @since     2016/10/22
  */
 namespace app\member\controller;
+
 use think\Controller;
 use think\Lang;
 use think\Config;
 use think\Log;
 use app\index\logic\Visit as IndexVisit;
 use app\member\logic\Common as MemberCommon;
+
 class Base extends Controller
 {
     // 网站基本数据

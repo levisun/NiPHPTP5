@@ -11,6 +11,7 @@
  * @link      http://www.NiPHP.com
  */
 namespace util;
+
 class File
 {
 
@@ -18,14 +19,14 @@ class File
      * 创建文件
      * @static
      * @access public
-     * @param  string  $filePath_  文件
-     * @param  string  $data_      数据 默认为null不创建文件
-     * @param  boolean $isCover_   是否覆盖
+     * @param  string  $file_path  文件
+     * @param  string  $data       数据 默认为null不创建文件
+     * @param  boolean $is_cover   是否覆盖
      * @return boolean
      */
-    static public function create($filePath_, $data_=null, $isCover_=false)
+    public static function create($file_path, $data = null, $is_cover = false)
     {
-        $dir = explode('/', $filePath_);
+        $dir = explode('/', $file_path);
         $dirPath = '';
         foreach ($dir as $path) {
             if (false !== strpos($path, '.')) {
@@ -38,11 +39,11 @@ class File
             }
         }
 
-        if (null !== $data_) {
-            if($isCover_) {
-                return file_put_contents($filePath_, $data_);
+        if (null !== $data) {
+            if($is_cover) {
+                return file_put_contents($file_path, $data);
             } else {
-                return file_put_contents($filePath_, $data_, FILE_APPEND);
+                return file_put_contents($file_path, $data, FILE_APPEND);
             }
         }
         return true;
@@ -52,23 +53,23 @@ class File
      * 删除文件或文件夹
      * @static
      * @access public
-     * @param  string $fileOrDir_ 文件名或目录名
+     * @param  string $file_or_dir 文件名或目录名
      * @return boolean
      */
-    static public function delete($fileOrDir_)
+    public static function delete($file_or_dir)
     {
-        if (is_dir($fileOrDir_)) {
-            if (substr($fileOrDir_, -1) === DIRECTORY_SEPARATOR) {
-                $file = glob($fileOrDir_ . '*');
+        if (is_dir($file_or_dir)) {
+            if (substr($file_or_dir, -1) === DIRECTORY_SEPARATOR) {
+                $file = glob($file_or_dir . '*');
             } else {
-                $file = glob($fileOrDir_ . DIRECTORY_SEPARATOR . '*');
+                $file = glob($file_or_dir . DIRECTORY_SEPARATOR . '*');
             }
             foreach ($file as $file) {
                 self::delete($file);
             }
-            return rmdir($fileOrDir_);
-        } elseif (file_exists($fileOrDir_)) {
-            unlink($fileOrDir_);
+            return rmdir($file_or_dir);
+        } elseif (file_exists($file_or_dir)) {
+            unlink($file_or_dir);
             return true;
         } else {
             return false;
@@ -80,36 +81,36 @@ class File
      * 更换目录不支持新建目录
      * @static
      * @access public
-     * @param  string $old_ 旧名
-     * @param  string $new_ 新名
+     * @param  string $old 旧名
+     * @param  string $new 新名
      * @return boolean
      */
-    static public function rename($old_, $new_)
+    public static function rename($old, $new)
     {
-        if ((!file_exists($old_) && file_exists($new_)) || (!is_dir($old_) && is_dir($new_))) {
+        if ((!file_exists($old) && file_exists($new)) || (!is_dir($old) && is_dir($new))) {
             return false;
         }
-        return rename($old_, $new_);
+        return rename($old, $new);
     }
 
     /**
      * 获得目录下所有文件和文件夹
      * @static
      * @access public
-     * @param  string $dir_  目录
-     * @param  string $date_ 日期格式 默认Y-m-d H:i:s
+     * @param  string $dir  目录
+     * @param  string $date 日期格式 默认Y-m-d H:i:s
      * @return array
      */
-    static public function get($dir_, $date_='Y-m-d H:i:s')
+    public static function get($dir, $date = 'Y-m-d H:i:s')
     {
         $no = ['.', '..', 'index.html', '.svn', '.DS_Store', '.gitignore', 'Thumbs.db'];
         $dirOrFile = array();
-        if (is_dir($dir_)) {
-            $handler = opendir($dir_);
+        if (is_dir($dir)) {
+            $handler = opendir($dir);
             while (false !== ($fileName = readdir($handler))) {
                 if (!in_array($fileName, $no)) {
                     $fileInfo['name'] = $fileName;
-                    $fileSize = filesize($dir_ . $fileName);
+                    $fileSize = filesize($dir . $fileName);
                     if ($fileSize <= 1024) {
                         $fileInfo['size'] = $fileSize . 'B';
                     } elseif ($fileSize > 1024 && $fileSize <= 1048576) {
@@ -120,7 +121,7 @@ class File
                         $fileInfo['size'] = number_format($fileSize / 1073741824, 2) . 'GB';
                     }
 
-                    $fileInfo['time'] = !empty($date_) ? date($date_, filemtime($dir_ . $fileName)) : filemtime($path . $fileName);
+                    $fileInfo['time'] = !empty($date) ? date($date, filemtime($dir . $fileName)) : filemtime($path . $fileName);
                     $dirOrFile[] = $fileInfo;
                 }
             }
@@ -129,16 +130,16 @@ class File
         return $dirOrFile;
     }
 
-    static public function removeUselessFile($dir_='./')
+    public static function removeUselessFile($dir = './')
     {
         $del = ['.gitignore', '.DS_Store', 'Thumbs.db'];
-        $dirArr = self::get($dir_);
+        $dirArr = self::get($dir);
         foreach ($dirArr as $key => $value) {
-            if (is_dir($dir_ . $value['name'])) {
-                self::removeUselessFile($dir_ . $value['name'] . '/');
-            } elseif (in_array($value['name'], $del) && file_exists($dir_ . $value['name'])) {
-                echo $dir_ . $value['name'];
-                unlink($dir_ . $value['name']);
+            if (is_dir($dir . $value['name'])) {
+                self::removeUselessFile($dir . $value['name'] . '/');
+            } elseif (in_array($value['name'], $del) && file_exists($dir . $value['name'])) {
+                echo $dir . $value['name'];
+                unlink($dir . $value['name']);
             }
         }
     }

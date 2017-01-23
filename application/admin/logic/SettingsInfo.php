@@ -12,6 +12,7 @@
  * @since     2016/10/22
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Request;
 use think\Config;
@@ -21,6 +22,7 @@ use app\admin\model\Message as AdminMessage;
 use app\admin\model\Link as AdminLink;
 use app\admin\model\Ads as AdminAds;
 use app\admin\model\Visit as AdminVisit;
+
 class SettingsInfo extends Model
 {
     protected $request = null;

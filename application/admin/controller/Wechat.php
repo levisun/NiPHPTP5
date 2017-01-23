@@ -12,7 +12,9 @@
  * @since     2016/11/10
  */
 namespace app\admin\controller;
+
 use app\admin\controller\Base;
+
 class Wechat extends Base
 {
     /**

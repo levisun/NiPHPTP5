@@ -12,8 +12,10 @@
  * @since     2016/11/03
  */
 namespace app\admin\model;
+
 use think\Model;
 use traits\model\SoftDelete;
+
 class Download extends Model
 {
     use SoftDelete;

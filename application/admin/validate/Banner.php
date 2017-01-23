@@ -12,7 +12,9 @@
  * @since     2016/10/28
  */
 namespace app\admin\validate;
+
 use think\Validate;
+
 class Banner extends Validate
 {
     protected $rule = [

@@ -12,10 +12,12 @@
  * @since     2016/11/25
  */
 namespace app\member\controller;
+
 use think\Url;
 use think\Lang;
 use app\member\controller\Base;
 use app\member\logic\Account as MemberAccount;
+
 class Index extends Base
 {
 

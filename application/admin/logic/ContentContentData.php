@@ -12,6 +12,7 @@
  * @since     2016/11/14
  */
 namespace app\admin\logic;
+
 use think\Model;
 use think\Request;
 use think\Lang;
@@ -23,6 +24,7 @@ use app\admin\model\Type as AdminType;
 use app\admin\model\Fields as AdminFields;
 use app\admin\model\TagsArticle as AdminTagsArticle;
 use app\admin\model\Level as AdminLevel;
+
 class ContentContentData extends Model
 {
     protected $request = null;

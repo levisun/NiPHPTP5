@@ -12,7 +12,9 @@
  * @since     2016/10/22
  */
 namespace app\index\validate;
+
 use think\Validate;
+
 class Feedback extends Validate
 {
     protected $rule = [
@@ -30,5 +32,4 @@ class Feedback extends Validate
         'content.require'  => 'error feedback content require',
         'content.max'      => 'error feedback content length not',
     ];
-
 }

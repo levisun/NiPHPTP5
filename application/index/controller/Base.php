@@ -12,12 +12,14 @@
  * @since     2016/10/22
  */
 namespace app\index\controller;
+
 use think\Controller;
 use think\Lang;
 use think\Config;
 use think\Log;
 use app\index\logic\Visit as IndexVisit;
 use app\index\logic\Common as IndexCommon;
+
 class Base extends Controller
 {
     // 公众业务

@@ -12,7 +12,9 @@
  * @since     2016/10/22
  */
 namespace app\index\validate;
+
 use think\Validate;
+
 class Message extends Validate
 {
     protected $rule = [
@@ -30,5 +32,4 @@ class Message extends Validate
         'content.require'  => 'error message content require',
         'content.max'      => 'error message content length not',
     ];
-
 }

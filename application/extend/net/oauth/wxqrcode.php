@@ -12,10 +12,12 @@
  * @since     2017/01/03
  */
 namespace net\oauth;
+
 use net\oauth\OAuth;
 use net\oauth\Http as OAuthHttp;
 use think\Cookie;
 use think\exception\HttpException;
+
 class wxqrcode extends OAuth
 {
     protected $AuthorizeURL = 'https://open.weixin.qq.com/connect/qrconnect';

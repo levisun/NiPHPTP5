@@ -12,10 +12,12 @@
  * @since     2016/11/25
  */
 namespace app\index\controller;
+
 use think\Url;
 use think\Lang;
 use app\index\controller\Base;
 use app\index\logic\Jump as IndexJump;
+
 class Jump extends Base
 {
 

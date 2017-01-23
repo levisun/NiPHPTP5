@@ -12,8 +12,10 @@
  * @since     2016/10/22
  */
 namespace app\admin\controller;
+
 use app\admin\controller\Base;
 use app\admin\logic\MallGoods as AdminMallGoods;
+
 class Mall extends Base
 {
 
