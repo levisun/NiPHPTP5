@@ -57,10 +57,12 @@ class Visit extends Model
         ];
 
         $model = new IndexVisit;
+        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $model->field(true)
         ->where($map)
+        ->cache($CACHE)
         ->value('ip');
 
         if ($result) {

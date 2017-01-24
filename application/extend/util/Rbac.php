@@ -167,7 +167,7 @@ class Rbac {
                     $accessList = self::getAccessList(session(config('USER_AUTH_KEY')));
                 }else {
                     // 如果是管理员或者当前操作已经认证过，无需再次认证
-                    if( $_SESSION[$accessGuid]) {
+                    if (!empty($_SESSION[$accessGuid])) {
                         return true;
                     }
                     //登录验证模式，比较登录后保存的权限访问列表
@@ -268,7 +268,7 @@ class Rbac {
     // 读取模块所属的记录访问权限
     static public function getModuleAccessList($authId,$module) {
         // Db方式
-        $db     =   Db::getInstance(config('RBAC_DB_DSN'));
+        $db     =   db();
         $table = array('role'=>config('RBAC_ROLE_TABLE'),'user'=>config('RBAC_USER_TABLE'),'access'=>config('RBAC_ACCESS_TABLE'));
         $sql    =   "select access.node_id from ".
                     $table['role']." as role,".

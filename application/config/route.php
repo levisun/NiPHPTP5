@@ -18,14 +18,44 @@ return [
         'id'  => '\d+',
     ],
 
-    '/' => 'index',
+    '/'                => [
+        'index',
+        [
+        // 'cache' => 1800,
+        ]
+    ],
 
     // website
-    'entry/:cid'       => 'index/entry/index',
-    'article/:cid/:id' => 'index/article/index',
-    'tags/:id'         => 'index/tags/index',
-    'jump/:cid/:id'    => 'index/jump/index',
-    'wechat'           => 'wechat/index/index',
+    'entry/:cid'       => [
+        'index/entry/index',
+        [
+        // 'cache' => 1800,
+        ]
+    ],
+    'article/:cid/:id' => [
+        'index/article/index',
+        [
+        // 'cache' => 1800,
+        ]
+    ],
+    'tags/:id'         => [
+        'index/tags/index',
+        [
+        // 'cache' => 1800,
+        ]
+    ],
+    'jump/:cid/:id'    => [
+        'index/jump/index',
+        [
+        // 'cache' => 1800,
+        ]
+    ],
+    'wechat'           => [
+        'wechat/index/index',
+        [
+        // 'cache' => 1800,
+        ]
+    ],
 
     // comment
     'comment/:cid'     => 'index/comment/index',

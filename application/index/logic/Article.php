@@ -218,7 +218,7 @@ class Article extends Model
         $map = ['main_id' => $this->request->param('id/f')];
 
         $album = Loader::model($this->model_name . 'Album', 'model', false, 'admin');
-        $CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $album->field(true)
@@ -246,7 +246,7 @@ class Article extends Model
         $table_name = $this->model_name . '_data d';
 
         $fields = new IndexFields;
-        $CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $fields->view('fields f', ['id', 'name' => 'field_name'])
@@ -278,7 +278,7 @@ class Article extends Model
         ];
 
         $tags = new IndexTagsArticle;
-        $CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $tags->view('tags_article a', 'tags_id')

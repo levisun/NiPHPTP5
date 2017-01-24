@@ -97,7 +97,7 @@ class Common extends Model
         ];
 
         $config = new IndexConfig;
-        $CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map['name']) . $map['lang'] : false;
+        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $config->field(true)

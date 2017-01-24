@@ -30,4 +30,6 @@ return [
     'prefix'   => 'np_',
     // 数据库调试模式
     'debug'    => APP_DEBUG,
+    // 时间字段取出后的默认时间格式
+    'datetime_format' => 'Y-m-d H:i:s',
 ];

@@ -49,7 +49,7 @@ class Page extends Model
         ];
 
         $model = new IndexPage;
-        $CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $model->view('page a', true)
@@ -84,7 +84,7 @@ class Page extends Model
         $table_name = 'page_data d';
 
         $fields = new IndexFields;
-        $CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $fields->view('fields f', ['id', 'name' => 'field_name'])
@@ -116,7 +116,7 @@ class Page extends Model
         ];
 
         $tags = new IndexTagsArticle;
-        $CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map) : false;
+        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $tags->view('tags_article a', 'tags_id')

@@ -272,6 +272,7 @@ class CommonAccount extends Model
         }
 
         Rbac::checkLogin();
+        Rbac::saveAccessList();
         if (Rbac::AccessDecision()) {
             Session::set('_ACCESS_LIST', Rbac::getAccessList($user_auth_key));
             return true;
