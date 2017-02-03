@@ -45,11 +45,11 @@ class ContentCache extends Model
         }
 
         if ($type == 'compile') {
-            $list = File::get(TEMP_PATH);
+            $list = File::get(RUNTIME_PATH . 'temp' . DS);
 
             // 删除编辑缓存
             foreach ($list as $key => $value) {
-                File::delete(TEMP_PATH . $value['name']);
+                File::delete(RUNTIME_PATH . 'temp' . DS . $value['name']);
             }
             return 'compile';
         }

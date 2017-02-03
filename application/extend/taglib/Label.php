@@ -187,14 +187,12 @@ class Label extends TagLib
      */
     public function tagList($tag, $content)
     {
-        $id = (float) $tag['id'];
-
         $parseStr = '<?php ';
         $parseStr .= ' $param = ' . var_export($tag, true) . ';';
-        $parseStr .= ' $label["list"]["' . $id . '"] = \taglib\LabelFun::tagList(' . $id . ', $param);';
-        $parseStr .= ' if (!empty($label["list"]["' . $id . '"])) {';
-        $parseStr .= ' $tag_count = count($label["list"]["' . $id . '"]);';
-        $parseStr .= ' foreach ($label["list"][' . $id . '] as $key => $vo) { ?>';
+        $parseStr .= ' $label["list"]["' . $tag['id'] . '"] = \taglib\LabelFun::tagList("' . $tag['id'] . '", $param);';
+        $parseStr .= ' if (!empty($label["list"]["' . $tag['id'] . '"])) {';
+        $parseStr .= ' $tag_count = count($label["list"]["' . $tag['id'] . '"]);';
+        $parseStr .= ' foreach ($label["list"]["' . $tag['id'] . '"] as $key => $vo) { ?>';
         $parseStr .= $content;
         $parseStr .= '<?php } } ?>';
         return $parseStr;

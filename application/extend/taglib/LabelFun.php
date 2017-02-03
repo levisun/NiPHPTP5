@@ -17,10 +17,14 @@ use think\Request;
 use think\Lang;
 use think\Loader;
 use think\Url;
+use think\Config;
 use app\admin\model\Category as IndexCategory;
 use app\admin\model\Ads as IndexAds;
 use app\admin\model\Banner as IndexBanner;
 use app\admin\model\Tags as IndexTags;
+use app\admin\model\Level as IndexLevel;
+use app\admin\model\Type as IndexType;
+use app\admin\model\Admin as IndexAdmin;
 
 class LabelFun
 {
@@ -446,62 +450,57 @@ class LabelFun
      */
     public static function tagList($id, $param)
     {
-        $table_name = self::__getModelTable($id);
-        if (empty($table_name)) {
-            return ;
-        }
+        $field = 'id, title, keywords, description, thumb, category_id, type_id, is_com, is_top, is_hot, hits, comment_count, username, url, is_link, create_time, update_time, user_id, access_id';
 
-        if (in_array($table_name, ['link', 'feedback', 'message'])) {
-            return ;
-        }
-
-        $map = [
-            'a.category_id' => ['IN', $id],
-            'a.is_pass'     => 1,
-            'a.show_time'   => ['ELT', strtotime(date('Y-m-d'))],
-            'a.lang'        => Lang::detect()
-        ];
+        $where = ' WHERE is_pass=1 AND lang=\'' . Lang::detect() . '\'';
+        $where .= ' AND show_time<=' . strtotime(date('Y-m-d'));
+        $where .= ' AND category_id in(' . $id . ')';
 
         // 推荐
         if (!empty($param['com'])) {
-            $map['a.is_com'] = 1;
+            $where .= ' AND is_com=1';
         }
         // 置顶
         if (!empty($param['top'])) {
-            $map['a.is_top'] = 1;
+            $where .= ' AND is_top=1';
         }
         // 最热
         if (!empty($param['hot'])) {
-            $map['a.is_hot'] = 1;
+            $where .= ' AND is_hot=1';
         }
 
+        $order = !empty($param['order']) ? $param['order'] : 'sort DESC, id DESC';
+        $where .= ' ORDER BY ' . $order;
+
+        $sql[] = 'SELECT ' . $field . ' FROM ' . Config::get('database.prefix') . 'article' . $where;
+        $sql[] = 'SELECT ' . $field . ' FROM ' . Config::get('database.prefix') . 'download' . $where;
+        $sql[] = 'SELECT ' . $field . ' FROM ' . Config::get('database.prefix') . 'picture' . $where;
+        $sql[] = 'SELECT ' . $field . ' FROM ' . Config::get('database.prefix') . 'product' . $where;
+
         $limit = !empty($param['limit']) ? (float) $param['limit'] : 10;
-        $order = !empty($param['order']) ? $param['order'] : 'a.sort DESC, a.id DESC';
 
-        $model = Loader::model(ucfirst($table_name), 'model', false, 'admin');
-        $CACHE = check_key($map, __METHOD__);
+        $union = '(' . implode(') union (', $sql) . ') LIMIT ' . $limit;
+        $result = db()->query($union);
 
-        $result =
-        $model->view($table_name . ' a', true)
-        ->view('type t', ['name' => 'type_name'], 't.id=a.type_id', 'LEFT')
-        ->view('level l', ['name' => 'level_name'], 'l.id=a.access_id', 'LEFT')
-        ->view('category c', ['name' => 'cat_name'], 'c.id=a.category_id')
-        ->view('admin ad', ['username' => 'editor_name'], 'a.user_id=ad.id')
-        ->where($map)
-        ->limit($limit)
-        ->order($order)
-        ->cache($CACHE)
-        ->select();
+        $category = new IndexCategory;
+        $type = new IndexType;
+        $level = new IndexLevel;
+        $admin = new IndexAdmin;
 
         $list = [];
         foreach ($result as $value) {
-            $value = $value->toArray();
             if ($value['is_link']) {
                 $value['url'] = Url::build('/jump/' . $value['category_id'] . '/' . $value['id']);
             } else {
                 $value['url'] = Url::build('/article/' . $value['category_id'] . '/' . $value['id']);
             }
             $value['cat_url'] = Url::build('/entry/' . $value['category_id']);
+
+            $value['cat_name'] = $category->where(['id'=>$value['category_id']])->value('name');
+            $value['type_name'] = $type->where(['id'=>$value['type_id']])->value('name');
+            $value['level_name'] = $level->where(['id'=>$value['access_id']])->value('name');
+            $value['editor_name'] = $admin->where(['id'=>$value['user_id']])->value('username');
+
             $list[] = $value;
         }
 
