@@ -6,32 +6,32 @@
 
 <form action="" method="post" class="form-horizontal" data-parsley-validate="parsley" data-parsley-focus="last">
 	<ul>
-		<li class="form-group">
+		<li class="form-group row">
 			<label class="col-md-2 control-label">{:lang('username')}</label>
 			<div class="col-md-6">
 				{$data.username}
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label class="col-md-2 control-label">IP</label>
 			<div class="col-md-6">
 				{$data.ip}[{$data.ip_attr}]
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label class="col-md-2 control-label">{:lang('content')}</label>
 			<div class="col-md-6">
 				<pre>{$data.content}</pre>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label class="col-md-2 control-label">{:lang('button report')}</label>
 			<div class="col-md-6">
 				<label class="radio-inline"><input type="radio" name="is_report" value="1" {eq name="data.is_report" value="1"}checked{/eq} >{:lang('button yes')}</label>
 				<label class="radio-inline"><input type="radio" name="is_report" value="0" {eq name="data.is_report" value="0"}checked{/eq} >{:lang('button no')}</label>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label class="col-md-2 control-label">{:lang('button check')}</label>
 			<div class="col-md-6">
 				<label class="radio-inline"><input type="radio" name="is_pass" value="1" {eq name="data.is_pass" value="1"}checked{/eq} >{:lang('button yes')}</label>

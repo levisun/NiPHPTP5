@@ -1,18 +1,18 @@
 <form action="" method="post" class="form-horizontal" data-parsley-validate="parsley" data-parsley-focus="last">
 	<ul>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="title" class="col-md-2 control-label">{:lang('node title')}</label>
 			<div class="col-md-6">
 				<input type="text" name="title" id="title" class="form-control">
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="name" class="col-md-2 control-label">{:lang('node name')}</label>
 			<div class="col-md-6">
 				<input type="text" name="name" id="name" class="form-control">
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="pid" class="col-md-2 control-label">{:lang('parent')}</label>
 			<div class="col-md-6">
 				<select name="pid" id="pid" class="form-control">
@@ -23,7 +23,7 @@
 				</select>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="level" class="col-md-2 control-label">{:lang('level')}</label>
 			<div class="col-md-6">
 				<select name="level" id="level" class="form-control">
@@ -34,13 +34,13 @@
 				</select>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="remark" class="col-md-2 control-label">{:lang('remark')}</label>
 			<div class="col-md-6">
 				<textarea name="remark" id="remark" class="form-control"></textarea>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="status" class="col-md-2 control-label">{:lang('status')}</label>
 			<div class="col-md-6">
 				<label class="radio-inline"><input type="radio" name="status" value="1" checked>{:lang('button open')}</label>

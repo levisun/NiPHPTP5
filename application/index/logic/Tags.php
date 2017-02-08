@@ -17,11 +17,17 @@ use think\Model;
 use think\Request;
 use think\Lang;
 use think\Url;
+use think\Config;
+use think\Db;
 use app\admin\model\Tags as IndexTags;
 use app\admin\model\Article as IndexArticle;
 use app\admin\model\Download as IndexDownload;
 use app\admin\model\Picture as IndexPicture;
 use app\admin\model\Product as IndexProduct;
+use app\admin\model\Category as IndexCategory;
+use app\admin\model\Level as IndexLevel;
+use app\admin\model\Type as IndexType;
+use app\admin\model\Admin as IndexAdmin;
 
 class Tags extends Model
 {
@@ -58,72 +64,89 @@ class Tags extends Model
             $value = $value->toArray();
             $article_id[] = $value['article_id'];
             $category_id[] = $value['category_id'];
+            $tags_name = $value['tags_name'];
         }
         $article_id  = array_unique($article_id);
         $category_id = array_unique($category_id);
 
+        $where = ' WHERE is_pass=1 AND lang=\'' . Lang::detect() . '\'';
+        $where .= ' AND show_time<=' . strtotime(date('Y-m-d'));
 
-        $field = [
-            'id',
-            'title',
-            'keywords',
-            'description',
-            'thumb',
-            'category_id',
-            'type_id',
-            'is_com',
-            'is_top',
-            'is_hot',
-            'hits',
-            'comment_count',
-            'username',
-            'url',
-            'is_link',
-            'create_time',
-            'update_time',
-        ];
-        $map = [
-            'id' => [
-                'in', implode(',', $article_id)
-            ],
-            'category_id' => [
-                'in', implode(',', $category_id)
-            ],
-            'is_pass'   => 1,
-            'lang'      => Lang::detect(),
-            'show_time' => ['ELT', strtotime(date('Y-m-d'))]
-        ];
+        $where .= ' AND id IN(' . implode(',', $article_id) . ')';
+        $where .= ' AND category_id IN(' . implode(',', $category_id) . ')';
 
-        $download = new IndexDownload;
-        $union[] = '(' . $download->field($field)->where($map)->limit(0, 10)->fetchSql()->select() . ')';
-        $picture = new IndexPicture;
-        $union[] = '(' . $picture->field($field)->where($map)->limit(0, 10)->fetchSql()->select() . ')';
-        $product = new IndexProduct;
-        $union[] = '(' . $product->field($field)->where($map)->limit(0, 10)->fetchSql()->select() . ')';
+        $order = 'sort DESC, update_time DESC';
+        $where .= ' ORDER BY ' . $order;
 
-        $article = new IndexArticle;
-        $union[] = '(' . $article->field($field)->where($map)->limit(0, 10)->fetchSql()->select() . ')';
+        // 统计
+        $field = 'count(1) as count';
+        $sql[] = 'SELECT ' . $field . ' FROM ' . Config::get('database.prefix') . 'article' . $where;
+        $sql[] = 'SELECT ' . $field . ' FROM ' . Config::get('database.prefix') . 'download' . $where;
+        $sql[] = 'SELECT ' . $field . ' FROM ' . Config::get('database.prefix') . 'picture' . $where;
+        $sql[] = 'SELECT ' . $field . ' FROM ' . Config::get('database.prefix') . 'product' . $where;
 
-        $result =
-        $this
-        ->union($union)
-        ->query();halt(1);
+        $union = '(' . implode(') union (', $sql) . ')';
+        $result = Db::query($union);
 
-        /*$list = [];
+        $total = 0;
+        foreach ($result as $key => $value) {
+            $total += $value['count'];
+        }
+
+        // 分页
+        $config = Config::get('paginate');
+        $listRows = $config['list_rows'];
+
+        $class = false !== strpos($config['type'], '\\') ? $config['type'] : '\\think\\paginator\\driver\\' . ucwords($config['type']);
+        $page  = isset($config['page']) ? (int) $config['page'] : call_user_func([
+            $class,
+            'getCurrentPage',
+        ], $config['var_page']);
+
+        $page = $page < 1 ? 1 : $page;
+
+        $config['path'] = isset($config['path']) ? $config['path'] : call_user_func([$class, 'getCurrentPath']);
+
+        // 列表数据
+        $field = 'id, title, keywords, description, thumb, category_id, type_id, is_com, is_top, is_hot, hits, comment_count, username, url, is_link, create_time, update_time, user_id, access_id';
+
+        $sql = [];
+        $sql[] = 'SELECT ' . $field . ' FROM ' . Config::get('database.prefix') . 'article' . $where;
+        $sql[] = 'SELECT ' . $field . ' FROM ' . Config::get('database.prefix') . 'download' . $where;
+        $sql[] = 'SELECT ' . $field . ' FROM ' . Config::get('database.prefix') . 'picture' . $where;
+        $sql[] = 'SELECT ' . $field . ' FROM ' . Config::get('database.prefix') . 'product' . $where;
+
+        $limit = $page - 1;
+        $limit .= ', ' . $listRows;
+
+        $union = '(' . implode(') union (', $sql) . ') LIMIT ' . $limit;
+        $result = Db::query($union);
+
+        $page_obj = $class::make($result, $listRows, $page, $total, false, $config);
+        $page = $page_obj->render();
+
+        $category = new IndexCategory;
+        $type = new IndexType;
+        $level = new IndexLevel;
+        $admin = new IndexAdmin;
+
+        $list = [];
         foreach ($result as $value) {
-            $value = $value->toArray();
             if ($value['is_link']) {
                 $value['url'] = Url::build('/jump/' . $value['category_id'] . '/' . $value['id']);
             } else {
                 $value['url'] = Url::build('/article/' . $value['category_id'] . '/' . $value['id']);
             }
             $value['cat_url'] = Url::build('/entry/' . $value['category_id']);
+
+            $value['cat_name'] = $category->where(['id'=>$value['category_id']])->value('name');
+            $value['type_name'] = $type->where(['id'=>$value['type_id']])->value('name');
+            $value['level_name'] = $level->where(['id'=>$value['access_id']])->value('name');
+            $value['editor_name'] = $admin->where(['id'=>$value['user_id']])->value('username');
+
             $list[] = $value;
         }
 
-        $page = $result->render();*/
-
-        trace($tags->getLastSql());
-        // trace($tags_list);
+        return ['list' => $list, 'page' => $page, 'tags_name' => $tags_name];
     }
 }

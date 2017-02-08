@@ -21,12 +21,14 @@ www  WEB部署目录（或者子目录）
 │  │  ├─common.php      模块函数文件
 │  ├─config             配置目录
 │  │  ├─admin           后台配置目录
+│  │  ├─extra           扩展配置目录
+│  │  │  ├─database.php  数据库配置文件
+│  │  │  ├─tags.php      应用行为扩展定义文件
 │  │  ├─index           前台配置目录
+│  │  ├─member          会员配置目录
 │  │  ├─command.php     命令行工具配置文件
 │  │  ├─config.php      公共配置文件
-│  │  ├─database.php    数据库配置文件
 │  │  ├─route.php       路由配置文件
-│  │  ├─tags.php        应用行为扩展定义文件
 │  ├─extend             扩展类库目录
 │  ├─index              前台模块目录
 │  │  ├─controller      控制器目录
@@ -39,12 +41,10 @@ www  WEB部署目录（或者子目录）
 │  ├─backup             数据库备份目录
 │  ├─static             静态库目录
 │  ├─theme              模板目录
-│  ├─upload             上传目录
-│  └─.htaccess          用于apache的重写
-│  ├─admin.php          后台模块入口文件
-│  ├─index.php          前台入口文件
-│  ├─router.php         快速测试文件
-│
+│  └─upload             上传目录
+├─.htaccess            用于apache的重写
+├─admin.php            后台入口文件
+├─index.php            前台入口文件
 ~~~
 
 ## 版权信息

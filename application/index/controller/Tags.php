@@ -27,7 +27,13 @@ class Tags extends Base
     public function index()
     {
         $tags = new IndexTags;
-        $tags->getListData();
+        $data = $tags->getListData();
+
+        $this->assign('list', $data['list']);
+        $this->assign('page', $data['page']);
+        $this->assign('count', count($data['list']));
+        $this->assign('tags_name', $data['tags_name']);
+
         return $this->fetch('entry/tags');
     }
 }

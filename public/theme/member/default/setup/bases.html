@@ -1,34 +1,71 @@
 <form action="" method="post">
     <ul class="row">
-        <li class="form-group">
-            <label for="" class="col-md-2 control-label align-r">用户名</label>
+        <li class="form-group row">
+            <label for="username" class="col-md-2 control-label align-r">用户名</label>
             <div class="col-md-10">
-                <input type="text" name="" id="" class="form-control" value="">
+                <input type="text" name="username" id="username" class="form-control" value="{$user_data.username}">
             </div>
         </li>
-        <li class="form-group">
-            <label for="" class="col-md-2 control-label align-r">昵称</label>
+        <li class="form-group row">
+            <label for="nickname" class="col-md-2 control-label align-r">昵称</label>
             <div class="col-md-10">
-                <input type="text" name="" id="" class="form-control" value="">
+                <input type="text" name="nickname" id="nickname" class="form-control" value="{$user_data.nickname}">
             </div>
         </li>
-        <li class="form-group">
-            <label for="" class="col-md-2 control-label align-r">邮箱</label>
+        <li class="form-group row">
+            <label for="email" class="col-md-2 control-label align-r">邮箱</label>
             <div class="col-md-10">
-                <input type="text" name="" id="" class="form-control" value="">
+                <input type="text" name="email" id="email" class="form-control" value="{$user_data.email}">
             </div>
         </li>
-        <li class="form-group">
-            <label for="" class="col-md-2 control-label align-r">真实姓名</label>
+        <li class="form-group row">
+            <label for="realname" class="col-md-2 control-label align-r">真实姓名</label>
             <div class="col-md-10">
-                <input type="text" name="" id="" class="form-control" value="">
+                <input type="text" name="realname" id="realname" class="form-control" value="{$user_data.realname}">
             </div>
         </li>
-        <li class="form-group">
-            <label for="" class="col-md-2 control-label align-r">真实姓名</label>
+        <li class="form-group row">
+            <label for="" class="col-md-2 control-label align-r">性别</label>
             <div class="col-md-10">
-                <input type="text" name="" id="" class="form-control" value="">
+                <input type="radio" name="gender" id="gender" value="1">男
+                <input type="radio" name="gender" id="gender" value="2">女
+            </div>
+        </li>
+        <li class="form-group row">
+            <label for="birthday" class="col-md-2 control-label align-r">生日</label>
+            <div class="col-md-10">
+                <input type="text" name="birthday" id="birthday" class="form-control" value="{$user_data.birthday|date="Y-m-d",###}">
+            </div>
+        </li>
+        <li class="form-group row">
+            <label for="province" class="col-md-2 control-label align-r">{:lang('province')}</label>
+            <div class="col-md-2">
+                <select name="province" id="province" class="form-control region" data-type="#city">
+                    <option value="">{:lang('select province')}</option>
+                    {volist name="region" id="vo"}
+                    <option value="{$vo.id}">{$vo.name}</option>
+                    {/volist}
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select name="city" id="city" class="form-control region" data-type="#area">
+                    <option value="">{:lang('select city')}</option>
+                </select>
+            </div>
+            <div class="col-md-2">
+                <select name="area" id="area" class="form-control">
+                    <option value="">{:lang('select area')}</option>
+                </select>
             </div>
         </li>
     </ul>
 </form>
+{css href="__LIBRARY__datetimepicker/css/bootstrap-datetimepicker.min.css" /}
+{js href="__LIBRARY__datetimepicker/js/bootstrap-datetimepicker.min.js" /}
+<script type="text/javascript">
+$(function () {
+    $('#birthday').datetimepicker(
+        {format: 'Y-M-D', viewMode: 'years'}
+        );
+});
+</script>

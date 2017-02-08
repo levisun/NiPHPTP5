@@ -1,25 +1,25 @@
 <form action="" method="post" class="form-horizontal" data-parsley-validate="parsley" data-parsley-focus="last">
 	<ul>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="name" class="col-md-2 control-label">{:lang('name')}</label>
 			<div class="col-md-6">
 				<input type="text" name="name" id="name" class="form-control" data-parsley-required="true" data-parsley-length="[2, 255]">
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="aliases" class="col-md-2 control-label">{:lang('aliases')}</label>
 			<div class="col-md-6">
 				<input type="text" name="aliases" id="aliases" class="form-control">
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="pid" class="col-md-2 control-label">{:lang('parent')}</label>
 			<div class="col-md-6">
 				<input type="hidden" name="pid" value="{$parent.id}">
 				<input type="text" id="pid" class="form-control category-pid" disabled value="{$parent.name}">
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="type_id" class="col-md-2 control-label">{:lang('type')}</label>
 			<div class="col-md-6">
 				<select name="type_id" id="type_id" class="form-control">
@@ -29,7 +29,7 @@
 				</select>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="model_id" class="col-md-2 control-label">{:lang('model')}</label>
 			<div class="col-md-6">
 				<select name="model_id" id="model_id" class="form-control">
@@ -39,27 +39,27 @@
 				</select>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="url" class="col-md-2 control-label">{:lang('url')}</label>
 			<div class="col-md-6">
 				<input type="text" name="url" id="url" class="form-control" data-parsley-maxlength="255">
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="is_show" class="col-md-2 control-label">{:lang('isshow')}</label>
 			<div class="col-md-6">
 				<label class="radio-inline"><input type="radio" name="is_show" value="1" checked>{:lang('button yes')}</label>
 				<label class="radio-inline"><input type="radio" name="is_show" value="0">{:lang('button no')}</label>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="is_channel" class="col-md-2 control-label">{:lang('ischannel')}</label>
 			<div class="col-md-6">
 				<label class="radio-inline"><input type="radio" name="is_channel" value="1">{:lang('button yes')}</label>
 				<label class="radio-inline"><input type="radio" name="is_channel" value="0" checked>{:lang('button no')}</label>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="image" class="col-md-2 control-label">{:lang('image')}</label>
 			<div class="col-md-6">
 				<input type="text" name="image" id="image" class="form-control" data-parsley-maxlength="255">
@@ -67,25 +67,25 @@
 				<img src="" id="img-image" width="100" style="display:none">
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="seo_title" class="col-md-2 control-label">{:lang('title')}</label>
 			<div class="col-md-6">
 				<input type="text" name="seo_title" id="seo_title" class="form-control">
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="seo_keywords" class="col-md-2 control-label">{:lang('keywords')}</label>
 			<div class="col-md-6">
 				<input type="text" name="seo_keywords" id="seo_keywords" class="form-control">
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="seo_description" class="col-md-2 control-label">{:lang('description')}</label>
 			<div class="col-md-6">
 				<textarea type="text" name="seo_description" id="seo_description" class="form-control"></textarea>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="access_id" class="col-md-2 control-label">{:lang('access')}</label>
 			<div class="col-md-6">
 				<select name="access_id" id="access_id" class="form-control">

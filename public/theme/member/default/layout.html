@@ -24,7 +24,20 @@
 		{include file="public/sidebar" /}
 
 		<section id="content" class="col-sm-9">
-		{__CONTENT__}
+			<div class="widget panel panel-default">
+				<div class="panel-heading">
+					<h3 class="panel-title">
+						{empty name="nav[$controller]['menu'][$menu_name]"}
+						会员中心
+						{else/}
+						{$nav[$controller]['menu'][$menu_name]['lang']}
+						{/empty}
+					</h3>
+				</div>
+				<div class="panel-body">
+					{__CONTENT__}
+				</div>
+			</div>
 		</section>
 	</div>
 </section>
@@ -57,8 +70,9 @@
 <script>
 var domain = "__DOMAIN__";
 Layout.domain = "__DOMAIN__";
-Layout.phpself = "__PHP_SELF__";
+Layout.phpself = "/__PHP_SELF__/";
 Layout.captcha(".captcha");
+Layout.selectRegion(".region", "member/setup.shtml?");
 </script>
 
 </body>

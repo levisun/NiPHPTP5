@@ -1,18 +1,18 @@
 <form action="" method="post" class="form-horizontal" data-parsley-validate="parsley" data-parsley-focus="last">
 	<ul>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="name" class="col-md-2 control-label">{:lang('typename')}</label>
 			<div class="col-md-6">
 				<input type="text" name="name" id="name" class="form-control" value="{$data.name}">
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="category_id" class="col-md-2 control-label">{:lang('fieldscategory')}</label>
 			<div class="col-md-6">
 				<input type="text" name="" id="" class="form-control" disabled value="{$data.cat_name}">
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="description" class="col-md-2 control-label">{:lang('remark')}</label>
 			<div class="col-md-6">
 				<textarea name="description" id="description" class="form-control">{$data.description}</textarea>

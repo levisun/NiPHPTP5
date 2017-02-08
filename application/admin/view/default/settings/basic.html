@@ -1,24 +1,24 @@
 <form action="" method="post" class="form-horizontal" data-parsley-validate="parsley" data-parsley-focus="last">
 	<ul>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="website_name" class="col-md-2 control-label">{:lang('basic website name')}</label>
 			<div class="col-md-6">
 				<input type="text" name="website_name" id="website_name" class="form-control" value="{$data.website_name}" data-parsley-required="true" data-parsley-maxlength="500">
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="website_keywords" class="col-md-2 control-label">{:lang('basic website keywords')}</label>
 			<div class="col-md-6">
 				<input type="text" name="website_keywords" id="website_keywords" class="form-control" value="{$data.website_keywords}" data-parsley-maxlength="500">
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="website_description" class="col-md-2 control-label">{:lang('basic website description')}</label>
 			<div class="col-md-6">
 				<textarea name="website_description" id="website_description" class="form-control" data-parsley-maxlength="500">{$data.website_description}</textarea>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="bottom_message" class="col-md-2 control-label">{:lang('basic bottom message')}</label>
 			<div class="col-md-6">
 				<textarea name="bottom_message" id="bottom_message" class="form-control" data-parsley-maxlength="500">{$data.bottom_message}</textarea>
@@ -27,7 +27,7 @@
 				<font class="grey align-t">{:lang('basic support html')}</font>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="copyright" class="col-md-2 control-label">{:lang('basic copyright')}</label>
 			<div class="col-md-6">
 				<textarea name="copyright" id="copyright" class="form-control" data-parsley-maxlength="500">{$data.copyright}</textarea>
@@ -36,7 +36,7 @@
 				<font class="grey align-t">{:lang('basic support html')}</font>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="script" class="col-md-2 control-label">{:lang('basic script')}</label>
 			<div class="col-md-6">
 				<textarea name="script" id="script" class="form-control" data-parsley-maxlength="500">{$data.script}</textarea>

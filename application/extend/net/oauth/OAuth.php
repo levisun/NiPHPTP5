@@ -19,16 +19,18 @@ use think\Cookie;
 
 abstract class OAuth
 {
-    protected $config = [];                // 第三方配置属性
-    protected $accessToken = null;        // 获取到的第三方Access Token
-    protected $display = 'default';        // 请求授权页面展现形式
-    protected $token;                    // 获取到的Token信息
+    protected $config = [];             // 第三方配置属性
+    protected $accessToken = null;      // 获取到的第三方Access Token
+    protected $display = 'default';     // 请求授权页面展现形式
+    protected $token;                   // 获取到的Token信息
     private   $channel = '';            // 接口渠道
-    protected $timestamp = '';            // 当前时间戳
+    protected $timestamp = '';          // 当前时间戳
 
     protected $AuthorizeURL;            // 获取requestCode的api接口
-    protected $AccessTokenURL;            // 获取Access Token的api接口
-    protected $ApiBase;                    // API根路径
+    protected $AccessTokenURL;          // 获取Access Token的api接口
+    protected $ApiBase;                 // API根路径
+
+    public $error = [];
 
     public function __construct($config=null, $type)
     {
@@ -133,7 +135,6 @@ abstract class OAuth
             $params      = $this->_params();
             $data        = OAuthHttp::post($this->AccessTokenURL, $params);
             $this->token = $this->parseToken($data);
-            // setcookie('A_S', $this->timestamp, $this->timestamp - 600, '/');
             Cookie::delete('A_S');
             return $this->token;
         }

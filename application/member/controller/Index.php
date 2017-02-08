@@ -17,6 +17,7 @@ use think\Url;
 use think\Lang;
 use app\member\controller\Base;
 use app\member\logic\Account as MemberAccount;
+use app\member\logic\OAuth as MemberOAuth;
 
 class Index extends Base
 {
@@ -34,6 +35,11 @@ class Index extends Base
      */
     public function login()
     {
+        // 第三方登录
+        if ($this->request->has('type') && $this->request->has('code')) {
+            $this->oauth();
+        }
+
         if ($this->request->isPost()) {
             $result = $this->validate($_POST, 'Account.login');
 
@@ -51,9 +57,15 @@ class Index extends Base
         return $this->fetch();
     }
 
+    /**
+     * 第三方登录
+     * @access public
+     * @param
+     * @return ???
+     */
     public function oauth()
     {
-        $oauth = new \app\member\logic\OAuth;
+        $oauth = new MemberOAuth;
         $this->redirect($oauth->login());
     }
 

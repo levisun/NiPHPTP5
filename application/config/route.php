@@ -17,71 +17,40 @@ return [
         'cid' => '\d+',
         'id'  => '\d+',
     ],
-
-    '/'                => [
-        'index',
-        [
-        // 'cache' => 1800,
-        ]
-    ],
+    '/' => 'index',
 
     // website
-    'entry/:cid'       => [
-        'index/entry/index',
-        [
-        // 'cache' => 1800,
-        ]
-    ],
-    'article/:cid/:id' => [
-        'index/article/index',
-        [
-        // 'cache' => 1800,
-        ]
-    ],
-    'tags/:id'         => [
-        'index/tags/index',
-        [
-        // 'cache' => 1800,
-        ]
-    ],
-    'jump/:cid/:id'    => [
-        'index/jump/index',
-        [
-        // 'cache' => 1800,
-        ]
-    ],
-    'wechat'           => [
-        'wechat/index/index',
-        [
-        // 'cache' => 1800,
-        ]
-    ],
+    'entry/:cid'               => 'index/entry/index',
+    'article/:cid/:id'         => 'index/article/index',
+    'tags/:id'                 => 'index/tags/index',
+    'jump/:cid/:id'            => 'index/jump/index',
+    'wechat'                   => 'wechat/index/index',
 
     // comment
-    'comment/:cid'     => 'index/comment/index',
-    'comment/added'    => 'index/comment/added',
+    'comment/:cid'             => 'index/comment/index',
+    'comment/added'            => 'index/comment/added',
 
     // member
-    'member/login'                 => 'member/index/login',
-    'member/oauth/:type/[:method]' => 'member/index/oauth',
-    'member/logout'                => 'member/index/logout',
-    'member/reg'                   => 'member/index/reg',
-    'member/forget'                => 'member/index/forget',
-    'member'                       => 'member/my/index',
-    'member/setup'                 => 'member/setup/bases',
-    'member/setup/bases'           => 'member/setup/bases',
-    'member/setup/pics'            => 'member/setup/pics',
-    'member/setup/pwds'            => 'member/setup/pwds',
+    'login'                    => 'member/index/login',
+    'login/oauth/:type'        => 'member/index/oauth',
+    'logout'                   => 'member/index/logout',
+    'reg'                      => 'member/index/reg',
+    'forget'                   => 'member/index/forget',
+    'member'                   => 'member/my/index',
+    'member/setup'             => 'member/setup/bases',
+    'member/setup/bases'       => 'member/setup/bases',
+    'member/setup/pics'        => 'member/setup/pics',
+    'member/setup/pwds'        => 'member/setup/pwds',
 
-    'member/article'               => 'member/article/feedback',
-    'member/article/feedback'      => 'member/article/feedback',
-    'member/article/message'       => 'member/article/message',
-    'member/article/common'        => 'member/article/common',
+    'member/article'           => 'member/article/feedback',
+    'member/article/feedback'  => 'member/article/feedback',
+    'member/article/message'   => 'member/article/message',
+    'member/article/common'    => 'member/article/common',
 
-    'member/collect'               => 'member/collect/article',
-    'member/collect/article'       => 'member/collect/article',
-    'member/collect/common'        => 'member/collect/common',
-    'member/collect/goods'         => 'member/collect/goods',
+    'member/collect'           => 'member/collect/article',
+    'member/collect/article'   => 'member/collect/article',
+    'member/collect/common'    => 'member/collect/common',
+    'member/collect/goods'     => 'member/collect/goods',
 
     // mall
     'mall'           => 'mall/index/index',

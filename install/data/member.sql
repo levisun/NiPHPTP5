@@ -3,7 +3,7 @@ CREATE TABLE IF NOT EXISTS `np_member` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `username` varchar(20) NOT NULL COMMENT '用户名',
   `password` varchar(32) NOT NULL COMMENT '密码',
-  `email` varchar(40) NOT NULL COMMENT '邮箱',
+  `email` varchar(40) NOT NULL DEFAULT '' COMMENT '邮箱',
   `realname` varchar(50) NOT NULL DEFAULT '' COMMENT '真实姓名',
   `nickname` varchar(50) NOT NULL DEFAULT '' COMMENT '昵称',
   `portrait` varchar(255) NOT NULL DEFAULT '' COMMENT '头像',
@@ -33,9 +33,23 @@ CREATE TABLE IF NOT EXISTS `np_member` (
   KEY `area` (`area`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '会员';
 
+DROP TABLE IF EXISTS `np_member_oauth`;
+CREATE TABLE IF NOT EXISTS `np_member_oauth` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '生日',
+  `openid` varchar(50) NOT NULL DEFAULT '' COMMENT 'open id',
+  `nick` varchar(50) NOT NULL DEFAULT '' COMMENT '昵称',
+  `type` varchar(10) NOT NULL DEFAULT '' COMMENT '类型',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
+  PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
+  KEY `openid` (`openid`),
+  KEY `type` (`type`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '第三方登录会员';
+
 DROP TABLE IF EXISTS `np_level_member`;
 CREATE TABLE IF NOT EXISTS `np_level_member` (
-  `user_id` smallint(6) unsigned NOT NULL COMMENT '会员ID',
+  `user_id` int(11) unsigned NOT NULL COMMENT '会员ID',
   `level_id` smallint(6) unsigned DEFAULT NULL COMMENT '组ID',
   PRIMARY KEY (`user_id`),
   KEY `level_id` (`level_id`)

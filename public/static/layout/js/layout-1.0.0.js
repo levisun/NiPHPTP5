@@ -4,11 +4,24 @@ Layout.VERSION = '1.0.0';
 Layout.domain  = null;
 Layout.phpself = null;
 
+
 /**
- * 删除元素
+ * 选择地区
  */
-Layout.remove = function (element) {
-    jQuery(element).remove();
+Layout.selectRegion = function (element, url) {
+    jQuery(element).change(function(){
+        var id = jQuery(this).val(), type = jQuery(this).attr('data-type');
+        jQuery.ajax({
+            type: 'post',
+            async: false,
+            url: Layout.domain + Layout.phpself + url,
+            data: {id: id},
+            success: function(data){
+                jQuery(type + ' option.op').remove();
+                jQuery(type).append(data);
+            }
+        });
+    });
 }
 
 /**
@@ -37,14 +50,12 @@ Layout.newWinUpload = function (element, url) {
         var id = jQuery(element).attr("data-id");
 
         window.open(
-            Layout.domain + url + "?type=" + type + "&id=" + id + "&model=" + model,
+            Layout.domain + Layout.phpself + url + "?type=" + type + "&id=" + id + "&model=" + model,
             "uploadFile",
             "width=" + width + ",height=" + height + ",top=" + top + ",left=" + left
             );
     });
 }
-
-
 
 /**
  * AJAX加载更多

@@ -1,31 +1,31 @@
 <form action="" method="post" class="form-horizontal" data-parsley-validate="parsley" data-parsley-focus="last">
 	<ul>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="name" class="col-md-2 control-label">{:lang('modelname')}</label>
 			<div class="col-md-6">
 				<input type="text" name="name" id="name" class="form-control" value="{$data.name}">
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="table_name" class="col-md-2 control-label">{:lang('tablename')}</label>
 			<div class="col-md-6">
 				<input type="text" name="table_name" id="table_name" class="form-control" disabled value="{$data.table_name}">
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="status" class="col-md-2 control-label">{:lang('status')}</label>
 			<div class="col-md-6">
 				<label class="radio-inline"><input type="radio" name="status" value="1" {eq name="data.status" value="1"}checked{/eq}>{:lang('button open')}</label>
 				<label class="radio-inline"><input type="radio" name="status" value="0" {eq name="data.status" value="0"}checked{/eq}>{:lang('button close')}</label>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="remark" class="col-md-2 control-label">{:lang('remark')}</label>
 			<div class="col-md-6">
 				<textarea name="remark" id="remark" class="form-control">{$data.remark}</textarea>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="model_table" class="col-md-2 control-label">{:lang('modeltable')}</label>
 			<div class="col-md-6">
 				<select name="model_table" id="model_table" class="form-control" disabled>

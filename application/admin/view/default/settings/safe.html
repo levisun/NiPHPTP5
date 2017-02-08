@@ -1,7 +1,7 @@
 <form action="" method="post" class="form-horizontal" data-parsley-validate="parsley" data-parsley-focus="last">
 	<ul>
 		{eq name="data.founder" value="1"}
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="system_portal" class="col-md-2 control-label">{:lang('safe system portal')}</label>
 			<div class="col-md-6">
 				<input type="text" name="system_portal" id="system_portal" class="form-control long" value="{$data.system_portal}" data-parsley-required="true" data-parsley-maxlength="500">
@@ -9,41 +9,41 @@
 			</div>
 		</li>
 		{/eq}
-		<li class="form-group">
+		<li class="form-group row">
 			<label class="col-md-2 control-label">{:lang('safe content check')}</label>
 			<div class="col-md-6">
 				<label class="radio-inline"><input type="radio" name="content_check" {eq name="data.content_check" value="1"}checked{/eq} value="1">{:lang('button open')}</label>
 				<label class="radio-inline"><input type="radio" name="content_check" {eq name="data.content_check" value="0"}checked{/eq}value="0">{:lang('button close')}</label>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label class="col-md-2 control-label">{:lang('safe member login captcha')}</label>
 			<div class="col-md-6">
 				<label class="radio-inline"><input type="radio" name="member_login_captcha" {eq name="data.member_login_captcha" value="1"}checked{/eq} value="1">{:lang('button open')}</label>
 				<label class="radio-inline"><input type="radio" name="member_login_captcha" {eq name="data.member_login_captcha" value="0"}checked{/eq} value="0">{:lang('button close')}</label>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label class="col-md-2 control-label">{:lang('safe website submit captcha')}</label>
 			<div class="col-md-6">
 				<label class="radio-inline"><input type="radio" name="website_submit_captcha" {eq name="data.website_submit_captcha" value="1"}checked{/eq} value="1">{:lang('button open')}</label>
 				<label class="radio-inline"><input type="radio" name="website_submit_captcha" {eq name="data.website_submit_captcha" value="0"}checked{/eq} value="0">{:lang('button close')}</label>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label class="col-md-2 control-label">{:lang('safe website static')}</label>
 			<div class="col-md-6">
 				<label class="radio-inline"><input type="radio" name="website_static" {eq name="data.website_static" value="1"}checked{/eq} value="1">{:lang('button open')}</label>
 				<label class="radio-inline"><input type="radio" name="website_static" {eq name="data.website_static" value="0"}checked{/eq} value="0">{:lang('button close')}</label>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="upload_file_max" class="col-md-2 control-label">{:lang('safe upload file max')}</label>
 			<div class="col-md-6">
 				<input type="text" name="upload_file_max" id="upload_file_max" class="mini form-control" value="{$data.upload_file_max}" data-parsley-required="true" data-parsley-type="integer"> MB
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="upload_file_type" class="col-md-2 control-label">{:lang('safe upload file type')}</label>
 			<div class="col-md-6">
 				<textarea name="upload_file_type" id="upload_file_type" class="form-control" data-parsley-required="true" data-parsley-maxlength="500">{$data.upload_file_type}</textarea>

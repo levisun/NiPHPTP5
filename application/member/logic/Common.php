@@ -58,7 +58,7 @@ class Common extends Model
                 if ($arr[0] !== $controller) {
                     continue;
                 }
-                $auth_menu[$arr[0]]['menu'][] = [
+                $auth_menu[$arr[0]]['menu'][$k] = [
                     'action' => $arr[1],
                     'url'    => Url::build('/member/' . $controller . '/' . $arr[1]),
                     'lang'   => $menu[$controller . '_' . $arr[1]],

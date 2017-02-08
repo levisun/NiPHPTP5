@@ -65,13 +65,16 @@
 <script>
 var domain = "__DOMAIN__";
 parent.document.title = "{$__TITLE__}";
+
+
 Layout.domain = "__DOMAIN__";
-Layout.phpself = "__PHP_SELF__";
+Layout.phpself = "/__PHP_SELF__/";
 Layout.captcha(".captcha");
-Layout.newWinUpload("#upload", "/__PHP_SELF__/account/upload.shtml");
-Layout.newWinUpload(".np-upload", "/__PHP_SELF__/account/upload.shtml");
+Layout.newWinUpload("#upload", "account/upload.shtml");
+Layout.newWinUpload(".np-upload", "account/upload.shtml");
 Layout.confirmOperation(".reduction", "{:lang('confirm reduction')}");
 Layout.confirmOperation(".remove", "{:lang('confirm remove')}");
+Layout.selectRegion(".region", "user/member/method/added.shtml?");
 </script>
 </body>
 </html>

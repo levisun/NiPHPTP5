@@ -1,18 +1,18 @@
 <form action="" method="post" class="form-horizontal" data-parsley-validate="parsley" data-parsley-focus="last">
 	<ul>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="title" class="col-md-2 control-label">{:lang('title')}</label>
 			<div class="col-md-6">
 				<input type="text" name="title" id="title" class="form-control" value="{$data.title}">
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="description" class="col-md-2 control-label">{:lang('description')}</label>
 			<div class="col-md-6">
 				<textarea name="description" id="description" class="form-control">{$data.description}</textarea>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="logo" class="col-md-2 control-label">{:lang('logo')}</label>
 			<div class="col-md-6">
 				<input type="text" name="logo" id="linklogo" class="form-control" value="{$data.logo}">
@@ -21,7 +21,7 @@
 			</div>
 		</li>
 		<if condition="$is_pass eq 1">
-		<li class="form-group">
+		<li class="form-group row">
 			<label class="col-md-2 control-label">{:lang('pass')}</label>
 			<div class="col-md-6">
 				<label class="radio-inline">
@@ -33,13 +33,13 @@
 			</div>
 		</li>
 		</if>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="url" class="col-md-2 control-label">{:lang('url')}</label>
 			<div class="col-md-6">
 				<input type="text" name="url" id="url" class="form-control" value="{$data.url}">
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="type_id" class="col-md-2 control-label">{:lang('type')}</label>
 			<div class="col-md-6">
 				<select name="type_id" id="type_id" class="form-control">

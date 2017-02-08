@@ -1,32 +1,32 @@
 <form action="" method="post" class="form-horizontal" data-parsley-validate="parsley" data-parsley-focus="last">
 	<ul>
 		{eq name="Request.param.pid" value=""}
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="name" class="col-md-2 control-label">{:lang('banner name')}</label>
 			<div class="col-md-6">
 				<input type="text" name="name" id="name" class="form-control" value="{$data.name}">
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="width" class="col-md-2 control-label">{:lang('width')}</label>
 			<div class="col-md-6">
 				<input type="text" name="width" id="width" class="form-control" value="{$data.width}">
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="height" class="col-md-2 control-label">{:lang('height')}</label>
 			<div class="col-md-6">
 				<input type="text" name="height" id="height" class="form-control" value="{$data.height}">
 			</div>
 		</li>
 		{else/}
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="title" class="col-md-2 control-label">{:lang('banner title')}</label>
 			<div class="col-md-6">
 				<input type="text" name="title" id="title" class="form-control" value="{$data.title}">
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="image" class="col-md-2 control-label">{:lang('banner image')}</label>
 			<div class="col-md-6">
 				<input type="text" name="image" id="image" class="form-control" value="{$data.image}">
@@ -34,7 +34,7 @@
 				<img src="{$data.image}" id="img-image" width="100" style="display:none">
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="url" class="col-md-2 control-label">{:lang('banner url')}</label>
 			<div class="col-md-6">
 				<input type="text" name="url" id="url" class="form-control" value="{$data.url}">

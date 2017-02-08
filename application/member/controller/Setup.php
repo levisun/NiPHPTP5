@@ -16,12 +16,32 @@ namespace app\member\controller;
 use think\Url;
 use think\Lang;
 use app\member\controller\Base;
+use app\member\Logic\Setup as MemberSetup;
 
 class Setup extends Base
 {
 
     public function bases()
     {
+        $member = new MemberSetup();
+
+        // AJAX获得地区
+        if ($this->request->isAjax()) {
+            $id = $this->request->post('id/f');
+            $data = $member->getRegion($id);
+
+            $option = '';
+            foreach ($data as $key => $value) {
+                $option .= '<option class="op" value="' . $value['id'] . '">';
+                $option .= $value['name'];
+                $option .= '</option>';
+            }
+            return $option;
+        }
+
+        $this->assign('user_data', $member->getUserInfo());
+        $this->assign('region', $member->getRegion(1));
+
         return $this->fetch();
     }
 }

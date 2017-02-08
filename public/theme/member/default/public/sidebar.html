@@ -5,13 +5,13 @@
 		</div>
 		<div class="panel-body">
 			<ul class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
-				{empty name="nav[$Request.controller]"}
+				{empty name="nav[$controller]['menu']"}
 				{volist name="nav" id="vo"}
 				<li><a href="{$vo.url}">{$vo.name}</a></li>
 				{/volist}
 				{else/}
-				{volist name="nav[$Request.controller]['menu']" id="vo"}
-				<li><a href="{$vo.url}">{$vo.name}</a></li>
+				{volist name="nav[$controller]['menu']" id="vo"}
+				<li><a href="{$vo.url}">{$vo.lang}</a></li>
 				{/volist}
 				{/empty}
 			</ul>

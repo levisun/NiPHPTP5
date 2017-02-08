@@ -223,10 +223,10 @@ class Label extends TagLib
         $parseStr .= ' $label["member"] = cookie(config("USER_AUTH_KEY"));';
         $parseStr .= ' $label["user_data"] = cookie(config("USER_DATA"));';
         $parseStr .= ' $label["member_url"]["home"] = url("/member");';
-        $parseStr .= ' $label["member_url"]["login"] = url("/member/login");';
-        $parseStr .= ' $label["member_url"]["logout"] = url("/member/logout");';
-        $parseStr .= ' $label["member_url"]["reg"] = url("/member/reg");';
-        $parseStr .= ' $label["member_url"]["forget"] = url("/member/forget"); ?>';
+        $parseStr .= ' $label["member_url"]["login"] = url("/login");';
+        $parseStr .= ' $label["member_url"]["logout"] = url("/logout");';
+        $parseStr .= ' $label["member_url"]["reg"] = url("/reg");';
+        $parseStr .= ' $label["member_url"]["forget"] = url("/forget"); ?>';
         $parseStr .= $content;
         return $parseStr;
 

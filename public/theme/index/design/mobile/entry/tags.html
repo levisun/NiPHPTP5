@@ -1,0 +1,32 @@
+<div class="list-title">
+    <h3>Tags:{$tags_name}</h3>
+</div>
+
+{volist name="list" id="vo"}
+<article class="excerpt media {eq name="i" value="$count"}end{/eq} {eq name="key" value="0"}start{/eq}">
+    {notempty name="vo.thumb"}
+    <a class="media-left" href="{$vo.url}">
+        <img src="__DOMAIN__{$vo.thumb}" alt="...">
+    </a>
+    {/notempty}
+    <div class="media-body">
+        <div class="media-heading">
+            <h2>
+                <span class="label label-info"><a href="{$vo.cat_url}">{$vo.cat_name}</a></span>
+                <a href="{$vo.url}">{$vo.title}</a>
+            </h2>
+
+            <div class="meta">
+                <span><i class="icon-time"></i>{$vo.update_time}</span>
+                <span><i class="icon-eye-open"></i>阅读({$vo.hits})</span>
+                <span><i class="icon-comments-alt"></i>评论(<a href="">{$vo.comment_count}</a>)</span>
+            </div>
+        </div>
+        <p>{$vo.description}</p>
+    </div>
+</article>
+{/volist}
+
+<div class="paging align-c">
+    {$page}
+</div>

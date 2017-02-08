@@ -18,6 +18,8 @@ use think\Lang;
 use think\Loader;
 use think\Url;
 use think\Config;
+use think\Cache;
+use think\Db;
 use app\admin\model\Category as IndexCategory;
 use app\admin\model\Ads as IndexAds;
 use app\admin\model\Banner as IndexBanner;
@@ -450,11 +452,17 @@ class LabelFun
      */
     public static function tagList($id, $param)
     {
+        $CACHE = check_key($param, __METHOD__);
+
+        if ($CACHE && $list = Cache::get($CACHE)) {
+            return $list;
+        }
+
         $field = 'id, title, keywords, description, thumb, category_id, type_id, is_com, is_top, is_hot, hits, comment_count, username, url, is_link, create_time, update_time, user_id, access_id';
 
         $where = ' WHERE is_pass=1 AND lang=\'' . Lang::detect() . '\'';
         $where .= ' AND show_time<=' . strtotime(date('Y-m-d'));
-        $where .= ' AND category_id in(' . $id . ')';
+        $where .= ' AND category_id IN(' . $id . ')';
 
         // 推荐
         if (!empty($param['com'])) {
@@ -469,7 +477,7 @@ class LabelFun
             $where .= ' AND is_hot=1';
         }
 
-        $order = !empty($param['order']) ? $param['order'] : 'sort DESC, id DESC';
+        $order = !empty($param['order']) ? $param['order'] : 'sort DESC, update_time DESC';
         $where .= ' ORDER BY ' . $order;
 
         $sql[] = 'SELECT ' . $field . ' FROM ' . Config::get('database.prefix') . 'article' . $where;
@@ -480,7 +488,7 @@ class LabelFun
         $limit = !empty($param['limit']) ? (float) $param['limit'] : 10;
 
         $union = '(' . implode(') union (', $sql) . ') LIMIT ' . $limit;
-        $result = db()->query($union);
+        $result = Db::query($union);
 
         $category = new IndexCategory;
         $type = new IndexType;
@@ -502,6 +510,10 @@ class LabelFun
             $value['editor_name'] = $admin->where(['id'=>$value['user_id']])->value('username');
 
             $list[] = $value;
+        }
+
+        if ($CACHE) {
+            Cache::set($CACHE, $list);
         }
 
         return $list;

@@ -16,7 +16,6 @@ namespace net\oauth;
 use net\oauth\OAuth;
 use net\oauth\Http as OAuthHttp;
 use think\Cookie;
-use think\exception\HttpException;
 
 class qq extends OAuth
 {
@@ -26,7 +25,6 @@ class qq extends OAuth
 
     public function getAuthorizeURL()
     {
-        // setcookie('A_S', $this->timestamp, $this->timestamp + 600, '/');
         Cookie::set('A_S', $this->timestamp);
         $this->initConfig();
         //Oauth 标准参数
@@ -58,12 +56,13 @@ class qq extends OAuth
     public function parseToken($result)
     {
         parse_str($result, $data);
-        if ($data['access_token'] && $data['expires_in']) {
+        if (!empty($data['access_token']) && !empty($data['expires_in'])) {
             $this->token    = $data;
             $data['openid'] = $this->openid();
             return $data;
         } else {
-            throw new HttpException("获取腾讯QQ ACCESS_TOKEN 出错：{$result}");
+            $this->error[] = '获取腾讯QQ ACCESS_TOKEN 出错：' . $result;
+            return false;
         }
     }
 
@@ -78,10 +77,12 @@ class qq extends OAuth
             if (isset($data['openid'])) {
                 return $data['openid'];
             } else {
-                throw new HttpException("获取用户openid出错：{$data['error_description']}");
+                $this->error[] = '获取用户 openid 出错：' . $data['error_description'];
+                return false;
             }
         } else {
-            throw new HttpException('没有获取到openid！');
+            $this->error[] = '没有获取到 openid！';
+            return false;
         }
     }
 
@@ -89,7 +90,8 @@ class qq extends OAuth
     {
         $rsp = $this->call('user/get_user_info');
         if (!$rsp || $rsp['ret'] != 0) {
-            throw new Exception('接口访问失败！' . $rsp['msg']);
+            $this->error[] = '接口访问失败！' . $rsp['msg'];
+            return false;
         } else {
             $userinfo = [
                 'openid'  => $this->openid(),

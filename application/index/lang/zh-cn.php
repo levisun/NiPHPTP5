@@ -1,6 +1,8 @@
 <?php
 return [
     'captcha' => '验证码',
+    'website home' => '首页',
+    'website member' => '会员中心',
 
     // feedback
     'error feedback title require'       => '请输入反馈标题',

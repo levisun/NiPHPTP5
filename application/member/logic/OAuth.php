@@ -16,6 +16,7 @@ namespace app\member\logic;
 use think\Model;
 use think\Request;
 use think\Url;
+use app\admin\model\MemberOauth as MemberMemberOauth;
 
 class OAuth extends Model
 {
@@ -28,9 +29,16 @@ class OAuth extends Model
         $this->request = Request::instance();
     }
 
+    /**
+     * 第三方等录
+     * 回调页面
+     * @access private
+     * @param
+     * @return array
+     */
     public function login()
     {
-        if ($this->request->has('method') && $this->request->param('method') == 'callback') {
+        if ($this->request->has('code')) {
             return $this->callback();
         } else {
             return $this->authorizeURL();
@@ -57,9 +65,14 @@ class OAuth extends Model
 
         $oauth = new $class($this->config(), $display);
         $oauth->getAccessToken();
+        $user_info = $oauth->userinfo();
+        if (!$user_info) {
+            halt($oauth->error);
+        }
 
-        $oauth->userinfo();
+        $member_oauth = new MemberMemberOauth;
 
+        halt($user_info);
         return Url::build('/member');
     }
 
@@ -97,12 +110,12 @@ class OAuth extends Model
 
         // 获得域名地址
         $domain = $this->request->root(true);
-        $domain = strtr($domain, [$this->request->root() => '', '/index.php' => '']);
-        $callback = $domain . Url::build('/member/' . $type . '/callback');
+        $domain = strtr($domain, ['/index.php' => '']);
+        $callback = $domain . Url::build('/member/login') . '?type=' . $type;
 
         $config = [
-            'app_key'    => '101252308',
-            'app_secret' => '692a153a3e3f4076ceec0197dcf46478',
+            'app_key'    => '101246655',
+            'app_secret' => '55f8f17f4b83f9b99c3d962f77b2a156',
             'scope'      => 'get_user_info',
             'callback'   => [
                 'default' => $callback,

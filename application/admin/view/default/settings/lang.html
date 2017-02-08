@@ -1,6 +1,6 @@
 <form action="" method="post" class="form-horizontal" data-parsley-validate="parsley" data-parsley-focus="last">
 	<ul>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="system" class="col-md-2 control-label">{:lang('system default lang')}</label>
 			<div class="col-md-6">
 				<select name="system" id="system" class="form-control">
@@ -10,7 +10,7 @@
 				</select>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="website" class="col-md-2 control-label">{:lang('website default lang')}</label>
 			<div class="col-md-6">
 				<select name="website" id="website" class="form-control">
@@ -20,7 +20,7 @@
 				</select>
 			</div>
 		</li>
-		<li class="form-group">
+		<li class="form-group row">
 			<label for="lang_switch_on" class="col-md-2 control-label">{:lang('domain auto')}</label>
 			<div class="col-md-6">
 				<label class="radio-inline"><input type="radio" name="lang_switch_on" value="1" {eq name="lang_switch_on" value="1"}checked{/eq}>{:lang('button open')}</label>

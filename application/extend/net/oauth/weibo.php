@@ -16,7 +16,6 @@ namespace net\oauth;
 use net\oauth\OAuth;
 use net\oauth\Http as OAuthHttp;
 use think\Cookie;
-use think\exception\HttpException;
 
 class weibo extends OAuth
 {
@@ -26,7 +25,6 @@ class weibo extends OAuth
 
     public function getAuthorizeURL()
     {
-        // setcookie('A_S', $this->timestamp, $this->timestamp + 600, '/');
         Cookie::set('A_S', $this->timestamp);
         $this->initConfig();
         //Oauth 标准参数
@@ -67,7 +65,8 @@ class weibo extends OAuth
             unset($data['uid']);
             return $data;
         } else {
-            throw new HttpException("获取新浪微博ACCESS_TOKEN出错：{$result}");
+            $this->error[] = '获取新浪微博 ACCESS_TOKEN 出错：' . $result;
+            return false;
         }
     }
 
@@ -77,7 +76,8 @@ class weibo extends OAuth
         if (isset($data['openid'])) {
             return $data['openid'];
         } else {
-            throw new HttpException('没有获取到openid！');
+            $this->error[] = '没有获取到 openid！';
+            return false;
         }
     }
 
@@ -85,7 +85,8 @@ class weibo extends OAuth
     {
         $rsp = $this->call('users/show', 'uid=' . $this->openid());
         if (isset($rsp['error_code'])) {
-            throw new HttpException('接口访问失败！' . $rsp['error']);
+            $this->error[] = '接口访问失败！' . $rsp['error'];
+            return false;
         } else {
             $userinfo = [
                 'openid'  => $this->openid(),

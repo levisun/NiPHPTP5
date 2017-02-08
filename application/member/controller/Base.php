@@ -56,6 +56,8 @@ class Base extends Controller
         $this->themeConfig();
 
         $this->assign('nav', $common_model->getAuthMenu());
+        $this->assign('controller', strtolower($this->request->controller()));
+        $this->assign('menu_name', strtolower($this->request->controller()) . '_' . $this->request->action());
     }
 
     /**
