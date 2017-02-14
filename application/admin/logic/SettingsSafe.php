@@ -41,9 +41,7 @@ class SettingsSafe extends Model
         $map = [
             'name' => [
                 'in',
-                'system_portal,content_check,member_login_captcha,
-                website_submit_captcha,upload_file_max,upload_file_type,
-                website_static'
+                'system_portal,content_check,member_login_captcha,website_submit_captcha,upload_file_max,upload_file_type,website_static'
             ],
             'lang' => 'niphp'
         ];

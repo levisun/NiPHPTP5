@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `np_action` (
   `remark` varchar(140) NOT NULL DEFAULT '' COMMENT '描述',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='行为表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='行为表';
 INSERT INTO `np_action` (`id`, `name`, `title`, `remark`) VALUES
 (1, 'admin_login', '管理员登录', ''),
 (2, 'admin_logout', '管理员退出', ''),
@@ -89,4 +89,4 @@ CREATE TABLE IF NOT EXISTS `np_action_log` (
   KEY `action_ip` (`action_ip`),
   KEY `action_id` (`action_id`),
   KEY `user_id` (`user_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='行为日志表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='行为日志表';

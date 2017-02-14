@@ -80,7 +80,7 @@ class Index extends Base
         $model = new MemberAccount;
         $result = $model->logout();
         if (true === $result) {
-            $this->redirect(Url::build('/member/login'));
+            $this->redirect(Url::build('/login'));
         }
     }
 

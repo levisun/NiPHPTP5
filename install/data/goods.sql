@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `np_goods` (
   KEY `promote_start_time` (`promote_start_time`),
   KEY `promote_ent_time` (`promote_ent_time`),
   KEY `lang` (`lang`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '商品表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '商品表';
 
 DROP TABLE IF EXISTS `np_goods_attr`;
 CREATE TABLE IF NOT EXISTS `np_goods_attr` (
@@ -50,4 +50,4 @@ CREATE TABLE IF NOT EXISTS `np_goods_attr` (
   KEY `pid` (`pid`),
   KEY `goods_id` (`goods_id`),
   KEY `number` (`number`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '商品属性表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '商品属性表';

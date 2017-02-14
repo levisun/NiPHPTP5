@@ -32,6 +32,47 @@ class Setup extends Model
         $this->request = Request::instance();
     }
 
+    /**
+     * 编辑会员基本信息
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function editor()
+    {
+        $map = ['id' => $this->request->post('id/f')];
+
+        $data = [
+            'username' => $this->request->post('username'),
+            'email'    => $this->request->post('email'),
+            'realname' => $this->request->post('realname'),
+            'nickname' => $this->request->post('nickname'),
+            'portrait' => $this->request->post('portrait', ''),
+            'gender'   => $this->request->post('gender/f'),
+            'birthday' => $this->request->post('birthday/f', '', 'trim,strtotime'),
+            'province' => $this->request->post('province/f'),
+            'city'     => $this->request->post('city/f'),
+            'area'     => $this->request->post('area/f'),
+            'address'  => $this->request->post('address'),
+            'phone'    => $this->request->post('phone'),
+        ];
+        $data['birthday'] = $data['birthday'] <= 0 ? 0 : $data['birthday'];
+
+        $member = new MemberMember;
+        $result =
+        $member->allowField(true)
+        ->isUpdate(true)
+        ->save($data, $map);
+
+        return true;
+    }
+
+    /**
+     * 获得用户信息
+     * @access public
+     * @param
+     * @return array
+     */
     public function getUserInfo()
     {
         $user_id = Cookie::get(Config::get('USER_AUTH_KEY'));
@@ -72,9 +113,7 @@ class Setup extends Model
         ->where($map)
         ->find();
 
-        $user_data = $result->toArray();
-
-        return $user_data;
+        return !empty($result) ? $result->toArray() : [];
     }
 
     /**

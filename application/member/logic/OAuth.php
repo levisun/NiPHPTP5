@@ -16,7 +16,13 @@ namespace app\member\logic;
 use think\Model;
 use think\Request;
 use think\Url;
+use think\Cookie;
+use think\Config;
+use net\IpLocation;
 use app\admin\model\MemberOauth as MemberMemberOauth;
+use app\admin\model\Member as MemberMember;
+use app\admin\model\Level as MemberLevel;
+use app\admin\model\LevelMember as MemberLevelMember;
 
 class OAuth extends Model
 {
@@ -70,10 +76,78 @@ class OAuth extends Model
             halt($oauth->error);
         }
 
-        $member_oauth = new MemberMemberOauth;
+        $this->createMember($user_info);
 
-        halt($user_info);
         return Url::build('/member');
+    }
+
+    /**
+     * 创建会员
+     * @access private
+     * @param  array   $user_info
+     * @return boolean
+     */
+    private function createMember($user_info)
+    {
+        $ip = new IpLocation();
+        $area = $ip->getlocation($this->request->ip(0, true));
+
+        $user_data = [
+            'username'           => 'AV' . (time() - 1400000000),
+            'nickname'           => $user_info['nick'],
+            'salt'               => substr(encrypt(time()), -6),
+            'stats'              => 1,
+            'last_login_ip'      => $this->request->ip(0, true),
+            'last_login_ip_attr' => $area['country'] . $area['area'],
+            'last_login_time'    => time(),
+        ];
+
+        $member = new MemberMember;
+        $member->data($user_data)
+        ->isUpdate(false)
+        ->save();
+
+        if (!$member->id) {
+            return false;
+        }
+
+        // 查询会员组ID
+        $level = new MemberLevel;
+        $level_id =
+        $level->field(true)
+        ->order('integral ASC, id DESC')
+        ->value('id');
+
+        // 会员组
+        $data = [
+            'user_id'  => $member->id,
+            'level_id' => $level_id
+        ];
+
+        $level_member = new MemberLevelMember;
+        $level_member->data($data)
+        ->allowField(true)
+        ->isUpdate(false)
+        ->save();
+
+        // 第三方关联
+        $data = [
+            'user_id' => $member->id,
+            'openid'  => $user_info['openid'],
+            'nick'    => $user_info['nick'],
+            'type'    => $user_info['channel']
+        ];
+        $member_oauth = new MemberMemberOauth;
+        $member_oauth->data($data)
+        ->allowField(true)
+        ->isUpdate(false)
+        ->save();
+
+        $user_data['id'] = $member->id;
+        Cookie::set('USER_DATA', $user_data);
+        Cookie::set(Config::get('USER_AUTH_KEY'), $user_data['id']);
+
+        return true;
     }
 
     /**
@@ -111,7 +185,7 @@ class OAuth extends Model
         // 获得域名地址
         $domain = $this->request->root(true);
         $domain = strtr($domain, ['/index.php' => '']);
-        $callback = $domain . Url::build('/member/login') . '?type=' . $type;
+        $callback = $domain . Url::build('/login') . '?type=' . $type;
 
         $config = [
             'app_key'    => '101246655',

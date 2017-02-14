@@ -17,6 +17,12 @@ return [
         'cid' => '\d+',
         'id'  => '\d+',
     ],
+
+    '__domain__' => [
+        'admin' => 'admin',
+        'my'    => 'member',
+    ],
+
     '/' => 'index',
 
     // website

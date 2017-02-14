@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `np_page` (
   KEY `is_hot` (`is_hot`),
   KEY `delete_time` (`delete_time`),
   KEY `lang` (`lang`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='单页表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='单页表';
 
 DROP TABLE IF EXISTS `np_page_data`;
 CREATE TABLE IF NOT EXISTS `np_page_data` (
@@ -46,4 +46,4 @@ CREATE TABLE IF NOT EXISTS `np_page_data` (
   PRIMARY KEY (`id`),
   KEY `main_id` (`main_id`),
   KEY `fields_id` (`fields_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='单页扩展表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='单页扩展表';

@@ -80,7 +80,7 @@ class Common extends Model
         $user_auth_key = Cookie::get(Config::get('USER_AUTH_KEY'));
 
         if (!in_array($this->request->action(), $action) && !$user_auth_key) {
-            return Url::build('/member/login');
+            return Url::build('/login');
         }
         if (in_array($this->request->action(), $action) && $user_auth_key) {
             return Url::build('/member');

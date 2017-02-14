@@ -125,11 +125,25 @@ class ExpandDataback extends Model
                     $insert_sql = "INSERT INTO `{$table}` (`" . implode('`,`', $fieldRs) . "`) VALUES ";
                     $values = array();
                     foreach ($table_data as $data) {
-                        foreach ($data as $key => $value) {
-                            if ($value === null) {
-                                $data[$key] = 'NULL';
-                            }
+                        if (!empty($data['delete_time']) && !is_null($data['delete_time'])) {
+                            $data['delete_time'] = strtotime($data['delete_time']);
                         }
+                        if (array_key_exists("delete_time",$data) && is_null($data['delete_time'])) {
+                            $data['delete_time'] = 'null';
+                        }
+
+                        if (isset($data['create_time'])) {
+                            $data['create_time'] = strtotime($data['create_time']);
+                        }
+
+                        if (isset($data['update_time'])) {
+                            $data['update_time'] = strtotime($data['update_time']);
+                        }
+
+                        if (isset($data['show_time'])) {
+                            $data['show_time'] = (float) strtotime($data['show_time']);
+                        }
+
                         $values[] = '(\'' . implode('\',\'', $data) . '\')';
                     }
                     $insert_sql .= implode(',', $values) . ';';

@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `np_order` (
   UNIQUE KEY `trade_no` (`trade_no`),
   KEY `user_id` (`user_id`),
   KEY `status` (`status`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '订单表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '订单表';
 
 DROP TABLE IF EXISTS `np_order_goods`;
 CREATE TABLE IF NOT EXISTS `np_order_goods` (
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `np_order_goods` (
   PRIMARY KEY (`id`),
   KEY `order_id` (`order_id`),
   KEY `goods_id` (`goods_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '订单商品表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '订单商品表';
 
 DROP TABLE IF EXISTS `np_order_address`;
 CREATE TABLE IF NOT EXISTS `np_order_address` (
@@ -53,7 +53,7 @@ CREATE TABLE IF NOT EXISTS `np_order_address` (
   `email` varchar(50) NOT NULL DEFAULT '' COMMENT '邮箱',
   PRIMARY KEY (`id`),
   UNIQUE KEY `order_id` (`order_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '订单收货地址';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '订单收货地址';
 
 
 
@@ -72,4 +72,4 @@ CREATE TABLE IF NOT EXISTS `np_bonus` (
   KEY `type` (`type`),
   KEY `use_time` (`use_time`),
   KEY `overdue_time` (`overdue_time`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '红包表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '红包表';

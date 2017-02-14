@@ -157,7 +157,7 @@ class UserMember extends Model
 
         // 会员组
         $data = [
-            'user_id' => $member->id,
+            'user_id'  => $member->id,
             'level_id' => $this->request->post('level/d')
         ];
 

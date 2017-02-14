@@ -458,7 +458,7 @@ class LabelFun
             return $list;
         }
 
-        $field = 'id, title, keywords, description, thumb, category_id, type_id, is_com, is_top, is_hot, hits, comment_count, username, url, is_link, create_time, update_time, user_id, access_id';
+        $field = 'id, title, keywords, description, thumb, category_id, type_id, is_com, is_top, is_hot, hits, comment_count, username, url, is_link, sort, create_time, update_time, user_id, access_id';
 
         $where = ' WHERE is_pass=1 AND lang=\'' . Lang::detect() . '\'';
         $where .= ' AND show_time<=' . strtotime(date('Y-m-d'));
@@ -477,8 +477,7 @@ class LabelFun
             $where .= ' AND is_hot=1';
         }
 
-        $order = !empty($param['order']) ? $param['order'] : 'sort DESC, update_time DESC';
-        $where .= ' ORDER BY ' . $order;
+        $order = !empty($param['order']) ? $param['order'] : 'ORDER BY sort DESC, update_time DESC';
 
         $sql[] = 'SELECT ' . $field . ' FROM ' . Config::get('database.prefix') . 'article' . $where;
         $sql[] = 'SELECT ' . $field . ' FROM ' . Config::get('database.prefix') . 'download' . $where;
@@ -487,7 +486,7 @@ class LabelFun
 
         $limit = !empty($param['limit']) ? (float) $param['limit'] : 10;
 
-        $union = '(' . implode(') union (', $sql) . ') LIMIT ' . $limit;
+        $union = 'SELECT * FROM (' . implode(' union ', $sql) . ') as a ' . $order . ' LIMIT ' . $limit;
         $result = Db::query($union);
 
         $category = new IndexCategory;
@@ -508,6 +507,9 @@ class LabelFun
             $value['type_name'] = $type->where(['id'=>$value['type_id']])->value('name');
             $value['level_name'] = $level->where(['id'=>$value['access_id']])->value('name');
             $value['editor_name'] = $admin->where(['id'=>$value['user_id']])->value('username');
+
+            // $value['create_time'] = date(Config::get('database.datetime_format'), $value['create_time']);
+            // $value['update_time'] = date(Config::get('database.datetime_format'), $value['update_time']);
 
             $list[] = $value;
         }
