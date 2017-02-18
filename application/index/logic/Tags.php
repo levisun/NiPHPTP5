@@ -137,7 +137,7 @@ class Tags extends Model
             } else {
                 $value['url'] = Url::build('/article/' . $value['category_id'] . '/' . $value['id']);
             }
-            $value['cat_url'] = Url::build('/entry/' . $value['category_id']);
+            $value['cat_url'] = Url::build('/list/' . $value['category_id']);
 
             $value['cat_name'] = $category->where(['id'=>$value['category_id']])->value('name');
             $value['type_name'] = $type->where(['id'=>$value['type_id']])->value('name');

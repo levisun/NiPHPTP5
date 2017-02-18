@@ -64,7 +64,7 @@ class Jump extends Model
             if (in_array($name_, ['article', 'download', 'picture', 'product'])) {
                 $data['url'] = Url::build('/article/' . $data['category_id'] . '/' . $data['id']);
             } else {
-                $data['url'] = Url::build('/entry/' . $data['category_id']);
+                $data['url'] = Url::build('/list/' . $data['category_id']);
             }
         }
 

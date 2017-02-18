@@ -102,7 +102,7 @@ class LabelFun
 
         foreach ($data as $key => $value) {
             $nav[$key] = $value;
-            $nav[$key]['url'] = Url::build('/entry/' . $value['id']);
+            $nav[$key]['url'] = Url::build('/list/' . $value['id']);
 
             // 查询子类
             $map['pid'] = $value['id'];
@@ -428,7 +428,7 @@ class LabelFun
             } else {
                 $data['url'] = Url::build('/article/' . $data['category_id'] . '/' . $data['id']);
             }
-            $data['cat_url'] = Url::build('/entry/' . $data['category_id']);
+            $data['cat_url'] = Url::build('/list/' . $data['category_id']);
         }
 
         /*
@@ -501,7 +501,7 @@ class LabelFun
             } else {
                 $value['url'] = Url::build('/article/' . $value['category_id'] . '/' . $value['id']);
             }
-            $value['cat_url'] = Url::build('/entry/' . $value['category_id']);
+            $value['cat_url'] = Url::build('/list/' . $value['category_id']);
 
             $value['cat_name'] = $category->where(['id'=>$value['category_id']])->value('name');
             $value['type_name'] = $type->where(['id'=>$value['type_id']])->value('name');

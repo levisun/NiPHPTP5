@@ -51,7 +51,7 @@ class Entry extends Base
 
             $result = $model->added();
             if (true === $result) {
-                $url = Url::build('/entry/' . $this->request->param('cid'));
+                $url = Url::build('/list/' . $this->request->param('cid'));
                 $this->success(Lang::get('success ' . $this->table_name . ' added'), $url);
             } else {
                 $this->error(Lang::get('error ' . $this->table_name . ' added'));

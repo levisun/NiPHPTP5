@@ -87,7 +87,7 @@ class Label extends TagLib
         $parseStr .= ' if (!empty($label["breadcrumb"])) {';
         $parseStr .= ' $tag_count = count($label["breadcrumb"]);';
         $parseStr .= ' foreach ($label["breadcrumb"] as $key => $vo) {';
-        $parseStr .= ' $vo["url"] = url("/entry/" . $vo["id"]);?>';
+        $parseStr .= ' $vo["url"] = url("/list/" . $vo["id"]);?>';
         $parseStr .= $content;
         $parseStr .= '<?php } } ?>';
 
@@ -222,7 +222,7 @@ class Label extends TagLib
         $parseStr = '<?php ';
         $parseStr .= ' $label["member"] = cookie(config("USER_AUTH_KEY"));';
         $parseStr .= ' $label["user_data"] = cookie(config("USER_DATA"));';
-        $parseStr .= ' $label["member_url"]["home"] = url("/member");';
+        $parseStr .= ' $label["member_url"]["home"] = url("/my");';
         $parseStr .= ' $label["member_url"]["login"] = url("/login");';
         $parseStr .= ' $label["member_url"]["logout"] = url("/logout");';
         $parseStr .= ' $label["member_url"]["reg"] = url("/reg");';

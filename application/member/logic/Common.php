@@ -51,7 +51,7 @@ class Common extends Model
         foreach ($nav as $key => $value) {
             $controller = strtolower($key);
             $auth_menu[$controller]['name'] = $nav[$controller];
-            $auth_menu[$controller]['url'] = Url::build('/member/' . $controller);
+            $auth_menu[$controller]['url'] = Url::build('/my/' . $controller);
 
             foreach ($menu as $k => $val) {
                 $arr = explode('_', strtolower($k));
@@ -60,7 +60,7 @@ class Common extends Model
                 }
                 $auth_menu[$arr[0]]['menu'][$k] = [
                     'action' => $arr[1],
-                    'url'    => Url::build('/member/' . $controller . '/' . $arr[1]),
+                    'url'    => Url::build('/my/' . $controller . '/' . $arr[1]),
                     'lang'   => $menu[$controller . '_' . $arr[1]],
                 ];
             }
@@ -83,7 +83,7 @@ class Common extends Model
             return Url::build('/login');
         }
         if (in_array($this->request->action(), $action) && $user_auth_key) {
-            return Url::build('/member');
+            return Url::build('/my');
         }
 
         return true;

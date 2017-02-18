@@ -78,7 +78,7 @@ class OAuth extends Model
 
         $this->createMember($user_info);
 
-        return Url::build('/member');
+        return Url::build('/my');
     }
 
     /**

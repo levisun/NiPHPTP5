@@ -87,7 +87,7 @@ class Article extends Model
             } else {
                 $value['url'] = Url::build('/article/' . $value['category_id'] . '/' . $value['id']);
             }
-            $value['cat_url'] = Url::build('/entry/' . $value['category_id']);
+            $value['cat_url'] = Url::build('/list/' . $value['category_id']);
             $list[] = $value;
         }
 
