@@ -19,6 +19,7 @@ use think\Lang;
 use think\Config;
 use think\Cookie;
 use think\Url;
+use think\Cache;
 use app\admin\model\Config as MemberConfig;
 
 class Common extends Model
@@ -45,6 +46,12 @@ class Common extends Model
      */
     public function getAuthMenu()
     {
+        $CACHE = check_key([], __METHOD__);
+
+        if ($CACHE && $auth_menu = Cache::get($CACHE)) {
+            return $auth_menu;
+        }
+
         $nav  = Lang::get('_nav');
         $menu = Lang::get('_menu');
         $auth_menu = array();
@@ -65,6 +72,11 @@ class Common extends Model
                 ];
             }
         }
+
+        if ($CACHE) {
+            Cache::set($CACHE, $auth_menu);
+        }
+
         return $auth_menu;
     }
 

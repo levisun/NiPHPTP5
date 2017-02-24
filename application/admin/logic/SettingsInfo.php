@@ -85,7 +85,10 @@ class SettingsInfo extends Model
                 $count[$value['date']] += $value['count'];
             }
         }
-        $sys_data['visit'] = ['date' => '\'' . implode("','", $date) . '\'', 'count' => implode(',', $count)];
+        $sys_data['visit'] = [
+            'date'  => '\'' . implode("','", $date) . '\'',
+            'count' => implode(',', $count)
+        ];
 
         return $sys_data;
     }

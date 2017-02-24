@@ -20,7 +20,7 @@ class Member extends Validate
     protected $rule = [
         'id'           => ['require', 'number'],
         'username'     => ['require', 'length:6,20', 'unique:member', 'token'],
-        'password'     => ['require', 'length:6,20'],
+        'password'     => ['require', 'length:6,20', 'token'],
         'not_password' => ['require', 'confirm:password'],
         'email'        => ['email', 'unique:member'],
         'realname'     => ['max:50'],

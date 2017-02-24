@@ -68,6 +68,29 @@ class Setup extends Model
     }
 
     /**
+     * 修改密码
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function updatePassword()
+    {
+        $password         = $this->request->post('password', '', 'trim,md5');
+        $data['salt']     = substr(encrypt($password), 0, 6);
+        $data['password'] = md5($password . $data['salt']);
+
+        $map = ['id' => $this->request->post('id/f')];
+
+        $member = new MemberMember;
+        $result =
+        $member->allowField(true)
+        ->isUpdate(true)
+        ->save($data, $map);
+
+        return true;
+    }
+
+    /**
      * 获得用户信息
      * @access public
      * @param

@@ -24,4 +24,13 @@ return [
     'basic info' => '基本',
     'content' => '内容',
     'album' => '相册',
+
+    // 商品分类
+    'show child'    => '查看子分类',
+    'add child'     => '添加子分类',
+    'type name'     => '分类名称',
+    'type parent'   => '上级分类',
+    'type url'      => '链接地址',
+    'type image'    => '分类图标',
+    'select parent' => '顶级分类',
 ];

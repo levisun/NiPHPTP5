@@ -46,8 +46,8 @@ return [
     'my'                  => 'member/my/index',
     'my/setup'            => 'member/setup/bases',
     'my/setup/bases'      => 'member/setup/bases',
-    'my/setup/pics'       => 'member/setup/pics',
-    'my/setup/pwds'       => 'member/setup/pwds',
+    'my/setup/portrait'   => 'member/setup/portrait',
+    'my/setup/password'   => 'member/setup/password',
 
     'my/article'          => 'member/article/feedback',
     'my/article/feedback' => 'member/article/feedback',

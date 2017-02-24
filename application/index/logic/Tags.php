@@ -52,6 +52,12 @@ class Tags extends Model
             't.lang' => Lang::detect(),
         ];
 
+        $CACHE = check_key($map, __METHOD__);
+
+        if ($CACHE && $list = Cache::get($CACHE)) {
+            return $list;
+        }
+
         $tags = new IndexTags;
         $result =
         $tags->view('tags t', ['name'=>'tags_name'])
@@ -147,6 +153,12 @@ class Tags extends Model
             $list[] = $value;
         }
 
-        return ['list' => $list, 'page' => $page, 'tags_name' => $tags_name];
+        $data = ['list' => $list, 'page' => $page, 'tags_name' => $tags_name];
+
+        if ($CACHE) {
+            Cache::set($CACHE, $data);
+        }
+
+        return $data;
     }
 }

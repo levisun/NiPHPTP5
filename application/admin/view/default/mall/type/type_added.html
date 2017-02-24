@@ -1,0 +1,29 @@
+<form action="" method="post" class="form-horizontal" data-parsley-validate="parsley" data-parsley-focus="last">
+    <ul>
+        <li class="form-group row">
+            <label for="name" class="col-md-2 control-label">{:lang('type name')}</label>
+            <div class="col-md-6">
+                <input type="text" name="name" id="name" class="form-control" data-parsley-required="true" data-parsley-length="[2, 255]">
+            </div>
+        </li>
+        <li class="form-group row">
+            <label for="pid" class="col-md-2 control-label">{:lang('type parent')}</label>
+            <div class="col-md-6">
+                <input type="hidden" name="pid" value="{$parent.id}">
+                <input type="text" id="pid" class="form-control category-pid" disabled value="{$parent.name}">
+            </div>
+        </li>
+        <li class="form-group row">
+            <label for="image" class="col-md-2 control-label">{:lang('type image')}</label>
+            <div class="col-md-6">
+                <input type="text" name="image" id="image" class="form-control" data-parsley-maxlength="255">
+                <button type="button" class="btn btn-info btn-sm np-upload" data-type="malltype" data-id="image" data-model="">{:lang('button upload')}</button>
+                <img src="" id="img-image" width="100" style="display:none">
+            </div>
+        </li>
+    </ul>
+    {:token()}
+    <div class="form-button col-md-10 col-md-offset-2">
+    <input type="submit" value="{:lang('button save')}" class="btn btn-danger btn-block">
+    </div>
+</form>

@@ -60,11 +60,44 @@ class Setup extends Base
         return $this->fetch();
     }
 
-    public function pwds()
+    /**
+     * 密码
+     * @access public
+     * @param
+     * @return string
+     */
+    public function password()
+    {
+        $member = new MemberSetup();
+
+        if ($this->request->isPost()) {
+            $result = $this->validate($_POST, 'Member.editor_pwd');
+            if (true !== $result) {
+                $this->error(Lang::get($result));
+            }
+            $result = $member->updatePassword();
+            if (true === $result) {
+                $this->success(Lang::get('success editor'));
+            } else {
+                $this->error(Lang::get('error editor'));
+            }
+        }
+
+        $this->assign('user_data', $member->getUserInfo());
+        return $this->fetch();
+    }
+
+    /**
+     * 头像
+     * @access public
+     * @param
+     * @retun string
+     */
+    public function portrait()
     {
         $member = new MemberSetup();
         $this->assign('user_data', $member->getUserInfo());
-        return $this->fetch('password');
+        return $this->fetch();
     }
 
     /**

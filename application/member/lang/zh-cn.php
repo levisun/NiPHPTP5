@@ -113,8 +113,8 @@ return [
 
     '_menu' => [
         'setup_bases'      => '基本信息',
-        'setup_pics'       => '修改头像',
-        'setup_pwds'       => '修改密码',
+        'setup_portrait'   => '修改头像',
+        'setup_password'   => '修改密码',
 
         'article_feedback' => '反馈',
         'article_message'  => '留言',
