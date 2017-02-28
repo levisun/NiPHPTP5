@@ -16,8 +16,10 @@ namespace app\admin\logic;
 use think\Model;
 use think\Request;
 use think\Lang;
+use think\Config;
 use think\Cache;
-use app\admin\model\Goods as AdminGoods;
+use app\admin\model\MallGoods as AdminMallGoods;
+use app\admin\model\MallType as AdminMallType;
 
 class MallGoods extends Model
 {
@@ -41,6 +43,31 @@ class MallGoods extends Model
         if ($key = $this->request->param('key')) {
             $map['c.name'] = ['LIKE', '%' . $key . '%'];
         }
+
+        $goods = new AdminMallGoods;
+        $result =
+        $goods->field(true)
+        ->order('id DESC')
+        ->paginate();
+
+        $result =
+        $goods->view('mall_goods g', 'id,name,thumb,price,is_pass,is_show,is_com,is_top,is_hot,sort')
+        ->view('mall_type t', ['name'=>'type_name'], 't.id=g.type_id')
+        ->view('mall_brand b', ['name'=>'brand_name'], 'b.id=g.brand_id', 'LEFT')
+        ->order('id DESC')
+        ->paginate();
+
+
+        $list = [];
+        foreach ($result as $value) {
+            $value = $value->toArray();
+            $value['price'] = $value['price'] / 100;
+            $list[] = $value;
+        }
+
+        $page = $result->render();
+
+        return ['list' => $list, 'page' => $page];
     }
 
     /**
@@ -51,6 +78,29 @@ class MallGoods extends Model
      */
     public function added()
     {
+        $data = [
+            'name'         => $this->request->post('name'),
+            'type_id'      => $this->request->post('type_id/d'),
+            'brand_id'     => $this->request->post('brand_id/d'),
+            'price'        => $this->request->post('price/f') * 100,
+            'market_price' => $this->request->post('market_price/f') * 100,
+            'number'       => $this->request->post('number/d', 2000),
+            'thumb'        => $this->request->post('thumb'),
+            'content'      => $this->request->post('content', '', Config::get('content_filter')),
+            'is_pass'      => $this->request->post('is_pass/d', 1),
+            'is_show'      => $this->request->post('is_show/d', 1),
+            'is_com'       => $this->request->post('is_com/d', 0),
+            'is_top'       => $this->request->post('is_top/d', 0),
+            'is_hot'       => $this->request->post('is_hot/d', 0),
+        ];
+
+        $goods = new AdminMallGoods;
+        $goods->data($data)
+        ->allowField(true)
+        ->isUpdate(false)
+        ->save();
+
+        return $goods->id ? true : false;
     }
 
     /**
@@ -61,7 +111,22 @@ class MallGoods extends Model
      */
     public function getEditorData()
     {
-        $map = ['c.id' => $this->request->param('id/f')];
+        $map = ['id' => $this->request->param('id/f')];
+
+        $goods = new AdminMallGoods;
+        $result =
+        $goods->field(true)
+        ->where($map)
+        ->find();
+
+        $data = [];
+        if (!empty($result)) {
+            $data = $result->toArray();
+            $data['price'] = $data['price'] / 100;
+            $data['market_price'] = $data['market_price'] / 100;
+        }
+
+        return $data;
     }
 
     /**
@@ -99,10 +164,31 @@ class MallGoods extends Model
             ];
         }
 
-        $goods = new AdminGoods;
+        $goods = new AdminMallGoods;
         $result =
         $goods->saveAll($data);
 
         return true;
+    }
+
+    /**
+     * 商品分类树形结构
+     * @access public
+     * @param
+     * @return array
+     */
+    public function getType()
+    {
+        $type = new AdminMallType;
+        $result =
+        $type->field(true)
+        ->select();
+
+        $list = [];
+        foreach ($result as $value) {
+            $list[] = $value->toArray();
+        }
+
+        return to_option_goods_type($list);
     }
 }

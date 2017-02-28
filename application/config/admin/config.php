@@ -10,4 +10,5 @@
   'wechat' => 'icon-comments',
   'mall' => 'icon-shopping-cart',
   'expand' => 'icon-wrench',
+  'request_cache' => false,
 ];

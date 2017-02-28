@@ -5,6 +5,14 @@ Layout.domain  = null;
 Layout.phpself = null;
 
 
+Layout.addHtml = function (element, ele, html) {
+    jQuery(element).click(function(){
+        var num = jQuery(ele).length;
+        alert(num);
+        jQuery(ele).after(html);
+    });
+}
+
 /**
  * 选择地区
  */

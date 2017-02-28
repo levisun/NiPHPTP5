@@ -15,7 +15,7 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
 		{ name: 'links' },
 		{ name: 'insert' },
-		{ name: 'forms' },
+		// { name: 'forms' },
 		{ name: 'others' },
 		'/',
 		{ name: 'styles' },
@@ -37,5 +37,6 @@ CKEDITOR.editorConfig = function( config ) {
 
 	config.language = 'zh-cn';
 	config.skin ='bootstrapck';
-	config.filebrowserImageUploadUrl = '?m=admin&c=account&a=upload&type=ckeditor&id=&model=';
+	// config.filebrowserImageUploadUrl = '?m=admin&c=account&a=upload&type=ckeditor&id=&model=';
+	config.filebrowserImageUploadUrl = Layout.domain + 'admin.php/account/upload.shtml?type=ckeditor&id=&model=';
 };

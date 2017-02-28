@@ -1,13 +1,13 @@
 <?php
 /**
  *
- * 分类 商城 - 验证
+ * 品牌 商城 - 验证
  *
  * @package   NiPHPCMS
  * @category  admin\validate\
  * @author    失眠小枕头 [levisun.mail@gmail.com]
  * @copyright Copyright (c) 2013, 失眠小枕头, All rights reserved.
- * @version   CVS: $Id: MallType.php v1.0.1 $
+ * @version   CVS: $Id: MallBrand.php v1.0.1 $
  * @link      http://www.NiPHP.com
  * @since     2016/10/28
  */
@@ -15,11 +15,11 @@ namespace app\admin\validate;
 
 use think\Validate;
 
-class MallType extends Validate
+class MallBrand extends Validate
 {
     protected $rule = [
         'id'        => ['require', 'number'],
-        'name'      => ['require', 'length:2,255', 'unique:mall_type', 'token'],
+        'name'      => ['require', 'length:2,255', 'unique:mall_brand', 'token'],
         'image'     => ['max:255'],
     ];
 

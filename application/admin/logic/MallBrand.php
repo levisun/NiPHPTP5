@@ -1,13 +1,13 @@
 <?php
 /**
  *
- * 分类 - 商城 - 逻辑层
+ * 品牌 - 商城 - 逻辑层
  *
  * @package   NiPHPCMS
  * @category  admin\logic\
  * @author    失眠小枕头 [levisun.mail@gmail.com]
  * @copyright Copyright (c) 2013, 失眠小枕头, All rights reserved.
- * @version   CVS: $Id: MallType.php v1.0.1 $
+ * @version   CVS: $Id: MallBrand.php v1.0.1 $
  * @link      http://www.NiPHP.com
  * @since     2017/01/03
  */
@@ -17,9 +17,9 @@ use think\Model;
 use think\Request;
 use think\Lang;
 use think\Cache;
-use app\admin\model\MallType as AdminMallType;
+use app\admin\model\MallBrand as AdminMallBrand;
 
-class MallType extends Model
+class MallBrand extends Model
 {
     protected $request = null;
 
@@ -45,61 +45,30 @@ class MallType extends Model
     public function getListData()
     {
         $map = [
-            'mt.pid' => 0,
-            'mt.lang' => Lang::detect()
+            'lang' => Lang::detect()
         ];
 
         if ($key = $this->request->param('key')) {
-            $map['mt.name'] = ['LIKE', '%' . $key . '%'];
+            $map['name'] = ['LIKE', '%' . $key . '%'];
         }
 
-        $cid = $this->request->param('pid/f', 0);    // 用于内容管理中栏目显示
-
-        if ($pid = $this->request->param('id/f', $cid)) {
-            $map['mt.pid'] = $pid;
-        }
-
-        $type = new AdminMallType;
+        $brand = new AdminMallBrand;
         $result =
-        $type->view('mall_type mt', 'id,pid,name,sort')
-        ->view('mall_type mtc', ['id'=>'child'], 'mt.id=mtc.pid', 'LEFT')
+        $brand->field(true)
         ->where($map)
-        ->group('mt.id')
-        ->order('mt.sort ASC, mt.id DESC')
-        ->select();
+        ->order('id DESC')
+        ->paginate();
 
-        $data = [];
+        $list = [];
         foreach ($result as $value) {
-            $data[] = $value->toArray();
+            $list[] = $value->toArray();
         }
 
-        return $data;
+        $page = $result->render();
+
+        return ['list' => $list, 'page' => $page];
     }
 
-    /**
-     * 获得父级栏目数据
-     * @access public
-     * @param
-     * @return array
-     */
-    public function getParent()
-    {
-        $map = ['id' => $this->request->param('pid/f', 0)];
-
-        $type = new AdminMallType;
-        $result =
-        $type->field(true)
-        ->where($map)
-        ->find();
-
-        $data = !empty($result) ? $result->toArray() : [];
-
-        $data['id']   = !empty($data['id']) ? $data['id'] : 0;
-        $data['pid']  = !empty($data['pid']) ? $data['pid'] : 0;
-        $data['name'] = !empty($data['name']) ? $data['name'] : Lang::get('select parent');
-
-        return $data;
-    }
 
     /**
      * 添加数据
@@ -116,13 +85,13 @@ class MallType extends Model
             'lang'  => Lang::detect(),
         ];
 
-        $type = new AdminMallType;
-        $type->data($data)
+        $brand = new AdminMallBrand;
+        $brand->data($data)
         ->allowField(true)
         ->isUpdate(false)
         ->save();
 
-        return $type->id ? true : false;
+        return $brand->id ? true : false;
     }
 
     /**
@@ -133,12 +102,11 @@ class MallType extends Model
      */
     public function getEditorData()
     {
-        $map = ['mt.id' => $this->request->param('id/f')];
+        $map = ['id' => $this->request->param('id/f')];
 
-        $type = new AdminMallType;
+        $brand = new AdminMallBrand;
         $result =
-        $type->view('mall_type mt', true)
-        ->view('mall_type mtc', ['name'=>'parentname'], 'mt.pid=mtc.id', 'LEFT')
+        $brand->field(true)
         ->where($map)
         ->find();
 
@@ -156,14 +124,13 @@ class MallType extends Model
         $data = [
             'name'  => $this->request->post('name'),
             'image' => $this->request->post('image'),
-            'pid'   => $this->request->post('pid/f', 0),
             'lang'  => Lang::detect(),
         ];
         $map = ['id' => $this->request->post('id/f')];
 
-        $type = new AdminMallType;
+        $brand = new AdminMallBrand;
         $result =
-        $type->allowField(true)
+        $brand->allowField(true)
         ->isUpdate(true)
         ->save($data, $map);
 
@@ -181,20 +148,10 @@ class MallType extends Model
         $id = $this->request->param('id/f');
         $map = ['pid' => $id];
 
-        $type = new AdminMallType;
+        $brand = new AdminMallBrand;
         $result =
-        $type->field(true)
-        ->where($map)
-        ->find();
-
-        $data = !empty($result) ? $result->toArray() : null;
-        if (!empty($data)) {
-            return 'error child remove';
-        }
-
-        $map = ['id' => $id];
-
-        $result = $type->where($map)->delete();
+        $brand->where($map)
+        ->delete();
 
         return $result ? true : false;
     }
@@ -215,9 +172,9 @@ class MallType extends Model
             ];
         }
 
-        $type = new AdminMallType;
+        $brand = new AdminMallBrand;
         $result =
-        $type->saveAll($data);
+        $brand->saveAll($data);
 
         return true;
     }

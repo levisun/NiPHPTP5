@@ -148,7 +148,7 @@ class ContentContentData extends Model
         $list = [];
         foreach ($result as $value) {
             $value = $value->toArray();
-            $value['input'] = toFieldsType($value);
+            $value['input'] = to_option_type($value);
             $list[] = $value;
         }
 
@@ -205,7 +205,7 @@ class ContentContentData extends Model
         foreach ($result as $value) {
             $value = $value->toArray();
             $value['field_data'] = '';
-            $value['input'] = toFieldsType($value);
+            $value['input'] = to_option_type($value);
             $list[] = $value;
         }
 

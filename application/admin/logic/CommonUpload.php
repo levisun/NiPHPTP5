@@ -172,12 +172,12 @@ class CommonUpload extends Model
         if ($config_data['water_type']) {
             // 图片水印
             $image = Image::open($file_dir . $file_name);
-            $image->water(ROOT_PATH . 'public/' . $config_data['water_image'], $config_data['water_location'], 50);
+            $image->water(ROOT_PATH . $config_data['water_image'], $config_data['water_location'], 50);
             $image->save($file_dir . $file_name);
 
             if ($thumb_name) {
                 $image = Image::open($file_dir . $thumb_name);
-                $image->water(ROOT_PATH . 'public/' . $config_data['water_image'], $config_data['water_location'], 50);
+                $image->water(ROOT_PATH . $config_data['water_image'], $config_data['water_location'], 50);
                 $image->save($file_dir . $thumb_name);
             }
         } else {
@@ -238,6 +238,11 @@ class CommonUpload extends Model
 
             case 'image':
                 $size = $this->model();
+                break;
+
+            case 'mallimage':
+            case 'mallalbum':
+                $size['width'] = $size['height'] = 500;
                 break;
         }
         return !empty($size) ? $size : false;
@@ -349,7 +354,7 @@ class CommonUpload extends Model
 
             // 商城品牌
             case 'mallbrand':
-                $dir = 'mall/brand';
+                $dir = 'mall/brand/';
                 break;
 
             // 幻灯片

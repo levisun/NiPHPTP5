@@ -75,6 +75,11 @@ Layout.newWinUpload(".np-upload", "account/upload.shtml");
 Layout.confirmOperation(".reduction", "{:lang('confirm reduction')}");
 Layout.confirmOperation(".remove", "{:lang('confirm remove')}");
 Layout.selectRegion(".region", "user/member/method/added.shtml?");
+
+
+var timenow = new Date().getTime();
+var html = "<li id='album'><input type='text' name='album_image[]' id='album-image' class='form-control'><input type='hidden' name='album_thumb[]' id='album-thumb' class='form-control'><img src='' id='img-album' width='100' style='display:none'><button type='button' class='btn btn-success btn-sm np-upload' data-type='album' data-id=' data-model='' onclick='uploadFile(this)'>上传</button><button type='button' class='btn btn-success btn-sm np-upload'>删除</button></li>";
+Layout.addHtml(".np-album-add", "#album li", html);
 </script>
 </body>
 </html>

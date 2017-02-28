@@ -31,46 +31,40 @@ class Mall extends Base
         $this->assign('submenu', 1);
         $this->assign('submenu_button_added', 1);
 
+        if (in_array($this->method, ['added', 'editor'])) {
+            $goods = new AdminMallGoods;
+            $type_list = $goods->getType();
+            $this->assign('type', $type_list);
+        }
+
         // 新增
         if ($this->method == 'added') {
-            parent::added('MallGoods');
+            parent::added('MallGoods', 'MallGoods.added');
             return $this->fetch('mall/goods/goods_added');
         }
 
         // 删除
         if ($this->method == 'remove') {
-            parent::remove('MallGoods');
+            parent::remove('MallGoods', 'MallGoods.remove');
             return ;
         }
 
         // 编辑
         if ($this->method == 'editor') {
-            $data = parent::editor('MallGoods');
+            $data = parent::editor('MallGoods', 'MallGoods.editor');
             $this->assign('data', $data);
             return $this->fetch('mall/goods/goods_editor');
         }
 
         $data = parent::select('MallGoods');
-        $this->assign('list', $data);
+        $this->assign('list', $data['list']);
+        $this->assign('page', $data['page']);
 
         return $this->fetch('mall/goods/goods');
     }
 
     /**
-     * 帐户流水
-     * @access public
-     * @param
-     * @return string
-     */
-    public function accountflow()
-    {
-        $this->assign('submenu', 1);
-
-        return $this->fetch();
-    }
-
-    /**
-     * 商品分类
+     * 分类
      * @access public
      * @param
      * @return string
@@ -110,6 +104,12 @@ class Mall extends Base
         return $this->fetch('mall/type/type');
     }
 
+    /**
+     * 品牌
+     * @access public
+     * @param
+     * @return string
+     */
     public function brand()
     {
         $this->assign('submenu', 1);
@@ -117,24 +117,41 @@ class Mall extends Base
 
         // 新增
         if ($this->method == 'added') {
-            parent::added('MallBrand');
+            parent::added('MallBrand', 'MallBrand.added');
             return $this->fetch('mall/brand/brand_added');
         }
 
         // 删除
         if ($this->method == 'remove') {
-            parent::remove('MallBrand');
+            parent::remove('MallBrand', 'MallBrand.remove');
             return ;
         }
 
         // 编辑
         if ($this->method == 'editor') {
-            $data = parent::editor('MallBrand');
+            $data = parent::editor('MallBrand', 'MallBrand.remove');
             $this->assign('data', $data);
             return $this->fetch('mall/brand/brand_editor');
         }
 
+        $data = parent::select('MallBrand');
+        $this->assign('list', $data['list']);
+        $this->assign('page', $data['page']);
+
         return $this->fetch('mall/brand/brand');
+    }
+
+    /**
+     * 帐户流水
+     * @access public
+     * @param
+     * @return string
+     */
+    public function accountflow()
+    {
+        $this->assign('submenu', 1);
+
+        return $this->fetch();
     }
 
     /**

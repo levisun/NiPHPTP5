@@ -127,7 +127,7 @@ class Message extends Model
         $list = [];
         foreach ($result as $value) {
             $value = $value->toArray();
-            $value['input'] = toFieldsType($value);
+            $value['input'] = to_option_type($value);
             $list[] = $value;
         }
 

@@ -32,7 +32,7 @@ function msubstr($str, $start=0, $length, $suffix=true, $charset='utf-8')
  * @param  array $data
  * @return string
  */
-function toFieldsType($data)
+function to_option_type($data)
 {
     switch ($data['field_type']) {
         case 'number':

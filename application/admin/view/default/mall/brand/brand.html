@@ -1,0 +1,26 @@
+<form action="" method="post">
+<table class="table">
+    <thead>
+        <tr>
+            <th>{:lang('id')}</th>
+            <th>{:lang('name')}</th>
+            <th>{:lang('operation')}</th>
+        </tr>
+    </thead>
+    <tbody>
+        {volist name="list" id="vo"}
+        <tr>
+            <td>{$vo.id}</td>
+            <td>{$vo.name}</td>
+            <td>
+                <a href="{:url('', array('method' => 'editor', 'id' => $vo['id']))}"><i class="icon-edit"></i>{:lang('button editor')}</a>
+                <a href="{:url('', array('method' => 'remove', 'id' => $vo['id']))}" class="remove"><i class="icon-remove"></i>{:lang('button delete')}</a>
+            </td>
+        </tr>
+        {/volist}
+    </tbody>
+</table>
+</form>
+<div class="paging">
+    {$page}
+</div>

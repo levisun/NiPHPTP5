@@ -13,11 +13,36 @@
  */
 
 /**
+ * 商城 商品分类 树型结构
+ * @param  array $data
+ * @return array
+ */
+function to_option_goods_type($data, $pid=0)
+{
+    if (empty($data) && !is_array($data)) {
+        return false;
+    }
+
+    $option = $html = [];
+    foreach ($data as $key => $value) {
+        if ($value['pid'] == $pid) {
+            $option[$value['id']] = $data[$key];
+            unset($data[$key]);
+
+            $child = to_option_goods_type($data, $value['id']);
+            $option[$value['id']]['child'] = $child;
+        }
+    }
+
+    return $option;
+}
+
+/**
  * 自定义字段类型转换
  * @param  array $data
  * @return string
  */
-function toFieldsType($data)
+function to_option_type($data)
 {
     switch ($data['field_type']) {
         case 'number':
