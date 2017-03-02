@@ -320,7 +320,7 @@ class Base extends Controller
             '__THEME__'    => Config::get('default_theme'),
             '__CSS__'      => $default_theme . 'css/',
             '__JS__'       => $default_theme . 'js/',
-            '__IMG__'      => $default_theme . 'img/',
+            '__IMG__'      => $default_theme . 'images/',
         ];
         $this->view->replace($replace);
     }

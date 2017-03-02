@@ -1,0 +1,38 @@
+<div class="alert alert-warning alert-custom alert-dismissible" role="alert">
+	<!-- <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button> -->
+	<!-- <strong>{:lang('dispatch title')}</strong>  -->
+	{switch name="code"}
+	{case value="1"}
+	<p class="success">
+		<i class="fa fa-check-circle m-right-xs"></i>
+		<strong>{:strip_tags($msg)}</strong>
+	</p>
+	{/case}
+	{case value="0"}
+	<p class="error">
+		<i class="fa fa-exclamation-circle m-right-xs"></i>
+		<strong>{:strip_tags($msg)}</strong>
+	</p>
+	{/case}
+	{/switch}
+	<p class="detail"></p>
+	<p class="jump">
+		页面自动 <a id="href" href="{$url}">跳转</a>
+		等待时间： <b id="wait">{$wait}</b>
+	</p>
+</div>
+
+
+<script type="text/javascript">
+(function(){
+	var wait = document.getElementById('wait'),
+	href = document.getElementById('href').href;
+	var interval = setInterval(function(){
+	var time = --wait.innerHTML;
+		if(time <= 0) {
+			location.href = href;
+			clearInterval(interval);
+		};
+	}, 1000);
+})();
+</script>

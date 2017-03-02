@@ -4,10 +4,10 @@ body {
 	cursor: default;
 	overflow: hidden;
 	overflow-y: auto;
-	font-size: 12px;
-	line-height: 1.8em;
-	font-family: "Segoe UI","Lucida Grande",Helvetica,Arial,"Microsoft YaHei",FreeSans,Arimo,"Droid Sans","wenquanyi micro hei","Hiragino Sans GB","Hiragino Sans GB W3","FontAwesome",sans-serif;
-	font-weight:normal;
+	/*font-size: 12px;*/
+	/*line-height: 1.8em;*/
+	font-family: Raleway,Arial,"Microsoft YaHei",sans-serif;
+	font-weight: normal;
 	min-height: 100%;
 	letter-spacing: 1px;
 	word-spacing: .1rem;
@@ -60,6 +60,9 @@ menu {
 }
 textarea {
 	resize: none;
+}
+input,textarea,select {
+	font-family: Arial,"Microsoft YaHei",sans-serif;
 }
 
 iframe {

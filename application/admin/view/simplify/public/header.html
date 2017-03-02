@@ -1,0 +1,101 @@
+<header class="top-nav">
+    <div class="top-nav-inner">
+        <div class="nav-header">
+            <button type="button" class="navbar-toggle pull-left sidebar-toggle" id="sidebarToggleSM">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+
+            <ul class="nav-notification pull-right">
+                <li>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cog fa-lg"></i></a>
+                    <span class="badge badge-danger bounceIn">1</span>
+                    <ul class="dropdown-menu dropdown-sm pull-right user-dropdown">
+                        <li class="user-avatar">
+                            <img src="__IMG__profile/profile1.jpg" alt="" class="img-circle">
+                            <div class="user-content">
+                                <h5 class="no-m-bottom">{$__ADMIN_DATA__.username}</h5>
+                            </div>
+                        </li>
+                        <li>
+                            <a href="{:url('content/cache', array('method' => 'remove', 'type' => 'cache'))}">
+                                <i class="fa fa-refresh fa-lg"></i>
+                                <span class="m-left-xs">{:lang('delete cache')}</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="{:url('user/admin', array('method' => 'editor', 'id' => $__ADMIN_DATA__['id']))}">
+                                <i class="fa fa-edit fa-lg"></i>
+                                <span class="m-left-xs">{:lang('update admin')}</span>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="{:url('account/logout')}">
+                                <i class="fa fa-power-off fa-lg"></i>
+                                <span class="m-left-xs">{:lang('logout')}</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+            </ul>
+
+            <a href="{:url('/')}" class="brand">
+                <strong class="text-danger">NiPHP</strong> Admin
+            </a>
+        </div>
+        <div class="nav-container">
+            <button type="button" class="navbar-toggle pull-left sidebar-toggle" id="sidebarToggleLG">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <ul class="nav-notification">
+                <li class="search-list">
+                    <div class="search-input-wrapper">
+                        <div class="search-input">
+                            <input type="text" class="form-control input-sm inline-block">
+                            <a href="#" class="input-icon text-normal"><i class="ion-ios7-search-strong"></i></a>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+            <div class="pull-right m-right-sm">
+                <div class="user-block hidden-xs">
+                    <a href="#" id="userToggle" data-toggle="dropdown">
+                        <img src="__IMG__profile/profile1.jpg" alt="" class="img-circle inline-block user-profile-pic">
+                        <div class="user-detail inline-block">
+                            {$__ADMIN_DATA__.username}
+                            <i class="fa fa-angle-down"></i>
+                        </div>
+                    </a>
+                    <div class="panel border dropdown-menu user-panel">
+                        <div class="panel-body paddingTB-sm">
+                            <ul>
+                                <li>
+                                    <a href="{:url('content/cache', array('method' => 'remove', 'type' => 'cache'))}">
+                                        <i class="fa fa-refresh fa-lg"></i>
+                                        <span class="m-left-xs">{:lang('delete cache')}</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{:url('user/admin', array('method' => 'editor', 'id' => $__ADMIN_DATA__['id']))}">
+                                        <i class="fa fa-edit fa-lg"></i>
+                                        <span class="m-left-xs">{:lang('update admin')}</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{:url('account/logout')}">
+                                        <i class="fa fa-power-off fa-lg"></i>
+                                        <span class="m-left-xs">{:lang('logout')}</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><!-- ./top-nav-inner -->
+</header>

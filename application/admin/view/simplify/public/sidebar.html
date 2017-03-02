@@ -1,0 +1,61 @@
+<aside class="sidebar-menu fixed">
+    <div class="sidebar-inner scrollable-sidebar">
+        <div class="main-menu">
+            <ul class="accordion">
+                <li class="menu-header">
+                    Main Menu
+                </li>
+                <li class="bg-palette1 active">
+                    <a href="__DOMAIN__">
+                        <span class="menu-content block">
+                            <span class="menu-icon"><i class="block fa fa-home fa-lg"></i></span>
+                            <span class="text m-left-sm">{:lang('website home')}</span>
+                        </span>
+                        <span class="menu-content-hover block">
+                            {:lang('website home')}
+                        </span>
+                    </a>
+                </li>
+                {volist name="__MENU__" id="vo" key="k"}
+                <li class="openable bg-palette{$k} {if condition="$Request.controller eq ucfirst($key)"} open{/if}">
+                    <a href="#">
+                        <span class="menu-content block">
+                            <span class="menu-icon"><i class="block fa fa-{:config($key)} fa-lg"></i></span>
+                            <span class="text m-left-sm">{$vo.name}</span>
+                            <span class="submenu-icon"></span>
+                        </span>
+                        <span class="menu-content-hover block">
+                            {$vo.name}
+                        </span>
+                    </a>
+                    <ul class="submenu bg-palette4">
+                        {volist name="vo.menu" id="v"}
+                        <li {eq name="Request.action" value="$v.action"}class="active"{/eq}><a href="{$v.url}"><span class="submenu-label">{$v.lang}</span></a></li>
+                        {/volist}
+                    </ul>
+                </li>
+                {/volist}
+            </ul>
+        </div>
+        <div class="sidebar-fix-bottom clearfix">
+            <div class="user-dropdown dropup pull-left">
+                <a href="#" class="dropdwon-toggle font-18" data-toggle="dropdown"><i class="ion-person-add"></i>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <a href="{:url('content/cache', array('method' => 'remove', 'type' => 'cache'))}">
+                            {:lang('delete cache')}
+                        </a>
+                    </li>
+                    <li class="divider"></li>
+                    <li>
+                        <a href="{:url('user/admin', array('method' => 'editor', 'id' => $__ADMIN_DATA__['id']))}">
+                            {:lang('update admin')}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <a href="{:url('account/logout')}" class="pull-right font-18"><i class="ion-log-out"></i></a>
+        </div>
+    </div><!-- sidebar-inner -->
+</aside>

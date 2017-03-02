@@ -4,14 +4,22 @@ Layout.VERSION = '1.0.0';
 Layout.domain  = null;
 Layout.phpself = null;
 
-
-Layout.addHtml = function (element, ele, html) {
+Layout.delElement = function (element, ele) {
     jQuery(element).click(function(){
-        var num = jQuery(ele).length;
-        alert(num);
-        jQuery(ele).after(html);
+        alert(1);
+        var id = jQuery(this).attr("date-type");
+        jQuery(ele + id).remove();
     });
 }
+Layout.addAlbum = function (element, ele) {
+    jQuery(element).click(function(){
+        var num = jQuery(ele).length;
+        num++;
+        var html = "<li id='album-"+num+"'><input type='text' name='album_image[]' id='album-image-"+num+"' class='form-control'><input type='hidden' name='album_thumb[]' id='album-thumb-"+num+"' class='form-control'><img src='' id='img-album-"+num+"' width='100' style='display:none'><button type='button' class='btn btn-success btn-sm np-upload' data-type='album' data-id='"+num+"' data-model=''>上传</button><button type='button' class='btn btn-success btn-sm np-album-del' date-id='"+num+"'>删除</button></li>";
+        jQuery(ele).append(html);
+    });
+}
+
 
 /**
  * 选择地区
@@ -22,6 +30,7 @@ Layout.selectRegion = function (element, url) {
         jQuery.ajax({
             type: 'post',
             async: false,
+            cache: false,
             url: Layout.domain + Layout.phpself + url,
             data: {id: id},
             success: function(data){
@@ -74,6 +83,7 @@ Layout.ajaxPage = function (url, params) {
             jQuery.ajax({
                 type: "post",
                 async: false,
+                cache: false,
                 url: url,
                 data: params,
                 success: function(data){

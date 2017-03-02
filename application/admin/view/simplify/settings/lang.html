@@ -1,0 +1,60 @@
+<div class="smart-widget">
+    <div class="smart-widget-header">
+        {$__SUB_TITLE__}
+    </div>
+    <div class="smart-widget-inner">
+        <div class="smart-widget-body">
+            <form action="" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label for="system" class="col-lg-2 control-label">{:lang('basic website name')}</label>
+                    <div class="col-lg-10">
+                        <select name="system" id="system" class="form-control">
+                            {volist name="lang_list" id="vo"}
+                            <option value="{$vo}" {if condition="$vo eq $sys_default_lang"}selected="selected"{/if}>{$vo}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="website" class="col-lg-2 control-label">{:lang('website default lang')}</label>
+                    <div class="col-lg-10">
+                        <select name="website" id="website" class="form-control">
+                            {volist name="lang_list" id="vo"}
+                            <option value="{$vo}" {if condition="$vo eq $web_default_lang"}selected="selected"{/if}>{$vo}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="lang_switch_on" class="col-lg-2 control-label">{:lang('domain auto')}</label>
+                    <div class="col-lg-10">
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs {eq name="lang_switch_on" value="1"}checked{/eq}">
+                                <input type="radio" id="radio1" name="lang_switch_on" value="1" {eq name="lang_switch_on" value="1"}checked{/eq}>
+                                <label for="radio1"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button open')}
+                            </div>
+                        </div>
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs {eq name="lang_switch_on" value="0"}checked{/eq}">
+                                <input type="radio" id="radio2" name="lang_switch_on" value="0" {eq name="lang_switch_on" value="0"}checked{/eq}>
+                                <label for="radio2"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button close')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        <input type="submit" value="{:lang('button save')}" class="btn btn-info marginTB-xs">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

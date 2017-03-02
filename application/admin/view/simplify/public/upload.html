@@ -1,0 +1,28 @@
+<div class="padding-md">
+    <div class="smart-widget">
+        <div class="smart-widget-header">
+            {:lang('button upload')}
+        </div>
+        <div class="smart-widget-inner">
+            <div class="smart-widget-body">
+                <form action="" method="post" class="form-horizontal">
+                    <div class="form-group">
+                        <label for="website_name" class="col-lg-2 control-label">{:lang('button upload')}</label>
+                        <div class="col-lg-10">
+                            <input type="file" name="upload" class="form-control">
+                            <input type="hidden" name="type" value="{$Think.get.type}">
+                            <input type="hidden" name="id" value="{$Think.get.id}">
+                            <input type="hidden" name="model" value="{$Think.get.model}">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-lg-offset-2 col-lg-10">
+                            <input type="submit" value="{:lang('button upload')}" class="btn btn-info marginTB-xs">
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
