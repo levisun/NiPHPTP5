@@ -1,0 +1,25 @@
+{eq name="submenu_button_added" value="1"}
+<span class="smart-widget-option">
+    {notempty name="Request.param.pid"}
+    <!-- 栏目 -->
+    <a href="{:url('', array('method' => 'added', 'pid' => $Request.param.pid))}" class="btn btn-default btn-xs">
+        <span class="fa fa-plus"></span>{:lang('button add')}
+    </a>
+    {/notempty}
+
+    {notempty name="Request.param.cid"}
+    <!-- 内容 -->
+    <a href="{:url('', array('method' => 'added', 'cid' => $Request.param.cid))}" class="btn btn-default btn-xs">
+        <span class="fa fa-plus"></span>{:lang('button add')}
+    </a>
+    {/notempty}
+
+    {empty name="Request.param.pid"}
+    {empty name="Request.param.cid"}
+    <a href="{:url('', array('method' => 'added'))}" class="btn btn-default btn-xs">
+        <span class="fa fa-plus"></span>{:lang('button add')}
+    </a>
+    {/empty}
+    {/empty}
+</span>
+{/eq}

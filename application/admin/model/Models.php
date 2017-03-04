@@ -24,7 +24,7 @@ class Models extends Model
     protected $field = [
         'id',
         'name',
-        'tablename',
+        'table_name',
         'remark',
         'status',
         'sort',

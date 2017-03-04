@@ -1,0 +1,71 @@
+<div class="smart-widget">
+    <div class="smart-widget-header">
+        {$__SUB_TITLE__}
+    </div>
+    <div class="smart-widget-inner">
+        <div class="smart-widget-body">
+            <form action="" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label for="name" class="col-lg-2 control-label">{:lang('fieldsname')}</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="name" id="name" class="form-control" value="{$data.name}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="type_id" class="col-lg-2 control-label">{:lang('fieldstype')}</label>
+                    <div class="col-lg-10">
+                        <select name="type_id" id="type_id" class="form-control" disabled>
+                            <option value="">{:lang('select type')}</option>
+                            {volist name="type_list" id="vo"}
+                            <option value="{$vo.id}" {eq name="data.type_id" value="$vo['id']"}selected{/eq}>{:lang('type ' . $vo['name'])}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="category_id" class="col-lg-2 control-label">{:lang('fieldscategory')}</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="" id="" class="form-control" disabled value="{$data.cat_name}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="is_require" class="col-lg-2 control-label">{:lang('isrequire')}</label>
+                    <div class="col-lg-10">
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs {eq name="data.is_require" value="1"}checked{/eq}">
+                                <input type="radio" id="is_require1" name="is_require" value="1" {eq name="data.is_require" value="1"}checked{/eq}>
+                                <label for="is_require1"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button open')}
+                            </div>
+                        </div>
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs {eq name="data.is_require" value="0"}checked{/eq}">
+                                <input type="radio" id="is_require2" name="is_require" value="0" {eq name="data.is_require" value="0"}checked{/eq}>
+                                <label for="is_require2"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button close')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="description" class="col-lg-2 control-label">{:lang('remark')}</label>
+                    <div class="col-lg-10">
+                        <textarea name="description" id="description" class="form-control">{$data.description}</textarea>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        {:token()}
+                        <input type="hidden" name="id" value="{$data.id}">
+                        <input type="submit" value="{:lang('button save')}" class="btn btn-info marginTB-xs">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

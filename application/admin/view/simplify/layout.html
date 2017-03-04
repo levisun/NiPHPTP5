@@ -20,14 +20,14 @@
     {css href="__CSS__morris.css" /}
 
     <!-- Datepicker -->
-    {css href="__CSS__datepicker.css" /}
+    <!-- {css href="__CSS__datepicker.css" /} -->
 
     <!-- Animate -->
     {css href="__CSS__animate.min.css" /}
 
     <!-- Owl Carousel -->
-    {css href="__CSS__owl.carousel.min.css" /}
-    {css href="__CSS__owl.theme.default.min.css" /}
+    <!-- {css href="__CSS__owl.carousel.min.css" /} -->
+    <!-- {css href="__CSS__owl.theme.default.min.css" /} -->
 
     <!-- Simplify -->
     {css href="__CSS__simplify.min.css" /}
@@ -55,22 +55,22 @@
     <!-- {js href="__JS__morris.min.js" /} -->
 
     <!-- Datepicker -->
-    {js href="__JS__uncompressed/datepicker.js" /}
+    <!-- {js href="__JS__uncompressed/datepicker.js" /} -->
 
     <!-- Sparkline -->
-    {js href="__JS__sparkline.min.js" /}
+    <!-- {js href="__JS__sparkline.min.js" /} -->
 
     <!-- Skycons -->
-    {js href="__JS__uncompressed/skycons.js" /}
+    <!-- {js href="__JS__uncompressed/skycons.js" /} -->
 
     <!-- Popup Overlay -->
     {js href="__JS__jquery.popupoverlay.min.js" /}
 
     <!-- Easy Pie Chart -->
-    {js href="__JS__jquery.easypiechart.min.js" /}
+    <!-- {js href="__JS__jquery.easypiechart.min.js" /} -->
 
     <!-- Sortable -->
-    {js href="__JS__uncompressed/jquery.sortable.js" /}
+    <!-- {js href="__JS__uncompressed/jquery.sortable.js" /} -->
 
     <!-- Owl Carousel -->
     {js href="__JS__owl.carousel.min.js" /}
@@ -93,31 +93,17 @@
     <div class="main-container">
         <div class="padding-md">
             <div class="row">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     <ol class="breadcrumb">
                         {$__BREADCRUMB__}
                     </ol>
-                </div>
-                <div class="col-sm-6 text-right text-left-sm p-top-sm">
-                    <div class="btn-group">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                        {:lang('language select')} <span class="caret"></span>
-                        </button>
-                        <ul class="dropdown-menu pull-right" role="menu">
-                            <li><a href="#">Project1</a></li>
-                            <li><a href="#">Project2</a></li>
-                            <li><a href="#">Project3</a></li>
-                            <li class="divider"></li>
-                            <li><a href="#">Setting</a></li>
-                        </ul>
-                    </div>
                 </div>
             </div>
 
             {__CONTENT__}
 
-        </div><!-- ./padding-md -->
-    </div><!-- /main-container -->
+        </div>
+    </div>
 
     <footer class="footer">
         <span class="footer-brand">
@@ -128,7 +114,7 @@
             <a href="http://www.NiPHP.com" target="_blank"><strong>www.NiPHP.com</strong></a>
         </p>
     </footer>
-</div><!-- /wrapper -->
+</div>
 
 {else/}
 
@@ -141,7 +127,6 @@
 var domain = "__DOMAIN__";
 parent.document.title = "{$__TITLE__}";
 
-
 Layout.domain = "__DOMAIN__";
 Layout.phpself = "/__PHP_SELF__/";
 Layout.captcha(".captcha");
@@ -150,6 +135,10 @@ Layout.newWinUpload(".np-upload", "account/upload.shtml");
 Layout.confirmOperation(".reduction", "{:lang('confirm reduction')}");
 Layout.confirmOperation(".remove", "{:lang('confirm remove')}");
 Layout.selectRegion(".region", "user/member/method/added.shtml?");
+Layout.formSubmit(".search-submit", "#search-form");
+Layout.fieldsCategory(".fieldsCategory", 'category/fields');
+
+
 
 Layout.addAlbum(".np-album-add", "#album");
 Layout.delElement(".np-album-del", '#album-');

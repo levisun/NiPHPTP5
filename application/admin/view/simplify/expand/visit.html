@@ -1,0 +1,41 @@
+<div class="smart-widget">
+    <div class="smart-widget-header">
+        {$__SUB_TITLE__}
+        <span class="smart-widget-option">
+            <a href="{:url('')}" class="btn btn-default btn-xs">
+                <span class="fa fa-eye"></span>{:lang('visit')}
+            </a>
+
+            <a href="{:url('', array('method' => 'searchengine'))}" class="btn btn-default btn-xs">
+                <span class="fa fa-eye"></span>{:lang('searchengine')}
+            </a>
+        </span>
+    </div>
+    <div class="smart-widget-inner">
+        <div class="smart-widget-body">
+            <form action="" method="post" class="form-horizontal">
+                <table class="table table-striped" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>{:lang('date')}</th>
+                            <th>{:lang('ip')}</th>
+                            <th>{:lang('count')}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {volist name="list" id="vo"}
+                        <tr>
+                            <td>{$vo.date|date='Y-m-d',###}</td>
+                            <td>{$vo.ip} [{$vo.ip_attr}]</td>
+                            <td>{$vo.count}</td>
+                        </tr>
+                        {/volist}
+                    </tbody>
+                </table>
+            </form>
+            <div>
+                {$page}
+            </div>
+        </div>
+    </div>
+</div>

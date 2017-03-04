@@ -1,0 +1,43 @@
+<div class="smart-widget">
+    <div class="smart-widget-header">
+        {$__SUB_TITLE__}
+        <span class="smart-widget-option">
+            <a href="{:url('', array('method' => 'back'))}" class="btn btn-default btn-xs">
+                <span class="fa fa-plus"></span>{:lang('back')}
+            </a>
+            <a href="{:url('', array('method' => 'optimize'))}" class="btn btn-default btn-xs">
+                <span class="fa fa-stethoscope"></span>{:lang('back optimize')}
+            </a>
+        </span>
+    </div>
+    <div class="smart-widget-inner">
+        <div class="smart-widget-body">
+            <form action="" method="post" class="form-horizontal">
+                <table class="table table-striped" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>{:lang('backname')}</th>
+                            <th>{:lang('backtime')}</th>
+                            <th>{:lang('backsize')}</th>
+                            <th>{:lang('operation')}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {volist name="list" id="vo"}
+                        <tr>
+                            <td>{$vo.name}</td>
+                            <td>{$vo.time}</td>
+                            <td>{$vo.size}</td>
+                            <td>
+                                <a href="{:url('', array('method' => 'reduction', 'id' => $vo['id']))}" class="reduction"><i class="fa fa-retweet"></i>{:lang('button reduction')}</a>
+                                <a href="{:url('', array('method' => 'down', 'id' => $vo['id']))}"><i class="fa fa-download"></i>{:lang('button download')}</a>
+                                <a href="{:url('', array('method' => 'remove', 'id' => $vo['id']))}" class="remove"><i class="fa fa-times"></i>{:lang('button delete')}</a>
+                            </td>
+                        </tr>
+                        {/volist}
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>

@@ -7,13 +7,15 @@
             <form action="" method="post" class="form-horizontal">
                 <div class="form-group">
                     <label for="website_name" class="col-lg-2 control-label">{:lang('image auto image')}</label>
-                    <div class="checkbox inline-block">
-                        <div class="custom-checkbox">
-                            <input type="checkbox" name="auto_image" id="auto_image" class="checkbox-red" value="1" {eq name="data.auto_image" value="1"}checked{/eq}>
-                            <label for="auto_image"></label>
-                        </div>
-                        <div class="inline-block vertical-top">
-                            {:lang('image auto image info')}
+                    <div class="col-lg-10">
+                        <div class="checkbox inline-block">
+                            <div class="custom-checkbox">
+                                <input type="checkbox" name="auto_image" id="auto_image" class="checkbox-red" value="1" {eq name="data.auto_image" value="1"}checked{/eq}>
+                                <label for="auto_image"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('image auto image info')}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -273,6 +275,7 @@
 
                 <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
+                        {:token()}
                         <input type="submit" value="{:lang('button save')}" class="btn btn-info marginTB-xs">
                     </div>
                 </div>

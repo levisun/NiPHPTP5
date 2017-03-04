@@ -207,7 +207,7 @@ class CategoryModel extends Model
         $model = new AdminModels;
         $table_name =
         $model->where($map)
-        ->value('tablename');
+        ->value('table_name');
 
         if (in_array($table_name, $no_table_name)) {
             return 'error system model';

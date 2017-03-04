@@ -20,6 +20,28 @@ Layout.addAlbum = function (element, ele) {
     });
 }
 
+/**
+ * 栏目 - 字段 - 选择字段所属栏目
+ */
+Layout.fieldsCategory = function (element, url) {
+    jQuery(element).change(function(){
+        var id = jQuery(element).val();
+        var type = jQuery(element).attr('data-type');
+        jQuery.ajax({
+            type: 'post',
+            async: false,
+            cache: false,
+            url: Layout.domain + Layout.phpself + url,
+            data: {id: id, type: type},
+            success: function(data){
+                if (type == 1) {
+                    jQuery('.op').remove();
+                }
+                jQuery('#category_id_' + type).after(data);
+            }
+        });
+    });
+}
 
 /**
  * 选择地区
@@ -38,15 +60,6 @@ Layout.selectRegion = function (element, url) {
                 jQuery(type).append(data);
             }
         });
-    });
-}
-
-/**
- * 确认操作
- */
-Layout.confirmOperation = function (element, lang) {
-    jQuery(element).click(function(){
-        return confirm(lang);
     });
 }
 
@@ -117,6 +130,26 @@ Layout.captcha = function (element) {
         var array = url.split("?");
         jQuery("img" + element).attr("src", array[0] + "?" + timenow);
         jQuery("input" + element).val("");
+    });
+}
+
+/**
+ * 确认操作
+ */
+Layout.confirmOperation = function (element, lang) {
+    jQuery(element).click(function(){
+        return confirm(lang);
+    });
+}
+
+/**
+ * 点击提交表单
+ * 用于a button等标签
+ */
+Layout.formSubmit = function (element, form) {
+    jQuery(element).click(function(){
+        jQuery(form).submit();
+        return false;
     });
 }
 

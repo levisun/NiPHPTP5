@@ -14,11 +14,120 @@
                     </div>
                 </div>
                 {/eq}
+                <div class="form-group">
+                    <label for="content_check" class="col-lg-2 control-label">{:lang('safe content check')}</label>
+                    <div class="col-lg-10">
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs  {eq name="data.content_check" value="1"}checked{/eq}">
+                                <input type="radio" id="content_check1" name="content_check" value="1" {eq name="data.content_check" value="1"}checked{/eq}>
+                                <label for="content_check1"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button open')}
+                            </div>
+                        </div>
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs  {eq name="data.content_check" value="0"}checked{/eq}">
+                                <input type="radio" id="content_check2" name="content_check" value="0" {eq name="data.content_check" value="0"}checked{/eq}>
+                                <label for="content_check2"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button close')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="member_login_captcha" class="col-lg-2 control-label">{:lang('safe member login captcha')}</label>
+                    <div class="col-lg-10">
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs  {eq name="data.member_login_captcha" value="1"}checked{/eq}">
+                                <input type="radio" id="member_login_captcha1" name="member_login_captcha" value="1" {eq name="data.member_login_captcha" value="1"}checked{/eq}>
+                                <label for="member_login_captcha1"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button open')}
+                            </div>
+                        </div>
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs  {eq name="data.member_login_captcha" value="0"}checked{/eq}">
+                                <input type="radio" id="member_login_captcha2" name="member_login_captcha" value="0" {eq name="data.member_login_captcha" value="0"}checked{/eq}>
+                                <label for="member_login_captcha2"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button close')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="website_submit_captcha" class="col-lg-2 control-label">{:lang('safe website submit captcha')}</label>
+                    <div class="col-lg-10">
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs  {eq name="data.website_submit_captcha" value="1"}checked{/eq}">
+                                <input type="radio" id="website_submit_captcha1" name="website_submit_captcha" value="1" {eq name="data.website_submit_captcha" value="1"}checked{/eq}>
+                                <label for="website_submit_captcha1"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button open')}
+                            </div>
+                        </div>
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs  {eq name="data.website_submit_captcha" value="0"}checked{/eq}">
+                                <input type="radio" id="website_submit_captcha2" name="website_submit_captcha" value="0" {eq name="data.website_submit_captcha" value="0"}checked{/eq}>
+                                <label for="website_submit_captcha2"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button close')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="website_static" class="col-lg-2 control-label">{:lang('safe website static')}</label>
+                    <div class="col-lg-10">
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs  {eq name="data.website_static" value="1"}checked{/eq}">
+                                <input type="radio" id="website_static1" name="website_static" value="1" {eq name="data.website_static" value="1"}checked{/eq}>
+                                <label for="website_static1"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button open')}
+                            </div>
+                        </div>
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs  {eq name="data.website_static" value="0"}checked{/eq}">
+                                <input type="radio" id="website_static2" name="website_static" value="0" {eq name="data.website_static" value="0"}checked{/eq}>
+                                <label for="website_static2"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button close')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="upload_file_max" class="col-lg-2 control-label">{:lang('safe upload file max')}</label>
+                    <div class="col-lg-10">
+                        <div class="input-group">
+                            <input type="text" name="upload_file_max" id="upload_file_max" class="form-control" value="{$data.upload_file_max}">
+                            <span class="input-group-addon">MB</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="upload_file_type" class="col-lg-2 control-label">{:lang('safe upload file type')}</label>
+                    <div class="col-lg-10">
+                        <textarea name="upload_file_type" id="upload_file_type" class="form-control">{$data.upload_file_type}</textarea>
+                        <font class="grey align-t">{:lang('safe upload file type info')}</font>
+                    </div>
+                </div>
 
 
 
                 <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
+                        {:token()}
                         <input type="submit" value="{:lang('button save')}" class="btn btn-info marginTB-xs">
                     </div>
                 </div>

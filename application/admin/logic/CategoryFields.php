@@ -108,7 +108,7 @@ class CategoryFields extends Model
         if (empty($data)) {
             return ;
         }
-        $option = '<select name="category_id[]" id="category_id_' . $ajax_param . '" class="form-control op" data-type="' . $ajax_param . '" onchange="fieldsCategory(this)">';
+        $option = '<select name="category_id[]" id="category_id_' . $ajax_param . '" class="form-control op fieldsCategory" data-type="' . $ajax_param . '">';
         $option .= '<option value="0">' . Lang::get('select category') . '</option>';
         foreach ($data as $value) {
             $option .= '<option value="' . $value['id'] . '">' . $value['name'] . '</option>';

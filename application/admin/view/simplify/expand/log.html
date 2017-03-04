@@ -1,0 +1,38 @@
+<div class="smart-widget">
+    <div class="smart-widget-header">
+        {$__SUB_TITLE__}
+    </div>
+    <div class="smart-widget-inner">
+        <div class="smart-widget-body">
+            <form action="" method="post" class="form-horizontal">
+                <table class="table table-striped" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>{:lang('runuser')}</th>
+                            <th>{:lang('runaction')}</th>
+                            <th>{:lang('remark')}</th>
+                            <th>{:lang('dataid')}</th>
+                            <th>{:lang('ip')}</th>
+                            <th>{:lang('runtime')}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {volist name="list" id="vo"}
+                        <tr>
+                            <td>{$vo.username} [{$vo.role_name}]</td>
+                            <td>{$vo.model} [{$vo.title}]</td>
+                            <td>{$vo.remark}</td>
+                            <td>{$vo.record_id}</td>
+                            <td>{$vo.action_ip}</td>
+                            <td>{$vo.create_time|date="Y-m-d H:i:s", ###}</td>
+                        </tr>
+                        {/volist}
+                    </tbody>
+                </table>
+            </form>
+            <div>
+            {$page}
+            </div>
+        </div>
+    </div>
+</div>

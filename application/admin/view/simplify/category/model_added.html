@@ -1,0 +1,69 @@
+<div class="smart-widget">
+    <div class="smart-widget-header">
+        {$__SUB_TITLE__}
+    </div>
+    <div class="smart-widget-inner">
+        <div class="smart-widget-body">
+            <form action="" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label for="name" class="col-lg-2 control-label">{:lang('modelname')}</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="name" id="name" class="form-control" value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="table_name" class="col-lg-2 control-label">{:lang('tablename')}</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="table_name" id="table_name" class="form-control" value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="status" class="col-lg-2 control-label">{:lang('status')}</label>
+                    <div class="col-lg-10">
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs checked">
+                                <input type="radio" id="status1" name="status" value="1" checked>
+                                <label for="status1"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button open')}
+                            </div>
+                        </div>
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs">
+                                <input type="radio" id="status2" name="status" value="0">
+                                <label for="status2"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button close')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="remark" class="col-lg-2 control-label">{:lang('remark')}</label>
+                    <div class="col-lg-10">
+                        <textarea name="remark" id="remark" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="model_table" class="col-lg-2 control-label">{:lang('modeltable')}</label>
+                    <div class="col-lg-10">
+                        <select name="model_table" id="model_table" class="form-control">
+                            {volist name="model_list" id="vo"}
+                            <option value="{$vo.table_name}">{:lang('model ' . $vo['name'])}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        {:token()}
+                        <input type="submit" value="{:lang('button save')}" class="btn btn-info marginTB-xs">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

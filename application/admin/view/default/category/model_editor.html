@@ -30,7 +30,7 @@
 			<div class="col-md-6">
 				<select name="model_table" id="model_table" class="form-control" disabled>
 					{volist name="model_list" id="vo"}
-					<option value="{$vo.table_name}">{:lang('model ' . $vo['name'])}</option>
+					<option value="{$vo.table_name}" {eq name="data.table_name" value="$vo['table_name']"}selected{/eq}>{:lang('model ' . $vo['name'])}</option>
 					{/volist}
 				</select>
 			</div>
