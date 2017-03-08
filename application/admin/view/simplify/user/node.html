@@ -1,0 +1,69 @@
+<div class="smart-widget">
+    <div class="smart-widget-header">
+        {$__SUB_TITLE__}
+
+        {include file="public/button" /}
+    </div>
+    <div class="smart-widget-inner">
+        <div class="smart-widget-body">
+            <form action="" method="post" class="form-horizontal">
+                <table class="table table-striped" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>{:lang('sort')}</th>
+                            <th>{:lang('node title')}</th>
+                            <th>{:lang('node name')}</th>
+                            <th>{:lang('status')}</th>
+                            <th>{:lang('remark')}</th>
+                            <th>{:lang('level')}</th>
+                            <th>{:lang('operation')}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <form action="" method="post">
+                        {volist name="list" id="vo"}
+                        <tr>
+                            <td>
+                                <input type="text" name="sort[{$vo.id}]" class="form-control mini" value="{$vo.sort}">
+                            </td>
+                            <td>{$vo.title}</td>
+                            <td>{$vo.name}</td>
+                            <td>
+                                {eq name="vo.status" value="1"}
+                                {:lang('button open')}
+                                {else/}
+                                {:lang('button close')}
+                                {/eq}
+                            </td>
+                            <td>{$vo.remark}</td>
+                            <td>
+                                {if condition="$vo.level eq 1"}
+                                {:lang('module')}
+                                {elseif condition="$vo.level eq 2" /}
+                                {:lang('controller')}
+                                {else/}
+                                {:lang('model')}
+                                {/if}
+                            </td>
+                            <td>
+                                <a href="{:url('', array('method' => 'editor', 'id' => $vo['id']))}"><i class="fa fa-edit"></i>{:lang('button editor')}</a>
+                                <a href="{:url('', array('method' => 'remove', 'id' => $vo['id']))}" class="remove"><i class="fa fa-times"></i>{:lang('button delete')}</a>
+                            </td>
+                        </tr>
+                        {/volist}
+                        <tr>
+                            <td><input type="submit" value="{:lang('sort')}" class="btn btn-primary"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        </form>
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>

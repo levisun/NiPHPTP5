@@ -211,6 +211,12 @@ class UserAdmin extends Model
         $admin->where($map)
         ->delete();
 
+        $map = ['user_id' => $this->request->param('id/f')];
+        $role_admin = new AdminRoleAdmin;
+        $result =
+        $role_admin->where($map)
+        ->delete();
+
         return $result ? true : false;
     }
 }

@@ -1,0 +1,85 @@
+<div class="smart-widget">
+    <div class="smart-widget-header">
+        {$__SUB_TITLE__}
+    </div>
+    <div class="smart-widget-inner">
+        <div class="smart-widget-body">
+            <form action="" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label for="name" class="col-lg-2 control-label">{:lang('rolename')}</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="name" id="name" class="form-control" value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="status" class="col-lg-2 control-label">{:lang('status')}</label>
+                    <div class="col-lg-10">
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs checked">
+                                <input type="radio" id="status1" name="status" value="1" checked>
+                                <label for="status1"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button open')}
+                            </div>
+                        </div>
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs">
+                                <input type="radio" id="status2" name="status" value="0">
+                                <label for="status2"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button close')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="remark" class="col-lg-2 control-label">{:lang('remark')}</label>
+                    <div class="col-lg-10">
+                        <textarea name="remark" id="remark" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-lg-2 control-label">{:lang('rolenode')}</label>
+                    <div class="col-lg-10">
+                        <div class="checkbox inline-block">
+                            {volist name="node" id="vo"}
+                            <input type="hidden" name="node[{$vo.level}][{$vo.name}]" value="{$vo.id}" checked>
+
+                                {volist name="vo.child" id="v"}
+                                <p>
+                                    <div class="custom-checkbox">
+                                        <input type="checkbox" name="node[{$v.level}][{$v.name}]" id="node[{$v.level}][{$v.name}]" class="checkbox-red" value="{$v.id}" checked>
+                                        <label for="node[{$v.level}][{$v.name}]"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {$v.title}
+                                    </div>
+
+                                    {volist name="v.child" id="c"}
+                                    <div class="custom-checkbox">
+                                        <input type="checkbox" name="node[{$c.level}][{$v.name}_{$c.name}]" id="node[{$c.level}][{$v.name}_{$c.name}]" class="checkbox-red" value="{$c.id}">
+                                        <label for="node[{$c.level}][{$v.name}_{$c.name}]"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {$c.title}
+                                    </div>
+                                    {/volist}
+                                </p>
+                                {/volist}
+                            {/volist}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        {:token()}
+                        <input type="submit" value="{:lang('button save')}" class="btn btn-info marginTB-xs">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

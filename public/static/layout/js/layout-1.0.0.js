@@ -27,6 +27,9 @@ Layout.fieldsCategory = function (element, url) {
     jQuery(element).change(function(){
         var id = jQuery(element).val();
         var type = jQuery(element).attr('data-type');
+        if (!id) {
+            return false;
+        }
         jQuery.ajax({
             type: 'post',
             async: false,

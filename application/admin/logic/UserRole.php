@@ -222,9 +222,10 @@ class UserRole extends Model
                 $data['level'] = $key;
                 $data['module'] = $k;
 
-                $access->allowField(true)
-                ->isUpdate(true)
-                ->save($data, $map);
+                $access->data($data)
+                ->allowField(true)
+                ->isUpdate(false)
+                ->save();
             }
         }
 

@@ -1,0 +1,81 @@
+<div class="smart-widget">
+    <div class="smart-widget-header">
+        {$__SUB_TITLE__}
+    </div>
+    <div class="smart-widget-inner">
+        <div class="smart-widget-body">
+            <form action="" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label for="title" class="col-lg-2 control-label">{:lang('node title')}</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="title" id="title" class="form-control" value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="name" class="col-lg-2 control-label">{:lang('node name')}</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="name" id="name" class="form-control" value="">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="pid" class="col-lg-2 control-label">{:lang('parent')}</label>
+                    <div class="col-lg-10">
+                        <select name="pid" id="pid" class="form-control">
+                            <option value="0">{:lang('select parent')}</option>
+                            {volist name="node" id="vo"}
+                            <option value="{$vo.id}">{$vo.title}</option>
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="level" class="col-lg-2 control-label">{:lang('level')}</label>
+                    <div class="col-lg-10">
+                        <select name="level" id="level" class="form-control">
+                            <option value="">{:lang('select level')}</option>
+                            <option value="1">{:lang('module')}</option>
+                            <option value="2">{:lang('controller')}</option>
+                            <option value="3">{:lang('model')}</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="remark" class="col-lg-2 control-label">{:lang('remark')}</label>
+                    <div class="col-lg-10">
+                        <textarea name="remark" id="remark" class="form-control"></textarea>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="status" class="col-lg-2 control-label">{:lang('status')}</label>
+                    <div class="col-lg-10">
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs checked">
+                                <input type="radio" id="status1" name="status" value="1" checked>
+                                <label for="status1"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button open')}
+                            </div>
+                        </div>
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs">
+                                <input type="radio" id="status2" name="status" value="0">
+                                <label for="status2"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button close')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        {:token()}
+                        <input type="submit" value="{:lang('button save')}" class="btn btn-info marginTB-xs">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -10,8 +10,9 @@
                 <table class="table table-striped" id="dataTable">
                     <thead>
                         <tr>
-                            <th>{:lang('typename')}</th>
-                            <th>{:lang('fieldscategory')}</th>
+                            <th>{:lang('rolename')}</th>
+                            <th>{:lang('status')}</th>
+                            <th>{:lang('remark')}</th>
                             <th>{:lang('operation')}</th>
                         </tr>
                     </thead>
@@ -19,7 +20,14 @@
                         {volist name="list" id="vo"}
                         <tr>
                             <td>{$vo.name}</td>
-                            <td><a href="{:url('', array('cid' => $vo['category_id']))}">{$vo.cat_name}</a></td>
+                            <td>
+                                {eq name="vo.status" value="1"}
+                                {:lang('button open')}
+                                {else/}
+                                {:lang('button close')}
+                                {/eq}
+                            </td>
+                            <td>{$vo.remark}</td>
                             <td>
                                 <a href="{:url('', array('method' => 'editor', 'id' => $vo['id']))}"><i class="fa fa-edit"></i>{:lang('button editor')}</a>
                                 <a href="{:url('', array('method' => 'remove', 'id' => $vo['id']))}" class="remove"><i class="fa fa-times"></i>{:lang('button delete')}</a>
