@@ -1,0 +1,62 @@
+<div class="smart-widget">
+    <div class="smart-widget-header">
+        {$__SUB_TITLE__}
+
+        <span class="smart-widget-option">
+            <a href="{:url('', array('pass' => 'pass'))}" class="btn btn-default btn-xs">
+                <span class="fa fa-eye-slash"></span>{:lang('button unexamined')}
+            </a>
+            <a href="{:url('', array('report' => 'report'))}" class="btn btn-default btn-xs">
+                <span class="fa fa-warning"></span>{:lang('button report')}
+            </a>
+            <a href="{:url()}" class="btn btn-default btn-xs">
+                <span class="fa fa-eye"></span>{:lang('button all')}
+            </a>
+        </span>
+    </div>
+    <div class="smart-widget-inner">
+        <div class="smart-widget-body">
+            <form action="" method="post" class="form-horizontal">
+                <table class="table table-striped" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>{:lang('id')}</th>
+                            <th>{:lang('username')}</th>
+                            <th>{:lang('content')}</th>
+                            <th>{:lang('button unexamined')}</th>
+                            <th>{:lang('button report')}</th>
+                            <th>{:lang('operation')}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {volist name="list" id="vo"}
+                        <tr>
+                            <td>{$vo.id}</td>
+                            <td>{$vo.username}</td>
+                            <td title="{$vo.content}">{$vo.content|mb_substr=0,10}</td>
+                            <td>
+                                {eq name="vo.is_pass" value="0"}
+                                {:lang('button yes')}
+                                {else/}
+                                {:lang('button no')}
+                                {/eq}
+                            </td>
+                            <td>
+                                {eq name="vo.is_report" value="1"}
+                                <b style="color:red;">{:lang('button yes')}</b>
+                                {else/}
+                                {:lang('button no')}
+                                {/eq}
+                            </td>
+                            <td>
+                                <a href="{:url('', array('method' => 'editor', 'id' => $vo['id']))}"><i class="fa fa-edit"></i>{:lang('button check')}</a>
+                                <a href="{:url('', array('method' => 'remove', 'id' => $vo['id']))}" class="remove"><i class="fa fa-times"></i>{:lang('button delete')}</a>
+                            </td>
+                        </tr>
+                        {/volist}
+                    </tbody>
+                </table>
+            </form>
+        </div>
+    </div>
+</div>

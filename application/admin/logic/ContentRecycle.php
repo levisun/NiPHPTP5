@@ -56,7 +56,9 @@ class ContentRecycle extends Model
      */
     public function getListData()
     {
-        $map = ['category_id' => $this->request->param('cid/f')];
+        $map = [
+            'category_id' => $this->request->param('cid/f'),
+            ];
         if ($key = $this->request->param('key')) {
             $map['remark'] = ['LIKE', '%' . $key . '%'];
         }
@@ -71,9 +73,10 @@ class ContentRecycle extends Model
 
         $this->table_model->field(true);
         $this->table_model->where($map);
+        $this->table_model->where('delete_time', 'not null');
         $this->table_model->order($order);
         $result =
-        $this->table_model->onlyTrashed()->paginate();
+        $this->table_model->withTrashed()->paginate();
 
         $list = [];
         foreach ($result as $value) {
@@ -163,6 +166,7 @@ class ContentRecycle extends Model
             ->delete();
         }
 
+        return true;
         return $result ? true : false;
     }
 }

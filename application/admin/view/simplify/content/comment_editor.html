@@ -1,0 +1,68 @@
+<div class="smart-widget">
+    <div class="smart-widget-header">
+        {$__SUB_TITLE__}
+    </div>
+    <div class="smart-widget-inner">
+        <div class="smart-widget-body">
+            <form action="" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">{:lang('username')}</label>
+                    <div class="col-lg-10">
+                        {$data.username}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">IP</label>
+                    <div class="col-lg-10">
+                        {$data.ip}[{$data.ip_attr}]
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">{:lang('content')}</label>
+                    <div class="col-lg-10">
+                        <pre>{$data.content}</pre>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">{:lang('button report')}</label>
+                    <div class="col-lg-10">
+                        <label class="radio-indivne"><input type="radio" name="is_report" value="1" {eq name="data.is_report" value="1"}checked{/eq} >{:lang('button yes')}</label>
+                        <label class="radio-indivne"><input type="radio" name="is_report" value="0" {eq name="data.is_report" value="0"}checked{/eq} >{:lang('button no')}</label>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="report" class="col-lg-2 control-label">{:lang('report')}</label>
+                    <div class="col-lg-10">
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs {eq name="data.is_report" value="1"}checked{/eq}">
+                                <input type="radio" id="report1" name="report" value="1" {eq name="data.is_report" value="1"}checked{/eq}>
+                                <label for="report1"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button yes')}
+                            </div>
+                        </div>
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs {eq name="data.is_report" value="0"}checked{/eq}">
+                                <input type="radio" id="report2" name="report" value="0" {eq name="data.is_report" value="0"}checked{/eq}>
+                                <label for="report2"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button no')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        {:token()}
+                        <input type="hidden" name="id" value="{$data.id}">
+
+                        <input type="submit" value="{:lang('button check')}" class="btn btn-info marginTB-xs">
+                        <a href="{:url('', array('method' => 'remove', 'id' => $data['id']))}" class="btn btn-warning marginTB-xs">{:lang('button delete')}</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

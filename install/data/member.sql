@@ -24,7 +24,7 @@ CREATE TABLE IF NOT EXISTS `np_member` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `username` (`username`),
   KEY `email` (`email`),
-  KEY `phone` (`phone`),
+  UNIQUE KEY `phone` (`phone`),
   KEY `password` (`password`),
   KEY `gender` (`gender`),
   KEY `birthday` (`birthday`),

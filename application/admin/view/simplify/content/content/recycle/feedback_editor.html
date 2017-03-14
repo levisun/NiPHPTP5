@@ -1,0 +1,74 @@
+<div class="smart-widget">
+    <div class="smart-widget-header">
+        {$__SUB_TITLE__}
+    </div>
+    <div class="smart-widget-inner">
+        <div class="smart-widget-body">
+            <form action="" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">{:lang('title')}</label>
+                    <div class="col-lg-10">
+                        {$data.title}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">{:lang('username')}</label>
+                    <div class="col-lg-10">
+                        {$data.username}
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="type_id" class="col-lg-2 control-label">{:lang('type')}</label>
+                    <div class="col-lg-10">
+                        {volist name="type" id="vo"}
+                        {eq name="vo.id" value="$data.type_id"}{$vo.name}{/eq}
+                        {/volist}
+                    </div>
+                </div>
+                <divdiv class="form-group">
+                    <label class="col-lg-2 control-label">IP</label>
+                    <div class="col-lg-10">
+                        {$data.ip}[{$data.ip_attr}]
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">{:lang('content')}</label>
+                    <div class="col-lg-10">
+                        <pre>{$data.content}</pre>
+                    </div>
+                </div>
+                {volist name="data.field_data" id="vo"}
+                <div class="form-group">
+                    <label for="seo_title" class="col-lg-2 control-label">{$vo.field_name}</label>
+                    <div class="col-lg-10">
+                        {$vo.field_data}
+                    </div>
+                </div>
+                {/volist}
+                <div class="form-group">
+                    <label class="col-lg-2 control-label">{:lang('button check')}</label>
+                    <div class="col-lg-10">
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs {eq name="data.is_pass" value="1"}checked{/eq}">
+                                <input type="radio" id="is_pass1" name="is_pass" value="1" {eq name="data.is_pass" value="1"}checked{/eq}>
+                                <label for="is_pass1"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button yes')}
+                            </div>
+                        </div>
+                        <div class="radio inline-block">
+                            <div class="custom-radio m-right-xs {eq name="data.is_pass" value="0"}checked{/eq}">
+                                <input type="radio" id="is_pass2" name="is_pass" value="0" {eq name="data.is_pass" value="0"}checked{/eq}>
+                                <label for="is_pass2"></label>
+                            </div>
+                            <div class="inline-block vertical-top">
+                                {:lang('button no')}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

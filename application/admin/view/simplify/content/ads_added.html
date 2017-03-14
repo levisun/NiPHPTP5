@@ -1,0 +1,78 @@
+{css href="__LIBRARY__datetimepicker/css/bootstrap-datetimepicker.min.css" /}
+{js href="__LIBRARY__moment/moment.min.js" /}
+{js href="__LIBRARY__moment/locale/zh-cn.js" /}
+{js href="__LIBRARY__datetimepicker/js/bootstrap-datetimepicker.min.js" /}
+<div class="smart-widget">
+    <div class="smart-widget-header">
+        {$__SUB_TITLE__}
+    </div>
+    <div class="smart-widget-inner">
+        <div class="smart-widget-body">
+            <form action="" method="post" class="form-horizontal">
+                <div class="form-group">
+                    <label for="name" class="col-lg-2 control-label">{:lang('ads name')}</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="name" id="name" class="form-control">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-lg-2 control-label">{:lang('size')}</label>
+                    <div class="col-lg-10">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <input type="text" name="width" id="width" class="form-control">
+                            </div>
+                            <div class="col-lg-2">
+                                <input type="text" name="height" id="height" class="form-control">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="" class="col-lg-2 control-label">{:lang('time')}</label>
+                    <div class="col-lg-10">
+                        <div class="row">
+                            <div class="col-lg-2">
+                                <input type="text" name="start_time" id="starttime" class="form-control">
+                            </div>
+                            <div class="col-lg-2">
+                                <input type="text" name="end_time" id="endtime" class="form-control">
+                            </div>
+                        </div>
+                        <script type="text/javascript">
+                        $(function () {
+                            $('#starttime').datetimepicker(
+                                {format: 'Y-M-D', viewMode: 'years'}
+                                );
+                            $('#endtime').datetimepicker(
+                                {format: 'Y-M-D', viewMode: 'years'}
+                                );
+                        });
+                        </script>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="image" class="col-lg-2 control-label">{:lang('ads image')}</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="image" id="image" class="form-control">
+                        <button type="button" class="btn btn-info btn-sm np-upload" data-type="ads" data-id="image" data-model="">{:lang('button upload')}</button>
+                        <img src="" id="img-image" width="100" style="display:none">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="url" class="col-lg-2 control-label">{:lang('ads url')}</label>
+                    <div class="col-lg-10">
+                        <input type="text" name="url" id="url" class="form-control">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        {:token()}
+                        <input type="submit" value="{:lang('button save')}" class="btn btn-info marginTB-xs">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

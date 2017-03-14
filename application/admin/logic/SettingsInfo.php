@@ -72,7 +72,7 @@ class SettingsInfo extends Model
         $visit = new AdminVisit;
         $result = $visit
         ->field(true)
-        ->where(['date' => ['egt', strtotime('-7 days')]])
+        ->where(['date' => ['egt', strtotime('-10 days')]])
         ->select();
 
         $date = $count = [];
@@ -87,8 +87,18 @@ class SettingsInfo extends Model
         }
         $sys_data['visit'] = [
             'date'  => '\'' . implode("','", $date) . '\'',
-            'count' => implode(',', $count)
+            // 'count' => '[' . implode('],[', $count) . ']'
         ];
+        $num = 0;
+        foreach ($count as $key => $value) {
+            $sys_data['visit']['count'][] = '[' . date('d', $key) . ', ' . $value . ']';
+            $num++;
+        }
+        if (!empty($sys_data['visit']['count'])) {
+            $sys_data['visit']['count'] = implode(',', $sys_data['visit']['count']);
+        }
+
+
 
         return $sys_data;
     }

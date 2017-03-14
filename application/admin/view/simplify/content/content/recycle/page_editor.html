@@ -1,0 +1,111 @@
+<div class="smart-widget">
+    <div class="smart-widget-header">
+        {$__SUB_TITLE__}
+    </div>
+    <div class="smart-widget-inner">
+        <div class="smart-widget-body">
+            <form action="" method="post" class="form-horizontal">
+                <ul class="nav nav-tabs nav-justified" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#CT-basic" id="tab-CT-basic" aria-controls="CT-basic" role="tab" data-toggle="tab">{:lang('basic')}</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#CT-content" id="tab-CT-content" aria-controls="CT-content" role="tab" data-toggle="tab">{:lang('content')}</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#CT-fields" id="tab-CT-fields" aria-controls="CT-fields" role="tab" data-toggle="tab">{:lang('fields')}</a>
+                    </li>
+                </ul>
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="CT-basic">
+                        <div class="form-group">
+                            <label for="title" class="col-lg-2 control-label">{:lang('title')}</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="title" id="title" class="form-control" value="{$data.title}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="keywords" class="col-lg-2 control-label">{:lang('keywords')}</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="keywords" id="keywords" class="form-control" value="{$data.keywords}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="description" class="col-lg-2 control-label">{:lang('description')}</label>
+                            <div class="col-lg-10">
+                                <textarea name="description" id="description" class="form-control">{$data.description}</textarea>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="thumb" class="col-lg-2 control-label">{:lang('thumb')}</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="thumb" id="thumb" class="form-control" value="{$data.thumb}">
+                                <button type="button" class="btn btn-info btn-sm np-upload" data-type="image" data-id="thumb" data-model="{$model_name}">{:lang('button upload')}</button>
+                                <img src="{$data.thumb}" id="img-thumb" width="100" style="display:none">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="type_id" class="col-lg-2 control-label">{:lang('type')}</label>
+                            <div class="col-lg-10">
+                                <select name="type_id" id="type_id" class="form-control">
+                                    <option value="0">{:lang('select type')}</option>
+                                    {volist name="type" id="vo"}
+                                    <option value="{$vo.id}" {eq name="vo.id" value="$data.type_id"}selected="selected"{/eq}>{$vo.name}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="username" class="col-lg-2 control-label">{:lang('username')}</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="username" id="username" class="form-control" value="{$data.username}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="origin" class="col-lg-2 control-label">{:lang('origin')}</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="origin" id="origin" class="form-control" value="{$data.origin}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="tags" class="col-lg-2 control-label">{:lang('tags')}</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="tags" id="tags" class="form-control" placeholder="{:lang('tags_info')}" value="{$data.tags}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="access_id" class="col-lg-2 control-label">{:lang('access')}</label>
+                            <div class="col-lg-10">
+                                <select name="access_id" id="access_id" class="form-control">
+                                    <option value="0" {eq name="data.access_id" value="0"selected="selected"{/eq}>{:lang('select access')}</option>
+                                    {volist name="level" id="vo"}
+                                    <option value="{$vo.id}" {eq name="vo.id" value="$data['access_id']"selected="selected"{/eq}>{$vo.name}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="CT-content">
+                        <div class="form-group">
+                            <label for="website_description" class="col-lg-2 control-label">{:lang('content')}</label>
+                            <div class="col-md-10">
+                                <textarea name="content" class="form-control ckeditor">{$data.content}</textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div role="tabpanel" class="tab-pane" id="CT-fields">
+                        {volist name="data.field_data" id="vo"}
+                        <div class="form-group">
+                            <label for="" class="col-lg-2 control-label">{$vo.field_name}</label>
+                            <div class="col-lg-10">
+                                {$vo.input}
+                            </div>
+                        </div>
+                        {/volist}
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

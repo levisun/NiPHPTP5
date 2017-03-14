@@ -1,0 +1,80 @@
+<div class="smart-widget">
+    <div class="smart-widget-header">
+        {$__SUB_TITLE__}
+
+        {include file="public/button" /}
+    </div>
+    <div class="smart-widget-inner">
+        <div class="smart-widget-body">
+            <form action="" method="post" class="form-horizontal">
+                <table class="table table-striped" id="dataTable">
+                    <thead>
+                        <tr>
+                            {eq name="sort" value="1"}
+                            <th>{:lang('sort')}</th>
+                            {/eq}
+                            <th>{:lang('title')}</th>
+                            <th>{:lang('status')}</th>
+                            <th>{:lang('create time')}</th>
+                            <th>{:lang('update time')}</th>
+                            <th>{:lang('operation')}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {volist name="list" id="vo"}
+                        <tr>
+                            {eq name="sort" value="1"}
+                            <td><input type="text" name="sort[{$vo.id}]" class="form-control mini" value="{$vo.sort}"></td>
+                            {/eq}
+                            <td>{$vo.title}</td>
+                            <td>
+                                <a class="btn btn-danger btn-xs disabled">
+                                {eq name="vo.is_pass" value="1"}
+                                {:lang('is_pass')}
+                                {else/}
+                                {:lang('no_pass')}
+                                {/eq}
+                                </a>
+
+                                {notempty name="vo.is_com"}
+                                <a class="btn btn-primary btn-xs disabled">{:lang('com')}</a>
+                                {/notempty}
+
+                                {notempty name="vo.is_top"}
+                                <a class="btn btn-primary btn-xs disabled">{:lang('top')}</a>
+                                {/notempty}
+
+                                {notempty name="vo.is_hot"}
+                                <a class="btn btn-primary btn-xs disabled">{:lang('hot')}</a>
+                                {/notempty}
+                            </td>
+                            <td>{$vo.create_time|date="Y-m-d", ###}</td>
+                            <td>{$vo.update_time|date="Y-m-d", ###}</td>
+                            <td>
+                                <a href="{:url('', array('method' => 'editor', 'cid' => $Request.param.cid, 'id' => $vo['id']))}"><i class="fa fa-edit"></i>{:lang('button editor')}</a>
+                                <a href="{:url('', array('method' => 'remove', 'cid' => $Request.param.cid, 'id' => $vo['id']))}" class="remove"><i class="fa fa-times"></i>{:lang('button delete')}</a>
+                            </td>
+                        </tr>
+                        {/volist}
+                        {eq name="sort" value="1"}
+                        <tr>
+                            <td>
+                                <input type="hidden" name="cid" value="{$Request.param.cid}">
+                                <input type="submit" value="{:lang('sort')}" class="btn btn-success">
+                            </td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        {/eq}
+                    </tbody>
+                </table>
+            </form>
+            <div>
+            {$page}
+            </div>
+        </div>
+    </div>
+</div>
