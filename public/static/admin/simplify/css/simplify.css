@@ -1,4 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Raleway:400,600,700,500);
+.tab-content {
+  padding-top: 15px;
+}
 #overlay {
   background: rgba(0, 0, 0, 0.8);
   left: 0;
@@ -290,14 +293,14 @@ a.list-group-item.active:focus {
         @media (min-width: @screen-md) {
             .nav-header {
                 width: @sidebar-mini-width;
-                
+
                 .brand-name {
-                    display: none;   
+                    display: none;
                 }
             }
-            
+
             .nav-container  {
-                margin-left:  @sidebar-mini-width;  
+                margin-left:  @sidebar-mini-width;
             }
         }
     }*/
@@ -2053,12 +2056,12 @@ a.list-group-item.active:focus {
 /*.overview-statistic {
     padding: 15px;
     text-align: center;
-    
+
     .stat-title {
-        text-transform: uppercase;  
+        text-transform: uppercase;
         font-size: 11px;
     }
-    
+
     .stat-value {
         font-size: 21px;
     }
@@ -2240,16 +2243,16 @@ a.list-group-item.active:focus {
     .inner-container {
         padding: 20px;
         border-right: 1px solid #eee;
-       
+
         .stat-detail    {
-            display: inline-block;   
+            display: inline-block;
             padding-left: 20px;
             padding-right: 20px;
         }
-        
+
         .stat-icon  {
             display: inline-block;
-            
+
             i   {
                 font-size: 62px;
                 line-height: 80px;
@@ -4807,7 +4810,7 @@ label.parsley-error {
   width: 50%;
   padding: 10px;
   /*@media (max-width: @screen-md) {
-                width: 50%;   
+                width: 50%;
             }*/
 }
 @media (max-width: 767px) {
@@ -5182,7 +5185,7 @@ label.parsley-error {
                     display: block;
                     width: 1px;
                     top: 0px;
-                    bottom: 20px;    
+                    bottom: 20px;
                     left: 15px;
                     background-color: #ddd;
                 }*/
@@ -5195,7 +5198,7 @@ label.parsley-error {
                             display: block;
                             width: 1px;
                             top: 0;
-                            bottom: 0;    
+                            bottom: 0;
                             left: -5px;
                             background-color: #ddd;
                         }*/

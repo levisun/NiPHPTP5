@@ -96,6 +96,8 @@ class SettingsInfo extends Model
         }
         if (!empty($sys_data['visit']['count'])) {
             $sys_data['visit']['count'] = implode(',', $sys_data['visit']['count']);
+        } else {
+            $sys_data['visit']['count'] = '';
         }
 
 

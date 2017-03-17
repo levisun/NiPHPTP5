@@ -41,7 +41,7 @@ return [
 
     /* 全局信息 */
     'upload file'           => '上传',
-    'website home'          => '网站首页',
+    'website home'          => '首页',
     'illegal operation'     => '无效操作！',
     'success added'         => '添加成功！',
     'error added'           => '添加失败！',

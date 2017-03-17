@@ -17,10 +17,12 @@
                     </a>
                 </li>
                 {volist name="__MENU__" id="vo" key="k"}
-                <li class="openable bg-palette{$k} {if condition="$Request.controller eq ucfirst($key)"} open{/if}">
+                <li class="openable bg-palette4 {if condition="$Request.controller eq ucfirst($key)"} open{/if}">
                     <a href="#">
                         <span class="menu-content block">
-                            <span class="menu-icon"><i class="block fa fa-{:config($key)} fa-lg"></i></span>
+                            <span class="menu-icon">
+                                <i class="block fa fa-{:config($key)} fa-lg"></i>
+                            </span>
                             <span class="text m-left-sm">{$vo.name}</span>
                             <span class="submenu-icon"></span>
                         </span>
@@ -30,7 +32,9 @@
                     </a>
                     <ul class="submenu bg-palette4">
                         {volist name="vo.menu" id="v"}
-                        <li {eq name="Request.action" value="$v.action"}class="active"{/eq}><a href="{$v.url}"><span class="submenu-label">{$v.lang}</span></a></li>
+                        <li {eq name="Request.action" value="$v.action"}class="active"{/eq}>
+                            <a href="{$v.url}"><span class="submenu-label">{$v.lang}</span></a>
+                        </li>
                         {/volist}
                     </ul>
                 </li>
