@@ -8,7 +8,7 @@
 // +----------------------------------------------------------------------
 // | Author: liu21st <liu21st@gmail.com>
 // +----------------------------------------------------------------------
-namespace util;
+
 /**
  +------------------------------------------------------------------------------
  * 基于角色的数据库方式验证类
@@ -71,6 +71,8 @@ CREATE TABLE IF NOT EXISTS `think_role_user` (
   KEY `user_id` (`user_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 */
+namespace util;
+
 class Rbac {
     // 认证方法
     static public function authenticate($map,$model='') {
@@ -102,8 +104,8 @@ class Rbac {
     static function checkAccess() {
         //如果项目要求认证，并且当前模块需要认证，则进行权限认证
         if( config('USER_AUTH_ON') ){
-            $_module = array();
-            $_action = array();
+            $_module = [];
+            $_action = [];
             if("" != config('REQUIRE_AUTH_MODULE')) {
                 //需要认证的模块
                 $_module['yes'] = explode(',',strtoupper(config('REQUIRE_AUTH_MODULE')));
@@ -199,22 +201,26 @@ class Rbac {
      +----------------------------------------------------------
      */
     static public function getAccessList($authId) {
+        if (empty($authId)) {
+            return [];
+        }
+
         // Db方式权限数据
-        $db     =   db();
+        $db = db();
         $table = array('role'=>config('RBAC_ROLE_TABLE'),'user'=>config('RBAC_USER_TABLE'),'access'=>config('RBAC_ACCESS_TABLE'),'node'=>config('RBAC_NODE_TABLE'));
-        $sql    =   "select node.id,node.name from ".
+        $sql = "select node.id,node.name from ".
                     $table['role']." as role,".
                     $table['user']." as user,".
                     $table['access']." as access ,".
                     $table['node']." as node ".
                     "where user.user_id='{$authId}' and user.role_id=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=1 and access.node_id=node.id and node.level=1 and node.status=1";
-        $apps =   $db->query($sql);
-        $access =  array();
+        $apps = $db->query($sql);
+        $access = [];
         foreach($apps as $key=>$app) {
             $appId = $app['id'];
             $appName  =  $app['name'];
             // 读取项目的模块权限
-            $access[strtoupper($appName)]   =  array();
+            $access[strtoupper($appName)] =  [];
             $sql    =   "select node.id,node.name from ".
                     $table['role']." as role,".
                     $table['user']." as user,".
@@ -223,7 +229,7 @@ class Rbac {
                     "where user.user_id='{$authId}' and user.role_id=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=1 and access.node_id=node.id and node.level=2 and node.pid={$appId} and node.status=1";
             $modules =   $db->query($sql);
             // 判断是否存在公共模块的权限
-            $publicAction  = array();
+            $publicAction = [];
             foreach($modules as $key=>$module) {
                 $moduleId  =  $module['id'];
                 $moduleName = $module['name'];
@@ -253,7 +259,7 @@ class Rbac {
                     $table['node']." as node ".
                     "where user.user_id='{$authId}' and user.role_id=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=1 and access.node_id=node.id and node.level=3 and node.pid={$moduleId} and node.status=1";
                 $rs =   $db->query($sql);
-                $action = array();
+                $action = [];
                 foreach ($rs as $a){
                     $action[$a['name']]  =  $a['id'];
                 }
@@ -276,7 +282,7 @@ class Rbac {
                     $table['access']." as access ".
                     "where user.user_id='{$authId}' and user.role_id=role.id and ( access.role_id=role.id  or (access.role_id=role.pid and role.pid!=0 ) ) and role.status=1 and  access.module='{$module}' and access.status=1";
         $rs =   $db->query($sql);
-        $access = array();
+        $access = [];
         foreach ($rs as $node){
             $access[] = $node['node_id'];
         }

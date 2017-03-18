@@ -38,12 +38,12 @@ class Article extends Model
     /**
      * 设置模型名
      * @access public
-     * @param  string $name_ 模型名
+     * @param  string $name 模型名
      * @return void
      */
-    public function setTableModel($name_)
+    public function setTableModel($name)
     {
-        $this->model_name = $name_;
+        $this->model_name = $name;
     }
 
     /**

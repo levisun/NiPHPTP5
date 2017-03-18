@@ -23,12 +23,6 @@ class MallBrand extends Model
 {
     protected $request = null;
 
-    protected $to_html = [
-        'mall_bottom_message',
-        'mall_copyright',
-        'mall_script'
-    ];
-
     protected function initialize()
     {
         parent::initialize();

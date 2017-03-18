@@ -1,5 +1,4 @@
 <?php
-  namespace util;
 // --------------------------------------------------------------------------------
 // PhpConcept Library - Zip Module 2.8.2
 // --------------------------------------------------------------------------------
@@ -187,6 +186,8 @@
   //   extract() : Extract the content of the archive
   //   properties() : List the properties of the archive
   // --------------------------------------------------------------------------------
+
+  namespace util;
 
   class Pclzip
   {

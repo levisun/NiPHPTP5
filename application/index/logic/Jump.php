@@ -36,7 +36,7 @@ class Jump extends Model
      * @param
      * @return string
      */
-    public function jump($name_)
+    public function jump($name)
     {
         $map = [
             'category_id' => $this->request->param('cid/f'),
@@ -44,7 +44,7 @@ class Jump extends Model
             'lang'        => Lang::detect(),
         ];
 
-        $model = Loader::model(ucfirst($name_), 'model', false, 'admin');
+        $model = Loader::model(ucfirst($name), 'model', false, 'admin');
         $CACHE = check_key($map, __METHOD__);
 
         // 更新点击数
@@ -61,7 +61,7 @@ class Jump extends Model
         $data = $result ? $result->toArray() : [];
 
         if (isset($data['is_link']) && !$data['is_link']) {
-            if (in_array($name_, ['article', 'download', 'picture', 'product'])) {
+            if (in_array($name, ['article', 'download', 'picture', 'product'])) {
                 $data['url'] = Url::build('/article/' . $data['category_id'] . '/' . $data['id']);
             } else {
                 $data['url'] = Url::build('/list/' . $data['category_id']);
