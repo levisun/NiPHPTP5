@@ -46,20 +46,70 @@ function escape_xss($data)
         '/<\?php(.*?)\?>/si',
         '/<\?(.*?)\?>/si',
         '/<%(.*?)%>/si',
-        '/<\?php|<\?|\?>|<%|%>/si'
+        '/<\?php|<\?|\?>|<%|%>/si',
+
+        '/on([a-z].*?)["|\'](.*?)["|\']/si',
+
+        '/<(javascript.*?)>(.*?)<(\/javascript.*?)>/si',
+        '/<(\/?javascript.*?)>/si',
+        '/<(vbscript.*?)>(.*?)<(\/vbscript.*?)>/si',
+        '/<(\/?vbscript.*?)>/si',
+        '/<(expression.*?)>(.*?)<(\/expression.*?)>/si',
+        '/<(\/?expression.*?)>/si',
+        '/<(applet.*?)>(.*?)<(\/applet.*?)>/si',
+        '/<(\/?applet.*?)>/si',
+        '/<(meta.*?)>(.*?)<(\/meta.*?)>/si',
+        '/<(\/?meta.*?)>/si',
+        '/<(xml.*?)>(.*?)<(\/xml.*?)>/si',
+        '/<(\/?xml.*?)>/si',
+        '/<(blink.*?)>(.*?)<(\/blink.*?)>/si',
+        '/<(\/?blink.*?)>/si',
+        '/<(link.*?)>(.*?)<(\/link.*?)>/si',
+        '/<(\/?link.*?)>/si',
+        '/<(script.*?)>(.*?)<(\/script.*?)>/si',
+        '/<(\/?script.*?)>/si',
+        '/<(embed.*?)>(.*?)<(\/embed.*?)>/si',
+        '/<(\/?embed.*?)>/si',
+        '/<(object.*?)>(.*?)<(\/object.*?)>/si',
+        '/<(\/?object.*?)>/si',
+        '/<(iframe.*?)>(.*?)<(\/iframe.*?)>/si',
+        '/<(\/?iframe.*?)>/si',
+        '/<(frame.*?)>(.*?)<(\/frame.*?)>/si',
+        '/<(\/?frame.*?)>/si',
+        '/<(frameset.*?)>(.*?)<(\/frameset.*?)>/si',
+        '/<(\/?frameset.*?)>/si',
+        '/<(ilayer.*?)>(.*?)<(\/ilayer.*?)>/si',
+        '/<(\/?ilayer.*?)>/si',
+        '/<(layer.*?)>(.*?)<(\/layer.*?)>/si',
+        '/<(\/?layer.*?)>/si',
+        '/<(bgsound.*?)>(.*?)<(\/bgsound.*?)>/si',
+        '/<(\/?bgsound.*?)>/si',
+        '/<(title.*?)>(.*?)<(\/title.*?)>/si',
+        '/<(\/?title.*?)>/si',
+        '/<(base.*?)>(.*?)<(\/base.*?)>/si',
+        '/<(\/?base.*?)>/si',
+        '/<(style.*?)>(.*?)<(\/style.*?)>/si',
+        '/<(\/?style.*?)>/si',
+        '/(javascript:)(.*?)(\))/si',
+        '/<\!--.*?-->/s',
+        '/<(\!.*?)>/si',
+        '/<(\/?html.*?)>/si',
+        '/<(\/?head.*?)>/si',
+        '/<(\/?body.*?)>/si',
+
     ];
 
-    $param = [
+    /*$param = [
         'javascript', 'vbscript', 'expression', 'applet', 'meta', 'xml', 'blink',
         'link', 'script', 'embed', 'object', 'iframe', 'frame', 'frameset',
-        'ilayer', 'layer', 'bgsound', 'title', 'base'
+        'ilayer', 'layer', 'bgsound', 'title', 'base', 'style'
     ];
     foreach ($param as $value) {
         $search[] = '/<(' . $value . '.*?)>(.*?)<(\/' . $value . '.*?)>/si';
         $search[] = '/<(\/?' . $value . '.*?)>/si';
-    }
+    }*/
 
-    $param = [
+    /*$param = [
         'onabort', 'onactivate', 'onafterprint', 'onafterupdate',
         'onbeforeactivate', 'onbeforecopy', 'onbeforecut', 'onbeforedeactivate',
         'onbeforeeditfocus', 'onbeforepaste', 'onbeforeprint', 'onbeforeunload',
@@ -80,13 +130,14 @@ function escape_xss($data)
     ];
     foreach ($param as $value) {
         $search[] = '/(' . $value . '.*?)["|\'](.*?)["|\']/si';
-    }
+    }*/
 
     $data = preg_replace($search, '', $data);
-    $data = preg_replace('/>[.\n\r]+</si', '><', $data);
+    $data = preg_replace('/[  ]+/si', ' ', $data);      // 多余空格
+    $data = preg_replace('/>[.\s]+/si', '>', $data);    // 多余回车
 
     // 转义特殊字符
-    $strtr = array(
+    $strtr = [
         '*' => '&lowast;', '`' => '&acute;',
         '￥' => '&yen;', '™' => '&trade;', '®' => '&reg;', '©' => '&copy;',
         // '\'' => '&#39;', '"' => '&quot;', '<' => '&lt;', '>' => '&gt;',
@@ -113,7 +164,7 @@ function escape_xss($data)
         '〃' => '&quot;', '”' => '&quot;', '“' => '&quot;',  '’' => '&acute;',
         '‘' => '&acute;',
         '×' => '&times;', '÷' => '&divide;',
-        );
+        ];
     $data = strtr($data, $strtr);
 
     return $data;

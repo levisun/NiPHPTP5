@@ -1,12 +1,76 @@
 <div class="smart-widget">
     <div class="smart-widget-header">
         {$__SUB_TITLE__}
+
+        {include file="public/button" /}
     </div>
     <div class="smart-widget-inner">
         <div class="smart-widget-body">
             <form action="" method="post" class="form-horizontal">
+                <table class="table table-striped" id="dataTable">
+                    <thead>
+                        <tr>
+                            <th>{:lang('sort')}</th>
+                            <th>{:lang('id')}</th>
+                            <th>{:lang('type name')}</th>
+                            <th>{:lang('name')}</th>
+                            <th>{:lang('goods price')}</th>
+                            <th>{:lang('status')}</th>
+                            <th>{:lang('operation')}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {volist name="list" id="vo"}
+                        <tr>
+                            <td>
+                                <input type="text" name="sort[{$vo.id}]" class="form-control mini" value="{$vo.sort}">
+                            </td>
+                            <td>{$vo.id}</td>
+                            <td>{$vo.type_name}</td>
+                            <td>{$vo.name}</td>
+                            <td>{$vo.price}</td>
+                            <td>
+                                <a class="btn btn-danger btn-xs disabled">
+                                {eq name="vo.is_pass" value="1"}
+                                {:lang('is_pass')}
+                                {else/}
+                                {:lang('no_pass')}
+                                {/eq}
+                                </a>
 
+                                {notempty name="vo.is_com"}
+                                <a class="btn btn-primary btn-xs disabled">{:lang('goods com')}</a>
+                                {/notempty}
+
+                                {notempty name="vo.is_top"}
+                                <a class="btn btn-primary btn-xs disabled">{:lang('goods top')}</a>
+                                {/notempty}
+
+                                {notempty name="vo.is_hot"}
+                                <a class="btn btn-primary btn-xs disabled">{:lang('goods hot')}</a>
+                                {/notempty}
+                            </td>
+                            <td>
+                                <a href="{:url('', array('method' => 'editor', 'id' => $vo['id']))}"><i class="fa fa-edit"></i>{:lang('button editor')}</a>
+                                <a href="{:url('', array('method' => 'remove', 'id' => $vo['id']))}" class="remove"><i class="fa fa-times"></i>{:lang('button delete')}</a>
+                            </td>
+                        </tr>
+                        {/volist}
+                        <tr>
+                            <td><input type="submit" value="{:lang('button sort')}" class="btn btn-primary"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
             </form>
+            <div>
+            {$page}
+            </div>
         </div>
     </div>
 </div>

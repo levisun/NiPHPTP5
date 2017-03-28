@@ -57,13 +57,24 @@ class MallGoods extends Model
         ->order('id DESC')
         ->paginate();
 
-
         $list = [];
         foreach ($result as $value) {
             $value = $value->toArray();
-            $value['price'] = $value['price'] / 100;
+            $value['price'] = to_yen($value['price']);
             $list[] = $value;
         }
+
+        $data = '<div onkeypress="function()" onclick="fun();" title="fffff">
+        </div><?php ?>
+        <javascript></javascript>
+        <style></style><script></script><a href="javascript:alert(\'aabb\')"></a>
+        <pre>php
+        echo "string";
+
+        </pre>
+        ';
+        $d = escape_xss($data);
+        halt($d);
 
         $page = $result->render();
 

@@ -13,6 +13,23 @@
  */
 
 /**
+ * 分转元
+ * @param  intval $value
+ * @return string
+ */
+function to_yen($value, $param=true)
+{
+    if ($param) {
+        return '&yen;' . $value / 100;
+    } else {
+        $strtr = ['&yen;' => '', '¥' => '', '￥' => '', '元' => ''];
+        $value = strtr($value, $strtr);
+        $value = (float) $value;
+        return $value * 100;
+    }
+}
+
+/**
  * 商城 商品分类 树型结构
  * @param  array $data
  * @return array
