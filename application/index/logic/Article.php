@@ -63,6 +63,13 @@ class Article extends Model
             'a.lang'        => Lang::detect(),
             'a.show_time'   => ['ELT', strtotime(date('Y-m-d'))]
         ];
+
+        $CACHE = check_key($map, __METHOD__);
+
+        if ($CACHE && $list = Cache::get($CACHE)) {
+            return $list;
+        }
+
         $order = 'a.sort DESC, a.update_time DESC';
 
         $model = Loader::model(ucfirst($this->model_name), 'model', false, 'admin');
@@ -93,7 +100,13 @@ class Article extends Model
 
         $page = !empty($result) ? $result->render() : '';
 
-        return ['list' => $list, 'page' => $page];
+        $data = ['list' => $list, 'page' => $page];
+
+        if ($CACHE) {
+            Cache::set($CACHE, $data);
+        }
+
+        return $data;
     }
 
     /**

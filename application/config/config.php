@@ -28,23 +28,29 @@ return [
     'RBAC_NODE_TABLE'   => 'np_node',
 
     // 应用调试模式
-    'app_debug'        => APP_DEBUG,
+    'app_debug'            => APP_DEBUG,
     // 应用Trace
-    'app_trace'        => APP_DEBUG,
+    'app_trace'            => APP_DEBUG,
     // 默认时区
-    'default_timezone' => 'PRC',
+    'default_timezone'     => 'PRC',
     // URL设置
-    'url_route_on'     => true,
+    'url_route_on'         => true,
     // URL伪静态后缀
-    'url_html_suffix'  => 'shtml',
+    'url_html_suffix'      => 'shtml',
     // 路由使用完整匹配
     'route_complete_match' => true,
+    // 域名路由
+    'url_domain_deploy'    => APP_DEBUG,
+    // 是否开启请求缓存
+    'request_cache'        => APP_DEBUG,
+    // 请求缓存有效期
+    'request_cache_expire' => 1800,
     // 过滤方法
-    'default_filter'   => 'trim,strip_tags,escape_xss',
-    'content_filter'   => 'trim,escape_xss,htmlspecialchars',
+    'default_filter'       => 'trim,strip_tags,escape_xss',
+    'content_filter'       => 'trim,escape_xss,htmlspecialchars',
     // 语言
-    'lang_switch_on'   => true,
-    'default_lang'     => 'zh-cn',
+    'lang_switch_on'       => true,
+    'default_lang'         => 'zh-cn',
     // 禁止访问模块
     'deny_module_list' => [
         'admin'
