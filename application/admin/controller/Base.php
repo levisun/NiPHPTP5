@@ -305,7 +305,9 @@ class Base extends Controller
         // 获得域名地址
         $domain = $this->request->root(true);
         $domain_arr = explode('/', $domain);
-        array_pop($domain_arr);
+        if (count($domain_arr) >= 4) {
+            array_pop($domain_arr);
+        }
         $domain = implode('/', $domain_arr);
 
         $default_theme = $domain . '/public/static/' . $this->request->module() . '/';

@@ -124,11 +124,9 @@
 
 {js href="__LAYOUT__js/layout-1.0.0.js" /}
 <script>
-var domain = "__DOMAIN__";
+var domain = Layout.domain;
 parent.document.title = "{$__TITLE__}";
 
-Layout.domain = "__DOMAIN__";
-Layout.phpself = "/__PHP_SELF__/";
 Layout.captcha(".captcha");
 Layout.newWinUpload("#upload", "account/upload.shtml");
 Layout.newWinUpload(".np-upload", "account/upload.shtml");

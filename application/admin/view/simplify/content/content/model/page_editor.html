@@ -114,7 +114,8 @@
                 <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
                         {:token()}
-                        <input type="hidden" name="category_id" value="{$Request.param.cid}">
+                        <input type="hidden" name="category_id" value="{$data.category_id}">
+                        <input type="hidden" name="id" value="{$data.id}">
                         <input type="submit" value="{:lang('button save')}" class="btn btn-info marginTB-xs">
                     </div>
                 </div>

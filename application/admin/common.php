@@ -132,7 +132,7 @@ function upload_to_javasecipt($update_file)
         $ckefn = $request->param('CKEditorFuncNum');
         $javascript = '<script type="text/javascript">';
         $javascript .= 'window.parent.CKEDITOR.tools.callFunction(';
-        $javascript .= $ckefn . ',\'' . $update_file['file_name'] . '\',';
+        $javascript .= $ckefn . ',\'' . $domain . $update_file['file_name'] . '\',';
         $javascript .= '\'' . \think\Lang::get('success upload') . '\'';
         $javascript .= ');';
         $javascript .= '</script>';

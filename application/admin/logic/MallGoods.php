@@ -64,18 +64,6 @@ class MallGoods extends Model
             $list[] = $value;
         }
 
-        $data = '<div onkeypress="function()" onclick="fun();" title="fffff">
-        </div><?php ?>
-        <javascript></javascript>
-        <style></style><script></script><a href="javascript:alert(\'aabb\')"></a>
-        <pre>php
-        echo "string";
-
-        </pre>
-        ';
-        $d = escape_xss($data);
-        halt($d);
-
         $page = $result->render();
 
         return ['list' => $list, 'page' => $page];

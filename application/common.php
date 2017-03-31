@@ -49,91 +49,83 @@ function escape_xss($data)
         '/<\?php|<\?|\?>|<%|%>/si',
 
         '/on([a-z].*?)["|\'](.*?)["|\']/si',
-
-        '/<(javascript.*?)>(.*?)<(\/javascript.*?)>/si',
-        '/<(\/?javascript.*?)>/si',
-        '/<(vbscript.*?)>(.*?)<(\/vbscript.*?)>/si',
-        '/<(\/?vbscript.*?)>/si',
-        '/<(expression.*?)>(.*?)<(\/expression.*?)>/si',
-        '/<(\/?expression.*?)>/si',
-        '/<(applet.*?)>(.*?)<(\/applet.*?)>/si',
-        '/<(\/?applet.*?)>/si',
-        '/<(meta.*?)>(.*?)<(\/meta.*?)>/si',
-        '/<(\/?meta.*?)>/si',
-        '/<(xml.*?)>(.*?)<(\/xml.*?)>/si',
-        '/<(\/?xml.*?)>/si',
-        '/<(blink.*?)>(.*?)<(\/blink.*?)>/si',
-        '/<(\/?blink.*?)>/si',
-        '/<(link.*?)>(.*?)<(\/link.*?)>/si',
-        '/<(\/?link.*?)>/si',
-        '/<(script.*?)>(.*?)<(\/script.*?)>/si',
-        '/<(\/?script.*?)>/si',
-        '/<(embed.*?)>(.*?)<(\/embed.*?)>/si',
-        '/<(\/?embed.*?)>/si',
-        '/<(object.*?)>(.*?)<(\/object.*?)>/si',
-        '/<(\/?object.*?)>/si',
-        '/<(iframe.*?)>(.*?)<(\/iframe.*?)>/si',
-        '/<(\/?iframe.*?)>/si',
-        '/<(frame.*?)>(.*?)<(\/frame.*?)>/si',
-        '/<(\/?frame.*?)>/si',
-        '/<(frameset.*?)>(.*?)<(\/frameset.*?)>/si',
-        '/<(\/?frameset.*?)>/si',
-        '/<(ilayer.*?)>(.*?)<(\/ilayer.*?)>/si',
-        '/<(\/?ilayer.*?)>/si',
-        '/<(layer.*?)>(.*?)<(\/layer.*?)>/si',
-        '/<(\/?layer.*?)>/si',
-        '/<(bgsound.*?)>(.*?)<(\/bgsound.*?)>/si',
-        '/<(\/?bgsound.*?)>/si',
-        '/<(title.*?)>(.*?)<(\/title.*?)>/si',
-        '/<(\/?title.*?)>/si',
-        '/<(base.*?)>(.*?)<(\/base.*?)>/si',
-        '/<(\/?base.*?)>/si',
-        '/<(style.*?)>(.*?)<(\/style.*?)>/si',
-        '/<(\/?style.*?)>/si',
         '/(javascript:)(.*?)(\))/si',
         '/<\!--.*?-->/s',
         '/<(\!.*?)>/si',
+
+        '/<(javascript.*?)>(.*?)<(\/javascript.*?)>/si',
+        '/<(\/?javascript.*?)>/si',
+
+        '/<(vbscript.*?)>(.*?)<(\/vbscript.*?)>/si',
+        '/<(\/?vbscript.*?)>/si',
+
+        '/<(expression.*?)>(.*?)<(\/expression.*?)>/si',
+        '/<(\/?expression.*?)>/si',
+
+        '/<(applet.*?)>(.*?)<(\/applet.*?)>/si',
+        '/<(\/?applet.*?)>/si',
+
+        '/<(xml.*?)>(.*?)<(\/xml.*?)>/si',
+        '/<(\/?xml.*?)>/si',
+
+        '/<(blink.*?)>(.*?)<(\/blink.*?)>/si',
+        '/<(\/?blink.*?)>/si',
+
+        '/<(link.*?)>(.*?)<(\/link.*?)>/si',
+        '/<(\/?link.*?)>/si',
+
+        '/<(script.*?)>(.*?)<(\/script.*?)>/si',
+        '/<(\/?script.*?)>/si',
+
+        '/<(embed.*?)>(.*?)<(\/embed.*?)>/si',
+        '/<(\/?embed.*?)>/si',
+
+        '/<(object.*?)>(.*?)<(\/object.*?)>/si',
+        '/<(\/?object.*?)>/si',
+
+        '/<(iframe.*?)>(.*?)<(\/iframe.*?)>/si',
+        '/<(\/?iframe.*?)>/si',
+
+        '/<(frame.*?)>(.*?)<(\/frame.*?)>/si',
+        '/<(\/?frame.*?)>/si',
+
+        '/<(frameset.*?)>(.*?)<(\/frameset.*?)>/si',
+        '/<(\/?frameset.*?)>/si',
+
+        '/<(ilayer.*?)>(.*?)<(\/ilayer.*?)>/si',
+        '/<(\/?ilayer.*?)>/si',
+
+        '/<(layer.*?)>(.*?)<(\/layer.*?)>/si',
+        '/<(\/?layer.*?)>/si',
+
+        '/<(bgsound.*?)>(.*?)<(\/bgsound.*?)>/si',
+        '/<(\/?bgsound.*?)>/si',
+
+        '/<(title.*?)>(.*?)<(\/title.*?)>/si',
+        '/<(\/?title.*?)>/si',
+
+        '/<(base.*?)>(.*?)<(\/base.*?)>/si',
+        '/<(\/?base.*?)>/si',
+
+        '/<(meta.*?)>(.*?)<(\/meta.*?)>/si',
+        '/<(\/?meta.*?)>/si',
+
+        '/<(style.*?)>(.*?)<(\/style.*?)>/si',
+        '/<(\/?style.*?)>/si',
+
+        '/<(html.*?)>(.*?)<(\/html.*?)>/si',
         '/<(\/?html.*?)>/si',
+
+        '/<(head.*?)>(.*?)<(\/head.*?)>/si',
         '/<(\/?head.*?)>/si',
+
+        '/<(body.*?)>(.*?)<(\/body.*?)>/si',
         '/<(\/?body.*?)>/si',
-
     ];
-
-    /*$param = [
-        'javascript', 'vbscript', 'expression', 'applet', 'meta', 'xml', 'blink',
-        'link', 'script', 'embed', 'object', 'iframe', 'frame', 'frameset',
-        'ilayer', 'layer', 'bgsound', 'title', 'base', 'style'
-    ];
-    foreach ($param as $value) {
-        $search[] = '/<(' . $value . '.*?)>(.*?)<(\/' . $value . '.*?)>/si';
-        $search[] = '/<(\/?' . $value . '.*?)>/si';
-    }*/
-
-    /*$param = [
-        'onabort', 'onactivate', 'onafterprint', 'onafterupdate',
-        'onbeforeactivate', 'onbeforecopy', 'onbeforecut', 'onbeforedeactivate',
-        'onbeforeeditfocus', 'onbeforepaste', 'onbeforeprint', 'onbeforeunload',
-        'onbeforeupdate', 'onblur', 'onbounce', 'oncellchange', 'onchange',
-        'onclick', 'oncontextmenu', 'oncontrolselect', 'oncopy', 'oncut',
-        'ondataavailable', 'ondatasetchanged', 'ondatasetcomplete', 'ondblclick',
-        'ondeactivate', 'ondrag', 'ondragend', 'ondragenter', 'ondragleave',
-        'ondragover', 'ondragstart', 'ondrop', 'onerror', 'onerrorupdate',
-        'onfilterchange', 'onfinish', 'onfocus', 'onfocusin', 'onfocusout',
-        'onhelp', 'onkeydown', 'onkeypress', 'onkeyup', 'onlayoutcomplete',
-        'onload', 'onlosecapture', 'onmousedown', 'onmouseenter', 'onmouseleave',
-        'onmousemove', 'onmouseout', 'onmouseover', 'onmouseup', 'onmousewheel',
-        'onmove', 'onmoveend', 'onmovestart', 'onpaste', 'onpropertychange',
-        'onreadystatechange', 'onreset', 'onresize', 'onresizeend',
-        'onresizestart', 'onrowenter', 'onrowexit', 'onrowsdelete',
-        'onrowsinserted', 'onscroll', 'onselect', 'onselectionchange',
-        'onselectstart', 'onstart', 'onstop', 'onsubmit', 'onunload'
-    ];
-    foreach ($param as $value) {
-        $search[] = '/(' . $value . '.*?)["|\'](.*?)["|\']/si';
-    }*/
 
     $data = preg_replace($search, '', $data);
     $data = preg_replace('/[  ]+/si', ' ', $data);      // 多余空格
+    $data = preg_replace('/[.\s]+</si', '<', $data);    // 多余回车
     $data = preg_replace('/>[.\s]+/si', '>', $data);    // 多余回车
 
     // 转义特殊字符
@@ -141,7 +133,6 @@ function escape_xss($data)
         '*' => '&lowast;', '`' => '&acute;',
         '￥' => '&yen;', '™' => '&trade;', '®' => '&reg;', '©' => '&copy;',
         // '\'' => '&#39;', '"' => '&quot;', '<' => '&lt;', '>' => '&gt;',
-        '　' => ' ',
         '０' => '0', '１' => '1', '２' => '2', '３' => '3', '４' => '4', '５' => '5',
         '６' => '6', '７' => '7', '８' => '8', '９' => '9',
 

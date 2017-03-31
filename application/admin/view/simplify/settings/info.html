@@ -165,7 +165,7 @@
 </div>
 
 <script>
-$(function  ()  {
+jQuery(function  ()  {
     //Flot Chart (Total Sales)
     var d1 = [];
     for (var i = 0; i <= 10; i += 1) {
@@ -174,7 +174,7 @@ $(function  ()  {
     }
 
     function plotWithOptions() {
-        $.plot("#placeholder", [d1], {
+        jQuery.plot("#placeholder", [d1], {
             series: {
                 lines: {
                     show: true,
@@ -198,7 +198,7 @@ $(function  ()  {
         });
     }
 
-    $("<div id='tooltip'></div>").css({
+    jQuery("<div id='tooltip'></div>").css({
         position: "absolute",
         display: "none",
         border: "1px solid #222",
@@ -209,16 +209,16 @@ $(function  ()  {
         opacity: 0.90
     }).appendTo("body");
 
-    $("#placeholder").bind("plothover", function (event, pos, item) {
+    jQuery("#placeholder").bind("plothover", function (event, pos, item) {
 
         var str = "(" + pos.x.toFixed(2) + ", " + pos.y.toFixed(2) + ")";
-        $("#hoverdata").text(str);
+        jQuery("#hoverdata").text(str);
 
         if (item) {
             var x = item.datapoint[0],
                 y = item.datapoint[1];
 
-                $("#tooltip").html("Total Sales : " + y)
+                jQuery("#tooltip").html("Total Sales : " + y)
                 .css({top: item.pageY+5, left: item.pageX+5})
                 .fadeIn(200);
         } else {

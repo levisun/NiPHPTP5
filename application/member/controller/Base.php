@@ -86,8 +86,12 @@ class Base extends Controller
             }
         }
 
+        // 移动端和微信端模板
+        if (is_dir($template['view_path'] . $mobile)) {
+            $template['view_path'] .= $mobile;
+        }
+
         // 模板路径
-        $template['view_path'] .= $mobile;
         $this->view->engine($template);
 
         // 获得域名地址

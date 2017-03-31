@@ -37,6 +37,14 @@ CKEDITOR.editorConfig = function( config ) {
 
 	config.language = 'zh-cn';
 	config.skin ='bootstrapck';
+
+
 	// config.filebrowserImageUploadUrl = '?m=admin&c=account&a=upload&type=ckeditor&id=&model=';
-	config.filebrowserImageUploadUrl = Layout.domain + 'admin.php/account/upload.shtml?type=ckeditor&id=&model=';
+	var pathName = location.pathname;
+	var projectName = pathName.substring(0, pathName.substr(1).indexOf('/') + 1);
+	var phpself = pathName.substring(pathName.substr(1).indexOf('/') + 1, pathName.substr(1).indexOf('.php') + 5);
+
+	var domain = location.protocol + '//' + window.location.host + projectName + phpself + '/';
+
+	config.filebrowserImageUploadUrl = domain + 'account/upload.shtml?type=ckeditor&id=&model=';
 };

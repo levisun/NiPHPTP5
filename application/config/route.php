@@ -19,7 +19,7 @@ return [
     ],
 
     '__domain__' => [
-        'admin' => 'admin',
+        'admin' => 'admin/account/login',
         'my'    => 'member',
     ],
 

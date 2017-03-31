@@ -40,7 +40,7 @@ return [
     // 路由使用完整匹配
     'route_complete_match' => true,
     // 域名路由
-    'url_domain_deploy'    => APP_DEBUG,
+    'url_domain_deploy'    => true,
     // 是否开启请求缓存
     'request_cache'        => !APP_DEBUG,
     // 请求缓存有效期

@@ -1,18 +1,39 @@
 var Layout = new Object;
 
-Layout.VERSION = '1.0.0';
-Layout.domain  = null;
-Layout.phpself = null;
+/**
+ * 版本号
+ */
+Layout.VERSION = '1.1.0';
 
+
+Layout.pathName = location.pathname;
+Layout.projectName = Layout.pathName.substring(0, Layout.pathName.substr(1).indexOf('/') + 1);
+
+/**
+ * 执行脚本目录
+ */
+Layout.phpself = Layout.pathName.substring(Layout.pathName.substr(1).indexOf('/') + 1, Layout.pathName.substr(1).indexOf('.php') + 5) + '/';
+
+/**
+ * 域名
+ */
+Layout.domain = location.protocol + '//' + window.location.host + Layout.projectName;
+
+/**
+ * 删除元素
+ */
 Layout.delElement = function (element, ele) {
-    jQuery(element).click(function(){
-        alert(1);
-        var id = jQuery(this).attr("date-type");
+    jQuery(document).on("click", element, function(){
+        var id = jQuery(this).attr("date-id");
         jQuery(ele + id).remove();
     });
 }
+
+/**
+ * 添加相册上传表单
+ */
 Layout.addAlbum = function (element, ele) {
-    jQuery(element).click(function(){
+    jQuery(document).on("click", element, function(){
         var num = jQuery(ele).length;
         num++;
         var html = "<li id='album-"+num+"'><input type='text' name='album_image[]' id='album-image-"+num+"' class='form-control'><input type='hidden' name='album_thumb[]' id='album-thumb-"+num+"' class='form-control'><img src='' id='img-album-"+num+"' width='100' style='display:none'><button type='button' class='btn btn-success btn-sm np-upload' data-type='album' data-id='"+num+"' data-model=''>上传</button><button type='button' class='btn btn-success btn-sm np-album-del' date-id='"+num+"'>删除</button></li>";
@@ -24,7 +45,7 @@ Layout.addAlbum = function (element, ele) {
  * 栏目 - 字段 - 选择字段所属栏目
  */
 Layout.fieldsCategory = function (element, url) {
-    jQuery(element).change(function(){
+    jQuery(document).on("change", element, function(){
         var id = jQuery(element).val();
         var type = jQuery(element).attr('data-type');
         if (!id) {
@@ -50,7 +71,7 @@ Layout.fieldsCategory = function (element, url) {
  * 选择地区
  */
 Layout.selectRegion = function (element, url) {
-    jQuery(element).change(function(){
+    jQuery(document).on("change", element, function(){
         var id = jQuery(this).val(), type = jQuery(this).attr('data-type');
         jQuery.ajax({
             type: 'post',
@@ -70,7 +91,7 @@ Layout.selectRegion = function (element, url) {
  * 上传窗口
  */
 Layout.newWinUpload = function (element, url) {
-    jQuery(element).click(function(){
+    jQuery(document).on("click", element, function(){
         var width = 530, height = 120;
         var left = (screen.width - width) / 2;
         var top = (screen.height - height) / 2 - 50;
@@ -116,7 +137,7 @@ Layout.ajaxPage = function (url, params) {
  */
 Layout.captcha = function (element) {
     // 文本档刷新
-    jQuery("input" + element).focus(function(){
+    jQuery(document).on("focus", "input" + element, function(){
         var val = jQuery("input" + element).val();
         if (!val) {
             var timenow = new Date().getTime();
@@ -127,20 +148,21 @@ Layout.captcha = function (element) {
     });
 
     // 图片刷新
-    jQuery("img" + element).click(function(){
+    jQuery(document).on("click", "img" + element, function(){
         var timenow = new Date().getTime();
         var url = jQuery("img" + element).attr("src");
         var array = url.split("?");
         jQuery("img" + element).attr("src", array[0] + "?" + timenow);
         jQuery("input" + element).val("");
     });
+
 }
 
 /**
  * 确认操作
  */
 Layout.confirmOperation = function (element, lang) {
-    jQuery(element).click(function(){
+    jQuery(document).on("click", element, function(){
         return confirm(lang);
     });
 }
@@ -150,7 +172,7 @@ Layout.confirmOperation = function (element, lang) {
  * 用于a button等标签
  */
 Layout.formSubmit = function (element, form) {
-    jQuery(element).click(function(){
+    jQuery(document).on("click", element, function(){
         jQuery(form).submit();
         return false;
     });

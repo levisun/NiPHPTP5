@@ -51,6 +51,7 @@ return [
     'error editor'          => '编辑失败！',
     'success sort'          => '排序成功！',
     'error sort'            => '排序失败！',
+    'success upload'        => '上传成功！',
     'error upload'          => '请选择上传文件',
     'go back'               => '返回上一级',
     'show'                  => '显示',
