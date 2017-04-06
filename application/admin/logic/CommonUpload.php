@@ -17,6 +17,7 @@ use think\Model;
 use think\Lang;
 use think\Request;
 use think\Image;
+use util\File;
 use app\admin\model\Config as AdminConfig;
 
 class CommonUpload extends Model
@@ -29,6 +30,24 @@ class CommonUpload extends Model
         parent::initialize();
 
         $this->request = Request::instance();
+    }
+
+    /**
+     * 删除上传文件
+     * @access public
+     * @param
+     * @return mixed
+     */
+    public function delUpload()
+    {
+        $image = $this->request->post('image');
+        if (!filter_var($image, FILTER_VALIDATE_URL)) {
+            File::delete($image);
+        }
+        $thumb = $this->request->post('thumb');
+        if (!filter_var($thumb, FILTER_VALIDATE_URL)) {
+            File::delete($thumb);
+        }
     }
 
     /**
@@ -299,6 +318,7 @@ class CommonUpload extends Model
      */
     protected function type()
     {
+        halt(strtolower($this->request->module()));
         $upload_type = $this->request->post('type');
         $upload_type = !empty($upload_type) ? $upload_type : $this->request->param('type');
         switch ($upload_type) {

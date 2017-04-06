@@ -99,9 +99,10 @@ return [
     ],
     // 缓存设置
     'cache' => [
-        'type'   => 'File',
-        'prefix' => '',
-        'expire' => 1800,
+        'type'         => 'File',
+        'cache_subdir' => false,
+        'prefix'       => '',
+        'expire'       => 1800,
     ],
 
     'http_exception_template' => [
@@ -118,6 +119,6 @@ return [
     'paginate' => [
         'type'      => 'bootstrap',
         'var_page'  => 'page',
-        'list_rows' => 10,
+        'list_rows' => 20,
     ],
 ];

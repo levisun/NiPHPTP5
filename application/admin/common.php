@@ -136,7 +136,7 @@ function upload_to_javasecipt($update_file)
         $javascript .= '\'' . \think\Lang::get('success upload') . '\'';
         $javascript .= ');';
         $javascript .= '</script>';
-    } elseif ($request->param('type') == 'album') {
+    } elseif ($request->param('type') == 'album' || $request->param('type') == 'mallalbum') {
         // 相册
         $id = $request->post('id');
         $javascript = '<script type="text/javascript">';

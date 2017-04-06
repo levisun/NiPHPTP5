@@ -32,7 +32,8 @@ class CommonAccount extends Model
     protected $_action = [
         'login',
         'logout',
-        'upload'
+        'upload',
+        'delupload',
     ];
 
     protected function initialize()

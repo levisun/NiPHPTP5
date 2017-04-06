@@ -19,7 +19,7 @@ class Content extends Validate
 {
     protected $rule = [
         'id'           => ['require', 'number'],
-        'title'        => ['require', 'length:4,255', 'token'],
+        'title'        => ['require', 'length:4,255'/*, 'token'*/],
         'keywords'     => ['max:255'],
         'description'  => ['max:500'],
         'content'      => ['require'],

@@ -26,14 +26,14 @@
                 <div class="tab-content">
                     <div role="tabpanel" class="tab-pane active" id="CT-basic">
                         <div class="form-group">
-                            <label for="name" class="col-md-2 control-label">{:lang('goods name')}</label>
-                            <div class="col-md-6">
+                            <label for="name" class="col-lg-2 control-label">{:lang('goods name')}</label>
+                            <div class="col-lg-10">
                                 <input type="text" name="name" id="name" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="type_id" class="col-md-2 control-label">{:lang('goods type')}</label>
-                            <div class="col-md-6">
+                            <label for="type_id" class="col-lg-2 control-label">{:lang('goods type')}</label>
+                            <div class="col-lg-10">
                                 <select name="type_id" id="type_id" class="form-control">
                                     <option value=""></option>
                                     {volist name="type" id="vo"}
@@ -51,36 +51,40 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="brand_id" class="col-md-2 control-label">{:lang('goods brand')}</label>
-                            <div class="col-md-6">
+                            <label for="brand_id" class="col-lg-2 control-label">{:lang('goods brand')}</label>
+                            <div class="col-lg-10">
                                 <select name="brand_id" id="brand_id" class="form-control">
                                     <option value=""></option>
                                 </select>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="price" class="col-md-2 control-label">{:lang('goods price')}</label>
-                            <div class="col-md-6 input-group">
-                                <input type="text" name="price" id="price" class="form-control">
-                                <span class="input-group-addon">{:lang('mall yuan')}</span>
+                            <label for="price" class="col-lg-2 control-label">{:lang('goods price')}</label>
+                            <div class="col-lg-10">
+                                <div class="input-group">
+                                    <input type="text" name="price" id="price" class="form-control">
+                                    <span class="input-group-addon">{:lang('mall yuan')}</span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="market_price" class="col-md-2 control-label">{:lang('goods market price')}</label>
-                            <div class="col-md-6 input-group">
-                                <input type="text" name="market_price" id="market_price" class="form-control">
-                                <span class="input-group-addon">{:lang('mall yuan')}</span>
+                            <label for="market_price" class="col-lg-2 control-label">{:lang('goods market price')}</label>
+                            <div class="col-lg-10">
+                                <div class="input-group">
+                                    <input type="text" name="market_price" id="market_price" class="form-control">
+                                    <span class="input-group-addon">{:lang('mall yuan')}</span>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="number" class="col-md-2 control-label">{:lang('goods number')}</label>
-                            <div class="col-md-6">
+                            <label for="number" class="col-lg-2 control-label">{:lang('goods number')}</label>
+                            <div class="col-lg-10">
                                 <input type="text" name="number" id="number" class="form-control">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="thumb" class="col-md-2 control-label">{:lang('thumb')}</label>
-                            <div class="col-md-6">
+                            <label for="thumb" class="col-lg-2 control-label">{:lang('thumb')}</label>
+                            <div class="col-lg-10">
                                 <input type="text" name="thumb" id="thumb" class="form-control">
                                 <button type="button" class="btn btn-success btn-sm np-upload" data-type="mallimage" data-id="thumb" data-model="">{:lang('button upload')}</button>
                                 <img src="" id="img-thumb" width="100" style="display:none">
@@ -90,8 +94,8 @@
 
                     <div role="tabpanel" class="tab-pane" id="CT-content">
                         <div class="form-group">
-                            <label for="content" class="col-md-2 control-label">{:lang('content')}</label>
-                            <div class="col-md-10">
+                            <label for="content" class="col-lg-2 control-label">{:lang('content')}</label>
+                            <div class="col-lg-10">
                                 <textarea name="content" class="form-control ckeditor"></textarea>
                             </div>
                         </div>
@@ -99,36 +103,36 @@
 
                     <div role="tabpanel" class="tab-pane" id="CT-status">
                         <div class="form-group">
-                            <label for="" class="col-md-2 control-label">{:lang('goods pass')}</label>
-                            <div class="col-md-10">
+                            <label for="" class="col-lg-2 control-label">{:lang('goods pass')}</label>
+                            <div class="col-lg-10">
                                 <label class="radio-inline"><input type="radio" name="is_pass" checked value="1">{:lang('button yes')}</label>
                                 <label class="radio-inline"><input type="radio" name="is_pass" value="0">{:lang('button no')}</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-md-2 control-label">{:lang('goods show')}</label>
-                            <div class="col-md-10">
+                            <label for="" class="col-lg-2 control-label">{:lang('goods show')}</label>
+                            <div class="col-lg-10">
                                 <label class="radio-inline"><input type="radio" name="is_show" checked value="1">{:lang('button yes')}</label>
                                 <label class="radio-inline"><input type="radio" name="is_show" value="0">{:lang('button no')}</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-md-2 control-label">{:lang('goods com')}</label>
-                            <div class="col-md-10">
+                            <label for="" class="col-lg-2 control-label">{:lang('goods com')}</label>
+                            <div class="col-lg-10">
                                 <label class="radio-inline"><input type="radio" name="is_com" value="1">{:lang('button yes')}</label>
                                 <label class="radio-inline"><input type="radio" name="is_com" checked value="0">{:lang('button no')}</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-md-2 control-label">{:lang('goods top')}</label>
-                            <div class="col-md-10">
+                            <label for="" class="col-lg-2 control-label">{:lang('goods top')}</label>
+                            <div class="col-lg-10">
                                 <label class="radio-inline"><input type="radio" name="is_top" value="1">{:lang('button yes')}</label>
                                 <label class="radio-inline"><input type="radio" name="is_top" checked value="0">{:lang('button no')}</label>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label for="" class="col-md-2 control-label">{:lang('goods hot')}</label>
-                            <div class="col-md-10">
+                            <label for="" class="col-lg-2 control-label">{:lang('goods hot')}</label>
+                            <div class="col-lg-10">
                                 <label class="radio-inline"><input type="radio" name="is_hot" value="1">{:lang('button yes')}</label>
                                 <label class="radio-inline"><input type="radio" name="is_hot" checked value="0">{:lang('button no')}</label>
                             </div>
@@ -137,18 +141,18 @@
 
                     <div role="tabpanel" class="tab-pane" id="CT-album">
                         <div class="form-group">
-                            <label for="" class="col-md-2 control-label">{:lang('album')}</label>
-                            <div class="col-md-10">
+                            <label for="" class="col-lg-2 control-label">{:lang('album')}</label>
+                            <div class="col-lg-10">
                                 <button type="button" class="btn btn-success btn-sm np-album-add">{:lang("button add")}</button>
                                 <ol id="album">
                                     <li id="album-1">
                                         <input type="text" name="album_image[]" id="album-image-1" class="form-control">
                                         <input type="hidden" name="album_thumb[]" id="album-thumb-1" class="form-control">
                                         <img src="" id="img-album-1" width="100" style="display:none">
-                                        <button type="button" class="btn btn-success btn-sm" onclick="uploadFile(this)" data-type="album" data-id="1" data-model="">{:lang('button upload')}</button>
+                                        <button type="button" class="btn btn-success btn-sm np-upload" data-type="mallalbum" data-id="1" data-model="">{:lang('button upload')}</button>
+                                        <button type="button" class="btn btn-success btn-sm np-album-del" date-id="1">{:lang('button delete')}</button>
                                     </li>
                                 </ol>
-
                             </div>
                         </div>
                     </div>

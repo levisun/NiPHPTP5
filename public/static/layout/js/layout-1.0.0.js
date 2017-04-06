@@ -20,11 +20,24 @@ Layout.phpself = Layout.pathName.substring(Layout.pathName.substr(1).indexOf('/'
 Layout.domain = location.protocol + '//' + window.location.host + Layout.projectName;
 
 /**
- * 删除元素
+ * 删除相册文件
  */
-Layout.delElement = function (element, ele) {
+Layout.delAlbum = function (element, ele) {
     jQuery(document).on("click", element, function(){
-        var id = jQuery(this).attr("date-id");
+        var id = jQuery(this).attr("date-id"),
+        image = jQuery("#album-image-" + id).val(),
+        thumb = jQuery("#album-thumb-" + id).val();
+        if (image || thumb) {
+            jQuery.ajax({
+                type: 'post',
+                async: false,
+                cache: false,
+                url: Layout.domain + Layout.phpself + "account/delupload.shtml",
+                data: {image: image, thumb: thumb},
+                success: function(data){
+                }
+            });
+        }
         jQuery(ele + id).remove();
     });
 }
@@ -34,7 +47,7 @@ Layout.delElement = function (element, ele) {
  */
 Layout.addAlbum = function (element, ele) {
     jQuery(document).on("click", element, function(){
-        var num = jQuery(ele).length;
+        var num = jQuery(ele + ' li').length;
         num++;
         var html = "<li id='album-"+num+"'><input type='text' name='album_image[]' id='album-image-"+num+"' class='form-control'><input type='hidden' name='album_thumb[]' id='album-thumb-"+num+"' class='form-control'><img src='' id='img-album-"+num+"' width='100' style='display:none'><button type='button' class='btn btn-success btn-sm np-upload' data-type='album' data-id='"+num+"' data-model=''>上传</button><button type='button' class='btn btn-success btn-sm np-album-del' date-id='"+num+"'>删除</button></li>";
         jQuery(ele).append(html);
@@ -46,8 +59,8 @@ Layout.addAlbum = function (element, ele) {
  */
 Layout.fieldsCategory = function (element, url) {
     jQuery(document).on("change", element, function(){
-        var id = jQuery(element).val();
-        var type = jQuery(element).attr('data-type');
+        var id = jQuery(this).val();
+        var type = jQuery(this).attr('data-type');
         if (!id) {
             return false;
         }
@@ -97,11 +110,11 @@ Layout.newWinUpload = function (element, url) {
         var top = (screen.height - height) / 2 - 50;
 
         // 上传文件类型
-        var type = jQuery(element).attr("data-type");
+        var type = jQuery(this).attr("data-type");
         // 上传文件模型
-        var model = jQuery(element).attr("data-model");
+        var model = jQuery(this).attr("data-model");
         // 返回input和img的ID
-        var id = jQuery(element).attr("data-id");
+        var id = jQuery(this).attr("data-id");
 
         window.open(
             Layout.domain + Layout.phpself + url + "?type=" + type + "&id=" + id + "&model=" + model,

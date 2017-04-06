@@ -127,10 +127,11 @@
                                 <ol id="album">
                                     {volist name="data.album_data" id="vo"}
                                     <li id="album-{$key}">
-                                        <input type="text" name="album-image[{$vo.id}]" id="album-image-{$key}" class="form-control" value="{$vo.image}">
-                                        <input type="hidden" name="album-thumb[{$vo.id}]" id="album-thumb-{$key}" class="form-control" value="{$vo.thumb}">
+                                        <input type="text" name="album_image[]" id="album-image-{$key}" class="form-control" value="{$vo.image}">
+                                        <input type="hidden" name="album_thumb[]" id="album-thumb-{$key}" class="form-control" value="{$vo.thumb}">
                                         <img src="{$vo.thumb}" id="img-album-{$key}" width="100" style="display:none">
                                         <button type="button" class="btn btn-success btn-sm np-upload" data-type="album" data-id="{$key}" data-model="">{:lang('button upload')}</button>
+                                        <button type="button" class="btn btn-success btn-sm np-album-del" date-id="{$key}">{:lang('button delete')}</button>
                                     </li>
                                     {/volist}
                                 </ol>

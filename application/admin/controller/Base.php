@@ -51,6 +51,18 @@ class Base extends Controller
     }
 
     /**
+     * 删除上传文件
+     * @access public
+     * @param
+     * @return mixed
+     */
+    public function delupload()
+    {
+        $model = new AdminCommonUpload;
+        $result = $model->delUpload();
+    }
+
+    /**
      * 新增方法
      * @access public
      * @param  string $model_name    操作模型名
