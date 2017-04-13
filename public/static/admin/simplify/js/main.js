@@ -1,24 +1,3 @@
-var Layout = new Object;
-
-/**
- * 版本号
- */
-Layout.VERSION = '1.1.0';
-
-
-Layout.pathName = location.pathname;
-Layout.projectName = Layout.pathName.substring(0, Layout.pathName.substr(1).indexOf('/') + 1);
-
-/**
- * 执行脚本目录
- */
-Layout.phpself = Layout.pathName.substring(Layout.pathName.substr(1).indexOf('/') + 1, Layout.pathName.substr(1).indexOf('.php') + 5) + '/';
-
-/**
- * 域名
- */
-Layout.domain = location.protocol + '//' + window.location.host + Layout.projectName;
-
 /**
  * 删除相册文件
  */
@@ -64,19 +43,17 @@ Layout.fieldsCategory = function (element, url) {
         if (!id) {
             return false;
         }
-        jQuery.ajax({
-            type: 'post',
-            async: false,
-            cache: false,
-            url: Layout.domain + Layout.phpself + url,
-            data: {id: id, type: type},
-            success: function(data){
-                if (type == 1) {
-                    jQuery('.op').remove();
-                }
-                jQuery('#category_id_' + type).after(data);
-            }
-        });
+
+        var params = {
+            "type": "post",
+            "url": Layout.domain+Layout.phpself+url,
+            "data": {"id": id, "type": type}
+        };
+        var result = Layout.ajax(params);
+        if (type == 1) {
+            jQuery('.op').remove();
+        }
+        jQuery('#category_id_' + type).after(result);
     });
 }
 
@@ -86,17 +63,15 @@ Layout.fieldsCategory = function (element, url) {
 Layout.selectRegion = function (element, url) {
     jQuery(document).on("change", element, function(){
         var id = jQuery(this).val(), type = jQuery(this).attr('data-type');
-        jQuery.ajax({
-            type: 'post',
-            async: false,
-            cache: false,
-            url: Layout.domain + Layout.phpself + url,
-            data: {id: id},
-            success: function(data){
-                jQuery(type + ' option.op').remove();
-                jQuery(type).append(data);
-            }
-        });
+
+        var params = {
+            "type": "post",
+            "url": Layout.domain+Layout.phpself+url,
+            "data": {"id": id}
+        };
+        var result = Layout.ajax(params);
+        jQuery(type + ' option.op').remove();
+        jQuery(type).append(result);
     });
 }
 
@@ -125,27 +100,6 @@ Layout.newWinUpload = function (element, url) {
 }
 
 /**
- * AJAX加载更多
- */
-Layout.ajaxPage = function (url, params) {
-    jQuery(window).scroll(function () {
-        if (jQuery(window).scrollTop() >= jQuery(document).height() - jQuery(window).height()) {
-            jQuery.ajax({
-                type: "post",
-                async: false,
-                cache: false,
-                url: url,
-                data: params,
-                success: function(data){
-                    return data;
-                }
-            });
-        }
-        return null;
-    });
-}
-
-/**
  * 刷新验证码
  */
 Layout.captcha = function (element) {
@@ -167,43 +121,5 @@ Layout.captcha = function (element) {
         var array = url.split("?");
         jQuery("img" + element).attr("src", array[0] + "?" + timenow);
         jQuery("input" + element).val("");
-    });
-
-}
-
-/**
- * 确认操作
- */
-Layout.confirmOperation = function (element, lang) {
-    jQuery(document).on("click", element, function(){
-        return confirm(lang);
-    });
-}
-
-/**
- * 点击提交表单
- * 用于a button等标签
- */
-Layout.formSubmit = function (element, form) {
-    jQuery(document).on("click", element, function(){
-        jQuery(form).submit();
-        return false;
-    });
-}
-
-/**
- * 返回顶部
- */
-Layout.scrollTop = function (element) {
-    jQuery(window).scroll(function () {
-        if (jQuery(window).scrollTop() >= (jQuery(document).height() - jQuery(window).height()) / 2) {
-            jQuery(element).fadeIn(1000);
-        } else {
-            jQuery(element).fadeOut(500);
-        }
-    });
-
-    jQuery(element).click(function(){
-        jQuery("body,html").animate({scrollTop:0}, 300);
     });
 }

@@ -71,8 +71,8 @@ class WxPay extends Pay
             'mch_id'         => $this->config['mch_id'],
             'nonce_str'      => $this->getNonceStr(32),
             'transaction_id' => $this->param['transaction_id'],
-            'total_fee'      => $this->param['total_fee'],                    // 订单总金额
-            'refund_fee'     => $this->param['refund_fee'],                    // 退款总金额
+            'total_fee'      => $this->param['total_fee'],                  // 订单总金额
+            'refund_fee'     => $this->param['refund_fee'],                 // 退款总金额
             'out_refund_no'  => $this->config['mch_id'] . date('YmdHis'),
             'op_user_id'     => $this->config['mch_id'],                    // 商户号
             );

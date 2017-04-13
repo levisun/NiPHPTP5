@@ -122,7 +122,8 @@
 
 {/neq}
 
-{js href="__LAYOUT__js/layout-1.0.0.js" /}
+{js href="__LAYOUT__js/layout-1.1.0.js" /}
+{js href="__JS__main.js" /}
 <script>
 var domain = Layout.domain;
 parent.document.title = "{$__TITLE__}";
@@ -134,13 +135,11 @@ Layout.confirmOperation(".reduction", "{:lang('confirm reduction')}");
 Layout.confirmOperation(".remove", "{:lang('confirm remove')}");
 Layout.selectRegion(".region", "user/member/method/added.shtml?");
 Layout.formSubmit(".search-submit", "#search-form");
-Layout.fieldsCategory(".fieldsCategory", 'category/fields');
-
-
+Layout.fieldsCategory(".fieldsCategory", 'category/fields.shtml');
 
 Layout.addAlbum(".np-album-add", "#album");
 Layout.delAlbum(".np-album-del", "#album-");
-// Layout.delElement(".np-album-del", '#album-');
+
 </script>
 </body>
 </html>

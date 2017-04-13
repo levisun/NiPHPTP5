@@ -16,6 +16,7 @@ namespace app\admin\logic;
 use think\Model;
 use think\Request;
 use think\Config;
+use util\File;
 use app\admin\model\Member as AdminMember;
 use app\admin\model\Feedback as AdminFeedback;
 use app\admin\model\Message as AdminMessage;
@@ -53,22 +54,118 @@ class SettingsInfo extends Model
         $this->query('SELECT version()');
         $sys_data['db_version'] = $db_version[0]['version()'];
 
+        $sys_data['feedback'] = $this->feedback();
+        $sys_data['message']  = $this->message();
+        $sys_data['link']     = $this->link();
+        $sys_data['ads']      = $this->ads();
+
+        $member = $this->member();
+        $sys_data['member'] = $member['count'];
+        $sys_data['member_reg'] = $member['reg'];
+
+        $result = $this->visit();
+        $sys_data['visit']['date'] = $result['date'];
+        $sys_data['visit']['count'] = $result['count'];
+
+        return $sys_data;
+    }
+
+    /**
+     * 会员简报
+     * @access private
+     * @param
+     * @return array
+     */
+    private function member()
+    {
         $member = new AdminMember;
-        $sys_data['member'] = $member->count();
-        $sys_data['member_reg'] = $member->where(['status' => 0])->count();
 
+        $result['count'] =
+        $member->count();
+
+        $map = ['status' => 0];
+        $result['reg'] =
+        $member->where($map)
+        ->count();
+
+        return $result;
+    }
+
+    /**
+     * 反馈简报
+     * @access private
+     * @param
+     * @return int
+     */
+    private function feedback()
+    {
         $feedback = new AdminFeedback;
-        $sys_data['feedback'] = $feedback->count();
 
+        $result =
+        $feedback->count();
+
+        return $result;
+    }
+
+    /**
+     * 留言简报
+     * @access private
+     * @param
+     * @return int
+     */
+    private function message()
+    {
         $message = new AdminMessage;
-        $sys_data['message'] = $message->count();
 
+        $result =
+        $message->count();
+
+        return $result;
+    }
+
+    /**
+     * 友情链接简报
+     * @access private
+     * @param
+     * @return int
+     */
+    private function link()
+    {
         $link = new AdminLink;
-        $sys_data['link'] = $link->count();
 
+        $result =
+        $link->count();
+
+        return $result;
+    }
+
+    /**
+     * 广告简报
+     * @access private
+     * @param
+     * @return int
+     */
+    private function ads()
+    {
         $ads = new AdminAds;
-        $sys_data['ads'] = $ads->where(['end_time' => ['egt', time()]])->count();
 
+        $map = ['end_time' => ['egt', time()]];
+
+        $result =
+        $ads->where($map)
+        ->count();
+
+        return $result;
+    }
+
+    /**
+     * 访问简报
+     * @access private
+     * @param
+     * @return array
+     */
+    private function visit()
+    {
         $visit = new AdminVisit;
         $result = $visit
         ->field(true)
@@ -85,23 +182,21 @@ class SettingsInfo extends Model
                 $count[$value['date']] += $value['count'];
             }
         }
-        $sys_data['visit'] = [
+        $visit = [
             'date'  => '\'' . implode("','", $date) . '\'',
             // 'count' => '[' . implode('],[', $count) . ']'
         ];
         $num = 0;
         foreach ($count as $key => $value) {
-            $sys_data['visit']['count'][] = '[' . date('d', $key) . ', ' . $value . ']';
+            $visit['count'][] = '[' . date('d', $key) . ', ' . $value . ']';
             $num++;
         }
-        if (!empty($sys_data['visit']['count'])) {
-            $sys_data['visit']['count'] = implode(',', $sys_data['visit']['count']);
+        if (!empty($visit['count'])) {
+            $visit['count'] = implode(',', $visit['count']);
         } else {
-            $sys_data['visit']['count'] = '';
+            $visit['count'] = '';
         }
 
-
-
-        return $sys_data;
+        return $visit;
     }
 }

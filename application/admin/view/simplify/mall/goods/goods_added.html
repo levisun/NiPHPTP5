@@ -1,3 +1,9 @@
+{css href="__LIBRARY__datetimepicker/css/bootstrap-datetimepicker.min.css" /}
+{js href="__LIBRARY__moment/moment.min.js" /}
+{js href="__LIBRARY__moment/locale/zh-cn.js" /}
+{js href="__LIBRARY__datetimepicker/js/bootstrap-datetimepicker.min.js" /}
+{js href="__LIBRARY__ckeditor/ckeditor.js"}
+{js href="__LIBRARY__ckeditor/config.js"}
 <div class="smart-widget">
     <div class="smart-widget-header">
         {$__SUB_TITLE__}
@@ -105,36 +111,116 @@
                         <div class="form-group">
                             <label for="" class="col-lg-2 control-label">{:lang('goods pass')}</label>
                             <div class="col-lg-10">
-                                <label class="radio-inline"><input type="radio" name="is_pass" checked value="1">{:lang('button yes')}</label>
-                                <label class="radio-inline"><input type="radio" name="is_pass" value="0">{:lang('button no')}</label>
+                                <div class="radio inline-block">
+                                    <div class="custom-radio m-right-xs checked">
+                                        <input type="radio" id="is_pass1" name="is_pass" value="1" checked>
+                                        <label for="is_pass1"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {:lang('button yes')}
+                                    </div>
+                                </div>
+                                <div class="radio inline-block">
+                                    <div class="custom-radio m-right-xs">
+                                        <input type="radio" id="is_pass2" name="is_pass" value="0">
+                                        <label for="is_pass2"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {:lang('button no')}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="" class="col-lg-2 control-label">{:lang('goods show')}</label>
                             <div class="col-lg-10">
-                                <label class="radio-inline"><input type="radio" name="is_show" checked value="1">{:lang('button yes')}</label>
-                                <label class="radio-inline"><input type="radio" name="is_show" value="0">{:lang('button no')}</label>
+                                <div class="radio inline-block">
+                                    <div class="custom-radio m-right-xs checked">
+                                        <input type="radio" id="is_show1" name="is_show" value="1" checked>
+                                        <label for="is_show1"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {:lang('button yes')}
+                                    </div>
+                                </div>
+                                <div class="radio inline-block">
+                                    <div class="custom-radio m-right-xs">
+                                        <input type="radio" id="is_show2" name="is_show" value="0">
+                                        <label for="is_show2"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {:lang('button no')}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="" class="col-lg-2 control-label">{:lang('goods com')}</label>
                             <div class="col-lg-10">
-                                <label class="radio-inline"><input type="radio" name="is_com" value="1">{:lang('button yes')}</label>
-                                <label class="radio-inline"><input type="radio" name="is_com" checked value="0">{:lang('button no')}</label>
+                                <div class="radio inline-block">
+                                    <div class="custom-radio m-right-xs">
+                                        <input type="radio" id="is_com1" name="is_com" value="1">
+                                        <label for="is_com1"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {:lang('button yes')}
+                                    </div>
+                                </div>
+                                <div class="radio inline-block">
+                                    <div class="custom-radio m-right-xs checked">
+                                        <input type="radio" id="is_com2" name="is_com" value="0" checked>
+                                        <label for="is_com2"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {:lang('button no')}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="" class="col-lg-2 control-label">{:lang('goods top')}</label>
                             <div class="col-lg-10">
-                                <label class="radio-inline"><input type="radio" name="is_top" value="1">{:lang('button yes')}</label>
-                                <label class="radio-inline"><input type="radio" name="is_top" checked value="0">{:lang('button no')}</label>
+                                <div class="radio inline-block">
+                                    <div class="custom-radio m-right-xs">
+                                        <input type="radio" id="is_top1" name="is_top" value="1">
+                                        <label for="is_top1"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {:lang('button yes')}
+                                    </div>
+                                </div>
+                                <div class="radio inline-block">
+                                    <div class="custom-radio m-right-xs checked">
+                                        <input type="radio" id="is_top2" name="is_top" value="0" checked>
+                                        <label for="is_top2"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {:lang('button no')}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="" class="col-lg-2 control-label">{:lang('goods hot')}</label>
                             <div class="col-lg-10">
-                                <label class="radio-inline"><input type="radio" name="is_hot" value="1">{:lang('button yes')}</label>
-                                <label class="radio-inline"><input type="radio" name="is_hot" checked value="0">{:lang('button no')}</label>
+                                <div class="radio inline-block">
+                                    <div class="custom-radio m-right-xs">
+                                        <input type="radio" id="is_hot1" name="is_hot" value="1">
+                                        <label for="is_hot1"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {:lang('button yes')}
+                                    </div>
+                                </div>
+                                <div class="radio inline-block">
+                                    <div class="custom-radio m-right-xs checked">
+                                        <input type="radio" id="is_hot2" name="is_hot" value="0" checked>
+                                        <label for="is_hot2"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {:lang('button no')}
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
