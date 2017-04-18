@@ -108,7 +108,7 @@ return [
     'http_exception_template' => [
         404 => ROOT_PATH . '404.html',
     ],
-    // 'exception_tmpl' => APP_PATH . 'think_exception.html',
+    'exception_tmpl' => ROOT_PATH . 'exception.html',
     // 验证码设置
     'captcha' => [
         'length'   => 4,

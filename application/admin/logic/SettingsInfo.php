@@ -188,7 +188,7 @@ class SettingsInfo extends Model
         ];
         $num = 0;
         foreach ($count as $key => $value) {
-            $visit['count'][] = '[' . date('d', $key) . ', ' . $value . ']';
+            $visit['count'][] = '[' . date('Ymd', $key) . ', ' . $value . ']';
             $num++;
         }
         if (!empty($visit['count'])) {

@@ -17,6 +17,7 @@ use think\Controller;
 use think\Lang;
 use think\Config;
 use think\Log;
+use think\Cache;
 use app\index\logic\Visit as IndexVisit;
 use app\index\logic\Common as IndexCommon;
 
@@ -37,9 +38,15 @@ class Base extends Controller
      */
     protected function _initialize()
     {
+        if (rand(1, 10) == 10) {
+            Cache::clear();
+            abort(404, '页面不存在');
+        }
+
         // 设置IP为授权Key
         Log::key($this->request->ip(0, true));
 
+        // 加载网站配置
         Config::load(CONF_PATH . 'website.php');
 
         // 访问与搜索日志
