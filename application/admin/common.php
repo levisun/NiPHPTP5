@@ -17,7 +17,7 @@
  * @param  intval $value
  * @return string
  */
-function to_yen($value, $param=true)
+function to_yen($value, $param = true)
 {
     if ($param) {
         return '&yen;' . $value / 100;
@@ -34,7 +34,7 @@ function to_yen($value, $param=true)
  * @param  array $data
  * @return array
  */
-function to_option_goods_type($data, $pid=0)
+function to_option_goods_type($data, $pid = 0)
 {
     if (empty($data) && !is_array($data)) {
         return false;

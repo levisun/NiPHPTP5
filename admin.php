@@ -1,6 +1,6 @@
 <?php
-if (version_compare(PHP_VERSION, '5.4.0', '<')) {
-	die('require PHP >= 5.4.0 !');
+if (version_compare(PHP_VERSION, '5.5.0', '<')) {
+    die('require PHP >= 5.5.0 !');
 }
 
 define('APP_DEBUG', true);
