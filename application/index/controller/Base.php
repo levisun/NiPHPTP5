@@ -38,9 +38,8 @@ class Base extends Controller
      */
     protected function _initialize()
     {
-        if (rand(1, 10) == 10) {
+        if (rand(1, 1800) == 1800) {
             Cache::clear();
-            abort(404, '页面不存在');
         }
 
         // 设置IP为授权Key

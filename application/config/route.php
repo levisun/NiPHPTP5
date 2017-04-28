@@ -23,6 +23,8 @@ return [
         'my'    => 'member',
     ],
 
+    // '__miss__' => 'index',
+
     '/' => 'index',
 
     // website

@@ -44,9 +44,7 @@ class Article extends Base
         $replace = [
             '__TITLE__'       => $data['title'] . ' - ' . $web_info['title'],
             '__KEYWORDS__'    => $data['keywords'] ? $data['keywords'] : $web_info['keywords'],
-            '__DESCRIPTION__' => $data['description'] ?
-                                    $data['description'] :
-                                    $web_info['description'],
+            '__DESCRIPTION__' => $data['description'] ? $data['description'] : $web_info['description'],
         ];
         $this->view->replace($replace);
 

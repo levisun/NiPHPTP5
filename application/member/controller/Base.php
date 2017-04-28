@@ -33,6 +33,10 @@ class Base extends Controller
      */
     protected function _initialize()
     {
+        if (rand(1, 1800) == 1800) {
+            Cache::clear();
+        }
+
         // 设置IP为授权Key
         Log::key($this->request->ip(0, true));
 

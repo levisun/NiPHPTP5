@@ -18,7 +18,6 @@ var Layout = new Object;
  */
 Layout.VERSION = '1.1.0';
 
-
 Layout.pathName = location.pathname;
 Layout.projectName = Layout.pathName.substring(0, Layout.pathName.substr(1).indexOf('/') + 1);
 
@@ -36,9 +35,18 @@ Layout.phpself = Layout.pathName.substring(
 Layout.domain = location.protocol + '//' + window.location.host + Layout.projectName;
 
 /**
+ * URL get参数
+ */
+Layout.getParam = function (name) {
+    var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+    var result = window.location.search.substr(1).match(reg);
+    return result ? decodeURIComponent(result[2]) : null;
+}
+
+/**
  * AJAX加载更多
- * var params = {"type": "get",  "data": {"p": 1}, "function_name": "alert"}
- * Layout.scrollBot(params, "");
+ * var params = {"type": "get",  "data": {"p": 1}}
+ * Layout.scrollBot(params, "function_name": "alert");
  */
 Layout.scrollBot = function (params, function_name) {
     jQuery(window).scroll(function () {
@@ -52,24 +60,31 @@ Layout.scrollBot = function (params, function_name) {
 
 /**
  * AJAX请求
- * var params = {"type": "get",  "data": {"p": 1}, "function_name": "alert"}
- * Layout.scrollBot(params);
+ * var params = {"type": "get", "url": "url"  "data": {"p": 1}}
+ * Layout.ajax(params);
  */
 Layout.ajax = function (params) {
     var ajax_result = "",
         ajax_type = Layout.isVar(params.type, "get"),
         ajax_url = Layout.isVar(params.url, '?ajax_url=undefined'),
-        ajax_data = Layout.isVar(params.data, "");
+        ajax_data = Layout.isVar(params.data, ""),
+        ajax_async = Layout.isVar(params.async, false),
+        ajax_cache = Layout.isVar(params.cache, false),
+        ajax_data_type = Layout.isVar(params.data_type, "");
 
     jQuery.ajax({
         type: ajax_type,
-        async: false,
-        cache: false,
-        // dataType: "json",
+        async: ajax_async,
+        cache: ajax_cache,
+        dataType: ajax_data_type,
         url: ajax_url,
         data: ajax_data,
         success: function(result){
-            ajax_result = result;
+            if (ajax_data_type == 'json') {
+                ajax_result = Layout.parseJSON(result);
+            } else {
+                ajax_result = result;
+            }
         }
     });
 

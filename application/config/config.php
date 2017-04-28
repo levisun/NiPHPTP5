@@ -42,7 +42,7 @@ return [
     // 域名路由
     'url_domain_deploy'    => true,
     // 是否开启请求缓存
-    'request_cache'        => !APP_DEBUG,
+    'request_cache'        => false,
     // 请求缓存有效期
     'request_cache_expire' => 1800,
     // 过滤方法
