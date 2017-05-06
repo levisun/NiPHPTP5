@@ -32,15 +32,49 @@ Layout.phpself = Layout.pathName.substring(
 /**
  * 域名
  */
-Layout.domain = location.protocol + '//' + window.location.host + Layout.projectName;
+if (window.location.host == 'localhost') {
+    Layout.domain = location.protocol + '//' + window.location.host + Layout.projectName + '/';
+} else {
+    Layout.domain = location.protocol + '//' + window.location.host + '/';
+    Layout.phpself = '';
+}
 
 /**
- * URL get参数
+ * 刷新验证码
+ * Layout.captcha(element, false);
  */
-Layout.getParam = function (name) {
-    var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
-    var result = window.location.search.substr(1).match(reg);
-    return result ? decodeURIComponent(result[2]) : null;
+Layout.captcha = function (element, params) {
+    var url = jQuery("img" + element).attr("src");
+    if (!url) {
+        return null;
+    }
+
+    var url_query = url.split("?"),
+        url = url_query[0] + "?";
+
+    if (url_query[1]) {
+        var query = url_query[1].split("&captcha_time");
+        url = url + query[0];
+    }
+
+    // 是否刷新input
+    params = Layout.isVar(params, false);
+
+    // input刷新
+    jQuery(document).on("focus", "[name='password']", function(){
+        if (!jQuery(this).val() && params) {
+            var timenow = new Date().getTime();
+            jQuery("img" + element).attr("src", url + "&captcha_time=" + timenow);
+            jQuery("input" + element).val("");
+        }
+    });
+
+    // img刷新
+    jQuery(document).on("click", "img" + element, function(){
+        var timenow = new Date().getTime();
+        jQuery(this).attr("src", url + "&captcha_time=" + timenow);
+        jQuery("input" + element).val("");
+    });
 }
 
 /**
@@ -49,13 +83,27 @@ Layout.getParam = function (name) {
  * Layout.scrollBot(params, "function_name": "alert");
  */
 Layout.scrollBot = function (params, function_name) {
+    jQuery("body").append("<input type='hidden' id='Layout-scroll-page' value='1' />");
+    jQuery("body").append("<input type='hidden' id='Layout-scroll-bot' value='true' />");
     jQuery(window).scroll(function () {
-        if (jQuery(window).scrollTop() >= jQuery(document).height() - jQuery(window).height()) {
+        var is = jQuery("#Layout-scroll-bot").val();
+        if (is == "true" && jQuery(window).scrollTop() >= (jQuery(document).height() - jQuery(window).height()) / 1.05) {
+            var page_num = jQuery("#Layout-scroll-page").val();
+                page_num++;
+            jQuery("#Layout-scroll-page").val(page_num);
+            jQuery("#Layout-scroll-bot").val("false");
+
+            params['data']['p'] = page_num;
             var result = Layout.ajax(params);
+
             window[function_name](result);
+
+            setTimeout("Layout.scrollBotTrue()", 1500);
         }
-        return null;
     });
+}
+Layout.scrollBotTrue = function () {
+    jQuery("#Layout-scroll-bot").val("true");
 }
 
 /**
@@ -89,28 +137,6 @@ Layout.ajax = function (params) {
     });
 
     return ajax_result;
-}
-
-/**
- * 转换JSON数据
- */
-Layout.parseJSON = function (result) {
-    return eval('(' + result + ')');
-}
-
-/**
- * 变量是否存在
- */
-Layout.isVar = function (var_name, def) {
-    if (typeof(var_name) == "undefined") {
-        if (typeof(def) == "undefined") {
-            return false;
-        } else {
-            return def;
-        }
-    } else {
-        return var_name;
-    }
 }
 
 /**
@@ -148,4 +174,35 @@ Layout.scrollTop = function (element) {
     jQuery(element).click(function(){
         jQuery("body,html").animate({scrollTop:0}, 300);
     });
+}
+
+/**
+ * URL get参数
+ */
+Layout.getParam = function (name) {
+    var reg = new RegExp("(^|&)" + key + "=([^&]*)(&|$)");
+    var result = window.location.search.substr(1).match(reg);
+    return result ? decodeURIComponent(result[2]) : null;
+}
+
+/**
+ * 转换JSON数据
+ */
+Layout.parseJSON = function (result) {
+    return eval('(' + result + ')');
+}
+
+/**
+ * 变量是否存在
+ */
+Layout.isVar = function (var_name, def) {
+    if (typeof(var_name) == "undefined") {
+        if (typeof(def) == "undefined") {
+            return false;
+        } else {
+            return def;
+        }
+    } else {
+        return var_name;
+    }
 }

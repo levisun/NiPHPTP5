@@ -128,7 +128,7 @@
 var domain = Layout.domain;
 parent.document.title = "{$__TITLE__}";
 
-Layout.captcha(".captcha");
+Layout.captcha(".captcha", true);
 Layout.newWinUpload("#upload", "account/upload.shtml");
 Layout.newWinUpload(".np-upload", "account/upload.shtml");
 Layout.confirmOperation(".reduction", "{:lang('confirm reduction')}");
@@ -139,6 +139,13 @@ Layout.fieldsCategory(".fieldsCategory", 'category/fields.shtml');
 
 Layout.addAlbum(".np-album-add", "#album");
 Layout.delAlbum(".np-album-del", "#album-");
+
+/*var param = {"type": "get", "url": Layout.domain, "data": {"p": 1}};
+Layout.scrollBot(param, "load_more");
+
+function load_more(data) {
+    alert(data);
+}*/
 
 </script>
 </body>

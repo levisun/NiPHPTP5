@@ -102,7 +102,7 @@ Layout.newWinUpload = function (element, url) {
 /**
  * 刷新验证码
  */
-Layout.captcha = function (element) {
+/*Layout.captcha = function (element) {
     // 文本档刷新
     jQuery(document).on("focus", "input" + element, function(){
         var val = jQuery("input" + element).val();
@@ -122,4 +122,4 @@ Layout.captcha = function (element) {
         jQuery("img" + element).attr("src", array[0] + "?" + timenow);
         jQuery("input" + element).val("");
     });
-}
+}*/
