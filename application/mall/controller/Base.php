@@ -38,7 +38,7 @@ class Base extends Controller
         }
 
         // 设置IP为授权Key
-        Log::key($this->request->ip(0, true));
+        // Log::key($this->request->ip(0, true));
 
         // 访问与搜索日志
         $visit = new IndexVisit;

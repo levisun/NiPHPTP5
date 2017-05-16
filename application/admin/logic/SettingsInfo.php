@@ -169,7 +169,7 @@ class SettingsInfo extends Model
         $visit = new AdminVisit;
         $result = $visit
         ->field(true)
-        ->where(['date' => ['egt', strtotime('-10 days')]])
+        ->where(['date' => ['egt', strtotime('-7 days')]])
         ->select();
 
         $date = $count = [];
@@ -188,7 +188,7 @@ class SettingsInfo extends Model
         ];
         $num = 0;
         foreach ($count as $key => $value) {
-            $visit['count'][] = '[' . date('Ymd', $key) . ', ' . $value . ']';
+            $visit['count'][] = '[' . date('ymd', $key) . ', ' . $value . ']';
             $num++;
         }
         if (!empty($visit['count'])) {

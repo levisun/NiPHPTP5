@@ -143,7 +143,7 @@ class UserMember extends Model
         ];
 
         $password         = $this->request->post('password', '', 'trim,md5');
-        $data['salt']     = substr(encrypt($password), 0, 6);
+        $data['salt']     = rand(111111, 999999);
         $data['password'] = md5($password . $data['salt']);
 
         $member = new AdminMember;
@@ -219,7 +219,7 @@ class UserMember extends Model
         ];
 
         $password         = $this->request->post('password', '', 'trim,md5');
-        $data['salt']     = substr(encrypt($password), 0, 6);
+        $data['salt']     = rand(111111, 999999);
         $data['password'] = md5($password . $data['salt']);
 
         $map = ['id' => $this->request->post('id/f')];

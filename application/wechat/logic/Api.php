@@ -45,14 +45,14 @@ class Api extends Model
         $this->event                = $this->wechat->getRevEvent();
         $this->form_user            = $this->wechat->getRevFrom();
         $this->user_data            = $this->wechat->getUserInfo($this->form_user);
-        $this->key['sceneId']       = escape_xss($this->wechat->getRevSceneId());    // 扫公众号二维码返回值
-        $this->key['eventLocation'] = escape_xss($this->wechat->getRevEventGeo());    // 获得的地理信息
-        $this->key['text']          = escape_xss($this->wechat->getRevContent());    // 文字信息
-        $this->key['image']         = escape_xss($this->wechat->getRevPic());        // 图片信息
-        $this->key['location']      = escape_xss($this->wechat->getRevGeo());        // 地理信息
-        $this->key['link']          = escape_xss($this->wechat->getRevLink());        // 链接信息
-        $this->key['voice']         = escape_xss($this->wechat->getRevVoice());        // 音频信息
-        $this->key['video']         = escape_xss($this->wechat->getRevVideo());        // 视频信息
+        $this->key['sceneId']       = escape_xss($this->wechat->getRevSceneId());   // 扫公众号二维码返回值
+        $this->key['eventLocation'] = escape_xss($this->wechat->getRevEventGeo());  // 获得的地理信息
+        $this->key['text']          = escape_xss($this->wechat->getRevContent());   // 文字信息
+        $this->key['image']         = escape_xss($this->wechat->getRevPic());       // 图片信息
+        $this->key['location']      = escape_xss($this->wechat->getRevGeo());       // 地理信息
+        $this->key['link']          = escape_xss($this->wechat->getRevLink());      // 链接信息
+        $this->key['voice']         = escape_xss($this->wechat->getRevVoice());     // 音频信息
+        $this->key['video']         = escape_xss($this->wechat->getRevVideo());     // 视频信息
     }
 
     /**

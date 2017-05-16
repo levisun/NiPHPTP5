@@ -43,7 +43,7 @@ class Base extends Controller
         }
 
         // 设置IP为授权Key
-        Log::key($this->request->ip(0, true));
+        // Log::key($this->request->ip(0, true));
 
         // 加载网站配置
         Config::load(CONF_PATH . 'website.php');
@@ -100,7 +100,6 @@ class Base extends Controller
         $web_title = $web_keywords = $web_description = '';
         if ($this->request->has('cid', 'param')) {
             $data = $this->common_model->getCategoryData();
-
             $this->assign('__SUB_TITLE__', $data[0]['name']);
 
             foreach ($data as $value) {

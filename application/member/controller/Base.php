@@ -38,7 +38,7 @@ class Base extends Controller
         }
 
         // 设置IP为授权Key
-        Log::key($this->request->ip(0, true));
+        // Log::key($this->request->ip(0, true));
 
         Config::load(CONF_PATH . 'website.php');
 

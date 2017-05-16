@@ -3,6 +3,7 @@
 #
 User-agent: *
 Disallow: /application/
+Disallow: /install/
 Disallow: /public/
 Disallow: /runtime/
 Disallow: /thinkphp/

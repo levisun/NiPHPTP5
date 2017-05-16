@@ -14,6 +14,7 @@
 
 /**
  * 生成缓存KEY
+ * 调试模式时关闭缓存
  * @param  array  $array
  * @return string
  */

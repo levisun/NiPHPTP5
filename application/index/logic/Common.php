@@ -68,13 +68,14 @@ class Common extends Model
 
         $self = $result ? $result->toArray() : [];
 
-        if (!empty($self['pid'])) {
-            $data = $this->getCategoryData($self['pid']);
-        }
-
         $data[] = $self;
 
-        krsort($data);
+        if (!empty($self['pid'])) {
+            $pid = $this->getCategoryData($self['pid']);
+            if ($pid) {
+                $data = array_merge($data, $pid);
+            }
+        }
 
         return $data;
     }

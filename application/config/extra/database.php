@@ -51,7 +51,7 @@ return [
     // 时间字段取出后的默认时间格式
     'datetime_format' => false,
     // 是否需要进行SQL性能分析
-    'sql_explain'     => false,
+    'sql_explain'     => APP_DEBUG,
     // Builder类
     'builder'         => '',
     // Query类

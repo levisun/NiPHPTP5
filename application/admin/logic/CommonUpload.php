@@ -103,7 +103,7 @@ class CommonUpload extends Model
 
             // 非图片文件
             if (!in_array($file_ext, $this->ext)) {
-                $data['file_name'] = './upload/' . $upload_type['dir'] . $file_name;
+                $data['file_name'] = './public/upload/' . $upload_type['dir'] . $file_name;
                 $data['file_name'] = str_replace('\\', '/', $data['file_name']);
                 return $data;
             }
@@ -318,90 +318,17 @@ class CommonUpload extends Model
      */
     protected function type()
     {
-        halt(strtolower($this->request->module()));
+        // 如果POST值不存在 获得GET值
         $upload_type = $this->request->post('type');
         $upload_type = !empty($upload_type) ? $upload_type : $this->request->param('type');
-        switch ($upload_type) {
-            // 水印
-            case 'water':
-                $dir = 'water/';
-                break;
 
-            // 广告
-            case 'ads';
-                $dir = 'ads/';
-                break;
-
-            // 幻灯片
-            case 'banner';
-                $dir = 'banner/';
-                break;
-
-            // 评论
-            case 'comment';
-                $dir = 'comment/';
-                break;
-
-            // 头像
-            case 'portrait':
-                $dir = 'portrait/';
-                break;
-
-            // 栏目图标
-            case 'category':
-                $dir = 'category/';
-                break;
-
-            // 图片
-            case 'image':
-                $dir = 'images/';
-                break;
-
-            // 内容图
-            case 'ckeditor':
-                $dir = 'images/';
-                break;
-
-            // 相册
-            case 'album':
-                $dir = 'album/';
-                break;
-
-            // 商城商品分类
-            case 'malltype':
-                $dir = 'mall/type/';
-                break;
-
-            // 商城品牌
-            case 'mallbrand':
-                $dir = 'mall/brand/';
-                break;
-
-            // 幻灯片
-            case 'mallbanner';
-                $dir = 'mall/banner/';
-                break;
-
-            // 评论
-            case 'mallcomment';
-                $dir = 'mall/comment/';
-                break;
-
-            // 图片
-            case 'mallimage':
-                $dir = 'mall/images/';
-                break;
-
-            // 内容图
-            case 'mallckeditor':
-                $dir = 'mall/images/';
-                break;
-
-            // 相册
-            case 'mallalbum':
-                $dir = 'mall/album/';
-                break;
+        // 保存子目录
+        if (in_array($upload_type, ['image', 'ckeditor'])) {
+            $dir = 'images/';
+        } else {
+            $dir = $upload_type . '/';
         }
+
         $data['type'] = $upload_type;
         $data['dir'] = $dir;
         return $data;

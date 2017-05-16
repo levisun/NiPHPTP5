@@ -54,7 +54,7 @@ class Article extends Model
      */
     public function getListData()
     {
-        $id = $this->getChild();
+        // $id = $this->getChild(); 查询表不同会有错误
 
         $map = [
             // 'a.category_id' => ['IN', $id], 查询表不同会有错误
@@ -83,7 +83,7 @@ class Article extends Model
         ->view('admin ad', ['username' => 'editor_name'], 'a.user_id=ad.id')
         ->where($map)
         ->order($order)
-        // ->cache(true)
+        // ->cache($CACHE)
         ->paginate();
 
         $list = [];
