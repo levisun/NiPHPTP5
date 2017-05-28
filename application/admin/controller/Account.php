@@ -29,6 +29,11 @@ class Account extends Base
     public function login()
     {
         if ($this->request->isPost()) {
+            // IP锁定
+            if ($this->ipRequestError()) {
+                $this->error(Lang::get('$result'));
+            }
+
             $result = $this->validate($_POST, 'Account.login');
             if(true === $result){
                 $model = new AdminCommonLogin;
@@ -39,6 +44,7 @@ class Account extends Base
                 $this->actionLog('admin_login');
                 $this->redirect(Url::build('settings/info'));
             } else {
+                $this->actionLog('admin_login', '', 'username or password');
                 $this->error(Lang::get($result));
             }
         }

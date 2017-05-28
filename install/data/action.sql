@@ -90,3 +90,18 @@ CREATE TABLE IF NOT EXISTS `np_action_log` (
   KEY `action_id` (`action_id`),
   KEY `user_id` (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='行为日志表';
+
+DROP TABLE IF EXISTS `np_request_log`;
+CREATE TABLE IF NOT EXISTS `np_request_log` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `ip` varchar(15) NOT NULL DEFAULT '' COMMENT '请求IP',
+  `ip_attr` varchar(255) NOT NULL DEFAULT '' COMMENT '请求IP地区',
+  `get_params` varchar(500) NOT NULL DEFAULT '' COMMENT '请求GET参数',
+  `post_params` varchar(500) NOT NULL DEFAULT '' COMMENT '请求POST参数',
+  `url` varchar(500) NOT NULL DEFAULT '' COMMENT '请求URL地址',
+  `count` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '请求次数',
+  `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
+  `create_time` int(11) NOT NULL COMMENT '创建日期',
+  PRIMARY KEY (`id`),
+  KEY `ip` (`ip`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT '请求日志表';

@@ -248,7 +248,7 @@ class ContentContent extends Model
      * @param  mixed $master_id 添加文章ID
      * @return mixed
      */
-    protected function AEAlbum($master_id=false)
+    protected function AEAlbum($master_id = false)
     {
         if (!in_array($this->table_name, ['picture', 'product'])) {
             return true;
@@ -289,7 +289,7 @@ class ContentContent extends Model
      * @param  mixed $master_id 添加文章ID
      * @return mixed
      */
-    protected function AEField($master_id=false)
+    protected function AEField($master_id = false)
     {
         if (in_array($this->table_name, ['link', 'external'])) {
             return true;
@@ -341,7 +341,7 @@ class ContentContent extends Model
      * @param  mixed $master_id 添加文章ID
      * @return mixed
      */
-    protected function AETags($master_id=false)
+    protected function AETags($master_id = false)
     {
         if (in_array($this->table_name, ['link', 'external'])) {
             return true;

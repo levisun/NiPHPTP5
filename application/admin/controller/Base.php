@@ -245,7 +245,32 @@ class Base extends Controller
             $action_name = $this->request->action() . '_' . $action_name;
         }
         $model = new AdminCommonAccount;
-        $model->action_log($action_name, $record_id, $remark);
+        $model->actionLog($action_name, $record_id, $remark);
+        $model->requestLog();
+    }
+
+    /**
+     * 记录请求日志
+     * @access protected
+     * @param
+     * @return void
+     */
+    public function requestLog()
+    {
+        $model = new AdminCommonAccount;
+        $model->requestLog();
+    }
+
+    /**
+     * IP请求错误
+     * @access public
+     * @param
+     * @return void
+     */
+    public function ipRequestError()
+    {
+        $model = new AdminCommonAccount;
+        return $model->ipRequestError();
     }
 
     /**

@@ -77,7 +77,7 @@ class CategoryFields extends Model
      * @param  mixed $ajax_param Ajax参数 默认为False 非Ajax
      * @return array
      */
-    public function getCategory($ajax_param=false)
+    public function getCategory($ajax_param = false)
     {
         $map = [
             'pid' => $this->request->post('id/f', 0),

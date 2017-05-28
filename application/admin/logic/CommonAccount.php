@@ -25,6 +25,7 @@ use app\admin\model\Config as AdminConfig;
 use app\admin\model\Category as AdminCategory;
 use app\admin\model\Action as AdminAction;
 use app\admin\model\ActionLog as AdminActionLog;
+use app\admin\model\RequestLog as AdminRequestLog;
 
 class CommonAccount extends Model
 {
@@ -51,7 +52,7 @@ class CommonAccount extends Model
      * @param  string $remark      备注
      * @return void
      */
-    public function action_log($action_name, $record_id, $remark)
+    public function actionLog($action_name, $record_id, $remark)
     {
         $map = ['name' => $action_name];
 
@@ -67,9 +68,11 @@ class CommonAccount extends Model
         $ip = new IpLocation();
         $area = $ip->getlocation($this->request->ip(0, true));
 
+        $user_id = Session::get(Config::get('USER_AUTH_KEY'));
+        $user_id = $user_id ? $user_id : 0;
         $data = [
             'action_id' => $id,
-            'user_id'   => Session::get(Config::get('USER_AUTH_KEY')),
+            'user_id'   => $user_id,
             'action_ip' => $area['ip'] . '[' . $area['country'] . $area['area'] . ']',
             'model'     => $this->request->controller() . '-' . $this->request->action(),
             'record_id' => $record_id,
@@ -86,6 +89,85 @@ class CommonAccount extends Model
         $map = ['create_time' => ['ELT', strtotime('-90 days')]];
         $action->where($map)
         ->delete();
+    }
+
+    /**
+     * 记录请求日志
+     * @access public
+     * @param
+     * @return void
+     */
+    public function requestLog()
+    {
+        $ip = new IpLocation();
+        $request_log = new AdminRequestLog;
+
+        // 删除过期的日志(保留三个月)
+        $map = ['create_time' => ['ELT', strtotime('-90 days')]];
+        $request_log->where($map)
+        ->delete();
+
+        // 日志是否存在
+        $map = ['ip' => $this->request->ip(0, true)];
+
+        $result =
+        $request_log->where($map)
+        ->find();
+
+        $get = $this->request->get();
+        $param = $this->request->param();
+
+        if ($result) {
+            // 更新同IP日志
+            $data = [
+                'get_params'  => serialize(array_merge($get, $param)),
+                'post_params' => serialize($this->request->post()),
+                'url'         => $this->request->url(true),
+                'count' => ['exp', 'count+1']
+            ];
+            $request_log->allowField(true)
+            ->isUpdate(true)
+            ->save($data, $map);
+        } else {
+            $area = $ip->getlocation($this->request->ip(0, true));
+            $data = [
+                'ip'          => $this->request->ip(0, true),
+                'ip_attr'     => $area['country'] . $area['area'],
+                'get_params'  => serialize(array_merge($get, $param)),
+                'post_params' => serialize($this->request->post()),
+                'url'         => $this->request->url(true),
+                'count'       => 1
+            ];
+            $request_log->data($data)
+            ->allowField(true)
+            ->isUpdate(false)
+            ->save();
+        }
+    }
+
+    /**
+     * IP请求错误
+     * 大于三次请求并在3小时内
+     * @access public
+     * @param
+     * @return void
+     */
+    public function ipRequestError()
+    {
+        $ip = new IpLocation();
+        $request_log = new AdminRequestLog;
+
+        $map = [
+            'ip'          => $this->request->ip(0, true),
+            'count'       => ['EGT', 3],
+            'update_time' => ['EGT', strtotime('-3 hours')]
+        ];
+
+        $result =
+        $request_log->where($map)
+        ->find();
+
+        return $result ? true : false;
     }
 
     /**

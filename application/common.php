@@ -13,6 +13,32 @@
  */
 
 /**
+ * 获得url参数
+ * @param  string $url
+ * @return array
+ */
+function url_params($url)
+{
+    $url = parse_url($url);
+
+    $url['query'] = explode('&', $url['query']);
+    $query = array();
+    foreach ($url['query'] as $key => $value) {
+        list($k, $v) = explode('=', $value);
+        $query[$k] = $v;
+    }
+
+    $params = [
+        'scheme' => $url['scheme'],
+        'host'   => $url['host'],
+        'path'   => $url['path'],
+        'query'  => $query
+    ];
+
+    return $params;
+}
+
+/**
  * 生成缓存KEY
  * 调试模式时关闭缓存
  * @param  array  $array
