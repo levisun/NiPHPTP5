@@ -237,7 +237,7 @@ class Base extends Controller
      * @param  string $remark      备注
      * @return void
      */
-    protected function actionLog($action_name, $record_id = '', $remark = '')
+    protected function actionLog($action_name, $record_id = '', $remark = '', $login = false)
     {
         // 行为为空自动获得
         if (empty($action_name)) {
@@ -246,7 +246,7 @@ class Base extends Controller
         }
         $model = new AdminCommonAccount;
         $model->actionLog($action_name, $record_id, $remark);
-        $model->requestLog();
+        $model->requestLog($login);
     }
 
     /**
@@ -255,10 +255,10 @@ class Base extends Controller
      * @param
      * @return void
      */
-    public function requestLog()
+    public function requestLog($login)
     {
         $model = new AdminCommonAccount;
-        $model->requestLog();
+        $model->requestLog($login);
     }
 
     /**

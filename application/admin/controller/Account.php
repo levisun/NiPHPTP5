@@ -44,7 +44,7 @@ class Account extends Base
                 $this->actionLog('admin_login');
                 $this->redirect(Url::build('settings/info'));
             } else {
-                $this->actionLog('admin_login', '', 'username or password');
+                $this->actionLog('admin_login', '', 'username or password', true);
                 $this->error(Lang::get($result));
             }
         }

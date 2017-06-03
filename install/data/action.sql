@@ -100,6 +100,7 @@ CREATE TABLE IF NOT EXISTS `np_request_log` (
   `post_params` varchar(500) NOT NULL DEFAULT '' COMMENT '请求POST参数',
   `url` varchar(500) NOT NULL DEFAULT '' COMMENT '请求URL地址',
   `count` int(11) unsigned NOT NULL DEFAULT '1' COMMENT '请求次数',
+  `type` tinyint(1) NOT NULL DEFAULT '0' COMMENT '类型',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
   `create_time` int(11) NOT NULL COMMENT '创建日期',
   PRIMARY KEY (`id`),

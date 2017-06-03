@@ -97,7 +97,7 @@ class CommonAccount extends Model
      * @param
      * @return void
      */
-    public function requestLog()
+    public function requestLog($login = false)
     {
         $ip = new IpLocation();
         $request_log = new AdminRequestLog;
@@ -108,7 +108,10 @@ class CommonAccount extends Model
         ->delete();
 
         // 日志是否存在
-        $map = ['ip' => $this->request->ip(0, true)];
+        $map = [
+            'ip'   => $this->request->ip(0, true),
+            'type' => 1
+        ];
 
         $result =
         $request_log->where($map)
@@ -123,8 +126,9 @@ class CommonAccount extends Model
                 'get_params'  => serialize(array_merge($get, $param)),
                 'post_params' => serialize($this->request->post()),
                 'url'         => $this->request->url(true),
-                'count' => ['exp', 'count+1']
             ];
+            $data['count'] = $login ? ['exp', 'count+1'] : 0;
+
             $request_log->allowField(true)
             ->isUpdate(true)
             ->save($data, $map);
@@ -136,7 +140,8 @@ class CommonAccount extends Model
                 'get_params'  => serialize(array_merge($get, $param)),
                 'post_params' => serialize($this->request->post()),
                 'url'         => $this->request->url(true),
-                'count'       => 1
+                'count'       => 1,
+                'type'        => 1
             ];
             $request_log->data($data)
             ->allowField(true)
@@ -159,7 +164,8 @@ class CommonAccount extends Model
 
         $map = [
             'ip'          => $this->request->ip(0, true),
-            'count'       => ['EGT', 3],
+            'count'       => ['EGT', 4],
+            'type'        => 1,
             'update_time' => ['EGT', strtotime('-3 hours')]
         ];
 

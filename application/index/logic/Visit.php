@@ -18,6 +18,7 @@ use think\Request;
 use net\IpLocation;
 use app\admin\model\Searchengine as IndexSearchengine;
 use app\admin\model\Visit as IndexVisit;
+use app\admin\model\RequestLog as IndexRequestLog;
 
 class Visit extends Model
 {
@@ -171,5 +172,63 @@ class Visit extends Model
             }
         }
         return false;
+    }
+
+    /**
+     * 记录请求日志
+     * @access public
+     * @param
+     * @return void
+     */
+    public function requestLog()
+    {
+        $ip = new IpLocation();
+        $request_log = new IndexRequestLog;
+
+        // 删除过期的日志(保留三个月)
+        $map = ['create_time' => ['ELT', strtotime('-90 days')]];
+        $request_log->where($map)
+        ->delete();
+
+        // 日志是否存在
+        $map = [
+            'ip' => $this->request->ip(0, true),
+            'type' => 0
+        ];
+
+        $result =
+        $request_log->where($map)
+        ->find();
+
+        $get = $this->request->get();
+        $param = $this->request->param();
+
+        if ($result) {
+            // 更新同IP日志
+            $data = [
+                'get_params'  => serialize(array_merge($get, $param)),
+                'post_params' => serialize($this->request->post()),
+                'url'         => $this->request->url(true),
+                'count'       => ['exp', 'count+1']
+            ];
+            $request_log->allowField(true)
+            ->isUpdate(true)
+            ->save($data, $map);
+        } else {
+            $area = $ip->getlocation($this->request->ip(0, true));
+            $data = [
+                'ip'          => $this->request->ip(0, true),
+                'ip_attr'     => $area['country'] . $area['area'],
+                'get_params'  => serialize(array_merge($get, $param)),
+                'post_params' => serialize($this->request->post()),
+                'url'         => $this->request->url(true),
+                'count'       => 1,
+                'type'        => 0
+            ];
+            $request_log->data($data)
+            ->allowField(true)
+            ->isUpdate(false)
+            ->save();
+        }
     }
 }

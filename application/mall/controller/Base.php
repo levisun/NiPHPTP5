@@ -43,6 +43,7 @@ class Base extends Controller
         // 访问与搜索日志
         $visit = new IndexVisit;
         $visit->visit();
+        $visit->requestLog();
 
         $common_model = new MallCommon;
 

@@ -52,6 +52,7 @@ class Base extends Controller
         $visit = new IndexVisit;
         $visit->searchengine();
         $visit->visit();
+        $visit->requestLog();
 
         // 公众业务
         $this->common_model = new IndexCommon;

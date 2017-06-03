@@ -78,6 +78,7 @@ class CommonUpload extends Model
         ->where($map)
         ->select();
 
+        $validate = [];
         foreach ($result as $value) {
             $array = $value->toArray();
             if ($array['name'] == 'upload_file_max') {

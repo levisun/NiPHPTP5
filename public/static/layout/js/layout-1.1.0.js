@@ -185,13 +185,28 @@ Layout.each = function(element) {
     var array = new Array();
     jQuery(element).each(function(){
         var ecah = new Array();
-        ecah["name"] = jQuery(this).attr("name");
-        ecah["value"] = jQuery(this).val();
-        ecah["text"] = jQuery(this).text();
-        ecah["html"] = jQuery(this).html();
-        ecah[":checked"] = Layout.checked(this);
-        ecah["id"] = jQuery(this).attr("id");
-        ecah["class"] = jQuery(this).attr("class");
+        ecah["name"]   = jQuery(this).attr("name");
+        ecah["value"]  = jQuery(this).val();
+        ecah["text"]   = jQuery(this).text();
+        ecah["html"]   = jQuery(this).html();
+        ecah["width"]  = jQuery(this).width();
+        ecah["height"] = jQuery(this).height();
+
+        ecah[":checked"]     = Layout.checked(this);
+        ecah["id"]           = jQuery(this).attr("id");
+        ecah["class"]        = jQuery(this).attr("class");
+        ecah["src"]          = jQuery(this).attr("src");
+        ecah["style_width"]  = jQuery(this).attr("width");
+        ecah["style_height"] = jQuery(this).attr("height");
+        ecah["title"]        = jQuery(this).attr("title");
+
+        if (ecah["src"]) {
+            // 图片实际宽高
+            var img = new Image();
+            img.src = ecah["src"];
+            ecah["img_width"]  = img.width;
+            ecah["img_height"] = img.height;
+        }
 
         array.push(ecah);
     });
