@@ -31,7 +31,7 @@ class Account extends Base
         if ($this->request->isPost()) {
             // IP锁定
             if ($this->ipRequestError()) {
-                $this->error(Lang::get('$result'));
+                $this->error(Lang::get('error username or password'));
             }
 
             $result = $this->validate($_POST, 'Account.login');
@@ -45,7 +45,7 @@ class Account extends Base
                 $this->redirect(Url::build('settings/info'));
             } else {
                 $this->actionLog('admin_login', '', 'username or password', true);
-                $this->error(Lang::get($result));
+                $this->error(Lang::get('error username or password'));
             }
         }
 

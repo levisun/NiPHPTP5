@@ -5,22 +5,22 @@
                 <i class="fa fa-database m-right-xs"></i> NiPHP <strong class="text-skin">Admin</strong>
             </div>
 
-            <form action="" method="post">
+            <form action="" method="post" class="np-login">
                 <div class="form-group m-bottom-md">
-                    <input type="text" name="username" class="form-control" placeholder="{:lang('username')}">
+                    <input type="text" name="username" class="form-control" placeholder="{:lang('username')}" validate="require|min:4|max:20" validate-msg="{:lang('error username require')}|{:lang('error username length not')}|{:lang('error username length not')}">
                 </div>
                 <div class="form-group">
-                    <input type="password" name="password" class="form-control" placeholder="{:lang('password')}">
+                    <input type="password" name="password" class="form-control" placeholder="{:lang('password')}" validate="require|min:6|max:20" validate-msg="{:lang('error password require')}|{:lang('error password length not')}|{:lang('error password length not')}">
                 </div>
 
                 <div class="form-group">
-                    <input type="text" name="captcha" class="form-control captcha" placeholder="{:lang('captcha')}">
+                    <input type="text" name="captcha" class="form-control captcha" placeholder="{:lang('captcha')}" validate="require|length:4" validate-msg="{:lang('error captcha require')}|{:lang('error captcha length')}">
                     <img src="{:captcha_src()}" alt="captcha" class="captcha" />
                 </div>
 
                 <div class="m-top-md p-top-sm">
                     {:token()}
-                    <input type="submit" class="btn btn-success btn-block" value="{:lang('button login')}">
+                    <input type="submit" class="btn btn-success btn-block np-login-btn" value="{:lang('button login')}">
                 </div>
             </form>
         </div><!-- ./sign-in-inner -->

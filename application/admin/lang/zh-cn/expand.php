@@ -24,9 +24,12 @@ return [
     // 访问统计
     'visit'             => '访问日志',
     'searchengine'      => '搜索引擎日志',
+    'request'           => '请求日志',
     'date'              => '日期',
     'count'             => '统计数',
     'searchengine name' => '搜索引擎',
+    'url'               => '请求来源',
+    'type'              => '类型',
 
     // 错误日志
     'elog date'      => '日期/日志名',

@@ -182,10 +182,7 @@ class OAuth extends Model
     {
         $type = $this->request->param('type');
 
-        // 获得域名地址
-        $domain = $this->request->root(true);
-        $domain = strtr($domain, ['/index.php' => '']);
-        $callback = $domain . Url::build('/login') . '?type=' . $type;
+        $callback = Url::build('/login') . '?type=' . $type;
 
         $config = [
             'app_key'    => '101246655',

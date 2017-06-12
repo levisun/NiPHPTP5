@@ -17,6 +17,7 @@ use think\Model;
 use think\Request;
 use app\admin\model\Visit as AdminVisit;
 use app\admin\model\Searchengine as AdminSearchengine;
+use app\admin\model\RequestLog as AdminRequest;
 
 class ExpandVisit extends Model
 {
@@ -39,20 +40,35 @@ class ExpandVisit extends Model
     {
         $this->delLog();
 
-        if ($this->request->param('method')) {
+        $order = 'date DESC, count DESC';
+
+        if ($this->request->param('method') == 'searchengine') {
             $obj = new AdminSearchengine;
+        } elseif ($this->request->param('method') == 'request') {
+            $obj = new AdminRequest;
+            $order = 'create_time DESC, count DESC';
         } else {
             $obj = new AdminVisit;
         }
 
         $result =
         $obj->field(true)
-        ->order('date DESC, count DESC')
+        ->order($order)
         ->paginate();
 
         $list = [];
         foreach ($result as $value) {
-            $list[] = $value->toArray();
+            if ($this->request->param('method') == 'request') {
+                $data = $value->toArray();
+                foreach ($data as $key => $value) {
+                    if (in_array($key, ['post_params', 'get_params'])) {
+                        $data[$key] = var_export(unserialize($value), true);
+                    }
+                }
+                $list[] = $data;
+            } else {
+                $list[] = $value->toArray();
+            }
         }
 
         $page = $result->render();

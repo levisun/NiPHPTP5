@@ -144,11 +144,14 @@ class Expand extends Base
     public function visit()
     {
         $data = parent::select('ExpandVisit');
+
         $this->assign('list', $data['list']);
         $this->assign('page', $data['page']);
 
         if ($this->method == 'searchengine') {
             return $this->fetch('searchengine');
+        } elseif ($this->method == 'request') {
+            return $this->fetch('request');
         } else {
             return $this->fetch();
         }

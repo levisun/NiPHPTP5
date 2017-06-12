@@ -123,6 +123,7 @@
 {/neq}
 
 {js href="__LAYOUT__js/layout-1.1.0.js" /}
+{js href="__LAYOUT__js/validate-1.0.1.js" /}
 {js href="__JS__main.js" /}
 <script>
 var domain = Layout.domain;
@@ -139,6 +140,10 @@ Layout.fieldsCategory(".fieldsCategory", 'category/fields.shtml');
 
 Layout.addAlbum(".np-album-add", "#album");
 Layout.delAlbum(".np-album-del", "#album-");
+
+Validate.formSubmit(".np-login-btn", ".np-login");
+
+
 
 /*var param = {"type": "get", "url": Layout.domain, "data": {"p": 1}};
 Layout.scrollBot(param, "load_more");
