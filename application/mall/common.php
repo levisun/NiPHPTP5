@@ -11,3 +11,25 @@
  * @link      http://www.NiPHP.com
  * @since     2016/12/27
  */
+
+/**
+ * 数字转钱
+ * @param  intval $money
+ * @return string
+ */
+function money_formats($money)
+{
+    return number_format((float) $money / 100, 2);
+}
+/**
+ * 生成订单号
+ * @param
+ * @return string
+ */
+function order_no()
+{
+    list($micro, $time) = explode(' ', microtime());
+    $micro = str_pad($micro * 1000000, 6, 0, STR_PAD_LEFT);
+
+    return date('ymdHis') . $micro . mt_rand(111, 999);
+}

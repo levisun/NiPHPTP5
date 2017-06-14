@@ -193,6 +193,7 @@ class Visit extends Model
         // 日志是否存在
         $map = [
             'ip' => $this->request->ip(0, true),
+            'create_time' => strtotime(date('Y-m-d')),
             'type' => 0
         ];
 
@@ -223,7 +224,8 @@ class Visit extends Model
                 'post_params' => serialize($this->request->post()),
                 'url'         => $this->request->url(true),
                 'count'       => 1,
-                'type'        => 0
+                'type'        => 0,
+                'create_time' => strtotime(date('Y-m-d'))
             ];
             $request_log->data($data)
             ->allowField(true)

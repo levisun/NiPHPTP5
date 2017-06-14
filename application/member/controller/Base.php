@@ -33,7 +33,7 @@ class Base extends Controller
      */
     protected function _initialize()
     {
-        if (rand(1, 1800) == 1800) {
+        if (rand(1, 18000) == 18000) {
             Cache::clear();
         }
 

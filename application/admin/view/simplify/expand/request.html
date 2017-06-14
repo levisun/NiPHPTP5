@@ -31,11 +31,15 @@
                     <tbody>
                         {volist name="list" id="vo"}
                         <tr>
-                            <td>{$vo.update_time|date='Y-m-d H:i:s',###}</td>
-                            <td>{$vo.ip} [{$vo.ip_attr}]</td>
-                            <td title="{$vo.url}">{$vo.url|substr=0,30}</td>
-                            <td>{if $vo.type == '1'} login {else} request {/if}</td>
-                            <td>{$vo.count}</td>
+                            <td width="15%">{$vo.update_time|date='Y-m-d H:i:s',###}</td>
+                            <td width="20%">{$vo.ip} [{$vo.ip_attr}]</td>
+                            <td title="substr=0,30">
+                                <p><b>URL:</b> {$vo.url}</p>
+                                <p><b>GET:</b> {$vo.get_params}</p>
+                                <p><b>POST:</b> {$vo.post_params}</p>
+                            </td>
+                            <td width="10%">{if $vo.type == '1'} login {else} request {/if}</td>
+                            <td width="10%">{$vo.count}</td>
                         </tr>
                         {/volist}
                     </tbody>

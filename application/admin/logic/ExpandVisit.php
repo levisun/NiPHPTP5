@@ -46,7 +46,7 @@ class ExpandVisit extends Model
             $obj = new AdminSearchengine;
         } elseif ($this->request->param('method') == 'request') {
             $obj = new AdminRequest;
-            $order = 'create_time DESC, count DESC';
+            $order = 'create_time DESC';
         } else {
             $obj = new AdminVisit;
         }
@@ -58,17 +58,7 @@ class ExpandVisit extends Model
 
         $list = [];
         foreach ($result as $value) {
-            if ($this->request->param('method') == 'request') {
-                $data = $value->toArray();
-                foreach ($data as $key => $value) {
-                    if (in_array($key, ['post_params', 'get_params'])) {
-                        $data[$key] = var_export(unserialize($value), true);
-                    }
-                }
-                $list[] = $data;
-            } else {
-                $list[] = $value->toArray();
-            }
+            $list[] = $value->toArray();
         }
 
         $page = $result->render();
