@@ -20,11 +20,11 @@ use net\Wechat;
 class Api extends Model
 {
     public $wechat;
-    public $type;            // 消息类型
-    public $event = [];        // 事件类型
-    public $form_user;        // 请求用户ID
-    public $user_data = [];    // 请求用户信息
-    public $key = [];        // 请求内容
+    public $type;           // 消息类型
+    public $event = [];     // 事件类型
+    public $form_user;      // 请求用户ID
+    public $user_data = []; // 请求用户信息
+    public $key = [];       // 请求内容
 
     protected function initialize()
     {
@@ -53,6 +53,8 @@ class Api extends Model
         $this->key['link']          = escape_xss($this->wechat->getRevLink());      // 链接信息
         $this->key['voice']         = escape_xss($this->wechat->getRevVoice());     // 音频信息
         $this->key['video']         = escape_xss($this->wechat->getRevVideo());     // 视频信息
+
+        defined('OPENID') or define('OPENID', $this->form_user);
     }
 
     /**

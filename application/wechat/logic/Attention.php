@@ -40,6 +40,10 @@ class Attention extends Common
         foreach ($result as $value) {
             $value = $value->toArray();
 
+            if (!empty($value['url'])) {
+                $value['url'] .= isUrlParam($value['url']) ? '&openid=' . OPENID : '?openid=' . OPENID;
+            }
+
             if (!empty($value['image']) && !empty($value['url'])) {
                 if (file_exists($value['image'])) {
                     $value['image'] = $this->domain . $value['image'];

@@ -17,6 +17,7 @@ var Layout = new Object;
  * 版本号
  */
 Layout.VERSION = "1.1.0";
+Layout.debug = false;
 
 Layout.pathName = location.pathname;
 Layout.projectName = Layout.pathName.substring(0, Layout.pathName.substr(1).indexOf("/") + 1);
@@ -194,8 +195,6 @@ Layout.each = function(element) {
         ecah["id"]           = jQuery(this).attr("id");
         ecah["class"]        = jQuery(this).attr("class");
         ecah["src"]          = jQuery(this).attr("src");
-        ecah["style_width"]  = jQuery(this).attr("width");
-        ecah["style_height"] = jQuery(this).attr("height");
         ecah["title"]        = jQuery(this).attr("title");
 
         if (ecah["src"]) {
@@ -209,6 +208,20 @@ Layout.each = function(element) {
         array.push(ecah);
     });
     return array;
+}
+
+/**
+ * 调试输入日志
+ */
+Layout.debug = function(log) {
+    console.log(log);
+}
+
+/**
+ * 重定向
+ */
+Layout.redirect = function(url) {
+    window.location.href = url;
 }
 
 /**

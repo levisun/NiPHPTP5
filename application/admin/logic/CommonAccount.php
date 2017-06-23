@@ -117,14 +117,20 @@ class CommonAccount extends Model
         $request_log->where($map)
         ->find();
 
-        $get = $this->request->get();
-        $param = $this->request->param();
+        $get_params = array_merge($this->request->get(), $this->request->param());
+        if (!empty($get_params['password'])) {
+            unset($get_params['password']);
+        }
+        $post_params = $this->request->post();
+        if (!empty($post_params['password'])) {
+            unset($post_params['password']);
+        }
 
         if ($result) {
             // 更新同IP日志
             $data = [
-                'get_params'  => serialize(array_merge($get, $param)),
-                'post_params' => serialize($this->request->post()),
+                'get_params'  => serialize($get_params),
+                'post_params' => serialize($post_params),
                 'url'         => $this->request->url(true),
             ];
             $data['count'] = $login ? ['exp', 'count+1'] : 0;
@@ -137,8 +143,8 @@ class CommonAccount extends Model
             $data = [
                 'ip'          => $this->request->ip(0, true),
                 'ip_attr'     => $area['country'] . $area['area'],
-                'get_params'  => serialize(array_merge($get, $param)),
-                'post_params' => serialize($this->request->post()),
+                'get_params'  => serialize($get_params),
+                'post_params' => serialize($post_params),
                 'url'         => $this->request->url(true),
                 'count'       => 1,
                 'type'        => 1

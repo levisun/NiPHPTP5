@@ -47,6 +47,27 @@ CREATE TABLE IF NOT EXISTS `np_member_oauth` (
   KEY `type` (`type`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '第三方登录会员';
 
+DROP TABLE IF EXISTS `np_member_wechat`;
+CREATE TABLE IF NOT EXISTS `np_member_wechat` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `subscribe` tinyint(1) NOT NULL DEFAULT '0' COMMENT '关注状态',
+  `openid` varchar(32) NOT NULL DEFAULT '' COMMENT '用户标识',
+  `nickname` varchar(50) NOT NULL DEFAULT '' COMMENT '昵称',
+  `sex` tinyint(1) NOT NULL DEFAULT '0' COMMENT '性别 1男 2女 0未知',
+  `city` varchar(10) NOT NULL DEFAULT '' COMMENT '城市',
+  `country` varchar(10) NOT NULL DEFAULT '' COMMENT '国家',
+  `province` varchar(10) NOT NULL DEFAULT '' COMMENT '省份',
+  `language` varchar(10) NOT NULL DEFAULT '' COMMENT '语言',
+  `headimgurl` varchar(10) NOT NULL DEFAULT '' COMMENT '头像',
+  `subscribe_time` int(11) NOT NULL COMMENT '注时间',
+  `unionid` varchar(32) NOT NULL DEFAULT '' COMMENT '',
+  `remark` varchar(50) NOT NULL DEFAULT '' COMMENT '备注',
+  `groupid` varchar(50) NOT NULL DEFAULT '' COMMENT '分组ID',
+  `tagid_list` varchar(50) NOT NULL DEFAULT '' COMMENT '标签ID',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `openid` (`openid`)
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT '微信用户信息表';
+
 DROP TABLE IF EXISTS `np_level_member`;
 CREATE TABLE IF NOT EXISTS `np_level_member` (
   `user_id` int(11) unsigned NOT NULL COMMENT '会员ID',

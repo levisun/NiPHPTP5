@@ -89,5 +89,15 @@ class ExpandVisit extends Model
         $visit = new AdminVisit;
         $visit->where($map)
         ->delete();
+
+        // 删除过期的请求日志(保留三个月)
+        $map = [
+            'create_time' => [
+                'ELT', strtotime('-90 days')
+            ],
+        ];
+        $visit = new AdminRequest;
+        $visit->where($map)
+        ->delete();
     }
 }

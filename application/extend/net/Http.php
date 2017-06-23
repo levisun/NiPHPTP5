@@ -142,7 +142,7 @@ class Http {
      * @param integer $expire  下载内容浏览器缓存时间
      * @return void
      */
-    public static function download ($filename, $showname = '',$content = '',$expire = 180)
+    public static function download($filename, $showname = '',$content = '',$expire = 180)
     {
         if(is_file($filename)) {
             $length = filesize($filename);

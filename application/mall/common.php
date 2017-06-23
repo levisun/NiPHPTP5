@@ -23,13 +23,13 @@ function money_formats($money)
 }
 /**
  * 生成订单号
- * @param
+ * @param  string $other
  * @return string
  */
-function order_no()
+function order_no($other = '')
 {
     list($micro, $time) = explode(' ', microtime());
     $micro = str_pad($micro * 1000000, 6, 0, STR_PAD_LEFT);
 
-    return date('ymdHis') . $micro . mt_rand(111, 999);
+    return date('ymdHis') . $micro . mt_rand(111, 999) . $other;
 }

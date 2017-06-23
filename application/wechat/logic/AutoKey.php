@@ -57,15 +57,19 @@ class AutoKey extends Common
         foreach ($result as $value) {
             $value = $value->toArray();
 
+            if (!empty($value['url'])) {
+                $value['url'] .= isUrlParam($value['url']) ? '&openid=' . OPENID : '?openid=' . OPENID;
+            }
+
             if (!empty($value['image']) && !empty($value['url'])) {
                 if (file_exists($value['image'])) {
                     $value['image'] = $this->domain . $value['image'];
                 }
                 $data['item'][] = [
-                    'Title' => $value['title'],
+                    'Title'       => $value['title'],
                     'Description' => $value['content'],
-                    'PicUrl' => $value['image'],
-                    'Url' => $value['url']
+                    'PicUrl'      => $value['image'],
+                    'Url'         => $value['url']
                 ];
             } elseif(!empty($value['url'])) {
                 $data[] = '<a href="' . $value['url'] . '">' . $value['content'] . '</a>';
@@ -99,6 +103,10 @@ class AutoKey extends Common
         $data = [];
         foreach ($result as $value) {
             $value = $value->toArray();
+
+            if (!empty($value['url'])) {
+                $value['url'] .= isUrlParam($value['url']) ? '&openid=' . OPENID : '?openid=' . OPENID;
+            }
 
             if (!empty($value['image']) && !empty($value['url'])) {
                 if (file_exists($value['image'])) {

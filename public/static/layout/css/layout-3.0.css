@@ -267,6 +267,41 @@ a.grey:hover {
 	color: #45b6f7;
 }
 
+.bg-clear {
+	position: fixed;
+	top: 0;
+	left: 0;
+	bottom: 0;
+	right: 0;
+	color: #000;
+	background-color: rgba(0, 0, 0, 0.7);
+	z-index: 9999999;
+	display: none;
+}
+.bg-clear > .box {
+	background-color: #fff;
+	margin: 25% auto 0;
+	width: 80%;
+	min-height: 100px;
+	border-radius: 5px;
+}
+.bg-clear > .box > .header {
+	padding: 5px 10px;
+	position: relative;
+}
+.bg-clear > .box > .header .close {
+	position: absolute;
+	top: -10px;
+  	right: -10px;
+	font-size: 14px;
+	background-color: rgba(0, 0, 0, 0.9);
+	border-radius: 25px;
+	width: 25px;
+	line-height: 25px;
+	text-align: center;
+	color: #fff;
+}
+
 @media print {
 	a[href]:after {
 		content: "";

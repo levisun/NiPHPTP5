@@ -11,3 +11,9 @@
  * @link      http://www.NiPHP.com
  * @since     2016/10/22
  */
+
+function isUrlParam($url)
+{
+    $rule = '/^[?]+$/';
+    return 1 === preg_match($rule, (string) $url);
+}
