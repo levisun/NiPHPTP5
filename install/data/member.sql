@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS `np_member_oauth` (
 DROP TABLE IF EXISTS `np_member_wechat`;
 CREATE TABLE IF NOT EXISTS `np_member_wechat` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '会员ID',
   `subscribe` tinyint(1) NOT NULL DEFAULT '0' COMMENT '关注状态',
   `openid` varchar(32) NOT NULL DEFAULT '' COMMENT '用户标识',
   `nickname` varchar(50) NOT NULL DEFAULT '' COMMENT '昵称',

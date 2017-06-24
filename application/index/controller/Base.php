@@ -20,6 +20,7 @@ use think\Log;
 use think\Cache;
 use app\index\logic\Visit as IndexVisit;
 use app\index\logic\Common as IndexCommon;
+use app\index\logic\WechatApi as IndexWechat;
 
 class Base extends Controller
 {
@@ -63,6 +64,11 @@ class Base extends Controller
         $this->website_data = $this->common_model->getWetsiteData();
 
         $this->themeConfig();
+
+        // 是否微信访问
+        $wechat = new IndexWechat;
+        $wechat->isWechat();    // 生成微信用户信息cookie
+        $wechat->getJsSign();
     }
 
     /**
@@ -142,8 +148,7 @@ class Base extends Controller
 
         // 判断访问端
         $mobile = $this->request->isMobile() ? 'mobile' . DS : '';
-        $info = $this->request->header();
-        if (strpos($info['user-agent'], 'MicroMessenger')) {
+        if (is_wechat_request()) {
             if (is_dir($template['view_path'] . 'wechat' . DS)) {
                 $mobile = 'wechat' . DS;
             }

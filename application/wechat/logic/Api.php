@@ -14,8 +14,9 @@
 namespace app\wechat\logic;
 
 use think\Model;
-use app\admin\model\Config as WechatConfig;
+use think\Cache;
 use net\Wechat;
+use app\admin\model\Config as WechatConfig;
 
 class Api extends Model
 {
@@ -74,10 +75,12 @@ class Api extends Model
         ];
 
         $config = new WechatConfig;
+        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $config->field(true)
         ->where($map)
+        ->cache($CACHE)
         ->select();
 
         $data = [];

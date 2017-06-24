@@ -22,7 +22,7 @@ use app\admin\model\RequestLog as IndexRequestLog;
 
 class Visit extends Model
 {
-    protected $request    = null;
+    protected $request = null;
 
     protected function initialize()
     {

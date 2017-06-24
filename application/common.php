@@ -12,6 +12,19 @@
  * @since     2016/10/22
  */
 
+use think\Request;
+
+/**
+ * 是否微信请求
+ * @param
+ * @return boolean
+ */
+function is_wechat_request()
+{
+    $info = Request::instance()->header();
+    return !!strpos($info['user-agent'], 'MicroMessenger');
+}
+
 /**
  * 获得url参数
  * @param  string $url

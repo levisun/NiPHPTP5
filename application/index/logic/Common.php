@@ -16,6 +16,7 @@ namespace app\index\logic;
 use think\Model;
 use think\Request;
 use think\Lang;
+use think\Cookie;
 use app\admin\model\Config as IndexConfig;
 use app\admin\model\Category as IndexCategory;
 

@@ -16,6 +16,7 @@ namespace app\wechat\logic;
 use think\Model;
 use think\Lang;
 use think\Request;
+use think\Cache;
 use app\wechat\logic\Common;
 use app\admin\model\Reply as WechatReply;
 
@@ -30,10 +31,12 @@ class Attention extends Common
         ];
 
         $model = new WechatReply;
+        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $model->field(true)
         ->where($map)
+        ->cache($CACHE)
         ->select();
 
         $data = [];

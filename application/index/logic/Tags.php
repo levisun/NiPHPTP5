@@ -31,7 +31,7 @@ use app\admin\model\Admin as IndexAdmin;
 
 class Tags extends Model
 {
-    protected $request    = null;
+    protected $request = null;
 
     protected function initialize()
     {
