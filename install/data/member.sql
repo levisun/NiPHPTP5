@@ -59,13 +59,14 @@ CREATE TABLE IF NOT EXISTS `np_member_wechat` (
   `country` varchar(10) NOT NULL DEFAULT '' COMMENT '国家',
   `province` varchar(10) NOT NULL DEFAULT '' COMMENT '省份',
   `language` varchar(10) NOT NULL DEFAULT '' COMMENT '语言',
-  `headimgurl` varchar(10) NOT NULL DEFAULT '' COMMENT '头像',
-  `subscribe_time` int(11) NOT NULL COMMENT '注时间',
+  `headimgurl` varchar(500) NOT NULL DEFAULT '' COMMENT '头像',
+  `subscribe_time` int(11) NOT NULL COMMENT '关注时间',
   `unionid` varchar(32) NOT NULL DEFAULT '' COMMENT '',
   `remark` varchar(50) NOT NULL DEFAULT '' COMMENT '备注',
   `groupid` varchar(50) NOT NULL DEFAULT '' COMMENT '分组ID',
-  `tagid_list` varchar(50) NOT NULL DEFAULT '' COMMENT '标签ID',
+  `tagid_list` varchar(500) NOT NULL DEFAULT '' COMMENT '标签ID',
   PRIMARY KEY (`id`),
+  KEY `user_id` (`user_id`),
   UNIQUE KEY `openid` (`openid`)
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT '微信用户信息表';
 

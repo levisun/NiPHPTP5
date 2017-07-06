@@ -234,7 +234,7 @@ class Index extends Controller
             }
 
             // 更新微信用户信息
-            $wechat_member->wechatMemberInfo($this->api->user_data, $this->api->form_user, 0);
+            $wechat_member->wechatMemberInfo($this->api->user_data, $this->api->form_user, 1);
 
             // 关注回复信息
             $data = $this->attention->reply();

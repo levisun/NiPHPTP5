@@ -141,6 +141,20 @@ Layout.captcha = function (element, params) {
 }
 
 /**
+ * 自动隐藏
+ */
+Layout.autoHide = function(element, time) {
+    var wait = Layout.isVar(time, 3);
+    var interval = setInterval(function() {
+        var time = --wait;
+        if(time <= 0) {
+          jQuery(element).hide();
+          clearInterval(interval);
+        };
+    }, 1000);
+}
+
+/**
  * 确认操作
  */
 Layout.confirmOperation = function (element, lang) {

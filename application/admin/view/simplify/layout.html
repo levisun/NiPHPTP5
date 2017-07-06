@@ -87,8 +87,7 @@
 <body class="overflow-hidden">
 {neq name="Request.controller" value="Account"}
 <div class="wrapper preload">
-    {include file="public/header" /}
-    {include file="public/sidebar" /}
+    {include file="public/header,public/sidebar" /}
 
     <div class="main-container">
         <div class="padding-md">
@@ -122,9 +121,7 @@
 
 {/neq}
 
-{js href="__LAYOUT__js/layout-1.1.0.js" /}
-{js href="__LAYOUT__js/validate-1.0.1.js" /}
-{js href="__JS__main.js" /}
+{js href="__LAYOUT__js/layout-1.1.0.js,__LAYOUT__js/validate-1.0.1.js,__JS__main.js" /}
 <script>
 var domain = Layout.domain;
 parent.document.title = "{$__TITLE__}";

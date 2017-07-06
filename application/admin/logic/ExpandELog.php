@@ -47,7 +47,7 @@ class ExpandELog extends Model
         $days = strtotime('-30 days');
         foreach ($list as $key => $value) {
             if (strtotime($value['time']) <= $days) {
-                File::delete(LOG_PATH . $value['name'] . DS);
+                File::delete(LOG_PATH . $dir . $value['name']);
                 unset($list[$key]);
             } else {
                 $list[$key]['id'] = encrypt($value['name']);

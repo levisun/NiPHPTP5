@@ -21,6 +21,7 @@ function money_formats($money)
 {
     return number_format((float) $money / 100, 2);
 }
+
 /**
  * 生成订单号
  * @param  string $other

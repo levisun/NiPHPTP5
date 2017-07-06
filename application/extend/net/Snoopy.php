@@ -26,6 +26,8 @@
  * The latest version of Snoopy can be obtained from:
  * http://snoopy.sourceforge.net/
  *************************************************/
+namespace net;
+
 class Snoopy
 {
     /**** Public variables ****/
@@ -857,7 +859,7 @@ class Snoopy
                 if (isset($this->capath))
                     $context_opts['ssl']['capath'] = $this->capath;
             }
-                    
+
             $host = 'ssl://' . $host;
         }
 

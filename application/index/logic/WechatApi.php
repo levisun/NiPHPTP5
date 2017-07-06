@@ -81,6 +81,15 @@ class WechatApi extends Model
         if ($this->request->has('openid', 'param')) {
             $openid = $this->request->param('openid');
             Cookie::set('WECHAT_OPENID', $openid);
+
+            // 生成跳转链接 不包含openid
+            $url = $this->request->url(true);
+            $arr = url_params($url);
+            unset($arr['query']['openid']);
+            $url = $arr['scheme'] . '://' . $arr['host'] . $arr['path'];
+            $url .= empty($arr['query']) ? '' : '?' . http_build_query($arr['query']);
+
+            return $url;
         }
 
         // cookie存在
@@ -124,6 +133,7 @@ class WechatApi extends Model
             ];
         } else {
             $data['subscribe'] = $subscribe;
+            $data['tagid_list'] = serialize($data['tagid_list']);
         }
 
         $member_wechat = new IndexMemberWechat;

@@ -43,6 +43,14 @@ class Base extends Controller
             Cache::clear();
         }
 
+        $wechat = new IndexWechat;
+
+        // 生成微信用户信息cookie
+        $url = $wechat->isWechat();
+        if (is_string($url)) {
+            $this->redirect($url, 302);
+        }
+
         // 设置IP为授权Key
         // Log::key($this->request->ip(0, true));
 
@@ -65,10 +73,9 @@ class Base extends Controller
 
         $this->themeConfig();
 
-        // 是否微信访问
-        $wechat = new IndexWechat;
-        $wechat->isWechat();    // 生成微信用户信息cookie
-        $wechat->getJsSign();
+        // 生成微信JS签名
+        $wx_js_sign = $wechat->getJsSign();
+        $this->assign('wx_js_sign', $wx_js_sign);
     }
 
     /**

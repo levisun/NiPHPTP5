@@ -13,6 +13,27 @@
  */
 
 use think\Request;
+use net\Snoopy;
+
+function send_get_request($url, $type = 'json', $charset='UTF-8')
+{
+    // 转换url中的空格
+    $url = preg_replace('/[ ]+/si', '%20', $url);
+
+    $charset = strtoupper($charset);
+
+    // 非UTF-8转码
+    $url = $charset != 'UTF-8' ? iconv('UTF-8', $charset . '//IGNORE', $url) : $url;
+
+
+    $snoopy = new Snoopy;
+    $snoopy->fetch($url);
+
+    // 非UTF-8转码
+    $result = $charset != 'UTF-8' ? iconv($charset, 'UTF-8//IGNORE', $snoopy->results) : $snoopy->results;
+
+    $result = $type == 'json' ? json_decode($result, true) : $result;
+}
 
 /**
  * 是否微信请求
