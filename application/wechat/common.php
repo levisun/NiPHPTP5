@@ -12,7 +12,7 @@
  * @since     2016/10/22
  */
 
-function isUrlParam($url)
+function is_url_param($url)
 {
     $rule = '/^[?]+$/';
     return 1 === preg_match($rule, (string) $url);

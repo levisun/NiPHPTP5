@@ -13,27 +13,7 @@
  */
 
 use think\Request;
-use net\Snoopy;
 
-function send_get_request($url, $type = 'json', $charset='UTF-8')
-{
-    // 转换url中的空格
-    $url = preg_replace('/[ ]+/si', '%20', $url);
-
-    $charset = strtoupper($charset);
-
-    // 非UTF-8转码
-    $url = $charset != 'UTF-8' ? iconv('UTF-8', $charset . '//IGNORE', $url) : $url;
-
-
-    $snoopy = new Snoopy;
-    $snoopy->fetch($url);
-
-    // 非UTF-8转码
-    $result = $charset != 'UTF-8' ? iconv($charset, 'UTF-8//IGNORE', $snoopy->results) : $snoopy->results;
-
-    $result = $type == 'json' ? json_decode($result, true) : $result;
-}
 
 /**
  * 是否微信请求
@@ -102,8 +82,7 @@ function check_key($array, $method)
  */
 function escape_xss($data)
 {
-    $search = [
-        // 过滤PHP
+    $pattern = [
         '/<\?php(.*?)\?>/si',
         '/<\?(.*?)\?>/si',
         '/<%(.*?)%>/si',
@@ -184,15 +163,59 @@ function escape_xss($data)
         '/<(\/?body.*?)>/si',
     ];
 
-    $data = preg_replace($search, '', $data);
-    $data = preg_replace('/[  ]+/si', ' ', $data);      // 多余空格
-    $data = preg_replace('/[.\s]+</si', '<', $data);    // 多余回车
-    $data = preg_replace('/>[.\s]+/si', '>', $data);    // 多余回车
+    $data = preg_replace($pattern, '', $data);
 
-    // 转义特殊字符
+    $pattern = [
+        '/[  ]+/si',    // 多余空格
+        '/[\s]+</si',   // 多余回车
+        '/>[\s]+/si',
+
+        '/(select)/si',   // SQL
+        '/(drop)/si',
+        '/(delete)/si',
+        '/(create)/si',
+        '/(update)/si',
+        '/(insert)/si',
+
+        '/(\*)/si',       // 特殊字符
+        '/(`)/si',
+        '/(￥)/si',
+        '/(™)/si',
+        '/(®)/si',
+        '/(©)/si',
+        '/(〃|”|“)/si',
+        '/(’|‘)/si',
+        '/(×)/si',
+        '/(÷)/si',
+        '/(—|－|～)/si',
+    ];
+    $replacement = [
+        ' ',
+        '<',
+        '>',
+        '<span>s</span>elect',
+        '<span>d</span>rop',
+        '<span>d</span>elete',
+        '<span>c</span>reate',
+        '<span>u</span>pdate',
+        '<span>i</span>nsert',
+
+        '&lowast;',
+        '&acute;',
+        '&yen;',
+        '&trade;',
+        '&reg;',
+        '&copy;',
+        '&quot;',
+        '&acute;',
+        '&times;',
+        '&divide;',
+        '-',
+    ];
+    $data = preg_replace($pattern, $replacement, $data);
+
+    // 全角转半角
     $strtr = [
-        '*' => '&lowast;', '`' => '&acute;',
-        '￥' => '&yen;', '™' => '&trade;', '®' => '&reg;', '©' => '&copy;',
         // '\'' => '&#39;', '"' => '&quot;', '<' => '&lt;', '>' => '&gt;',
         '０' => '0', '１' => '1', '２' => '2', '３' => '3', '４' => '4', '５' => '5',
         '６' => '6', '７' => '7', '８' => '8', '９' => '9',
@@ -211,13 +234,15 @@ function escape_xss($data)
 
         '（' => '(', '）' => ')', '〔' => '[', '〕' => ']', '【' => '[', '】' => ']',
         '〖' => '[', '〗' => ']', '｛' => '{', '｝' => '}', '％' => '%', '＋' => '+',
-        '—' => '-', '－' => '-', '～' => '-', '：' => ':', '？' => '?', '！' => '!',
-        '…' => '...', '‖' => '|', '｜' => '|',
-        '〃' => '&quot;', '”' => '&quot;', '“' => '&quot;',  '’' => '&acute;',
-        '‘' => '&acute;',
-        '×' => '&times;', '÷' => '&divide;',
+        '：' => ':', '？' => '?', '！' => '!',
+        '…' => '...', '‖' => '|', '｜' => '|', '　' => '',
         ];
     $data = strtr($data, $strtr);
+
+    // 个性字符过虑
+    $rule = '/[\x{4e00}-\x{9fa5}a-zA-Z0-9\s\_\-\(\)\[\]\{\}\|\?\/\!\@\#\$\%\^\&\+\:\;\"\'\<\>\,\.\，\。\《\》]+/u';
+    preg_match_all($rule, $data, $matches);
+    $data = implode('', $matches[0]);
 
     return $data;
 }

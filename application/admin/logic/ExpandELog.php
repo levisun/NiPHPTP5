@@ -46,7 +46,7 @@ class ExpandELog extends Model
         // 删除过期日志
         $days = strtotime('-30 days');
         foreach ($list as $key => $value) {
-            if (strtotime($value['time']) <= $days) {
+            if ($value['time'] <= $days) {
                 File::delete(LOG_PATH . $dir . $value['name']);
                 unset($list[$key]);
             } else {

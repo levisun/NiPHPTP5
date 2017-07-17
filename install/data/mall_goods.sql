@@ -46,6 +46,16 @@ CREATE TABLE IF NOT EXISTS `np_mall_goods_promote` (
   KEY `promote_ent_time` (`promote_ent_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '商品促销表';;
 
+DROP TABLE IF EXISTS `np_mall_goods_album`;
+CREATE TABLE IF NOT EXISTS `np_mall_goods_album` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `goods_id` int(11) unsigned NOT NULL COMMENT '图文ID',
+  `thumb` varchar(255) NOT NULL DEFAULT '' COMMENT '缩略图',
+  `image` varchar(255) NOT NULL DEFAULT '' COMMENT '原图',
+  PRIMARY KEY (`id`),
+  KEY `goods_id` (`goods_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品相册表';
+
 DROP TABLE IF EXISTS `np_mall_goods_attr`;
 CREATE TABLE IF NOT EXISTS `np_mall_goods_attr` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -59,13 +69,3 @@ CREATE TABLE IF NOT EXISTS `np_mall_goods_attr` (
   KEY `goods_id` (`goods_id`),
   KEY `number` (`number`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '商品属性表';
-
-DROP TABLE IF EXISTS `np_mall_goods_album`;
-CREATE TABLE IF NOT EXISTS `np_mall_goods_album` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `goods_id` int(11) unsigned NOT NULL COMMENT '图文ID',
-  `thumb` varchar(255) NOT NULL DEFAULT '' COMMENT '缩略图',
-  `image` varchar(255) NOT NULL DEFAULT '' COMMENT '原图',
-  PRIMARY KEY (`id`),
-  KEY `goods_id` (`goods_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品相册表';

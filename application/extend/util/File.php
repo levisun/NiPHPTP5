@@ -15,38 +15,80 @@ namespace util;
 class File
 {
 
+    public static function removeUselessFile($dir = './')
+    {
+        $del = ['.gitignore', '.DS_Store', 'Thumbs.db'];
+        $dirArr = self::get($dir);
+        foreach ($dirArr as $key => $value) {
+            if (is_dir($dir . $value['name'])) {
+                self::removeUselessFile($dir . $value['name'] . '/');
+            } elseif (in_array($value['name'], $del) && file_exists($dir . $value['name'])) {
+                echo $dir . $value['name'];
+                unlink($dir . $value['name']);
+            }
+        }
+    }
+
     /**
      * 创建文件
      * @static
      * @access public
-     * @param  string  $file_path  文件
-     * @param  string  $data       数据 默认为null不创建文件
+     * @param  string  $file_name  文件
+     * @param  string  $data       数据
      * @param  boolean $is_cover   是否覆盖
      * @return boolean
      */
-    public static function create($file_path, $data = null, $is_cover = false)
+    public static function create($file_name, $data = '', $is_cover = false)
     {
-        $dir = explode('/', $file_path);
-        $dirPath = '';
-        foreach ($dir as $path) {
-            if (false !== strpos($path, '.')) {
-                continue;
-            }
-            $dirPath .= $path . DIRECTORY_SEPARATOR;
-            if ($dirPath != DIRECTORY_SEPARATOR && !is_dir($dirPath)) {
-                mkdir($dirPath, 0755);
-                chmod($dirPath, 0755);
-            }
+        self::createDir($file_name);
+
+        // 不是文件名
+        if (false === strpos($file_name, '.')) {
+            return false;
         }
 
-        if (null !== $data) {
-            if($is_cover) {
-                return file_put_contents($file_path, $data);
-            } else {
-                return file_put_contents($file_path, $data, FILE_APPEND);
-            }
+        if ($is_cover) {
+            return !!file_put_contents($file_name, $data);
+        } else {
+            return !!file_put_contents($file_name, $data, FILE_APPEND);
         }
-        return true;
+    }
+
+    /**
+     * 新建目录
+     * @static
+     * @access public
+     * @param  string  $dir_path 目录
+     * @return void
+     */
+    public static function createDir($dir_path)
+    {
+        $dir = explode(DIRECTORY_SEPARATOR, $dir_path);
+
+        $dir_path = '';
+
+        foreach ($dir as $key => $value) {
+            // 文件名跳出
+            if (false !== strpos($value, '.')) {
+                continue;
+            }
+
+            $dir_path .= $value . DIRECTORY_SEPARATOR;
+
+            // 目录是否存在
+            if (self::has($dir_path)) {
+                continue;
+            }
+
+            // 目录为空跳出
+            if ($dir_path == DIRECTORY_SEPARATOR) {
+                continue;
+            }
+
+            // 新建目录
+            mkdir($dir_path, 0755);
+            chmod($dir_path, 0755);
+        }
     }
 
     /**
@@ -58,21 +100,24 @@ class File
      */
     public static function delete($file_or_dir)
     {
-        if (is_dir($file_or_dir)) {
+        if (is_file($file_or_dir)) {
+            // 删除文件
+            return unlink($file_or_dir);
+        } elseif (is_dir($file_or_dir)) {
+            // 获得目录中的所有文件
             if (substr($file_or_dir, -1) === DIRECTORY_SEPARATOR) {
                 $file = glob($file_or_dir . '*');
             } else {
                 $file = glob($file_or_dir . DIRECTORY_SEPARATOR . '*');
             }
-            foreach ($file as $file) {
-                self::delete($file);
+
+            // 删除目录中的所有文件
+            foreach ($file as $key => $value) {
+                self::delete($value);
             }
+
+            // 删除目录
             return rmdir($file_or_dir);
-        } elseif (file_exists($file_or_dir)) {
-            unlink($file_or_dir);
-            return true;
-        } else {
-            return false;
         }
     }
 
@@ -87,9 +132,17 @@ class File
      */
     public static function rename($old, $new)
     {
-        if ((!file_exists($old) && file_exists($new)) || (!is_dir($old) && is_dir($new))) {
+        // 旧名的文件或目录不存在
+        if (!self::has($old)) {
             return false;
         }
+
+        // 新名的文件或目录存在
+        if (self::has($new)) {
+            return false;
+        }
+
+        // 重命名
         return rename($old, $new);
     }
 
@@ -98,49 +151,60 @@ class File
      * @static
      * @access public
      * @param  string $dir  目录
-     * @param  string $date 日期格式 默认Y-m-d H:i:s
      * @return array
      */
-    public static function get($dir, $date = 'Y-m-d H:i:s')
+    public static function get($dir)
     {
-        $no = ['.', '..', 'index.html', '.svn', '.DS_Store', '.gitignore', 'Thumbs.db'];
-        $dirOrFile = array();
-        if (is_dir($dir)) {
-            $handler = opendir($dir);
-            while (false !== ($fileName = readdir($handler))) {
-                if (!in_array($fileName, $no)) {
-                    $fileInfo['name'] = $fileName;
-                    $fileSize = filesize($dir . $fileName);
-                    if ($fileSize <= 1024) {
-                        $fileInfo['size'] = $fileSize . 'B';
-                    } elseif ($fileSize > 1024 && $fileSize <= 1048576) {
-                        $fileInfo['size'] = number_format($fileSize / 1024, 2) . 'KB';
-                    } elseif ($fileSize > 1048576 && $fileSize <= 1073741824) {
-                        $fileInfo['size'] = number_format($fileSize / 1048576, 2) . 'MB';
-                    } else {
-                        $fileInfo['size'] = number_format($fileSize / 1073741824, 2) . 'GB';
-                    }
+        if (self::has($dir)) {
+            if (substr($dir, -1) !== DIRECTORY_SEPARATOR) {
+                $dir .= DIRECTORY_SEPARATOR;
+            }
 
-                    $fileInfo['time'] = !empty($date) ? date($date, filemtime($dir . $fileName)) : filemtime($path . $fileName);
-                    $dirOrFile[] = $fileInfo;
+            $no = [
+                '.',
+                '..',
+                'index.html',
+                '.svn',
+                '.DS_Store',
+                '.gitignore',
+                'Thumbs.db'
+            ];
+
+            $list = [];
+
+            $handler = opendir($dir);
+
+            while (($file_name = readdir($handler)) !== false) {
+                if (!in_array($file_name, $no)) {
+                    $list[] = [
+                        'name' => $file_name,
+                        'size' => filesize($dir . $file_name),
+                        'time' => filemtime($dir . $file_name),
+                    ];
                 }
             }
+
             closedir($handler);
+
+            return $list;
+        } else {
+            return false;
         }
-        return $dirOrFile;
     }
 
-    public static function removeUselessFile($dir = './')
+    /**
+     * 检查文件或目录是否存在
+     * @static
+     * @access public
+     * @param  string  $file_path 文件名或目录
+     * @return boolean
+     */
+    public static function has($file_path)
     {
-        $del = ['.gitignore', '.DS_Store', 'Thumbs.db'];
-        $dirArr = self::get($dir);
-        foreach ($dirArr as $key => $value) {
-            if (is_dir($dir . $value['name'])) {
-                self::removeUselessFile($dir . $value['name'] . '/');
-            } elseif (in_array($value['name'], $del) && file_exists($dir . $value['name'])) {
-                echo $dir . $value['name'];
-                unlink($dir . $value['name']);
-            }
+        if (false !== strpos($file_path, '.')) {
+            return is_file($file_path);
+        } else {
+            return is_dir($file_path);
         }
     }
 }

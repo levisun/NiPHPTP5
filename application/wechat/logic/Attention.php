@@ -44,7 +44,7 @@ class Attention extends Common
             $value = $value->toArray();
 
             if (!empty($value['url'])) {
-                $value['url'] .= isUrlParam($value['url']) ? '&openid=' . OPENID : '?openid=' . OPENID;
+                $value['url'] .= is_url_param($value['url']) ? '&openid=' . OPENID : '?openid=' . OPENID;
             }
 
             if (!empty($value['image']) && !empty($value['url'])) {

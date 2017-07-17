@@ -104,10 +104,10 @@ class WechatApi extends Model
             ->where($map)
             ->find();
 
-            $wechat_data = $result->toArray();
+            $wechat_data = $result ? $result->toArray() : [];
 
-            if ($wechat_data) {
-                Cookie::set('WECHAT_DATA', $wechat_data);
+            if (!$wechat_data) {
+                halt('TODO:录入用户信息')
             }
 
             return true;
