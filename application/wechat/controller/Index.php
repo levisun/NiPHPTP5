@@ -234,7 +234,7 @@ class Index extends Controller
             }
 
             // 更新微信用户信息
-            $wechat_member->wechatMemberInfo($this->api->user_data, $this->api->form_user, 1);
+            $this->wechat_member->wechatMemberInfo($this->api->user_data, $this->api->form_user, 1);
 
             // 关注回复信息
             $data = $this->attention->reply();
@@ -244,7 +244,7 @@ class Index extends Controller
         // 取消关注事件
         if ($this->api->event['event'] == Wechat::EVENT_UNSUBSCRIBE) {
             // 更新微信用户信息
-            $wechat_member->wechatMemberInfo($this->api->user_data, $this->api->form_user, 0);
+            $this->wechat_member->wechatMemberInfo($this->api->user_data, $this->api->form_user, 0);
         }
 
         // 上报地理位置事件
@@ -271,10 +271,18 @@ class Index extends Controller
      */
     private function reply($data)
     {
-        if (isset($data['item'])) {
-            return $this->api->wechat->news($data['item'])->reply();
+        if (is_string($data)) {
+            $text = $data;
+        } elseif (is_array($data) && !empty($data['item'])) {
+            $news = $data['item'];
+        } elseif (is_array($data) && !empty($data[0])) {
+            $text = $data[0];
+        }
+
+        if (!empty($news)) {
+            return $this->api->wechat->news($news)->reply();
         } else {
-            return $this->api->wechat->text($data[0])->reply();
+            return $this->api->wechat->text($text)->reply();
         }
     }
 }

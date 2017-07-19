@@ -232,6 +232,13 @@ Layout.debug = function(log) {
 }
 
 /**
+ * 重新加载页面
+ */
+Layout.reload = function() {
+    window.location.reload();
+}
+
+/**
  * 重定向
  */
 Layout.redirect = function(url) {

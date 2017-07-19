@@ -21,7 +21,9 @@ use think\Cookie;
 use think\Url;
 use think\Cache;
 use net\Wechat;
+use net\IpLocation;
 use app\admin\model\Config as IndexConfig;
+use app\admin\model\Member as MemberMember;
 use app\admin\model\MemberWechat as IndexMemberWechat;
 
 class WechatApi extends Model
@@ -44,6 +46,69 @@ class WechatApi extends Model
         ];
 
         $this->wechat = new Wechat($option);
+    }
+
+    /**
+     * 微信自动登录
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function autoWechatLogin()
+    {
+        // 是否微信请求
+        if (!is_wechat_request()) {
+            return false;
+        }
+
+        if (Cookie::has('WECHAT_OPENID')) {
+            $openid = Cookie::get('WECHAT_OPENID');
+
+            $member_wechat = new IndexMemberWechat;
+            $map = ['mw.openid' => $openid];
+            $result =
+            $member_wechat->field(true)
+            ->where($map)
+            ->find();
+
+            $result =
+            $member_wechat->view('member_wechat mw', 'nickname,openid')
+            ->view('member m', 'id,username,email', 'm.id=mw.user_id')
+            ->view('level_member lm', 'user_id', 'm.id=lm.user_id')
+            ->view('level l', ['id'=>'level_id', 'name'=>'Level_name'], 'l.id=lm.level_id')
+            ->where($map)
+            ->find();
+
+            $wechat_data = $result ? $result->toArray() : [];
+
+            if ($result['openid']) {
+                $result['last_login_ip'] = $this->request->ip(0, true);
+
+                $ip = new IpLocation();
+                $area = $ip->getlocation($this->request->ip(0, true));
+                $result['last_login_ip_attr'] = $area['country'] . $area['area'];
+
+                $map = ['id' => $result['id']];
+                $field = [
+                    'last_login_time',
+                    'last_login_ip',
+                    'last_login_ip_attr'
+                ];
+
+                $member = new MemberMember;
+                $member->allowField($field)
+                ->save($result, $map);
+
+                Cookie::set('USER_DATA', $result);
+                Cookie::set(Config::get('USER_AUTH_KEY'), $result['id']);
+
+                return false;
+            } else {
+                return true;
+            }
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -70,34 +135,19 @@ class WechatApi extends Model
      * @param
      * @return boolean
      */
-    public function isWechat()
+    public function wechatOpenid()
     {
         // 是否微信请求
         if (!is_wechat_request()) {
             return false;
         }
 
-        // url openid参数 并记录cookie
-        if ($this->request->has('openid', 'param')) {
-            $openid = $this->request->param('openid');
-            Cookie::set('WECHAT_OPENID', $openid);
-
-            // 生成跳转链接 不包含openid
-            $url = $this->request->url(true);
-            $arr = url_params($url);
-            unset($arr['query']['openid']);
-            $url = $arr['scheme'] . '://' . $arr['host'] . $arr['path'];
-            $url .= empty($arr['query']) ? '' : '?' . http_build_query($arr['query']);
-
-            return $url;
-        }
-
         // cookie存在
         if (Cookie::has('WECHAT_OPENID')) {
             $openid = Cookie::get('WECHAT_OPENID');
 
+            // 查询微信用户信息是否存在
             $member_wechat = new IndexMemberWechat;
-
             $map = ['openid' => $openid];
             $result =
             $member_wechat->field(true)
@@ -106,11 +156,32 @@ class WechatApi extends Model
 
             $wechat_data = $result ? $result->toArray() : [];
 
-            if (!$wechat_data) {
-                halt('TODO:录入用户信息')
+            if (empty($wechat_data)) {
+                return true;
             }
 
-            return true;
+            // 已关联直接登录
+            halt('TODO:如果用户已登录绑定微信帐户');
+        } else {
+            // 网页授权获得用户openid后再获得用户信息
+            if ($this->request->has('code', 'param')) {
+                $code = $this->request->param('code');
+                $state = $this->request->param('state');
+                if ($state == 'wechatOauth') {
+                    // 通过code获得openid
+                    $result = $this->wechat->getOauthAccessToken($code);
+                    // 通过openid获得用户信息
+                    $reuslt = $this->wechat->getUserInfo($result['openid']);
+                    // 录入或更新用户信息
+                    $this->wechatMemberInfo($result, $result['openid'], $result['subscribe']);
+                    Cookie::set('WECHAT_OPENID', $reuslt['openid']);
+                }
+            } else {
+                // 直接跳转不授权获取code
+                $url = $this->request->url(true);
+                $url = $this->wechat->getOauthRedirect($url, 'wechatOauth', 'snsapi_base');
+                $this->redirect($url);
+            }
         }
 
         return false;
