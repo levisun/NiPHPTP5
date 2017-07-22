@@ -71,8 +71,8 @@ class Base extends Controller
         $this->themeConfig();
 
         // 生成微信JS签名
-        $wechat_js_sign = $wechat->getJsSign();
-        $this->assign('wechat_js_sign', $wechat_js_sign);
+        $wechat_js = $wechat->getJsSign();
+        $this->assign('wechat_js', $wechat_js);
     }
 
     /**
@@ -167,9 +167,8 @@ class Base extends Controller
         $this->view->engine($template);
 
         // 获得域名地址
-        $domain = $this->request->root(true);
-        $domain = strtr($domain, ['/index.php' => '']);
-
+        $domain = $this->request->domain();
+        $domain .= substr($this->request->baseFile(), 0, -10);
         $default_theme = $domain . '/public/theme/' . $module . '/';
         $default_theme .= $this->website_data[$module . '_theme'] . '/' . $mobile;
 

@@ -39,12 +39,12 @@ CREATE TABLE IF NOT EXISTS `np_mall_goods_promote` (
   `goods_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商品ID',
   `promote_price` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '促销价格',
   `promote_start_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '促销开始时间',
-  `promote_ent_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '促销结束时间',
+  `promote_end_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '促销结束时间',
   PRIMARY KEY (`id`),
-  KEY `goods_id` (`goods_id`),
+  UNIQUE KEY `goods_id` (`goods_id`),
   KEY `promote_start_time` (`promote_start_time`),
-  KEY `promote_ent_time` (`promote_ent_time`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '商品促销表';;
+  KEY `promote_end_time` (`promote_end_time`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '商品促销表';
 
 DROP TABLE IF EXISTS `np_mall_goods_album`;
 CREATE TABLE IF NOT EXISTS `np_mall_goods_album` (

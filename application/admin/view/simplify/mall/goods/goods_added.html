@@ -41,7 +41,7 @@
                             <label for="type_id" class="col-lg-2 control-label">{:lang('goods type')}</label>
                             <div class="col-lg-10">
                                 <select name="type_id" id="type_id" class="form-control">
-                                    <option value=""></option>
+                                    <option value="">{:lang('please goods type')}</option>
                                     {volist name="type" id="vo"}
                                         {empty name="vo.child"}
                                         <option value="{$vo.id}">{$vo.name}</option>
@@ -60,7 +60,10 @@
                             <label for="brand_id" class="col-lg-2 control-label">{:lang('goods brand')}</label>
                             <div class="col-lg-10">
                                 <select name="brand_id" id="brand_id" class="form-control">
-                                    <option value=""></option>
+                                    <option value="">{:lang('please goods brand')}</option>
+                                    {volist name="brand" id="vo"}
+                                    <option value="{$vo.id}">{$vo.name}</option>
+                                    {/volist}
                                 </select>
                             </div>
                         </div>
@@ -85,7 +88,7 @@
                         <div class="form-group">
                             <label for="number" class="col-lg-2 control-label">{:lang('goods number')}</label>
                             <div class="col-lg-10">
-                                <input type="text" name="number" id="number" class="form-control">
+                                <input type="text" name="number" id="number" class="form-control" value="1000">
                             </div>
                         </div>
                         <div class="form-group">
@@ -94,6 +97,41 @@
                                 <input type="text" name="thumb" id="thumb" class="form-control">
                                 <button type="button" class="btn btn-success btn-sm np-upload" data-type="image" data-id="thumb" data-model="">{:lang('button upload')}</button>
                                 <img src="" id="img-thumb" width="100" style="display:none">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="promote_price" class="col-lg-2 control-label">{:lang('promote price')}</label>
+                            <div class="col-lg-10">
+                                <div class="input-group">
+                                    <input type="text" name="promote_price" id="promote_price" class="form-control">
+                                    <span class="input-group-addon">{:lang('mall yuan')}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="promote_start_time" class="col-lg-2 control-label">{:lang('promote start time')}</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="promote_start_time" id="promote_start_time" class="form-control">
+                                <script type="text/javascript">
+                                $(function () {
+                                    $('#promote_start_time').datetimepicker(
+                                        {format: 'Y-M-D'}
+                                        );
+                                });
+                                </script>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="promote_end_time" class="col-lg-2 control-label">{:lang('promote end time')}</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="promote_end_time" id="promote_end_time" class="form-control">
+                                <script type="text/javascript">
+                                $(function () {
+                                    $('#promote_end_time').datetimepicker(
+                                        {format: 'Y-M-D'}
+                                        );
+                                });
+                                </script>
                             </div>
                         </div>
                     </div>

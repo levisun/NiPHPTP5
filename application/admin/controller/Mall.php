@@ -33,8 +33,8 @@ class Mall extends Base
 
         if (in_array($this->method, ['added', 'editor'])) {
             $goods = new AdminMallGoods;
-            $type_list = $goods->getType();
-            $this->assign('type', $type_list);
+            $this->assign('type', $goods->getType());
+            $this->assign('brand', $goods->getBrand());
         }
 
         // 新增
@@ -147,11 +147,18 @@ class Mall extends Base
      * @param
      * @return string
      */
-    public function accountflow()
+    public function account()
     {
         $this->assign('submenu', 1);
 
         return $this->fetch();
+    }
+
+    public function grecycle()
+    {
+        $this->assign('submenu', 1);
+
+        return $this->fetch('mall/goods/goods');
     }
 
     /**

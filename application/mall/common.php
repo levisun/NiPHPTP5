@@ -13,13 +13,25 @@
  */
 
 /**
- * 数字转钱
- * @param  intval $money
+ * 分转元
+ * @param  intval $value
  * @return string
  */
-function money_formats($money)
+function to_yen($value, $param = true)
 {
-    return number_format((float) $money / 100, 2);
+    if (empty($value)) {
+        $value = 0;
+    }
+
+    if ($param) {
+        $value = number_format((float) $value / 100, 2);
+        return '&yen;' . $value;
+    } else {
+        $strtr = ['&yen;' => '', '¥' => '', '￥' => '', '元' => ''];
+        $value = strtr($value, $strtr);
+        $value = (float) $value;
+        return $value * 100;
+    }
 }
 
 /**

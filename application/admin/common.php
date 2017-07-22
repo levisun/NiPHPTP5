@@ -19,8 +19,13 @@
  */
 function to_yen($value, $param = true)
 {
+    if (empty($value)) {
+        $value = 0;
+    }
+
     if ($param) {
-        return '&yen;' . $value / 100;
+        $value = number_format((float) $value / 100, 2);
+        return '&yen;' . $value;
     } else {
         $strtr = ['&yen;' => '', '¥' => '', '￥' => '', '元' => ''];
         $value = strtr($value, $strtr);

@@ -15,6 +15,7 @@
                             <th>{:lang('type name')}</th>
                             <th>{:lang('name')}</th>
                             <th>{:lang('goods price')}</th>
+                            <th>{:lang('promote price')}</th>
                             <th>{:lang('status')}</th>
                             <th>{:lang('operation')}</th>
                         </tr>
@@ -29,6 +30,13 @@
                             <td>{$vo.type_name}</td>
                             <td>{$vo.name}</td>
                             <td>{$vo.price}</td>
+                            <td>
+                                {$vo.promote_price}
+                                <!-- {if $vo.promote_start_time}
+                                {$vo.promote_start_time|date='Y-m-d H:i:s',###}-
+                                {$vo.promote_ent_time|date='Y-m-d H:i:s',###}
+                                {/if} -->
+                            </td>
                             <td>
                                 <a class="btn btn-danger btn-xs disabled">
                                 {eq name="vo.is_pass" value="1"}
@@ -58,6 +66,7 @@
                         {/volist}
                         <tr>
                             <td><input type="submit" value="{:lang('button sort')}" class="btn btn-primary"></td>
+                            <td></td>
                             <td></td>
                             <td></td>
                             <td></td>

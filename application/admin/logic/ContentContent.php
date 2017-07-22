@@ -65,7 +65,7 @@ class ContentContent extends Model
 
         $map = ['category_id' => $this->request->param('cid/f', $cid)];
         if ($key = $this->request->param('key')) {
-            $map['remark'] = ['LIKE', '%' . $key . '%'];
+            $map['title'] = ['LIKE', '%' . $key . '%'];
         }
 
         if ($this->table_name == 'link') {

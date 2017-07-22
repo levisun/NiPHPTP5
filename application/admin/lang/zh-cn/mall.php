@@ -10,8 +10,13 @@ return [
 
     'goods name'         => '名称',
     'goods type'         => '分类',
+    'please goods type'  => '请选择商品分类',
+    'please goods brand' => '请输择商品品牌',
     'goods brand'        => '品牌',
     'goods price'        => '价格',
+    'promote price'      => '促销价格',
+    'promote start time' => '促销开始时间',
+    'promote end time'   => '促销结束时间',
     'goods market price' => '市场价格',
     'goods number'       => '库存',
     'goods pass'         => '审核',

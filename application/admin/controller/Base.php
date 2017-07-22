@@ -340,13 +340,8 @@ class Base extends Controller
         Config::set($dispatch);
 
         // 获得域名地址
-        $domain = $this->request->root(true);
-        $domain_arr = explode('/', $domain);
-        if (count($domain_arr) >= 4) {
-            array_pop($domain_arr);
-        }
-        $domain = implode('/', $domain_arr);
-
+        $domain = $this->request->domain();
+        $domain .= substr($this->request->baseFile(), 0, -10);
         $default_theme = $domain . '/public/static/' . $this->request->module() . '/';
         $default_theme .= Config::get('default_theme') . '/';
 

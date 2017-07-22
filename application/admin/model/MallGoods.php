@@ -14,12 +14,15 @@
 namespace app\admin\model;
 
 use think\Model;
+use traits\model\SoftDelete;
 
 class MallGoods extends Model
 {
+    use SoftDelete;
     protected $name = 'mall_goods';
     protected $autoWriteTimestamp = true;
     protected $updateTime = 'update_time';
+    protected $deleteTime = 'delete_time';
     protected $pk = 'id';
     protected $field = [
         'id',

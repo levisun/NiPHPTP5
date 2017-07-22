@@ -179,7 +179,7 @@ class File
                     $list[] = [
                         'name' => $file_name,
                         'size' => filesize($dir . $file_name),
-                        'time' => filemtime($dir . $file_name),
+                        'time' => filectime($dir . $file_name),
                     ];
                 }
             }

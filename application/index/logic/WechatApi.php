@@ -124,7 +124,12 @@ class WechatApi extends Model
             return false;
         }
 
-        return $this->wechat->getJsSign($this->request->url(true));
+        $result = $this->wechat->getJsSign($this->request->url(true));
+
+        return [
+            'wechat_js_sign' => $result,
+            'wecaht_js_code' => '<script type="text/javascript">wx.config({debug: false,appId: "' . $result['appId'] . '",timestamp: ' . $result['timestamp'] . ',nonceStr: "' . $result['nonceStr'] . '",signature: "' . $result['signature'] . '",jsApiList: ["checkJsApi","onMenuShareTimeline","onMenuShareAppMessage","onMenuShareQQ","onMenuShareWeibo","onMenuShareQZone","hideMenuItems","showMenuItems","hideAllNonBaseMenuItem","showAllNonBaseMenuItem","translateVoice","startRecord","stopRecord","onVoiceRecordEnd","playVoice","onVoicePlayEnd","pauseVoice","stopVoice","uploadVoice","downloadVoice","chooseImage","previewImage","uploadImage","downloadImage","getNetworkType","openLocation","getLocation","hideOptionMenu","showOptionMenu","closeWindow","scanQRCode","chooseWXPay","openProductSpecificView","addCard","chooseCard","openCard"]});</script>'
+        ];
     }
 
     /**
@@ -161,7 +166,7 @@ class WechatApi extends Model
             }
 
             // 已关联直接登录
-            halt('TODO:如果用户已登录绑定微信帐户');
+            // halt('TODO:如果用户已登录绑定微信帐户');
         } else {
             // 网页授权获得用户openid后再获得用户信息
             if ($this->request->has('code', 'param')) {
@@ -180,7 +185,7 @@ class WechatApi extends Model
                 // 直接跳转不授权获取code
                 $url = $this->request->url(true);
                 $url = $this->wechat->getOauthRedirect($url, 'wechatOauth', 'snsapi_base');
-                $this->redirect($url);
+                Url::build($url);
             }
         }
 

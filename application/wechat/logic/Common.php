@@ -30,7 +30,7 @@ class Common extends Model
         $this->request = Request::instance();
 
         // 获得域名地址
-        $domain = $this->request->root(true);
-        $this->domain = strtr($domain, ['/index.php' => '']);
+        $this->domain = $this->request->domain();
+        $this->domain .= substr($this->request->baseFile(), 0, -10);
     }
 }
