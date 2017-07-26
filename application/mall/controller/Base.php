@@ -17,7 +17,7 @@ use think\Controller;
 use think\Lang;
 use think\Config;
 use think\Log;
-use app\index\logic\Visit as IndexVisit;
+use app\index\logic\Visit as IndexLogicVisit;
 use app\member\logic\Common as MallCommon;
 
 class Base extends Controller
@@ -41,7 +41,7 @@ class Base extends Controller
         // Log::key($this->request->ip(0, true));
 
         // 访问与搜索日志
-        $visit = new IndexVisit;
+        $visit = new IndexLogicVisit;
         $visit->visit();
         $visit->requestLog();
 

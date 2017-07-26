@@ -18,7 +18,7 @@ use think\Config;
 use think\Request;
 use think\Session;
 use net\IpLocation;
-use app\admin\model\Admin as AdminAdmin;
+use app\admin\model\Admin as ModelAdmin;
 
 
 class CommonLogin extends Model
@@ -41,7 +41,7 @@ class CommonLogin extends Model
     public function checkLogin()
     {
         $map = ['a.username' => $this->request->post('username')];
-        $admin = new AdminAdmin;
+        $admin = new ModelAdmin;
         $result =
         $admin->view('admin a', 'id,username,password,email,salt')
         ->view('role_admin ra', 'user_id', 'a.id=ra.user_id')

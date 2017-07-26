@@ -17,7 +17,7 @@ use think\Model;
 use think\Request;
 use think\Session;
 use think\Cache;
-use app\admin\model\Config as AdminConfig;
+use app\admin\model\Config as ModelConfig;
 
 class SettingsSafe extends Model
 {
@@ -46,7 +46,7 @@ class SettingsSafe extends Model
             'lang' => 'niphp'
         ];
 
-        $config = new AdminConfig;
+        $config = new ModelConfig;
         $result =
         $config->field(true)
         ->where($map)
@@ -71,7 +71,7 @@ class SettingsSafe extends Model
      */
     public function editor()
     {
-        $config = new AdminConfig;
+        $config = new ModelConfig;
 
         $post_data = $this->request->post();
 

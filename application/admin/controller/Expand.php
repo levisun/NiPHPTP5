@@ -18,8 +18,8 @@ use think\Lang;
 use net\Http;
 use util\File;
 use app\admin\controller\Base;
-use app\admin\logic\ExpandDataback as AdminExpandDataback;
-use app\admin\logic\ExpandELog as AdminExpandELog;
+use app\admin\logic\ExpandDataback as LogicExpandDataback;
+use app\admin\logic\ExpandELog as LogicExpandELog;
 
 class Expand extends Base
 {
@@ -46,7 +46,7 @@ class Expand extends Base
      */
     public function databack()
     {
-        $model = new AdminExpandDataback;
+        $model = new LogicExpandDataback;
 
         // 备份
         if ($this->method == 'back') {
@@ -124,7 +124,7 @@ class Expand extends Base
     public function elog()
     {
         if ($this->method == 'show') {
-            $model = new AdminExpandELog;
+            $model = new LogicExpandELog;
             $data = $model->getOneData();
             $this->assign('data', $data);
             return $this->fetch('elog_show');

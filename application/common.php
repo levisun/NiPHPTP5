@@ -166,53 +166,52 @@ function escape_xss($data)
     $data = preg_replace($pattern, '', $data);
 
     $pattern = [
-        '/[  ]+/si',    // 多余空格
-        '/[\s]+</si',   // 多余回车
-        '/>[\s]+/si',
+        '/[  ]+/si' => ' ',    // 多余空格
+        '/[\s]+</si' => '<',   // 多余回车
+        '/>[\s]+/si' => '>',
 
-        '/(select)/si',   // SQL
-        '/(drop)/si',
-        '/(delete)/si',
-        '/(create)/si',
-        '/(update)/si',
-        '/(insert)/si',
+        // SQL
+        '/(select)/si' => '<span>s</span>elect',
+        '/(drop)/si'   => '<span>d</span>rop',
+        '/(delete)/si' => '<span>d</span>elete',
+        '/(create)/si' => '<span>c</span>reate',
+        '/(update)/si' => '<span>u</span>pdate',
+        '/(insert)/si' => '<span>i</span>nsert',
 
-        '/(\*)/si',       // 特殊字符
-        '/(`)/si',
-        '/(￥)/si',
-        '/(™)/si',
-        '/(®)/si',
-        '/(©)/si',
-        '/(〃|”|“)/si',
-        '/(’|‘)/si',
-        '/(×)/si',
-        '/(÷)/si',
-        '/(—|－|～)/si',
+        // 特殊字符
+        '/(〃|”|“)/si'  => '&quot;',
+        '/(￥)/si'      => '&yen;',
+        '/(—|－|～)/si' => '-',
+        '/(\*)/si'      => '&lowast;',
+        '/(`)/si'       => '&acute;',
+        '/(™)/si'       => '&trade;',
+        '/(®)/si'       => '&reg;',
+        '/(©)/si'       => '&copy;',
+        '/(’|‘)/si'     => '&acute;',
+        '/(×)/si'       => '&times;',
+        '/(÷)/si'       => '&divide;',
+        '/à|á|å|â|ä/si' => 'a',
+        '/è|é|ê|ẽ|ë/si' => 'e',
+        '/ì|í|î/si'     => 'i',
+        '/ò|ó|ô|ø/si'   => 'o',
+        '/ù|ú|ů|û/si'   => 'u',
+        '/ç|č/si'       => 'c',
+        '/ñ|ň/si'       => 'n',
+        '/ľ/si'         => 'l',
+        '/ý/si'         => 'y',
+        '/ť/si'         => 't',
+        '/ž/si'         => 'z',
+        '/š/si'         => 's',
+        '/æ/si'         => 'ae',
+        '/ö/si'         => 'oe',
+        '/ü/si'         => 'ue',
+        '/Ä/si'         => 'Ae',
+        '/Ü/si'         => 'Ue',
+        '/Ö/si'         => 'Oe',
+        '/ß/si'         => 'ss',
+
     ];
-    $replacement = [
-        ' ',
-        '<',
-        '>',
-        '<span>s</span>elect',
-        '<span>d</span>rop',
-        '<span>d</span>elete',
-        '<span>c</span>reate',
-        '<span>u</span>pdate',
-        '<span>i</span>nsert',
-
-        '&lowast;',
-        '&acute;',
-        '&yen;',
-        '&trade;',
-        '&reg;',
-        '&copy;',
-        '&quot;',
-        '&acute;',
-        '&times;',
-        '&divide;',
-        '-',
-    ];
-    $data = preg_replace($pattern, $replacement, $data);
+    $data = preg_replace(array_keys($pattern), array_values($pattern), $data);
 
     // 全角转半角
     $strtr = [

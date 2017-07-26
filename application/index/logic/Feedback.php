@@ -18,10 +18,10 @@ use think\Request;
 use think\Lang;
 use think\Config;
 use think\Cookie;
-use app\admin\model\Feedback as IndexFeedback;
-use app\admin\model\FeedbackData as IndexFeedbackData;
-use app\admin\model\Fields as IndexFields;
-use app\admin\model\Type as IndexType;
+use app\admin\model\Feedback as ModelFeedback;
+use app\admin\model\FeedbackData as ModelFeedbackData;
+use app\admin\model\Fields as ModelFields;
+use app\admin\model\Type as ModelType;
 
 class Feedback extends Model
 {
@@ -42,7 +42,7 @@ class Feedback extends Model
      */
     public function getListData()
     {
-        $feedback = new IndexFeedback;
+        $feedback = new ModelFeedback;
 
         $data['field'] = $this->getFields();
         $data['type']  = $this->getType();
@@ -74,7 +74,7 @@ class Feedback extends Model
             'lang'        => Lang::detect(),
         ];
 
-        $feedback = new IndexFeedback;
+        $feedback = new ModelFeedback;
 
         $feedback->allowField(true)
         ->isUpdate(false)
@@ -97,7 +97,7 @@ class Feedback extends Model
             ];
         }
 
-        $feedback_data = new IndexFeedbackData;
+        $feedback_data = new ModelFeedbackData;
 
         $feedback_data->saveAll($added_data);
 
@@ -114,7 +114,7 @@ class Feedback extends Model
     {
         $map = ['f.category_id' => $this->request->param('cid/f')];
 
-        $fields = new IndexFields;
+        $fields = new ModelFields;
         $CACHE = check_key($map, __METHOD__);
 
         $result =
@@ -144,7 +144,7 @@ class Feedback extends Model
     {
         $map = ['category_id' => $this->request->param('cid/f')];
 
-        $type = new IndexType;
+        $type = new ModelType;
         $CACHE = check_key($map, __METHOD__);
 
         $result =

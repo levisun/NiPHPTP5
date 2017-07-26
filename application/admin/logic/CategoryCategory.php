@@ -16,9 +16,9 @@ namespace app\admin\logic;
 use think\Model;
 use think\Request;
 use think\Lang;
-use app\admin\model\Category as AdminCategory;
-use app\admin\model\Models as AdminModels;
-use app\admin\model\Level as AdminLevel;
+use app\admin\model\Category as ModelCategory;
+use app\admin\model\Models as ModelModels;
+use app\admin\model\Level as ModelLevel;
 
 class CategoryCategory extends Model
 {
@@ -53,7 +53,7 @@ class CategoryCategory extends Model
             $map['c.pid'] = $pid;
         }
 
-        $category = new AdminCategory;
+        $category = new ModelCategory;
         $result =
         $category->view('category c', 'id,pid,name,type_id,model_id,is_show,is_channel,sort')
         ->view('model m', ['name'=>'model_name'], 'm.id=c.model_id')
@@ -81,7 +81,7 @@ class CategoryCategory extends Model
     {
         $map = ['id' => $this->request->param('pid/f', 0)];
 
-        $category = new AdminCategory;
+        $category = new ModelCategory;
         $result =
         $category->field(true)
         ->where($map)
@@ -122,7 +122,7 @@ class CategoryCategory extends Model
     {
         $map = ['status' => 1];
 
-        $category = new AdminModels;
+        $category = new ModelModels;
         $result =
         $category->field(true)
         ->where($map)
@@ -147,7 +147,7 @@ class CategoryCategory extends Model
     {
         $map = ['status' => 1];
 
-        $level = new AdminLevel;
+        $level = new ModelLevel;
         $result =
         $level->field(true)
         ->where($map)
@@ -186,7 +186,7 @@ class CategoryCategory extends Model
             'lang'            => Lang::detect(),
         ];
 
-        $category = new AdminCategory;
+        $category = new ModelCategory;
         $category->data($data)
         ->allowField(true)
         ->isUpdate(false)
@@ -205,7 +205,7 @@ class CategoryCategory extends Model
     {
         $map = ['c.id' => $this->request->param('id/f')];
 
-        $category = new AdminCategory;
+        $category = new ModelCategory;
         $result =
         $category->view('category c', true)
         ->view('category cc', ['name'=>'parentname'], 'c.pid=cc.id', 'LEFT')
@@ -241,7 +241,7 @@ class CategoryCategory extends Model
         ];
         $map = ['id' => $this->request->post('id/f')];
 
-        $category = new AdminCategory;
+        $category = new ModelCategory;
         $result =
         $category->allowField(true)
         ->isUpdate(true)
@@ -261,7 +261,7 @@ class CategoryCategory extends Model
         $id = $this->request->param('id/f');
         $map = ['pid' => $id];
 
-        $category = new AdminCategory;
+        $category = new ModelCategory;
         $result =
         $category->field(true)
         ->where($map)
@@ -295,7 +295,7 @@ class CategoryCategory extends Model
             ];
         }
 
-        $category = new AdminCategory;
+        $category = new ModelCategory;
         $result =
         $category->saveAll($data);
 

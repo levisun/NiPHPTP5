@@ -15,7 +15,7 @@ namespace app\admin\logic;
 
 use think\Model;
 use think\Request;
-use app\admin\model\Config as AdminConfig;
+use app\admin\model\Config as ModelConfig;
 
 class WechatConfig extends Model
 {
@@ -43,7 +43,7 @@ class WechatConfig extends Model
             'lang' => 'niphp'
         ];
 
-        $config = new AdminConfig;
+        $config = new ModelConfig;
         $result =
         $config->field(true)
         ->where($map)
@@ -66,7 +66,7 @@ class WechatConfig extends Model
      */
     public function editor()
     {
-        $config = new AdminConfig;
+        $config = new ModelConfig;
 
         $post_data = $this->request->post();
         foreach ($post_data as $key => $value) {

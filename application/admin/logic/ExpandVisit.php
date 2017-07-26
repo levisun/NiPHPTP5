@@ -15,9 +15,9 @@ namespace app\admin\logic;
 
 use think\Model;
 use think\Request;
-use app\admin\model\Visit as AdminVisit;
-use app\admin\model\Searchengine as AdminSearchengine;
-use app\admin\model\RequestLog as AdminRequest;
+use app\admin\model\Visit as ModelVisit;
+use app\admin\model\Searchengine as ModelSearchengine;
+use app\admin\model\RequestLog as ModelRequest;
 
 class ExpandVisit extends Model
 {
@@ -43,12 +43,12 @@ class ExpandVisit extends Model
         $order = 'date DESC, count DESC';
 
         if ($this->request->param('method') == 'searchengine') {
-            $obj = new AdminSearchengine;
+            $obj = new ModelSearchengine;
         } elseif ($this->request->param('method') == 'request') {
-            $obj = new AdminRequest;
+            $obj = new ModelRequest;
             $order = 'create_time DESC';
         } else {
-            $obj = new AdminVisit;
+            $obj = new ModelVisit;
         }
 
         $result =
@@ -81,12 +81,12 @@ class ExpandVisit extends Model
         ];
 
         // 删除过期的搜索日志(保留三个月)
-        $searchengine = new AdminSearchengine;
+        $searchengine = new ModelSearchengine;
         $searchengine->where($map)
         ->delete();
 
         // 删除过期的访问日志(保留三个月)
-        $visit = new AdminVisit;
+        $visit = new ModelVisit;
         $visit->where($map)
         ->delete();
 
@@ -96,7 +96,7 @@ class ExpandVisit extends Model
                 'ELT', strtotime('-90 days')
             ],
         ];
-        $visit = new AdminRequest;
+        $visit = new ModelRequest;
         $visit->where($map)
         ->delete();
     }

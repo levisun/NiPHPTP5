@@ -15,9 +15,9 @@ namespace app\admin\logic;
 
 use think\Model;
 use think\Request;
-use app\admin\model\Role as AdminRole;
-use app\admin\model\Node as AdminNode;
-use app\admin\model\Access as AdminAccess;
+use app\admin\model\Role as ModelRole;
+use app\admin\model\Node as ModelNode;
+use app\admin\model\Access as ModelAccess;
 
 class UserRole extends Model
 {
@@ -43,7 +43,7 @@ class UserRole extends Model
             $map['name'] = ['LIKE', '%' . $key . '%'];
         }
 
-        $role = new AdminRole;
+        $role = new ModelRole;
         $result =
         $role->field(true)
         ->where($map)
@@ -77,7 +77,7 @@ class UserRole extends Model
         }
         $order = 'sort ASC';
 
-        $node = new AdminNode;
+        $node = new ModelNode;
         $result =
         $node->field(true)
         ->where($map)
@@ -111,7 +111,7 @@ class UserRole extends Model
             'remark' => $this->request->post('remark'),
         ];
 
-        $role = new AdminRole;
+        $role = new ModelRole;
         $role->data($data)
         ->isUpdate(false)
         ->save();
@@ -122,7 +122,7 @@ class UserRole extends Model
 
         $map = ['role_id' => $role->id];
 
-        $access = new AdminAccess;
+        $access = new ModelAccess;
         $access->where($map)
         ->delete();
 
@@ -159,7 +159,7 @@ class UserRole extends Model
     {
         $map = ['id' => $this->request->param('id/f')];
 
-        $role = new AdminRole;
+        $role = new ModelRole;
         $result =
         $role->field(true)
         ->where($map)
@@ -169,7 +169,7 @@ class UserRole extends Model
 
         $map = ['role_id' => $this->request->param('id/f')];
 
-        $access = new AdminAccess;
+        $access = new ModelAccess;
         $result =
         $access->field(true)
         ->where($map)
@@ -199,13 +199,13 @@ class UserRole extends Model
         $id = $this->request->post('id/f');
         $map = ['id' => $id];
 
-        $role = new AdminRole;
+        $role = new ModelRole;
         $role->where($map)
         ->update($data);
 
         $map = ['role_id' => $id];
 
-        $access = new AdminAccess;
+        $access = new ModelAccess;
         $access->where($map)
         ->delete();
 
@@ -243,14 +243,14 @@ class UserRole extends Model
         $id = $this->request->param('id/f');
         $map = ['id' => $id];
 
-        $role = new AdminRole;
+        $role = new ModelRole;
         $result =
         $role->where($map)
         ->delete();
 
         $map = ['role_id' => $id];
 
-        $access = new AdminAccess;
+        $access = new ModelAccess;
         $result =
         $access->where($map)
         ->delete();

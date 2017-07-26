@@ -19,15 +19,15 @@ use think\Lang;
 use think\Url;
 use think\Config;
 use think\Db;
-use app\admin\model\Tags as IndexTags;
-use app\admin\model\Article as IndexArticle;
-use app\admin\model\Download as IndexDownload;
-use app\admin\model\Picture as IndexPicture;
-use app\admin\model\Product as IndexProduct;
-use app\admin\model\Category as IndexCategory;
-use app\admin\model\Level as IndexLevel;
-use app\admin\model\Type as IndexType;
-use app\admin\model\Admin as IndexAdmin;
+use app\admin\model\Tags as ModelTags;
+use app\admin\model\Article as ModelArticle;
+use app\admin\model\Download as ModelDownload;
+use app\admin\model\Picture as ModelPicture;
+use app\admin\model\Product as ModelProduct;
+use app\admin\model\Category as ModelCategory;
+use app\admin\model\Level as ModelLevel;
+use app\admin\model\Type as ModelType;
+use app\admin\model\Admin as ModelAdmin;
 
 class Tags extends Model
 {
@@ -58,7 +58,7 @@ class Tags extends Model
             return $list;
         }
 
-        $tags = new IndexTags;
+        $tags = new ModelTags;
         $result =
         $tags->view('tags t', ['name'=>'tags_name'])
         ->view('tags_article ta', true, 'ta.tags_id=t.id')
@@ -131,10 +131,10 @@ class Tags extends Model
         $page_obj = $class::make($result, $listRows, $page, $total, false, $config);
         $page = $page_obj->render();
 
-        $category = new IndexCategory;
-        $type = new IndexType;
-        $level = new IndexLevel;
-        $admin = new IndexAdmin;
+        $category = new ModelCategory;
+        $type = new ModelType;
+        $level = new ModelLevel;
+        $admin = new ModelAdmin;
 
         $list = [];
         foreach ($result as $value) {

@@ -17,10 +17,12 @@ use think\Controller;
 use think\Lang;
 use think\Config;
 use think\Log;
+use think\Cookie;
 use think\Cache;
-use app\index\logic\Visit as IndexVisit;
-use app\index\logic\Common as IndexCommon;
-use app\index\logic\WechatApi as IndexWechat;
+use app\index\logic\Visit as LogicVisit;
+use app\index\logic\Common as LogicCommon;
+use app\member\logic\Account as MemberLogicAccount;
+use app\wechat\logic\Api as WechatLogicApi;
 
 class Base extends Controller
 {
@@ -43,11 +45,6 @@ class Base extends Controller
             Cache::clear();
         }
 
-        $wechat = new IndexWechat;
-
-        // 生成微信用户信息cookie
-        $wechat->wechatOpenid();
-
         // 设置IP为授权Key
         // Log::key($this->request->ip(0, true));
 
@@ -55,13 +52,13 @@ class Base extends Controller
         Config::load(CONF_PATH . 'website.php');
 
         // 访问与搜索日志
-        $visit = new IndexVisit;
+        $visit = new LogicVisit;
         $visit->searchengine();
         $visit->visit();
         $visit->requestLog();
 
         // 公众业务
-        $this->common_model = new IndexCommon;
+        $this->common_model = new LogicCommon;
 
         // 当前请求表名
         $this->table_name = $this->common_model->table_name;
@@ -70,9 +67,36 @@ class Base extends Controller
 
         $this->themeConfig();
 
+        $this->wechat();
+    }
+
+    /**
+     * 微信
+     * @access protected
+     * @param
+     * @return void
+     */
+    protected function wechat()
+    {
+        // 是否微信请求
+        if (!is_wechat_request()) {
+            return false;
+        }
+
+        $account = new MemberLogicAccount;
+        $account->autoLogin();
+
+        $api = new WechatLogicApi;
+
+        // 生成微信用户信息cookie
+        $api->openid();
+
+        $this->assign('wechat_url', $this->request->url(true));
+
+        $this->assign('wechat_openid', Cookie::get('WECHAT_OPENID'));
+
         // 生成微信JS签名
-        $wechat_js = $wechat->getJsSign();
-        $this->assign('wechat_js', $wechat_js);
+        $this->assign('wechat_js', $api->jsSign());
     }
 
     /**

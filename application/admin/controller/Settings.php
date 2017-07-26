@@ -14,7 +14,7 @@
 namespace app\admin\controller;
 
 use app\admin\controller\Base;
-use app\admin\logic\SettingsInfo as AdminSettingsInfo;
+use app\admin\logic\SettingsInfo as LogicSettingsInfo;
 
 class Settings extends Base
 {
@@ -27,7 +27,7 @@ class Settings extends Base
      */
     public function info()
     {
-        $model = new AdminSettingsInfo;
+        $model = new LogicSettingsInfo;
         $this->assign('data', $model->getSysInfo());
         return $this->fetch();
     }

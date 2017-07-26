@@ -17,10 +17,10 @@ use think\Model;
 use think\Lang;
 use think\Request;
 use think\Cache;
-use app\wechat\logic\Common;
-use app\admin\model\Reply as WechatReply;
+use app\wechat\logic\Common as LogicCommon;
+use app\admin\model\Reply as ModelReply;
 
-class AutoKey extends Common
+class AutoKey extends LogicCommon
 {
 
     public function reply($key)
@@ -47,7 +47,7 @@ class AutoKey extends Common
             'lang' => Lang::detect()
         ];
 
-        $model = new WechatReply;
+        $model = new ModelReply;
         $CACHE = check_key($map, __METHOD__);
 
         $result =
@@ -96,7 +96,7 @@ class AutoKey extends Common
             'lang' => Lang::detect()
         ];
 
-        $model = new WechatReply;
+        $model = new ModelReply;
         $CACHE = check_key($map, __METHOD__);
 
         $result =

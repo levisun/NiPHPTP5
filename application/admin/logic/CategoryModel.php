@@ -16,7 +16,7 @@ namespace app\admin\logic;
 use think\Model;
 use think\Request;
 use think\Config;
-use app\admin\model\Models as AdminModels;
+use app\admin\model\Models as ModelModels;
 
 class CategoryModel extends Model
 {
@@ -42,7 +42,7 @@ class CategoryModel extends Model
             $map['remark'] = ['LIKE', '%' . $key . '%'];
         }
 
-        $model = new AdminModels;
+        $model = new ModelModels;
         $result =
         $model->field(true)
         ->where($map)
@@ -73,7 +73,7 @@ class CategoryModel extends Model
         ];
         $field = ['id', 'name', 'table_name'];
 
-        $model = new AdminModels;
+        $model = new ModelModels;
         $result =
         $model->field($field)
         ->where($map)
@@ -122,7 +122,7 @@ class CategoryModel extends Model
             'remark'     => $this->request->post('remark')
         ];
 
-        $model = new AdminModels;
+        $model = new ModelModels;
 
         foreach ($create_table as $value) {
             if ($value) {
@@ -148,7 +148,7 @@ class CategoryModel extends Model
     {
         $map = ['id' => $this->request->param('id/f')];
 
-        $model = new AdminModels;
+        $model = new ModelModels;
         $result =
         $model->field(true)
         ->where($map)
@@ -172,7 +172,7 @@ class CategoryModel extends Model
         ];
         $map = ['id' => $this->request->post('id/f')];
 
-        $model = new AdminModels;
+        $model = new ModelModels;
         $result =
         $model->allowField(true)
         ->isUpdate(true)
@@ -204,7 +204,7 @@ class CategoryModel extends Model
             'external'
         ];
 
-        $model = new AdminModels;
+        $model = new ModelModels;
         $table_name =
         $model->where($map)
         ->value('table_name');
@@ -244,7 +244,7 @@ class CategoryModel extends Model
             ];
         }
 
-        $model = new AdminModels;
+        $model = new ModelModels;
         $result =
         $model->saveAll($data);
 

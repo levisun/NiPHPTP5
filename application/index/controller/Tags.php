@@ -16,7 +16,7 @@ namespace app\index\controller;
 use think\Url;
 use think\Lang;
 use app\index\controller\Base;
-use app\index\logic\Tags as IndexTags;
+use app\index\logic\Tags as LogicTags;
 
 class Tags extends Base
 {
@@ -26,7 +26,7 @@ class Tags extends Base
 
     public function index()
     {
-        $tags = new IndexTags;
+        $tags = new LogicTags;
         $data = $tags->getListData();
 
         $this->assign('list', $data['list']);

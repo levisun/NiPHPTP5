@@ -17,7 +17,7 @@ use think\Model;
 use think\Request;
 use think\Lang;
 use think\Cache;
-use app\admin\model\MallBrand as AdminMallBrand;
+use app\admin\model\MallBrand as ModelMallBrand;
 
 class MallBrand extends Model
 {
@@ -46,7 +46,7 @@ class MallBrand extends Model
             $map['name'] = ['LIKE', '%' . $key . '%'];
         }
 
-        $brand = new AdminMallBrand;
+        $brand = new ModelMallBrand;
         $result =
         $brand->field(true)
         ->where($map)
@@ -79,7 +79,7 @@ class MallBrand extends Model
             'lang'  => Lang::detect(),
         ];
 
-        $brand = new AdminMallBrand;
+        $brand = new ModelMallBrand;
         $brand->data($data)
         ->allowField(true)
         ->isUpdate(false)
@@ -98,7 +98,7 @@ class MallBrand extends Model
     {
         $map = ['id' => $this->request->param('id/f')];
 
-        $brand = new AdminMallBrand;
+        $brand = new ModelMallBrand;
         $result =
         $brand->field(true)
         ->where($map)
@@ -122,7 +122,7 @@ class MallBrand extends Model
         ];
         $map = ['id' => $this->request->post('id/f')];
 
-        $brand = new AdminMallBrand;
+        $brand = new ModelMallBrand;
         $result =
         $brand->allowField(true)
         ->isUpdate(true)
@@ -142,7 +142,7 @@ class MallBrand extends Model
         $id = $this->request->param('id/f');
         $map = ['pid' => $id];
 
-        $brand = new AdminMallBrand;
+        $brand = new ModelMallBrand;
         $result =
         $brand->where($map)
         ->delete();
@@ -166,7 +166,7 @@ class MallBrand extends Model
             ];
         }
 
-        $brand = new AdminMallBrand;
+        $brand = new ModelMallBrand;
         $result =
         $brand->saveAll($data);
 

@@ -15,7 +15,7 @@ namespace app\admin\logic;
 
 use think\Model;
 use think\Request;
-use app\admin\model\Level as AdminLeval;
+use app\admin\model\Level as ModelLeval;
 
 class UserLevel extends Model
 {
@@ -41,7 +41,7 @@ class UserLevel extends Model
             $map['name'] = ['LIKE', '%' . $key . '%'];
         }
 
-        $level = new AdminLeval;
+        $level = new ModelLeval;
         $result =
         $level->field(true)
         ->where($map)
@@ -73,7 +73,7 @@ class UserLevel extends Model
             'remark'   => $this->request->post('remark')
         ];
 
-        $level = new AdminLeval;
+        $level = new ModelLeval;
         $level->data($data)
         ->allowField(true)
         ->isUpdate(false)
@@ -92,7 +92,7 @@ class UserLevel extends Model
     {
         $map = ['id' => $this->request->param('id/f')];
 
-        $level = new AdminLeval;
+        $level = new ModelLeval;
         $result =
         $level->field(true)
         ->where($map)
@@ -117,7 +117,7 @@ class UserLevel extends Model
         ];
         $map = ['id' => $this->request->post('id/f')];
 
-        $level = new AdminLeval;
+        $level = new ModelLeval;
         $result =
         $level->allowField(true)
         ->isUpdate(true)
@@ -135,7 +135,7 @@ class UserLevel extends Model
     public function remove()
     {
         $map = ['id' => $this->request->param('id/f')];
-        $level = new AdminLeval;
+        $level = new ModelLeval;
         $result =
         $level->where($map)
         ->delete();

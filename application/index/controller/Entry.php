@@ -17,7 +17,7 @@ use think\Loader;
 use think\Url;
 use think\Lang;
 use app\index\controller\Base;
-use app\index\logic\Article as IndexArticle;
+use app\index\logic\Article as LogicArticle;
 
 class Entry extends Base
 {
@@ -35,7 +35,7 @@ class Entry extends Base
     {
         $model = ['article', 'download', 'picture', 'product'];
         if (in_array($this->table_name, $model)) {
-            $model = new IndexArticle;
+            $model = new LogicArticle;
             $model->setTableModel($this->table_name);
         } else {
             // page link feedback message

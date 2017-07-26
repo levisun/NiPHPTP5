@@ -17,8 +17,8 @@ use think\Model;
 use think\Request;
 use think\Lang;
 use think\Cookie;
-use app\admin\model\Config as IndexConfig;
-use app\admin\model\Category as IndexCategory;
+use app\admin\model\Config as ModelConfig;
+use app\admin\model\Category as ModelCategory;
 
 class Common extends Model
 {
@@ -58,7 +58,7 @@ class Common extends Model
             'lang' => Lang::detect()
         ];
 
-        $category = new IndexCategory;
+        $category = new ModelCategory;
         $CACHE = check_key($map, __METHOD__);
 
         $result =
@@ -98,7 +98,7 @@ class Common extends Model
             'lang' => Lang::detect()
         ];
 
-        $config = new IndexConfig;
+        $config = new ModelConfig;
         $CACHE = check_key($map, __METHOD__);
 
         $result =
@@ -137,7 +137,7 @@ class Common extends Model
             'c.lang' => Lang::detect()
         ];
 
-        $category = new IndexCategory;
+        $category = new ModelCategory;
         $CACHE = check_key($map, __METHOD__);
 
         $result =

@@ -15,8 +15,8 @@ namespace app\admin\logic;
 
 use think\Model;
 use think\Request;
-use app\admin\model\Type as AdminType;
-use app\admin\model\Category as AdminCategory;
+use app\admin\model\Type as ModelType;
+use app\admin\model\Category as ModelCategory;
 
 class CategoryType extends Model
 {
@@ -45,7 +45,7 @@ class CategoryType extends Model
             $map['t.category_id'] = $cid;
         }
 
-        $type = new AdminType;
+        $type = new ModelType;
         $result =
         $type->view('type t', 'id,category_id,name,description')
         ->view('category c', ['name'=>'cat_name'], 'c.id=t.category_id')
@@ -73,7 +73,7 @@ class CategoryType extends Model
         $map = ['pid' => $this->request->post('id/f', 0)];
         $field = ['id', 'name'];
 
-        $category = new AdminCategory;
+        $category = new ModelCategory;
         $result =
         $category->field($field)
         ->where($map)
@@ -117,7 +117,7 @@ class CategoryType extends Model
             'description' => $this->request->post('description')
         ];
 
-        $type = new AdminType;
+        $type = new ModelType;
         $type->data($data)
         ->allowField(true)
         ->isUpdate(false)
@@ -136,7 +136,7 @@ class CategoryType extends Model
     {
         $map = ['t.id' => $this->request->param('id/f')];
 
-        $type = new AdminType;
+        $type = new ModelType;
         $result =
         $type->view('type t', 'id,name,category_id,description')
         ->view('category c', ['name'=>'cat_name'], 'c.id=t.category_id')
@@ -160,7 +160,7 @@ class CategoryType extends Model
         ];
         $map = ['id' => $this->request->post('id/f')];
 
-        $type = new AdminType;
+        $type = new ModelType;
         $result =
         $type->allowField(true)
         ->isUpdate(true)
@@ -181,7 +181,7 @@ class CategoryType extends Model
 
         $map = ['id' => $this->request->param('id/f')];
 
-        $type = new AdminType;
+        $type = new ModelType;
         $result =
         $type->where($map)
         ->delete();

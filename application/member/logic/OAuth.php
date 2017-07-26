@@ -19,10 +19,10 @@ use think\Url;
 use think\Cookie;
 use think\Config;
 use net\IpLocation;
-use app\admin\model\MemberOauth as MemberMemberOauth;
-use app\admin\model\Member as MemberMember;
-use app\admin\model\Level as MemberLevel;
-use app\admin\model\LevelMember as MemberLevelMember;
+use app\admin\model\MemberOauth as ModelMemberOauth;
+use app\admin\model\Member as ModelMember;
+use app\admin\model\Level as ModelLevel;
+use app\admin\model\LevelMember as ModelLevelMember;
 
 class OAuth extends Model
 {
@@ -102,7 +102,7 @@ class OAuth extends Model
             'last_login_time'    => time(),
         ];
 
-        $member = new MemberMember;
+        $member = new ModelMember;
         $member->data($user_data)
         ->isUpdate(false)
         ->save();
@@ -112,7 +112,7 @@ class OAuth extends Model
         }
 
         // 查询会员组ID
-        $level = new MemberLevel;
+        $level = new ModelLevel;
         $level_id =
         $level->field(true)
         ->order('integral ASC, id DESC')
@@ -124,7 +124,7 @@ class OAuth extends Model
             'level_id' => $level_id
         ];
 
-        $level_member = new MemberLevelMember;
+        $level_member = new ModelLevelMember;
         $level_member->data($data)
         ->allowField(true)
         ->isUpdate(false)
@@ -137,7 +137,7 @@ class OAuth extends Model
             'nick'    => $user_info['nick'],
             'type'    => $user_info['channel']
         ];
-        $member_oauth = new MemberMemberOauth;
+        $member_oauth = new ModelMemberOauth;
         $member_oauth->data($data)
         ->allowField(true)
         ->isUpdate(false)

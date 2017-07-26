@@ -16,7 +16,7 @@ namespace app\admin\logic;
 use think\Model;
 use think\Request;
 use think\Loader;
-use app\admin\logic\ContentContentData as AdminContentContentData;
+use app\admin\logic\ContentContentData as ModelContentContentData;
 
 class ContentRecycle extends Model
 {
@@ -35,7 +35,7 @@ class ContentRecycle extends Model
         $this->request = Request::instance();
 
         // 内容数据业务层
-        $this->data_model = new AdminContentContentData;
+        $this->data_model = new ModelContentContentData;
         // 分类
         $this->type_data = $this->data_model->getTypeData();
         // 权限
@@ -71,12 +71,11 @@ class ContentRecycle extends Model
             $order = 'is_pass ASC, is_com DESC, is_top DESC, is_hot DESC, sort DESC, update_time DESC';
         }
 
-        $this->table_model->field(true);
-        $this->table_model->where($map);
-        $this->table_model->where('delete_time', 'not null');
-        $this->table_model->order($order);
+        $this->table_model->field(true)
+        ->where($map)
+        ->order($order);
         $result =
-        $this->table_model->withTrashed()->paginate();
+        $this->table_model->onlyTrashed()->paginate();
 
         $list = [];
         foreach ($result as $value) {

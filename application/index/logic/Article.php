@@ -19,9 +19,9 @@ use think\Lang;
 use think\Url;
 use think\Loader;
 use think\Cache;
-use app\admin\model\Category as IndexCategory;
-use app\admin\model\Fields as IndexFields;
-use app\admin\model\TagsArticle as IndexTagsArticle;
+use app\admin\model\Category as ModelCategory;
+use app\admin\model\Fields as ModelFields;
+use app\admin\model\TagsArticle as ModelTagsArticle;
 
 class Article extends Model
 {
@@ -124,7 +124,7 @@ class Article extends Model
             'lang' => Lang::detect()
         ];
 
-        $category = new IndexCategory;
+        $category = new ModelCategory;
         $CACHE = check_key($map, __METHOD__);
 
         $result =
@@ -258,7 +258,7 @@ class Article extends Model
         $map = ['f.category_id' => $this->request->param('cid/f')];
         $table_name = $this->model_name . '_data d';
 
-        $fields = new IndexFields;
+        $fields = new ModelFields;
         $CACHE = check_key($map, __METHOD__);
 
         $result =
@@ -290,7 +290,7 @@ class Article extends Model
             'a.article_id'  => $this->request->param('id/f')
         ];
 
-        $tags = new IndexTagsArticle;
+        $tags = new ModelTagsArticle;
         $CACHE = check_key($map, __METHOD__);
 
         $result =

@@ -16,7 +16,7 @@ namespace app\admin\logic;
 use think\Model;
 use think\Request;
 use think\Lang;
-use app\admin\model\Reply as AdminReply;
+use app\admin\model\Reply as ModelReply;
 
 class WechatKeyword extends Model
 {
@@ -42,7 +42,7 @@ class WechatKeyword extends Model
             $map['keyword'] = ['LIKE', '%' . $key . '%'];
         }
 
-        $reply = new AdminReply;
+        $reply = new ModelReply;
         $result =
         $reply->field(true)
         ->where($map)
@@ -78,7 +78,7 @@ class WechatKeyword extends Model
             'lang'    => Lang::detect()
         ];
 
-        $reply = new AdminReply;
+        $reply = new ModelReply;
         $reply->data($data)
         ->allowField(true)
         ->isUpdate(false)
@@ -97,7 +97,7 @@ class WechatKeyword extends Model
     {
         $map = ['id' => $this->request->param('id/f')];
 
-        $reply = new AdminReply;
+        $reply = new ModelReply;
         $result =
         $reply->field(true)
         ->where($map)
@@ -125,7 +125,7 @@ class WechatKeyword extends Model
 
         $map = ['id' => $this->request->post('id/f')];
 
-        $reply = new AdminReply;
+        $reply = new ModelReply;
         $result =
         $reply->allowField(true)
         ->isUpdate(true)
@@ -144,7 +144,7 @@ class WechatKeyword extends Model
     {
         $map = ['id' => $this->request->param('id/f')];
 
-        $reply = new AdminReply;
+        $reply = new ModelReply;
         $result =
         $reply->where($map)
         ->delete();

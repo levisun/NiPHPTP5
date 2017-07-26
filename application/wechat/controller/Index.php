@@ -19,10 +19,10 @@ use think\Lang;
 use think\Config;
 use think\Log;
 use net\Wechat;
-use app\wechat\logic\Api as WechatApi;
-use app\wechat\logic\Attention as WechatAttention;
-use app\wechat\logic\AutoKey as WechatAutoKey;
-use app\index\logic\WechatApi as WechatMember;
+use app\wechat\logic\Api as LogicApi;
+use app\wechat\logic\Attention as LogicAttention;
+use app\wechat\logic\AutoKey as LogicAutoKey;
+use app\member\logic\Account as MemberLogicAccount;
 
 class Index extends Controller
 {
@@ -44,10 +44,11 @@ class Index extends Controller
 
         Config::load(CONF_PATH . 'website.php');
 
-        $this->api           = new WechatApi;
-        $this->wechat_member = new WechatMember;
-        $this->auto_key      = new WechatAutoKey;
-        $this->attention     = new WechatAttention;
+        $this->api           = new LogicApi;
+        $this->api->server();
+        $this->wechat_member = new MemberLogicAccount;
+        $this->auto_key      = new LogicAutoKey;
+        $this->attention     = new LogicAttention;
     }
 
     public function index()
@@ -234,7 +235,7 @@ class Index extends Controller
             }
 
             // 更新微信用户信息
-            $this->wechat_member->wechatMemberInfo($this->api->user_data, $this->api->form_user, 1);
+            $this->wechat_member->AEMember($this->api->user_data, $this->api->form_user, 1);
 
             // 关注回复信息
             $data = $this->attention->reply();
@@ -244,7 +245,7 @@ class Index extends Controller
         // 取消关注事件
         if ($this->api->event['event'] == Wechat::EVENT_UNSUBSCRIBE) {
             // 更新微信用户信息
-            $this->wechat_member->wechatMemberInfo($this->api->user_data, $this->api->form_user, 0);
+            $this->wechat_member->AEMember($this->api->user_data, $this->api->form_user, 0);
         }
 
         // 上报地理位置事件

@@ -16,9 +16,9 @@ namespace app\index\logic;
 use think\Model;
 use think\Request;
 use net\IpLocation;
-use app\admin\model\Searchengine as IndexSearchengine;
-use app\admin\model\Visit as IndexVisit;
-use app\admin\model\RequestLog as IndexRequestLog;
+use app\admin\model\Searchengine as ModelSearchengine;
+use app\admin\model\Visit as ModelVisit;
+use app\admin\model\RequestLog as ModelRequestLog;
 
 class Visit extends Model
 {
@@ -57,7 +57,7 @@ class Visit extends Model
             'date'    => strtotime(date('Y-m-d'))
         ];
 
-        $model = new IndexVisit;
+        $model = new ModelVisit;
         // $CACHE = check_key($map, __METHOD__);
 
         $result =
@@ -96,7 +96,7 @@ class Visit extends Model
             'date' => strtotime(date('Y-m-d'))
         ];
 
-        $model = new IndexSearchengine;
+        $model = new ModelSearchengine;
 
         $result =
         $model->field(true)
@@ -129,9 +129,9 @@ class Visit extends Model
         ];
 
         if ($model_name == 'IndexSearchengine') {
-            $model = new IndexSearchengine;
+            $model = new ModelSearchengine;
         } else {
-            $model = new IndexVisit;
+            $model = new ModelVisit;
         }
 
         $model->where($map)
@@ -183,7 +183,7 @@ class Visit extends Model
     public function requestLog()
     {
         $ip = new IpLocation();
-        $request_log = new IndexRequestLog;
+        $request_log = new ModelRequestLog;
 
         // 删除过期的日志(保留三个月)
         $map = ['create_time' => ['ELT', strtotime('-90 days')]];

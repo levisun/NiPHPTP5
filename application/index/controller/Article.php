@@ -16,7 +16,7 @@ namespace app\index\controller;
 use think\Url;
 use think\Lang;
 use app\index\controller\Base;
-use app\index\logic\Article as IndexArticle;
+use app\index\logic\Article as LogicArticle;
 
 class Article extends Base
 {
@@ -29,7 +29,7 @@ class Article extends Base
      */
     public function index()
     {
-        $model = new IndexArticle;
+        $model = new LogicArticle;
         $model->setTableModel($this->table_name);
 
         $data = $model->getArticle();

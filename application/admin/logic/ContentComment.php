@@ -16,7 +16,7 @@ namespace app\admin\logic;
 use think\Model;
 use think\Request;
 use think\Lang;
-use app\admin\model\Comment as AdminComment;
+use app\admin\model\Comment as ModelComment;
 
 class ContentComment extends Model
 {
@@ -52,7 +52,7 @@ class ContentComment extends Model
             $map['c.is_report'] = 1;
         }
 
-        $comment = new AdminComment;
+        $comment = new ModelComment;
         $result =
         $comment->view('comment c', true)
         ->view('member m', 'username', 'm.id=c.user_id')
@@ -80,7 +80,7 @@ class ContentComment extends Model
     {
         $map = ['c.id' => $this->request->param('id/f')];
 
-        $comment = new AdminComment;
+        $comment = new ModelComment;
         $result =
         $comment->view('comment c', '*')
         ->view('member m', 'username', 'm.id=c.user_id')
@@ -104,7 +104,7 @@ class ContentComment extends Model
         ];
         $map = ['id' => $this->request->post('id/f')];
 
-        $comment = new AdminComment;
+        $comment = new ModelComment;
         $result =
         $comment->allowField(true)
         ->isUpdate(true)
@@ -123,7 +123,7 @@ class ContentComment extends Model
     {
         $map = ['id' => $this->request->param('id/f')];
 
-        $comment = new AdminComment;
+        $comment = new ModelComment;
         $result =
         $comment->where($map)
         ->delete();

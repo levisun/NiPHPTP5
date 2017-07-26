@@ -16,7 +16,7 @@ namespace app\admin\logic;
 use think\Model;
 use think\Request;
 use think\Lang;
-use app\admin\model\Banner as AdminBanner;
+use app\admin\model\Banner as ModelBanner;
 
 class ContentBanner extends Model
 {
@@ -39,7 +39,7 @@ class ContentBanner extends Model
     {
         $map = ['pid' => $this->request->param('pid/f', 0)];
 
-        $banner = new AdminBanner;
+        $banner = new ModelBanner;
         $result =
         $banner->where($map)
         ->paginate();
@@ -73,7 +73,7 @@ class ContentBanner extends Model
             'lang'   => Lang::detect(),
         ];
 
-        $banner = new AdminBanner;
+        $banner = new ModelBanner;
         $banner->data($data)
         ->allowField(true)
         ->isUpdate(false)
@@ -94,7 +94,7 @@ class ContentBanner extends Model
             'id' => $this->request->param('id/f')
         ];
 
-        $banner = new AdminBanner;
+        $banner = new ModelBanner;
         $result =
         $banner->field(true)
         ->where($map)
@@ -123,7 +123,7 @@ class ContentBanner extends Model
 
         $map = ['id' => $this->request->post('id/f')];
 
-        $banner = new AdminBanner;
+        $banner = new ModelBanner;
         $result =
         $banner->allowField(true)
         ->isUpdate(true)
@@ -142,7 +142,7 @@ class ContentBanner extends Model
     {
         $id = $this->request->param('id/f');
 
-        $banner = new AdminBanner;
+        $banner = new ModelBanner;
 
         $map = ['pid' => $id];
         $result =
@@ -173,7 +173,7 @@ class ContentBanner extends Model
             ];
         }
 
-        $banner = new AdminBanner;
+        $banner = new ModelBanner;
         $result =
         $banner->saveAll($data);
 

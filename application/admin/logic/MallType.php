@@ -17,7 +17,7 @@ use think\Model;
 use think\Request;
 use think\Lang;
 use think\Cache;
-use app\admin\model\MallType as AdminMallType;
+use app\admin\model\MallType as ModelMallType;
 
 class MallType extends Model
 {
@@ -53,7 +53,7 @@ class MallType extends Model
             $map['mt.pid'] = $pid;
         }
 
-        $type = new AdminMallType;
+        $type = new ModelMallType;
         $result =
         $type->view('mall_type mt', 'id,pid,name,sort')
         ->view('mall_type mtc', ['id'=>'child'], 'mt.id=mtc.pid', 'LEFT')
@@ -80,7 +80,7 @@ class MallType extends Model
     {
         $map = ['id' => $this->request->param('pid/f', 0)];
 
-        $type = new AdminMallType;
+        $type = new ModelMallType;
         $result =
         $type->field(true)
         ->where($map)
@@ -110,7 +110,7 @@ class MallType extends Model
             'lang'  => Lang::detect(),
         ];
 
-        $type = new AdminMallType;
+        $type = new ModelMallType;
         $type->data($data)
         ->allowField(true)
         ->isUpdate(false)
@@ -129,7 +129,7 @@ class MallType extends Model
     {
         $map = ['mt.id' => $this->request->param('id/f')];
 
-        $type = new AdminMallType;
+        $type = new ModelMallType;
         $result =
         $type->view('mall_type mt', true)
         ->view('mall_type mtc', ['name'=>'parentname'], 'mt.pid=mtc.id', 'LEFT')
@@ -155,7 +155,7 @@ class MallType extends Model
         ];
         $map = ['id' => $this->request->post('id/f')];
 
-        $type = new AdminMallType;
+        $type = new ModelMallType;
         $result =
         $type->allowField(true)
         ->isUpdate(true)
@@ -175,7 +175,7 @@ class MallType extends Model
         $id = $this->request->param('id/f');
         $map = ['pid' => $id];
 
-        $type = new AdminMallType;
+        $type = new ModelMallType;
         $result =
         $type->field(true)
         ->where($map)
@@ -209,7 +209,7 @@ class MallType extends Model
             ];
         }
 
-        $type = new AdminMallType;
+        $type = new ModelMallType;
         $result =
         $type->saveAll($data);
 

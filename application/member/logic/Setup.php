@@ -18,8 +18,8 @@ use think\Request;
 use think\Url;
 use think\Config;
 use think\Cookie;
-use app\admin\model\Member as MemberMember;
-use app\admin\model\Region as MemberRegion;
+use app\admin\model\Member as ModelMember;
+use app\admin\model\Region as ModelRegion;
 
 class Setup extends Model
 {
@@ -58,7 +58,7 @@ class Setup extends Model
         ];
         $data['birthday'] = $data['birthday'] <= 0 ? 0 : $data['birthday'];
 
-        $member = new MemberMember;
+        $member = new ModelMember;
         $result =
         $member->allowField(true)
         ->isUpdate(true)
@@ -81,7 +81,7 @@ class Setup extends Model
 
         $map = ['id' => $this->request->post('id/f')];
 
-        $member = new MemberMember;
+        $member = new ModelMember;
         $result =
         $member->allowField(true)
         ->isUpdate(true)
@@ -128,7 +128,7 @@ class Setup extends Model
             // 'update_time',
         ];
 
-        $member = new MemberMember;
+        $member = new ModelMember;
         $result =
         $member->view('member m', $field)
         ->view('level_member lm', 'user_id', 'm.id=lm.user_id')
@@ -154,7 +154,7 @@ class Setup extends Model
         ];
         $map = ['pid' => $parent_id];
 
-        $region = new MemberRegion;
+        $region = new ModelRegion;
         $result =
         $region->field($field)
         ->where($map)

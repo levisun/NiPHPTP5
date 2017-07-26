@@ -17,7 +17,7 @@ use think\Model;
 use think\Request;
 use think\Lang;
 use think\Cache;
-use app\admin\model\Config as AdminConfig;
+use app\admin\model\Config as ModelConfig;
 
 class SettingsBasic extends Model
 {
@@ -52,7 +52,7 @@ class SettingsBasic extends Model
             'lang' => Lang::detect()
         ];
 
-        $config = new AdminConfig;
+        $config = new ModelConfig;
         $result =
         $config->field(true)
         ->where($map)
@@ -79,7 +79,7 @@ class SettingsBasic extends Model
      */
     public function editor()
     {
-        $config = new AdminConfig;
+        $config = new ModelConfig;
 
         foreach ($_POST as $key => $value) {
             $map = ['name' => $key];

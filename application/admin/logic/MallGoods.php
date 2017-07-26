@@ -18,11 +18,11 @@ use think\Request;
 use think\Lang;
 use think\Config;
 use think\Cache;
-use app\admin\model\MallGoods as AdminMallGoods;
-use app\admin\model\MallType as AdminMallType;
-use app\admin\model\MallBrand as AdminMallBrand;
-use app\admin\model\MallGoodsPromote as AdminMallGoodsPromote;
-use app\admin\model\MallGoodsAlbum as AdminMallGoodsAlbum;
+use app\admin\model\MallGoods as ModelMallGoods;
+use app\admin\model\MallType as ModelMallType;
+use app\admin\model\MallBrand as ModelMallBrand;
+use app\admin\model\MallGoodsPromote as ModelMallGoodsPromote;
+use app\admin\model\MallGoodsAlbum as ModelMallGoodsAlbum;
 
 class MallGoods extends Model
 {
@@ -48,13 +48,13 @@ class MallGoods extends Model
             $map['g.name'] = ['LIKE', '%' . $key . '%'];
         }
 
-        $goods = new AdminMallGoods;
+        $goods = new ModelMallGoods;
 
         $result =
         $goods->view('mall_goods g', 'id,name,thumb,price,is_pass,is_show,is_com,is_top,is_hot,sort')
         ->view('mall_type t', ['name'=>'type_name'], 't.id=g.type_id')
         ->view('mall_brand b', ['name'=>'brand_name'], 'b.id=g.brand_id', 'LEFT')
-        ->view('mall_goods_promote p', ['promote_price', 'promote_start_time', 'promote_ent_time'], 'p.goods_id=g.id', 'LEFT')
+        ->view('mall_goods_promote p', ['promote_price', 'promote_start_time', 'promote_end_time'], 'p.goods_id=g.id', 'LEFT')
         ->where($map)
         ->order('id DESC')
         ->paginate();
@@ -80,7 +80,7 @@ class MallGoods extends Model
      */
     public function added()
     {
-        // 商品信息录入
+        // 商品信息
         $data = [
             'name'         => $this->request->post('name'),
             'type_id'      => $this->request->post('type_id/d'),
@@ -97,13 +97,13 @@ class MallGoods extends Model
             'is_hot'       => $this->request->post('is_hot/d', 0),
         ];
 
-        $goods = new AdminMallGoods;
+        $goods = new ModelMallGoods;
         $goods->data($data)
         ->allowField(true)
         ->isUpdate(false)
         ->save();
 
-        // 促销信息录入
+        // 促销信息
         $data = [
             'goods_id'      => $goods->id,
             'promote_price' => $this->request->post('promote_price/f') * 100,
@@ -111,17 +111,17 @@ class MallGoods extends Model
             'promote_end_time'   => $this->request->post('promote_end_time/f', 0, 'trim,strtotime'),
         ];
 
-        $promote = new AdminMallGoodsPromote;
+        $promote = new ModelMallGoodsPromote;
         $promote->data($data)
         ->allowField(true)
         ->isUpdate(false)
         ->save();
 
-        // 商品相册录入
+        // 商品相册
         $album_image = $this->request->post('album_image/a');
         $album_thumb = $this->request->post('album_thumb/a');
 
-        $album = new AdminMallGoodsAlbum;
+        $album = new ModelMallGoodsAlbum;
         $data = ['goods_id' => $goods->id];
         foreach ($album_image as $key => $value) {
             $data['thumb'] = $album_thumb[$key];
@@ -148,21 +148,36 @@ class MallGoods extends Model
             'g.id' => $this->request->param('id/f')
         ];
 
-        $goods = new AdminMallGoods;
+        $goods = new ModelMallGoods;
         $result =
         $goods->view('mall_goods g')
-        ->view('mall_goods_promote p', ['promote_price', 'promote_start_time', 'promote_ent_time'], 'p.goods_id=g.id', 'LEFT')
+        ->view('mall_goods_promote p', ['promote_price', 'promote_start_time', 'promote_end_time'], 'p.goods_id=g.id', 'LEFT')
         ->where($map)
         ->find();
 
         $data = [];
         if (!empty($result)) {
             $data = $result->toArray();
-            $data['price'] = $data['price'] / 100;
-            $data['market_price'] = $data['market_price'] / 100;
+            $data['price'] = number_format($data['price'] / 100, 2);
+            $data['market_price'] = number_format($data['market_price'] / 100, 2);
             $data['content'] = htmlspecialchars_decode($data['content']);
-            $data['promote_price'] = $data['promote_price'] ? $data['promote_price'] / 100 : $data['promote_price'];
+            $data['promote_price'] = $data['promote_price'] ? number_format($data['promote_price'] / 100, 2) : $data['promote_price'];
         }
+
+        // 相册
+        $album = new ModelMallGoodsAlbum;
+        $map = ['goods_id' => $this->request->param('id/f')];
+        $result =
+        $album->field(true)
+        ->where($map)
+        ->select();
+
+        $album_list = [];
+        foreach ($result as $value) {
+            $album_list[] = $value->toArray();
+        }
+
+        $data['album_list'] = $album_list;
 
         return $data;
     }
@@ -174,7 +189,68 @@ class MallGoods extends Model
      * @return boolean
      */
     public function editor()
-    {}
+    {
+        $goods_id = $this->request->post('id/f');
+        $map = ['id' => $goods_id];
+
+        // 商品信息
+        $data = [
+            'name'         => $this->request->post('name'),
+            'type_id'      => $this->request->post('type_id/d'),
+            'brand_id'     => $this->request->post('brand_id/d'),
+            'price'        => $this->request->post('price/f') * 100,
+            'market_price' => $this->request->post('market_price/f') * 100,
+            'number'       => $this->request->post('number/d', 2000),
+            'thumb'        => $this->request->post('thumb'),
+            'content'      => $this->request->post('content', '', Config::get('content_filter')),
+            'is_pass'      => $this->request->post('is_pass/d', 1),
+            'is_show'      => $this->request->post('is_show/d', 1),
+            'is_com'       => $this->request->post('is_com/d', 0),
+            'is_top'       => $this->request->post('is_top/d', 0),
+            'is_hot'       => $this->request->post('is_hot/d', 0),
+        ];
+
+        $goods = new ModelMallGoods;
+        $result =
+        $goods->allowField(true)
+        ->isUpdate(true)
+        ->save($data, $map);
+
+        // 促销信息
+        $map = ['goods_id' => $goods_id];
+        $data = [
+            'promote_price' => $this->request->post('promote_price/f') * 100,
+            'promote_start_time' => $this->request->post('promote_start_time/f', 0, 'trim,strtotime'),
+            'promote_end_time'   => $this->request->post('promote_end_time/f', 0, 'trim,strtotime'),
+        ];
+
+        $promote = new ModelMallGoodsPromote;
+        $promote->allowField(true)
+        ->isUpdate(true)
+        ->save($data, $map);
+
+        // 商品相册
+        $album_image = $this->request->post('album_image/a');
+        $album_thumb = $this->request->post('album_thumb/a');
+
+        $map = ['goods_id' => $goods_id];
+        $album = new ModelMallGoodsAlbum;
+        // 删除相册重新写入
+        $album->where($map)
+        ->delete();
+
+        $data = ['goods_id' => $goods_id];
+        foreach ($album_image as $key => $value) {
+            $data['thumb'] = $album_thumb[$key];
+            $data['image'] = $value;
+            $album->data($data)
+            ->allowField(false)
+            ->isUpdate(false)
+            ->save();
+        }
+
+        return $result ? true : false;
+    }
 
     /**
      * 删除数据
@@ -187,7 +263,7 @@ class MallGoods extends Model
         $id = $this->request->param('id/f');
         $map = ['id' => $id];
 
-        $goods = new AdminMallGoods;
+        $goods = new ModelMallGoods;
         $goods->where($map);
         $result = $goods->delete();
 
@@ -210,7 +286,7 @@ class MallGoods extends Model
             ];
         }
 
-        $goods = new AdminMallGoods;
+        $goods = new ModelMallGoods;
         $result =
         $goods->saveAll($data);
 
@@ -227,7 +303,7 @@ class MallGoods extends Model
     {
         $map = ['lang' => Lang::detect()];
 
-        $type = new AdminMallType;
+        $type = new ModelMallType;
         $result =
         $type->field(true)
         ->where($map)
@@ -251,7 +327,7 @@ class MallGoods extends Model
     {
         $map = ['lang' => Lang::detect()];
 
-        $brand = new AdminMallBrand;
+        $brand = new ModelMallBrand;
         $result =
         $brand->field(true)
         ->where($map)

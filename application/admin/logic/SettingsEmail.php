@@ -16,7 +16,7 @@ namespace app\admin\logic;
 use think\Model;
 use think\Request;
 use think\Cache;
-use app\admin\model\Config AS AdminConfig;
+use app\admin\model\Config AS ModelConfig;
 
 class SettingsEmail extends Model
 {
@@ -45,7 +45,7 @@ class SettingsEmail extends Model
             'lang' => 'niphp'
         ];
 
-        $config = new AdminConfig;
+        $config = new ModelConfig;
         $result =
         $config->field(true)
         ->where($map)
@@ -68,7 +68,7 @@ class SettingsEmail extends Model
      */
     public function editor()
     {
-        $config = new AdminConfig;
+        $config = new ModelConfig;
 
         $post_data = $this->request->post();
         foreach ($post_data as $key => $value) {

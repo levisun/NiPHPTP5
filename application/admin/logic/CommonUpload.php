@@ -18,7 +18,7 @@ use think\Lang;
 use think\Request;
 use think\Image;
 use util\File;
-use app\admin\model\Config as AdminConfig;
+use app\admin\model\Config as ModelConfig;
 
 class CommonUpload extends Model
 {
@@ -72,7 +72,7 @@ class CommonUpload extends Model
             'lang' => 'niphp',
         ];
 
-        $config = new AdminConfig;
+        $config = new ModelConfig;
         $result =
         $config->field(true)
         ->where($map)
@@ -172,7 +172,7 @@ class CommonUpload extends Model
             'value'
         ];
 
-        $config = new AdminConfig;
+        $config = new ModelConfig;
         $result =
         $config->field($field)
         ->where($map)
@@ -292,7 +292,7 @@ class CommonUpload extends Model
             'value'
         ];
 
-        $config = new AdminConfig;
+        $config = new ModelConfig;
         $result =
         $config->field($field)
         ->where($map)

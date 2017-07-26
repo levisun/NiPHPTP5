@@ -18,9 +18,9 @@ use think\Request;
 use think\Lang;
 use think\Url;
 use think\Loader;
-use app\admin\model\Page as IndexPage;
-use app\admin\model\Fields as IndexFields;
-use app\admin\model\TagsArticle as IndexTagsArticle;
+use app\admin\model\Page as ModelPage;
+use app\admin\model\Fields as ModelFields;
+use app\admin\model\TagsArticle as ModelTagsArticle;
 
 class Page extends Model
 {
@@ -48,7 +48,7 @@ class Page extends Model
             'a.lang'        => Lang::detect()
         ];
 
-        $model = new IndexPage;
+        $model = new ModelPage;
         $CACHE = check_key($map, __METHOD__);
 
         $result =
@@ -83,7 +83,7 @@ class Page extends Model
         $map = ['f.category_id' => $this->request->param('cid/f')];
         $table_name = 'page_data d';
 
-        $fields = new IndexFields;
+        $fields = new ModelFields;
         $CACHE = check_key($map, __METHOD__);
 
         $result =
@@ -115,7 +115,7 @@ class Page extends Model
             'a.article_id'  => $id
         ];
 
-        $tags = new IndexTagsArticle;
+        $tags = new ModelTagsArticle;
         $CACHE = check_key($map, __METHOD__);
 
         $result =
@@ -147,7 +147,7 @@ class Page extends Model
             'lang'        => Lang::detect(),
         ];
 
-        $model = new IndexPage;
+        $model = new ModelPage;
         $model->where($map)
         ->setInc('hits');
     }

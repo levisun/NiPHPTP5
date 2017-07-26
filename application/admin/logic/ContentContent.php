@@ -19,9 +19,9 @@ use think\Lang;
 use think\Loader;
 use think\Config;
 use think\Session;
-use app\admin\logic\ContentContentData as AdminContentContentData;
-use app\admin\model\Tags as AdminTags;
-use app\admin\model\TagsArticle as AdminTagsArticle;
+use app\admin\logic\ContentContentData as ModelContentContentData;
+use app\admin\model\Tags as ModelTags;
+use app\admin\model\TagsArticle as ModelTagsArticle;
 
 class ContentContent extends Model
 {
@@ -40,7 +40,7 @@ class ContentContent extends Model
         $this->request = Request::instance();
 
         // 内容数据业务层
-        $this->data_model = new AdminContentContentData;
+        $this->data_model = new ModelContentContentData;
         // 分类
         $this->type_data = $this->data_model->getTypeData();
         // 权限
@@ -355,7 +355,7 @@ class ContentContent extends Model
         if (empty($tags)) {
             $map = ['article_id' => $id];
 
-            $tags_art_model = new AdminTagsArticle;
+            $tags_art_model = new ModelTagsArticle;
             $tags_art_model->where($map)
             ->delete();
 
@@ -372,7 +372,7 @@ class ContentContent extends Model
             ]
         ];
 
-        $tags_model = new AdminTags;
+        $tags_model = new ModelTags;
         $result =
         $tags_model->field(true)
         ->where($map)
@@ -411,7 +411,7 @@ class ContentContent extends Model
 
         // 删除原有关联
         $map = ['article_id' => $id];
-        $tags_art_model = new AdminTagsArticle;
+        $tags_art_model = new ModelTagsArticle;
         $tags_art_model->where($map)
         ->delete();
 

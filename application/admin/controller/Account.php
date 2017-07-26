@@ -16,7 +16,7 @@ namespace app\admin\controller;
 use think\Url;
 use think\Lang;
 use app\admin\controller\Base;
-use app\admin\logic\CommonLogin as AdminCommonLogin;
+use app\admin\logic\CommonLogin as LogicCommonLogin;
 
 class Account extends Base
 {
@@ -36,7 +36,7 @@ class Account extends Base
 
             $result = $this->validate($_POST, 'Account.login');
             if(true === $result){
-                $model = new AdminCommonLogin;
+                $model = new LogicCommonLogin;
                 $result = $model->checkLogin();
             }
 
@@ -61,7 +61,7 @@ class Account extends Base
     public function logout()
     {
         $this->actionLog('admin_logout');
-        $model = new AdminCommonLogin;
+        $model = new LogicCommonLogin;
         $result = $model->logout();
         if (true === $result) {
             $this->redirect(Url::build('account/login'));

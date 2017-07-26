@@ -15,7 +15,7 @@ namespace app\admin\logic;
 
 use think\Model;
 use think\Request;
-use app\admin\model\Node as AdminNode;
+use app\admin\model\Node as ModelNode;
 
 class UserNode extends Model
 {
@@ -41,7 +41,7 @@ class UserNode extends Model
             $map['title'] = ['LIKE', '%' . $key . '%'];
         }
 
-        $node = new AdminNode;
+        $node = new ModelNode;
         $result =
         $node->field(true)
         ->where($map)
@@ -78,7 +78,7 @@ class UserNode extends Model
             'status' => $this->request->post('status/d')
         ];
 
-        $node = new AdminNode;
+        $node = new ModelNode;
         $result =
         $node->data($data)
         ->allowField(true)
@@ -100,7 +100,7 @@ class UserNode extends Model
             'id' => $this->request->param('id/f')
         ];
 
-        $node = new AdminNode;
+        $node = new ModelNode;
         $result =
         $node->field(true)
         ->where($map)
@@ -127,7 +127,7 @@ class UserNode extends Model
         ];
         $map = ['id' => $this->request->post('id/f')];
 
-        $node = new AdminNode;
+        $node = new ModelNode;
         $result =
         $node->allowField(true)
         ->isUpdate(true)
@@ -147,7 +147,7 @@ class UserNode extends Model
         $id = $this->request->param('id/f');
         $map = ['id' => $id];
 
-        $node = new AdminNode;
+        $node = new ModelNode;
         $result =
         $node->where($map)
         ->delete();
@@ -171,7 +171,7 @@ class UserNode extends Model
             ];
         }
 
-        $node = new AdminNode;
+        $node = new ModelNode;
         $result =
         $node->saveAll($data);
 

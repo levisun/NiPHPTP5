@@ -17,12 +17,12 @@ use think\Model;
 use think\Request;
 use think\Config;
 use util\File;
-use app\admin\model\Member as AdminMember;
-use app\admin\model\Feedback as AdminFeedback;
-use app\admin\model\Message as AdminMessage;
-use app\admin\model\Link as AdminLink;
-use app\admin\model\Ads as AdminAds;
-use app\admin\model\Visit as AdminVisit;
+use app\admin\model\Member as ModelMember;
+use app\admin\model\Feedback as ModelFeedback;
+use app\admin\model\Message as ModelMessage;
+use app\admin\model\Link as ModelLink;
+use app\admin\model\Ads as ModelAds;
+use app\admin\model\Visit as ModelVisit;
 
 class SettingsInfo extends Model
 {
@@ -78,7 +78,7 @@ class SettingsInfo extends Model
      */
     private function member()
     {
-        $member = new AdminMember;
+        $member = new ModelMember;
 
         $result['count'] =
         $member->count();
@@ -99,7 +99,7 @@ class SettingsInfo extends Model
      */
     private function feedback()
     {
-        $feedback = new AdminFeedback;
+        $feedback = new ModelFeedback;
 
         $result =
         $feedback->count();
@@ -115,7 +115,7 @@ class SettingsInfo extends Model
      */
     private function message()
     {
-        $message = new AdminMessage;
+        $message = new ModelMessage;
 
         $result =
         $message->count();
@@ -131,7 +131,7 @@ class SettingsInfo extends Model
      */
     private function link()
     {
-        $link = new AdminLink;
+        $link = new ModelLink;
 
         $result =
         $link->count();
@@ -147,7 +147,7 @@ class SettingsInfo extends Model
      */
     private function ads()
     {
-        $ads = new AdminAds;
+        $ads = new ModelAds;
 
         $map = ['end_time' => ['egt', time()]];
 
@@ -166,7 +166,7 @@ class SettingsInfo extends Model
      */
     private function visit()
     {
-        $visit = new AdminVisit;
+        $visit = new ModelVisit;
         $result = $visit
         ->field(true)
         ->where(['date' => ['egt', strtotime('-7 days')]])

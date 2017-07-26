@@ -4,7 +4,6 @@
  *  @author  dodge <dodgepudding@gmail.com>
  *  @link https://github.com/dodgepudding/wechat-php-sdk
  *  @version 1.2
- *  添加 count TEMPLATE_GET_TPL getTMList()
  *  usage:
  *   $options = array(
  *			'token'=>'tokenaccesskey', //填写你设定的key
@@ -108,7 +107,6 @@ class Wechat
 	const TEMPLATE_SET_INDUSTRY_URL = '/template/api_set_industry?';
 	const TEMPLATE_ADD_TPL_URL = '/template/api_add_template?';
 	const TEMPLATE_SEND_URL = '/message/template/send?';
-    const TEMPLATE_GET_TPL = '/template/get_all_private_template?';
 	const MASS_SEND_GROUP_URL = '/message/mass/sendall?';
 	const MASS_DELETE_URL = '/message/mass/delete?';
 	const MASS_PREVIEW_URL = '/message/mass/preview?';
@@ -2664,32 +2662,6 @@ class Wechat
 	    }
 	    return false;
 	}
-
-    /**
-     * 模板消息 获取已添加至帐号下所有模板列表
-     * @param
-     * @return boolean|array
-     */
-    public function getTMList()
-    {
-        if (!$this->access_token && !$this->checkAuth()) {
-            return false;
-        }
-
-        $result = $this->http_get(self::API_URL_PREFIX . self::TEMPLATE_GET_TPL . 'access_token=' . $this->access_token);
-
-        if ($result) {
-            $json = json_decode($result, true);
-            if (!$json || !empty($json['errcode'])) {
-                $this->errcode = $json['errcode'];
-                $this->errMsg = $json['errmsg'];
-                return false;
-            }
-            return $json;
-        }
-
-        return false;
-    }
 
 	/**
 	 * 模板消息 添加消息模板

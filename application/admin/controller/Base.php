@@ -22,8 +22,8 @@ use think\View;
 use think\Session;
 use think\Cache;
 use think\Log;
-use app\admin\logic\CommonUpload as AdminCommonUpload;
-use app\admin\logic\CommonAccount as AdminCommonAccount;
+use app\admin\logic\CommonUpload as LogicCommonUpload;
+use app\admin\logic\CommonAccount as LogicCommonAccount;
 
 class Base extends Controller
 {
@@ -39,7 +39,7 @@ class Base extends Controller
     public function upload()
     {
         if ($this->request->isPost()) {
-            $model = new AdminCommonUpload;
+            $model = new LogicCommonUpload;
             $result = $model->upload();
             if (is_string($result)) {
                 $this->error($result);
@@ -58,7 +58,7 @@ class Base extends Controller
      */
     public function delupload()
     {
-        $model = new AdminCommonUpload;
+        $model = new LogicCommonUpload;
         $result = $model->delUpload();
     }
 
@@ -244,7 +244,7 @@ class Base extends Controller
             $action_name = $this->method !== 'list' ? $this->method : 'sort';
             $action_name = $this->request->action() . '_' . $action_name;
         }
-        $model = new AdminCommonAccount;
+        $model = new LogicCommonAccount;
         $model->actionLog($action_name, $record_id, $remark);
         $model->requestLog($login);
     }
@@ -257,7 +257,7 @@ class Base extends Controller
      */
     public function requestLog($login)
     {
-        $model = new AdminCommonAccount;
+        $model = new LogicCommonAccount;
         $model->requestLog($login);
     }
 
@@ -269,7 +269,7 @@ class Base extends Controller
      */
     public function ipRequestError()
     {
-        $model = new AdminCommonAccount;
+        $model = new LogicCommonAccount;
         return $model->ipRequestError();
     }
 
@@ -291,7 +291,7 @@ class Base extends Controller
         Lang::load($lang_path . strtolower($this->request->controller()) . '.php');
 
         // 权限判断
-        $account = new AdminCommonAccount;
+        $account = new LogicCommonAccount;
         $result = $account->accountAuth();
         if (true !== $result) {
             $this->redirect($result);

@@ -17,9 +17,9 @@ use think\Model;
 use think\Request;
 use think\Lang;
 use think\Loader;
-use app\admin\model\Fields as AdminFields;
-use app\admin\model\Category as AdminCategory;
-use app\admin\model\FieldsType as AdminFieldsType;
+use app\admin\model\Fields as ModelFields;
+use app\admin\model\Category as ModelCategory;
+use app\admin\model\FieldsType as ModelFieldsType;
 
 class CategoryFields extends Model
 {
@@ -51,7 +51,7 @@ class CategoryFields extends Model
             $map['m.id'] = $mid;
         }
 
-        $fields = new AdminFields;
+        $fields = new ModelFields;
         $result =
         $fields->view('fields f', 'id,category_id,name,description,is_require')
         ->view('category c', ['name'=>'cat_name'], 'c.id=f.category_id')
@@ -88,7 +88,7 @@ class CategoryFields extends Model
         ];
         $field = ['id', 'name'];
 
-        $category = new AdminCategory;
+        $category = new ModelCategory;
         $result =
         $category->field($field)
         ->where($map)
@@ -128,7 +128,7 @@ class CategoryFields extends Model
     {
         $field = ['id', 'name'];
 
-        $fields_type = new AdminFieldsType;
+        $fields_type = new ModelFieldsType;
         $result =
         $fields_type->field($field)
         ->select();
@@ -160,7 +160,7 @@ class CategoryFields extends Model
             'description' => $this->request->post('description'),
         ];
 
-        $fields = new AdminFields;
+        $fields = new ModelFields;
         $fields->data($data)
         ->allowField(true)
         ->isUpdate(false)
@@ -179,7 +179,7 @@ class CategoryFields extends Model
     {
         $map = ['f.id' => $this->request->param('id/f')];
 
-        $fields = new AdminFields;
+        $fields = new ModelFields;
         $result =
         $fields->view('fields f', 'id,category_id,type_id,name,description,is_require')
         ->view('category c', ['name'=>'cat_name'], 'c.id=f.category_id')
@@ -204,7 +204,7 @@ class CategoryFields extends Model
         ];
         $map = ['id' => $this->request->post('id/f')];
 
-        $fields = new AdminFields;
+        $fields = new ModelFields;
         $result =
         $fields->allowField(true)
         ->isUpdate(true)
@@ -225,7 +225,7 @@ class CategoryFields extends Model
 
         $map = ['f.id' => $id];
 
-        $fields = new AdminFields;
+        $fields = new ModelFields;
         $table_name =
         $fields->view('fields f', 'id')
         ->view('category c', ['id'=>'cid'], 'c.id=f.category_id')

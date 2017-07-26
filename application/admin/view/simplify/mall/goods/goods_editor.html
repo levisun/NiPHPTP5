@@ -99,6 +99,41 @@
                                 <img src="{$data.thumb}" id="img-thumb" width="100" style="display:none">
                             </div>
                         </div>
+                        <div class="form-group">
+                            <label for="promote_price" class="col-lg-2 control-label">{:lang('promote price')}</label>
+                            <div class="col-lg-10">
+                                <div class="input-group">
+                                    <input type="text" name="promote_price" id="promote_price" class="form-control" value="{$data.promote_price}">
+                                    <span class="input-group-addon">{:lang('mall yuan')}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="promote_start_time" class="col-lg-2 control-label">{:lang('promote start time')}</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="promote_start_time" id="promote_start_time" class="form-control" value="{$data.promote_start_time|date="Y-m-d", ###}">
+                                <script type="text/javascript">
+                                $(function () {
+                                    $('#promote_start_time').datetimepicker(
+                                        {format: 'Y-M-D'}
+                                        );
+                                });
+                                </script>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="promote_end_time" class="col-lg-2 control-label">{:lang('promote end time')}</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="promote_end_time" id="promote_end_time" class="form-control" value="{$data.promote_end_time|date="Y-m-d", ###}">
+                                <script type="text/javascript">
+                                $(function () {
+                                    $('#promote_end_time').datetimepicker(
+                                        {format: 'Y-M-D'}
+                                        );
+                                });
+                                </script>
+                            </div>
+                        </div>
                     </div>
 
                     <div role="tabpanel" class="tab-pane" id="CT-content">
@@ -234,13 +269,15 @@
                             <div class="col-lg-10">
                                 <button type="button" class="btn btn-success btn-sm np-album-add">{:lang("button add")}</button>
                                 <ol id="album">
-                                    <li id="album-1">
-                                        <input type="text" name="album_image[]" id="album-image-1" class="form-control">
-                                        <input type="hidden" name="album_thumb[]" id="album-thumb-1" class="form-control">
-                                        <img src="" id="img-album-1" width="100" style="display:none">
-                                        <button type="button" class="btn btn-success btn-sm np-upload" data-type="mallalbum" data-id="1" data-model="">{:lang('button upload')}</button>
-                                        <button type="button" class="btn btn-success btn-sm np-album-del" date-id="1">{:lang('button delete')}</button>
+                                    {volist name="data.album_list" id="vo"}
+                                    <li id="album-{$vo.id}">
+                                        <input type="text" name="album_image[]" id="album-image-{$vo.id}" class="form-control" value="{$vo.image}">
+                                        <input type="hidden" name="album_thumb[]" id="album-thumb-{$vo.id}" class="form-control" value="{$vo.thumb}">
+                                        <img src="" id="img-album-{$vo.id}" width="100" style="display:none">
+                                        <button type="button" class="btn btn-success btn-sm np-upload" data-type="mallalbum" data-id="{$vo.id}" data-model="">{:lang('button upload')}</button>
+                                        <button type="button" class="btn btn-success btn-sm np-album-del" date-id="{$vo.id}">{:lang('button delete')}</button>
                                     </li>
+                                    {/volist}
                                 </ol>
                             </div>
                         </div>
@@ -251,6 +288,7 @@
                 <div class="form-group">
                     <div class="col-lg-offset-2 col-lg-10">
                         {:token()}
+                        <input type="hidden" name="id" value="{$data.id}">
                         <input type="submit" value="{:lang('button save')}" class="btn btn-info marginTB-xs">
                     </div>
                 </div>

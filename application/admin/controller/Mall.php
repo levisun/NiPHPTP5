@@ -14,8 +14,9 @@
 namespace app\admin\controller;
 
 use app\admin\controller\Base;
-use app\admin\logic\MallGoods as AdminMallGoods;
-use app\admin\logic\MallType as AdminMallType;
+use app\admin\logic\MallGoods as LogicMallGoods;
+use app\admin\logic\MallCategory as LogicMallCategory;
+use app\admin\logic\MallType as LogicMallType;
 
 class Mall extends Base
 {
@@ -32,7 +33,7 @@ class Mall extends Base
         $this->assign('submenu_button_added', 1);
 
         if (in_array($this->method, ['added', 'editor'])) {
-            $goods = new AdminMallGoods;
+            $goods = new LogicMallGoods;
             $this->assign('type', $goods->getType());
             $this->assign('brand', $goods->getBrand());
         }
@@ -64,6 +65,47 @@ class Mall extends Base
     }
 
     /**
+     * 导航
+     * @access public
+     * @param
+     * @return string
+     */
+    public function category()
+    {
+        $this->assign('submenu', 1);
+        $this->assign('submenu_button_added', 1);
+
+        // 父级分类信息
+        $model = new LogicMallCategory;
+        $this->assign('parent', $model->getParent());
+
+        // 新增
+        if ($this->method == 'added') {
+            parent::added('MallCategory', 'MallCategory.added');
+            return $this->fetch('mall/type/type_added');
+        }
+
+        // 删除
+        if ($this->method == 'remove') {
+            parent::remove('MallCategory', 'MallCategory.remove');
+            return ;
+        }
+
+        // 编辑
+        if ($this->method == 'editor') {
+            $data = parent::editor('MallCategory', 'MallCategory.editor');
+            $this->assign('data', $data);
+            return $this->fetch('mall/type/type_editor');
+        }
+
+
+        $data = parent::select('MallCategory');
+        $this->assign('list', $data);
+
+        return $this->fetch('mall/category/category');
+    }
+
+    /**
      * 分类
      * @access public
      * @param
@@ -74,8 +116,8 @@ class Mall extends Base
         $this->assign('submenu', 1);
         $this->assign('submenu_button_added', 1);
 
-        // 父级导航信息
-        $model = new AdminMallType;
+        // 父级分类信息
+        $model = new LogicMallType;
         $this->assign('parent', $model->getParent());
 
         // 新增
@@ -154,11 +196,27 @@ class Mall extends Base
         return $this->fetch();
     }
 
+    /**
+     * 商品回收站
+     * @access public
+     * @param
+     * @return string
+     */
     public function grecycle()
     {
         $this->assign('submenu', 1);
 
-        return $this->fetch('mall/goods/goods');
+        // 删除
+        if ($this->method == 'remove') {
+            parent::remove('MallGRecycle', 'MallGoods.remove');
+            return ;
+        }
+
+        $data = parent::select('MallGRecycle');
+        $this->assign('list', $data['list']);
+        $this->assign('page', $data['page']);
+
+        return $this->fetch('mall/goods/recycle');
     }
 
     /**

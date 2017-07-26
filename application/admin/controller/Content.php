@@ -16,10 +16,10 @@ namespace app\admin\controller;
 use think\Lang;
 use think\Url;
 use app\admin\controller\Base;
-use app\admin\logic\ContentContent as AdminContentContent;
-use app\admin\logic\CategoryCategory as AdminCategoryCategory;
-use app\admin\logic\ContentRecycle as AdminContentRecycle;
-use app\admin\logic\ContentCache as AdminContentCache;
+use app\admin\logic\ContentContent as LogicContentContent;
+use app\admin\logic\CategoryCategory as LogicCategoryCategory;
+use app\admin\logic\ContentRecycle as LogicContentRecycle;
+use app\admin\logic\ContentCache as LogicContentCache;
 
 class Content extends Base
 {
@@ -36,7 +36,7 @@ class Content extends Base
         $theme = 'content/content/';
 
         // 获得模型表名
-        $model = new AdminContentContent;
+        $model = new LogicContentContent;
         $this->assign('model_name', $model->table_name);
 
         if (in_array($this->method, ['page', 'added', 'editor'])) {
@@ -105,7 +105,7 @@ class Content extends Base
         }
 
         // 栏目
-        $model = new AdminCategoryCategory;
+        $model = new LogicCategoryCategory;
         $category = $model->getListData();
         foreach ($category as $key => $value) {
             if ($value['model_name'] == 'external') {
@@ -128,7 +128,7 @@ class Content extends Base
         $theme = 'content/content/';
 
         // 获得模型表名
-        $model = new AdminContentRecycle;
+        $model = new LogicContentRecycle;
         $this->assign('model_name', $model->table_name);
 
         if (in_array($this->method, ['page', 'added', 'editor'])) {
@@ -170,7 +170,7 @@ class Content extends Base
         }
 
         // 栏目
-        $model = new AdminCategoryCategory;
+        $model = new LogicCategoryCategory;
         $category = $model->getListData();
         foreach ($category as $key => $value) {
             if (in_array($value['model_name'], ['page', 'external'])) {
@@ -299,7 +299,7 @@ class Content extends Base
     public function cache()
     {
         if ($this->method == 'remove') {
-            $model = new AdminContentCache;
+            $model = new LogicContentCache;
             $result = $model->remove();
 
             $url = Url::build($this->request->action());

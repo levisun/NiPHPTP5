@@ -17,13 +17,12 @@ use think\Model;
 use think\Request;
 use think\Lang;
 use think\Loader;
-use app\admin\model\Config as AdminConfig;
-use app\admin\model\Category as AdminCategory;
-use app\admin\model\Models as AdminModels;
-use app\admin\model\Type as AdminType;
-use app\admin\model\Fields as AdminFields;
-use app\admin\model\TagsArticle as AdminTagsArticle;
-use app\admin\model\Level as AdminLevel;
+use app\admin\model\Config as ModelConfig;
+use app\admin\model\Category as ModelCategory;
+use app\admin\model\Type as ModelType;
+use app\admin\model\Fields as ModelFields;
+use app\admin\model\TagsArticle as ModelTagsArticle;
+use app\admin\model\Level as ModelLevel;
 
 class ContentContentData extends Model
 {
@@ -43,7 +42,7 @@ class ContentContentData extends Model
             'lang' => 'niphp'
         ];
 
-        $config = new AdminConfig;
+        $config = new ModelConfig;
         return
         $config->field(true)
         ->where($map)
@@ -63,7 +62,7 @@ class ContentContentData extends Model
             'c.lang' => Lang::detect()
         ];
 
-        $category = new AdminCategory;
+        $category = new ModelCategory;
         $result =
         $category->view('category c', 'id')
         ->view('model m', ['name' => 'model_name'], 'm.id=c.model_id AND m.name!=\'external\'')
@@ -86,7 +85,7 @@ class ContentContentData extends Model
     {
         $map = ['t.category_id' => $this->request->param('cid/f')];
 
-        $type = new AdminType;
+        $type = new ModelType;
         $result =
         $type->view('type t', 'id,category_id,name,description')
         ->view('category c', ['name'=>'cat_name'], 'c.id=t.category_id')
@@ -111,7 +110,7 @@ class ContentContentData extends Model
     {
         $map = [];
 
-        $level = new AdminLevel;
+        $level = new ModelLevel;
         $result =
         $level->field(true)
         ->where($map)
@@ -137,7 +136,7 @@ class ContentContentData extends Model
         $map = ['f.category_id' => $master_data['category_id']];
         $table_name .= '_data d';
 
-        $fields = new AdminFields;
+        $fields = new ModelFields;
         $result =
         $fields->view('fields f', ['id', 'name' => 'field_name'])
         ->view('fields_type t', ['name' => 'field_type'], 'f.type_id=t.id')
@@ -168,7 +167,7 @@ class ContentContentData extends Model
             'a.article_id'  => $master_data['id']
         ];
 
-        $tags = new AdminTagsArticle;
+        $tags = new ModelTagsArticle;
         $result =
         $tags->view('tags_article a', 'tags_id')
         ->view('tags t', 'name', 't.id=a.tags_id')
@@ -194,7 +193,7 @@ class ContentContentData extends Model
     {
         $map = ['f.category_id' => $this->request->param('cid/f')];
 
-        $fields = new AdminFields;
+        $fields = new ModelFields;
         $result =
         $fields->view('fields f', ['id', 'name' => 'field_name'])
         ->view('fields_type t', ['name' => 'field_type'], 'f.type_id=t.id')

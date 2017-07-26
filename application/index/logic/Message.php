@@ -18,10 +18,10 @@ use think\Request;
 use think\Lang;
 use think\Config;
 use think\Cookie;
-use app\admin\model\Message as IndexMessage;
-use app\admin\model\MessageData as IndexMessageData;
-use app\admin\model\Fields as IndexFields;
-use app\admin\model\Type as IndexType;
+use app\admin\model\Message as ModelMessage;
+use app\admin\model\MessageData as ModelMessageData;
+use app\admin\model\Fields as ModelFields;
+use app\admin\model\Type as ModelType;
 
 class Message extends Model
 {
@@ -42,7 +42,7 @@ class Message extends Model
      */
     public function getListData()
     {
-        $message = new IndexMessage;
+        $message = new ModelMessage;
 
         $data['field'] = $this->getFields();
         $data['type']  = $this->getType();
@@ -74,7 +74,7 @@ class Message extends Model
             'lang'        => Lang::detect(),
         ];
 
-        $message = new IndexMessage;
+        $message = new ModelMessage;
 
         $message->allowField(true)
         ->isUpdate(false)
@@ -97,7 +97,7 @@ class Message extends Model
             ];
         }
 
-        $message_data = new IndexMessageData;
+        $message_data = new ModelMessageData;
 
         $message_data->saveAll($added_data);
 
@@ -114,7 +114,7 @@ class Message extends Model
     {
         $map = ['f.category_id' => $this->request->param('cid/f')];
 
-        $fields = new IndexFields;
+        $fields = new ModelFields;
         $CACHE = check_key($map, __METHOD__);
 
         $result =
@@ -144,7 +144,7 @@ class Message extends Model
     {
         $map = ['category_id' => $this->request->param('cid/f')];
 
-        $type = new IndexType;
+        $type = new ModelType;
         $CACHE = check_key($map, __METHOD__);
 
         $result =

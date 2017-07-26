@@ -15,7 +15,6 @@ namespace app\wechat\logic;
 
 use think\Model;
 use think\Request;
-use app\admin\model\Reply as WechatReply;
 
 class Common extends Model
 {

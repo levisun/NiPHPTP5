@@ -16,7 +16,7 @@ namespace app\index\controller;
 use think\Url;
 use think\Lang;
 use app\index\controller\Base;
-use app\index\logic\Jump as IndexJump;
+use app\index\logic\Jump as LogicJump;
 
 class Jump extends Base
 {
@@ -29,7 +29,7 @@ class Jump extends Base
      */
     public function index()
     {
-        $model = new IndexJump;
+        $model = new LogicJump;
         $url = $model->jump($this->table_name);
         $this->redirect($url, 302);
     }

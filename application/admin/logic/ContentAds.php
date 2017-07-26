@@ -16,7 +16,7 @@ namespace app\admin\logic;
 use think\Model;
 use think\Request;
 use think\Lang;
-use app\admin\model\Ads as AdminAds;
+use app\admin\model\Ads as ModelAds;
 
 class ContentAds extends Model
 {
@@ -42,7 +42,7 @@ class ContentAds extends Model
             $map['name'] = ['LIKE', '%' . $key . '%'];
         }
 
-        $ads = new AdminAds;
+        $ads = new ModelAds;
         $result =
         $ads->field(true)
         ->where($map)
@@ -77,7 +77,7 @@ class ContentAds extends Model
             'lang'       => Lang::detect(),
         ];
 
-        $ads = new AdminAds;
+        $ads = new ModelAds;
         $ads->data($data)
         ->allowField(true)
         ->isUpdate(false)
@@ -96,7 +96,7 @@ class ContentAds extends Model
     {
         $map = ['id' => $this->request->param('id/f')];
 
-        $ads = new AdminAds;
+        $ads = new ModelAds;
         $result =
         $ads->field(true)
         ->where($map)
@@ -124,7 +124,7 @@ class ContentAds extends Model
         ];
         $map = ['id' => $this->request->post('id/f')];
 
-        $ads = new AdminAds;
+        $ads = new ModelAds;
         $result =
         $ads->allowField(true)
         ->isUpdate(true)
@@ -143,7 +143,7 @@ class ContentAds extends Model
     {
         $map = ['id' => $this->request->param('id/f')];
 
-        $ads = new AdminAds;
+        $ads = new ModelAds;
         $result =
         $ads->where($map)
         ->delete();

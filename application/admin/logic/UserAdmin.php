@@ -15,9 +15,9 @@ namespace app\admin\logic;
 
 use think\Model;
 use think\Request;
-use app\admin\model\Admin as AdminAdmin;
-use app\admin\model\Role as AdminRole;
-use app\admin\model\RoleAdmin as AdminRoleAdmin;
+use app\admin\model\Admin as ModelAdmin;
+use app\admin\model\Role as ModelRole;
+use app\admin\model\RoleAdmin as ModelRoleAdmin;
 
 class UserAdmin extends Model
 {
@@ -43,7 +43,7 @@ class UserAdmin extends Model
             $map['a.username'] = ['LIKE', '%' . $key . '%'];
         }
 
-        $admin = new AdminAdmin;
+        $admin = new ModelAdmin;
         $result =
         $admin->view('admin a', 'id,username,last_login_ip,last_login_ip_attr,last_login_time')
         ->view('role_admin ra', 'user_id', 'ra.user_id=a.id')
@@ -75,7 +75,7 @@ class UserAdmin extends Model
             'id' => ['NEQ', 1],
         ];
 
-        $role = new AdminRole;
+        $role = new ModelRole;
         $result =
         $role->field(true)
         ->where($map)
@@ -106,7 +106,7 @@ class UserAdmin extends Model
         $data['salt']     = rand(111111, 999999);
         $data['password'] = md5($password . $data['salt']);
 
-        $admin = new AdminAdmin;
+        $admin = new ModelAdmin;
         $admin->data($data)
         ->isUpdate(false)
         ->save();
@@ -121,7 +121,7 @@ class UserAdmin extends Model
             'role_id' => $this->request->post('role/d')
         ];
 
-        $role_admin = new AdminRoleAdmin;
+        $role_admin = new ModelRoleAdmin;
         $role_admin->data($data)
         ->allowField(true)
         ->isUpdate(false)
@@ -140,7 +140,7 @@ class UserAdmin extends Model
     {
         $map = ['a.id' => $this->request->param('id/f')];
 
-        $admin = new AdminAdmin;
+        $admin = new ModelAdmin;
         $result =
         $admin->view('admin a', 'id,username,email')
         ->view('role_admin ra', 'user_id', 'ra.user_id=a.id')
@@ -171,7 +171,7 @@ class UserAdmin extends Model
 
         $map = ['id' => $this->request->post('id/f')];
 
-        $admin = new AdminAdmin;
+        $admin = new ModelAdmin;
         $result =
         $admin->allowField(true)
         ->isUpdate(true)
@@ -188,7 +188,7 @@ class UserAdmin extends Model
 
         $map = ['user_id' => $this->request->post('id/f')];
 
-        $role_admin = new AdminRoleAdmin;
+        $role_admin = new ModelRoleAdmin;
         $result =
         $role_admin->allowField(true)
         ->isUpdate(true)
@@ -206,13 +206,13 @@ class UserAdmin extends Model
     public function remove()
     {
         $map = ['id' => $this->request->param('id/f')];
-        $admin = new AdminAdmin;
+        $admin = new ModelAdmin;
         $result =
         $admin->where($map)
         ->delete();
 
         $map = ['user_id' => $this->request->param('id/f')];
-        $role_admin = new AdminRoleAdmin;
+        $role_admin = new ModelRoleAdmin;
         $result =
         $role_admin->where($map)
         ->delete();

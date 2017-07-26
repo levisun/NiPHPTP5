@@ -20,7 +20,7 @@ use think\Config;
 use think\Cookie;
 use think\Url;
 use think\Cache;
-use app\admin\model\Config as MemberConfig;
+use app\admin\model\Config as ModelConfig;
 
 class Common extends Model
 {
@@ -118,7 +118,7 @@ class Common extends Model
             'lang' => Lang::detect()
         ];
 
-        $config = new MemberConfig;
+        $config = new ModelConfig;
         $CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map['name']) . $map['lang'] : false;
 
         $result =

@@ -14,10 +14,10 @@
 namespace app\admin\controller;
 
 use app\admin\controller\Base;
-use app\admin\logic\UserMember as AdminUserMember;
-use app\admin\logic\UserAdmin as AdminUserAdmin;
-use app\admin\logic\UserRole as AdminUserRole;
-use app\admin\logic\UserNode as AdminUserNode;
+use app\admin\logic\UserMember as LogicUserMember;
+use app\admin\logic\UserAdmin as LogicUserAdmin;
+use app\admin\logic\UserRole as LogicUserRole;
+use app\admin\logic\UserNode as LogicUserNode;
 
 class User extends Base
 {
@@ -30,7 +30,7 @@ class User extends Base
      */
     public function member()
     {
-        $model = new AdminUserMember;
+        $model = new LogicUserMember;
 
         // AJAX获得地区
         if ($this->request->isAjax()) {
@@ -129,7 +129,7 @@ class User extends Base
         $this->assign('submenu_button_added', 1);
 
         if (in_array($this->method, ['added', 'editor'])) {
-            $model = new AdminUserAdmin;
+            $model = new LogicUserAdmin;
             $this->assign('role', $model->getRole());
         }
 
@@ -170,7 +170,7 @@ class User extends Base
         $this->assign('submenu_button_added', 1);
 
         if (in_array($this->method, ['added', 'editor'])) {
-            $model = new AdminUserRole;
+            $model = new LogicUserRole;
             $this->assign('node', $model->getNode());
         }
 
@@ -211,7 +211,7 @@ class User extends Base
         $this->assign('submenu_button_added', 1);
 
         if (in_array($this->method, ['added', 'editor'])) {
-            $model = new AdminUserNode;
+            $model = new LogicUserNode;
             $this->assign('node', $model->getListData());
         }
 

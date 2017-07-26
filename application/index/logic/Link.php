@@ -17,7 +17,7 @@ use think\Model;
 use think\Request;
 use think\Lang;
 use think\Url;
-use app\admin\model\Link as IndexLink;
+use app\admin\model\Link as ModelLink;
 
 class Link extends Model
 {
@@ -45,7 +45,7 @@ class Link extends Model
         ];
         $order = 'l.sort DESC, l.type_id ASC, l.update_time DESC';
 
-        $link = new IndexLink;
+        $link = new ModelLink;
         $CACHE = check_key($map, __METHOD__);
 
         $result =

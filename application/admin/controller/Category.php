@@ -14,10 +14,10 @@
 namespace app\admin\controller;
 
 use app\admin\controller\Base;
-use app\admin\logic\CategoryCategory as AdminCategoryCategory;
-use app\admin\logic\CategoryModel as AdminCategoryModel;
-use app\admin\logic\CategoryFields as AdminCategoryFields;
-use app\admin\logic\CategoryType as AdminCategoryType;
+use app\admin\logic\CategoryCategory as LogicCategoryCategory;
+use app\admin\logic\CategoryModel as LogicCategoryModel;
+use app\admin\logic\CategoryFields as LogicCategoryFields;
+use app\admin\logic\CategoryType as LogicCategoryType;
 
 class Category extends Base
 {
@@ -34,7 +34,7 @@ class Category extends Base
         $this->assign('submenu_button_added', 1);
 
         // 父级导航信息
-        $model = new AdminCategoryCategory;
+        $model = new LogicCategoryCategory;
         $this->assign('parent', $model->getParent());
 
         // 新增与编辑所需信息
@@ -84,7 +84,7 @@ class Category extends Base
 
         // 新增与编辑所需信息
         if (in_array($this->method, ['added', 'editor'])) {
-            $model = new AdminCategoryModel;
+            $model = new LogicCategoryModel;
             $this->assign('model_list', $model->getModel());
         }
 
@@ -121,7 +121,7 @@ class Category extends Base
      */
     public function fields()
     {
-        $model = new AdminCategoryFields;
+        $model = new LogicCategoryFields;
 
         // AJAX获得子栏目
         if ($this->request->isAjax()) {
@@ -174,7 +174,7 @@ class Category extends Base
      */
     public function type()
     {
-        $model = new AdminCategoryType;
+        $model = new LogicCategoryType;
 
         // AJAX获得子栏目
         if ($this->request->isAjax()) {

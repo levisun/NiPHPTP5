@@ -21,11 +21,10 @@ use think\Session;
 use think\Url;
 use net\IpLocation;
 use util\Rbac;
-use app\admin\model\Config as AdminConfig;
-use app\admin\model\Category as AdminCategory;
-use app\admin\model\Action as AdminAction;
-use app\admin\model\ActionLog as AdminActionLog;
-use app\admin\model\RequestLog as AdminRequestLog;
+use app\admin\model\Category as ModelCategory;
+use app\admin\model\Action as ModelAction;
+use app\admin\model\ActionLog as ModelActionLog;
+use app\admin\model\RequestLog as ModelRequestLog;
 
 class CommonAccount extends Model
 {
@@ -56,7 +55,7 @@ class CommonAccount extends Model
     {
         $map = ['name' => $action_name];
 
-        $action = new AdminAction;
+        $action = new ModelAction;
         $id =
         $action->where($map)
         ->value('id');
@@ -79,7 +78,7 @@ class CommonAccount extends Model
             'remark'    => $remark
         ];
 
-        $action = new AdminActionLog;
+        $action = new ModelActionLog;
         $action->data($data)
         ->allowField(true)
         ->isUpdate(false)
@@ -100,7 +99,7 @@ class CommonAccount extends Model
     public function requestLog($login = false)
     {
         $ip = new IpLocation();
-        $request_log = new AdminRequestLog;
+        $request_log = new ModelRequestLog;
 
         // 删除过期的日志(保留三个月)
         $map = ['create_time' => ['ELT', strtotime('-90 days')]];
@@ -166,7 +165,7 @@ class CommonAccount extends Model
     public function ipRequestError()
     {
         $ip = new IpLocation();
-        $request_log = new AdminRequestLog;
+        $request_log = new ModelRequestLog;
 
         $map = [
             'ip'          => $this->request->ip(0, true),
@@ -279,7 +278,7 @@ class CommonAccount extends Model
             'lang' => Lang::detect()
         ];
 
-        $category = new AdminCategory;
+        $category = new ModelCategory;
         $result =
         $category->field($field)
         ->where($map)

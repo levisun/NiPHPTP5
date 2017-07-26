@@ -16,7 +16,7 @@ namespace app\admin\controller;
 use think\Lang;
 use think\Url;
 use app\admin\controller\Base;
-use app\admin\logic\ThemeTemplate as AdminThemeTemplate;
+use app\admin\logic\ThemeTemplate as LogicThemeTemplate;
 
 class Theme extends Base
 {
@@ -57,7 +57,7 @@ class Theme extends Base
     protected function theme()
     {
         if ($this->method == 'update') {
-            $model = new AdminThemeTemplate;
+            $model = new LogicThemeTemplate;
             $result = $model->editor();
             if (true === $result) {
                 $this->actionLog('config_editor');

@@ -14,12 +14,17 @@
 namespace app\wechat\logic;
 
 use think\Model;
+use think\Request;
 use think\Cache;
+use think\Cookie;
 use net\Wechat;
-use app\admin\model\Config as WechatConfig;
+use app\admin\model\Config as ModelConfig;
+use app\member\logic\Account as MemberLogicAccount;
 
 class Api extends Model
 {
+    protected $request = null;
+
     public $wechat;
     public $type;           // 消息类型
     public $event = [];     // 事件类型
@@ -31,6 +36,8 @@ class Api extends Model
     {
         parent::initialize();
 
+        $this->request = Request::instance();
+
         $data = $this->getConfig();
         $option = [
             'token'          => $data['wechat_token'],
@@ -40,6 +47,16 @@ class Api extends Model
         ];
 
         $this->wechat = new Wechat($option);
+    }
+
+    /**
+     * 服务器
+     * @access public
+     * @param
+     * @return void
+     */
+    public function server()
+    {
         $this->wechat->valid();
 
         $this->type                 = $this->wechat->getRev()->getRevType();
@@ -59,6 +76,68 @@ class Api extends Model
     }
 
     /**
+     * 查询微信用户openid
+     * 生成openid cookie
+     * 新增或编辑微信用户
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function openid()
+    {
+        // 是否微信请求
+        if (!is_wechat_request()) {
+            return false;
+        }
+
+        if (Cookie::has('WECHAT_OPENID')) {
+            return true;
+        }
+
+        // 网页授权获得用户openid后再获得用户信息
+        if ($this->request->has('code', 'param')) {
+            $code = $this->request->param('code');
+            $state = $this->request->param('state');
+            if ($state == 'wechatOauth') {
+                // 通过code获得openid
+                $result = $this->wechat->getOauthAccessToken($code);
+                // 通过openid获得用户信息
+                $reuslt = $this->wechat->getUserInfo($result['openid']);
+                // 增或编辑用户信息
+                $member_account = new MemberLogicAccount;
+                $member_account->AEMember($result);
+                Cookie::set('WECHAT_OPENID', $reuslt['openid']);
+            }
+        } else {
+            // 直接跳转不授权获取code
+            $url = $this->request->url(true);
+            $url = $this->wechat->getOauthRedirect($url, 'wechatOauth', 'snsapi_base');
+            redirect($url);
+        }
+    }
+
+    /**
+     * 获取JsApi使用签名
+     * @access public
+     * @param
+     * @return mixed
+     */
+    public function jsSign()
+    {
+        // 是否微信请求
+        if (!is_wechat_request()) {
+            return false;
+        }
+
+        $result = $this->wechat->getJsSign($this->request->url(true));
+
+        return [
+            'wechat_js_sign' => $result,
+            'wecaht_js_code' => '<script type="text/javascript">wx.config({debug: false,appId: "' . $result['appId'] . '",timestamp: ' . $result['timestamp'] . ',nonceStr: "' . $result['nonceStr'] . '",signature: "' . $result['signature'] . '",jsApiList: ["checkJsApi","onMenuShareTimeline","onMenuShareAppMessage","onMenuShareQQ","onMenuShareWeibo","onMenuShareQZone","hideMenuItems","showMenuItems","hideAllNonBaseMenuItem","showAllNonBaseMenuItem","translateVoice","startRecord","stopRecord","onVoiceRecordEnd","playVoice","onVoicePlayEnd","pauseVoice","stopVoice","uploadVoice","downloadVoice","chooseImage","previewImage","uploadImage","downloadImage","getNetworkType","openLocation","getLocation","hideOptionMenu","showOptionMenu","closeWindow","scanQRCode","chooseWXPay","openProductSpecificView","addCard","chooseCard","openCard"]});</script>'
+        ];
+    }
+
+    /**
      * 获得微信接口配置
      * @access private
      * @param
@@ -74,7 +153,7 @@ class Api extends Model
             'lang' => 'niphp'
         ];
 
-        $config = new WechatConfig;
+        $config = new ModelConfig;
         $CACHE = check_key($map, __METHOD__);
 
         $result =

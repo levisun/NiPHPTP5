@@ -17,7 +17,7 @@ use think\Model;
 use think\Request;
 use think\Lang;
 use util\File;
-use app\admin\model\Config as AdminConfig;
+use app\admin\model\Config as ModelConfig;
 
 class ThemeTemplate extends Model
 {
@@ -63,7 +63,7 @@ class ThemeTemplate extends Model
 
         $data = ['value' => $this->request->param('id')];
 
-        $config = new AdminConfig;
+        $config = new ModelConfig;
         $result =
         $config->allowField(true)
         ->isUpdate(true)
@@ -87,7 +87,7 @@ class ThemeTemplate extends Model
             'lang' => Lang::detect()
         ];
 
-        $config = new AdminConfig;
+        $config = new ModelConfig;
         return
         $config->field(true)
         ->where($map)

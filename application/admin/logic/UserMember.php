@@ -15,10 +15,10 @@ namespace app\admin\logic;
 
 use think\Model;
 use think\Request;
-use app\admin\model\Member as AdminMember;
-use app\admin\model\LevelMember as AdminLevelMember;
-use app\admin\model\Region as AdminRegion;
-use app\admin\model\Level as AdminLevel;
+use app\admin\model\Member as ModelMember;
+use app\admin\model\LevelMember as ModelLevelMember;
+use app\admin\model\Region as ModelRegion;
+use app\admin\model\Level as ModelLevel;
 
 class UserMember extends Model
 {
@@ -44,7 +44,7 @@ class UserMember extends Model
             $map['m.username'] = ['LIKE', '%' . $key . '%'];
         }
 
-        $member = new AdminMember;
+        $member = new ModelMember;
         $result =
         $member->view('member m', 'id,username,realname,nickname,email,phone,status')
         ->view('level_member lm', 'user_id', 'lm.user_id=m.id')
@@ -78,7 +78,7 @@ class UserMember extends Model
         ];
         $map = ['pid' => $parent_id];
 
-        $region = new AdminRegion;
+        $region = new ModelRegion;
         $result =
         $region->field($field)
         ->where($map)
@@ -102,7 +102,7 @@ class UserMember extends Model
     {
         $map = ['status' => 1];
 
-        $level = new AdminLevel;
+        $level = new ModelLevel;
         $result =
         $level->field(true)
         ->where($map)
@@ -146,7 +146,7 @@ class UserMember extends Model
         $data['salt']     = rand(111111, 999999);
         $data['password'] = md5($password . $data['salt']);
 
-        $member = new AdminMember;
+        $member = new ModelMember;
         $member->data($data)
         ->isUpdate(false)
         ->save();
@@ -161,7 +161,7 @@ class UserMember extends Model
             'level_id' => $this->request->post('level/d')
         ];
 
-        $level_member = new AdminLevelMember;
+        $level_member = new ModelLevelMember;
         $level_member->data($data)
         ->allowField(true)
         ->isUpdate(false)
@@ -182,7 +182,7 @@ class UserMember extends Model
             'm.id' => $this->request->param('id/f')
         ];
 
-        $member = new AdminMember;
+        $member = new ModelMember;
         $result =
         $member->view('member m', true)
         ->view('level_member lm', 'user_id', 'lm.user_id=m.id')
@@ -202,7 +202,7 @@ class UserMember extends Model
     public function editor()
     {
         $data = [
-            'username' => $this->request->post('username'),
+            // 'username' => $this->request->post('username'),
             'password' => $this->request->post('password', '', 'trim,md5'),
             'email'    => $this->request->post('email'),
             'realname' => $this->request->post('realname'),
@@ -224,7 +224,7 @@ class UserMember extends Model
 
         $map = ['id' => $this->request->post('id/f')];
 
-        $member = new AdminMember;
+        $member = new ModelMember;
         $result =
         $member->allowField(true)
         ->isUpdate(true)
@@ -238,7 +238,7 @@ class UserMember extends Model
         $map = ['user_id' => $this->request->post('id/f')];
         $data = ['level_id' => $this->request->post('level/d')];
 
-        $level_member = new AdminLevelMember;
+        $level_member = new ModelLevelMember;
         $result =
         $level_member->allowField(true)
         ->isUpdate(true)
@@ -256,14 +256,14 @@ class UserMember extends Model
     public function remove()
     {
         $map = ['id' => $this->request->param('id/f')];
-        $member = new AdminMember;
+        $member = new ModelMember;
         $result =
         $member->where($map)
         ->delete();
 
         // 会员组
         $map = ['user_id' => $this->request->param('id/f')];
-        $level_member = new AdminLevelMember;
+        $level_member = new ModelLevelMember;
         $result =
         $level_member->where($map)
         ->delete();

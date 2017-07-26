@@ -15,7 +15,7 @@ namespace app\admin\logic;
 
 use think\Model;
 use think\Request;
-use app\admin\model\ActionLog as AdminActionLog;
+use app\admin\model\ActionLog as ModelActionLog;
 
 class ExpandActionLog extends Model
 {
@@ -36,7 +36,7 @@ class ExpandActionLog extends Model
      */
     public function getListData()
     {
-        $action = new AdminActionLog;
+        $action = new ModelActionLog;
 
         // 删除过期的日志(保留三个月)
         $map = ['create_time' => ['ELT', strtotime('-90 days')]];
