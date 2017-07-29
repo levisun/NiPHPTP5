@@ -1,32 +1,34 @@
 <?php
 /**
  *
- * 基础设置 - 设置 - 逻辑层
+ * 常用设置 - 公众 - 逻辑层
  *
  * @package   NiPHPCMS
- * @category  admin\logic\
+ * @category  mall\logic\
  * @author    失眠小枕头 [levisun.mail@gmail.com]
  * @copyright Copyright (c) 2013, 失眠小枕头, All rights reserved.
- * @version   CVS: $Id: SettingsBasic.php v1.0.1 $
+ * @version   CVS: $Id: Common.php v1.0.1 $
  * @link      http://www.NiPHP.com
- * @since     2016/10/22
+ * @since     2016/11/25
  */
-namespace app\admin\logic;
+namespace app\mall\logic;
 
 use think\Model;
 use think\Request;
 use think\Lang;
+use think\Config;
+use think\Cookie;
+use think\Url;
 use think\Cache;
 use app\admin\model\Config as ModelConfig;
 
-class SettingsBasic extends Model
+class Common extends Model
 {
     protected $request = null;
-
     protected $toHtml = [
-        'bottom_message',
-        'copyright',
-        'script'
+        'mall_bottom_message',
+        'mall_copyright',
+        'mall_script'
     ];
 
     protected function initialize()
@@ -37,25 +39,29 @@ class SettingsBasic extends Model
     }
 
     /**
-     * 基本设置数据
+     * 获得网站基本设置数据
      * @access public
      * @param
      * @return array
      */
-    public function getEditorData()
+    public function getMallData()
     {
         $map = [
             'name' => [
                 'in',
-                'website_name,website_keywords,website_description,bottom_message,copyright,script'
+                'mall_name,mall_keywords,mall_description,mall_bottom_message,mall_copyright,mall_script,'
+                . strtolower($this->request->module()) . '_theme'
             ],
             'lang' => Lang::detect()
         ];
 
         $config = new ModelConfig;
+        $CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map['name']) . $map['lang'] : false;
+
         $result =
         $config->field(true)
         ->where($map)
+        ->cache($CACHE)
         ->select();
 
         $data = [];
@@ -69,31 +75,5 @@ class SettingsBasic extends Model
         }
 
         return $data;
-    }
-
-    /**
-     * 修改基本设置
-     * @access public
-     * @param
-     * @return mixed
-     */
-    public function editor()
-    {
-        $config = new ModelConfig;
-
-        foreach ($_POST as $key => $value) {
-            $map = ['name' => $key];
-            if (in_array($key, $this->toHtml)) {
-                $data = ['value' => $this->request->post($key, '', 'trim,htmlspecialchars')];
-            } else {
-                $data = ['value' => $this->request->post($key)];
-            }
-
-            $config->allowField(true)
-            ->isUpdate(true)
-            ->save($data, $map);
-        }
-        Cache::clear();
-        return true;
     }
 }

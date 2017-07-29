@@ -43,8 +43,10 @@ Temporary Items
 .apdisk
 
 #Project
+*.back
 public/backup/*.zip
 public/static/layout/js/*.log
+public/upload/*.jpg
 runtime/
 thinkphp/
 vendor/

@@ -36,21 +36,21 @@ class Content extends Base
         $theme = 'content/content/';
 
         // 获得模型表名
-        $model = new LogicContentContent;
-        $this->assign('model_name', $model->table_name);
+        $logic = new LogicContentContent;
+        $this->assign('model_name', $logic->tableName);
 
         if (in_array($this->method, ['page', 'added', 'editor'])) {
             // 分类
-            $this->assign('type', $model->type_data);
+            $this->assign('type', $logic->typeData);
             // 权限
-            $this->assign('level', $model->level_data);
+            $this->assign('level', $logic->levelData);
 
             // 自定义字段
-            $data['field_data'] = $model->data_model->getAddedFieldsData();
+            $data['field_data'] = $logic->dataModel->getAddedFieldsData();
             $this->assign('data', $data);
 
             // 是否审核
-            $this->assign('is_pass', $model->data_model->isPass());
+            $this->assign('is_pass', $logic->dataModel->isPass());
         }
 
         // 单页
@@ -65,18 +65,18 @@ class Content extends Base
 
             // 编辑数据不存在 获得添加字段数据
             if (!$data) {
-                $data['field_data'] = $model->data_model->getAddedFieldsData($model->table_name);
+                $data['field_data'] = $logic->dataModel->getAddedFieldsData($logic->tableName);
             }
 
             $this->assign('data', $data);
-            $model->table_name .= !empty($data['id'])? '_editor' : '_added';
-            return $this->fetch($theme . 'model/' . $model->table_name);
+            $logic->tableName .= !empty($data['id'])? '_editor' : '_added';
+            return $this->fetch($theme . 'model/' . $logic->tableName);
         }
 
         // 添加
         if ($this->method == 'added') {
             parent::added('ContentContent');
-            return $this->fetch($theme . 'model/' . $model->table_name . '_added');
+            return $this->fetch($theme . 'model/' . $logic->tableName . '_added');
         }
 
         // 删除
@@ -88,25 +88,25 @@ class Content extends Base
         if ($this->method == 'editor') {
             $data = parent::editor('ContentContent');
             $this->assign('data', $data);
-            return $this->fetch($theme . 'model/' . $model->table_name . '_editor');
+            return $this->fetch($theme . 'model/' . $logic->tableName . '_editor');
         }
 
         // 列表
         if ($this->method == 'manage') {
             $this->assign('submenu', 1);
-            if (!in_array($model->table_name, ['message', 'feedback'])) {
+            if (!in_array($logic->tableName, ['message', 'feedback'])) {
                 $this->assign('submenu_button_added', 1);
             }
 
-            $data = $model->getListData();
+            $data = $logic->getListData();
             $this->assign('list', $data['list']);
             $this->assign('page', $data['page']);
             return $this->fetch($theme . 'list');
         }
 
         // 栏目
-        $model = new LogicCategoryCategory;
-        $category = $model->getListData();
+        $logic = new LogicCategoryCategory;
+        $category = $logic->getListData();
         foreach ($category as $key => $value) {
             if ($value['model_name'] == 'external') {
                 unset($category[$key]);
@@ -128,21 +128,21 @@ class Content extends Base
         $theme = 'content/content/';
 
         // 获得模型表名
-        $model = new LogicContentRecycle;
-        $this->assign('model_name', $model->table_name);
+        $logic = new LogicContentRecycle;
+        $this->assign('model_name', $logic->tableName);
 
         if (in_array($this->method, ['page', 'added', 'editor'])) {
             // 分类
-            $this->assign('type', $model->type_data);
+            $this->assign('type', $logic->typeData);
             // 权限
-            $this->assign('level', $model->level_data);
+            $this->assign('level', $logic->levelData);
 
             // 自定义字段
-            $data['field_data'] = $model->data_model->getAddedFieldsData($model->table_name);
+            $data['field_data'] = $logic->dataModel->getAddedFieldsData($logic->tableName);
             $this->assign('data', $data);
 
             // 是否审核
-            $this->assign('is_pass', $model->data_model->isPass());
+            $this->assign('is_pass', $logic->dataModel->isPass());
         }
 
         // 删除
@@ -152,26 +152,26 @@ class Content extends Base
 
         // 编辑
         if ($this->method == 'editor') {
-            $this->assign('data', $model->getEditorData());
-            return $this->fetch($theme . 'recycle/' . $model->table_name . '_editor');
+            $this->assign('data', $logic->getEditorData());
+            return $this->fetch($theme . 'recycle/' . $logic->tableName . '_editor');
         }
 
         // 列表
         if ($this->method == 'manage') {
             $this->assign('submenu', 1);
-            /*if (!in_array($model->table_name, ['message', 'feedback'])) {
+            /*if (!in_array($logic->tableName, ['message', 'feedback'])) {
                 $this->assign('submenu_button_added', 1);
             }*/
 
-            $data = $model->getListData();
+            $data = $logic->getListData();
             $this->assign('list', $data['list']);
             $this->assign('page', $data['page']);
             return $this->fetch($theme . 'list');
         }
 
         // 栏目
-        $model = new LogicCategoryCategory;
-        $category = $model->getListData();
+        $logic = new LogicCategoryCategory;
+        $category = $logic->getListData();
         foreach ($category as $key => $value) {
             if (in_array($value['model_name'], ['page', 'external'])) {
                 unset($category[$key]);
@@ -299,17 +299,17 @@ class Content extends Base
     public function cache()
     {
         if ($this->method == 'remove') {
-            $model = new LogicContentCache;
-            $result = $model->remove();
+            $logic = new LogicContentCache;
+            $result = $logic->remove();
 
             $url = Url::build($this->request->action());
 
             if ($result == 'cache') {
-                $this->success(lang('success cache'), $url);
+                $this->success(Lang::get('success cache'), $url);
             }
 
             if ($result == 'compile') {
-                $this->success(lang('success compile'), $url);
+                $this->success(Lang::get('success compile'), $url);
             }
         }
         return $this->fetch();

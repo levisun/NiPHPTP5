@@ -34,17 +34,17 @@ class Category extends Base
         $this->assign('submenu_button_added', 1);
 
         // 父级导航信息
-        $model = new LogicCategoryCategory;
-        $this->assign('parent', $model->getParent());
+        $logic = new LogicCategoryCategory;
+        $this->assign('parent', $logic->getParent());
 
         // 新增与编辑所需信息
         if (in_array($this->method, ['added', 'editor'])) {
             // 导航类型信息
-            $this->assign('type', $model->getCategoryType());
+            $this->assign('type', $logic->getCategoryType());
             // 导航模型信息
-            $this->assign('model', $model->getCategoryModel());
+            $this->assign('model', $logic->getCategoryModel());
             // 访问权限会员组信息
-            $this->assign('level', $model->getLevel());
+            $this->assign('level', $logic->getLevel());
         }
 
         // 新增
@@ -84,8 +84,8 @@ class Category extends Base
 
         // 新增与编辑所需信息
         if (in_array($this->method, ['added', 'editor'])) {
-            $model = new LogicCategoryModel;
-            $this->assign('model_list', $model->getModel());
+            $logic = new LogicCategoryModel;
+            $this->assign('model_list', $logic->getModel());
         }
 
         // 添加
@@ -121,13 +121,13 @@ class Category extends Base
      */
     public function fields()
     {
-        $model = new LogicCategoryFields;
+        $logic = new LogicCategoryFields;
 
         // AJAX获得子栏目
         if ($this->request->isAjax()) {
             $type = $this->request->post('type/f');
             $type++;
-            return $model->getCategory($type);
+            return $logic->getCategory($type);
         }
 
         $this->assign('submenu', 1);
@@ -136,9 +136,9 @@ class Category extends Base
         // 新增与编辑所需信息
         if (in_array($this->method, ['added', 'editor'])) {
             // 主栏目
-            $this->assign('category_list', $model->getCategory());
+            $this->assign('category_list', $logic->getCategory());
             // 字段类型
-            $this->assign('type_list', $model->getType());
+            $this->assign('type_list', $logic->getType());
         }
 
         // 添加
@@ -174,13 +174,13 @@ class Category extends Base
      */
     public function type()
     {
-        $model = new LogicCategoryType;
+        $logic = new LogicCategoryType;
 
         // AJAX获得子栏目
         if ($this->request->isAjax()) {
             $type = $this->request->post('type/f');
             $type++;
-            return $model->getCategory($type);
+            return $logic->getCategory($type);
         }
 
         $this->assign('submenu', 1);
@@ -189,7 +189,7 @@ class Category extends Base
         // 新增与编辑所需信息
         if (in_array($this->method, ['added', 'editor'])) {
             // 主栏目
-            $this->assign('category_list', $model->getCategory());
+            $this->assign('category_list', $logic->getCategory());
         }
 
         // 添加

@@ -16,7 +16,7 @@ namespace app\admin\logic;
 use think\Model;
 use think\Request;
 use think\Lang;
-use util\File;
+use util\File as UtilFile;
 use app\admin\model\Config as ModelConfig;
 
 class ThemeTemplate extends Model
@@ -41,7 +41,7 @@ class ThemeTemplate extends Model
         $config_type = $this->config();
 
         $type = $this->type();
-        $list = File::get(ROOT_PATH . 'public' . DS . 'theme' . DS . $type . DS);
+        $list = UtilFile::get(ROOT_PATH . 'public' . DS . 'theme' . DS . $type . DS);
 
         return ['config' => $config_type, 'list' => $list, 'type' => $type];
     }

@@ -16,8 +16,8 @@ namespace app\member\controller;
 use think\Url;
 use think\Lang;
 use app\member\controller\Base;
-use app\member\logic\Account as MemberAccount;
-use app\member\logic\OAuth as MemberOAuth;
+use app\member\logic\Account as LogicAccount;
+use app\member\logic\OAuth as LogicOAuth;
 
 class Index extends Base
 {
@@ -44,8 +44,8 @@ class Index extends Base
             $result = $this->validate($_POST, 'Account.login');
 
             if(true === $result){
-                $model = new MemberAccount;
-                $result = $model->checkLogin();
+                $logic = new LogicAccount;
+                $result = $logic->checkLogin();
             }
 
             if (true === $result) {
@@ -65,8 +65,8 @@ class Index extends Base
      */
     public function oauth()
     {
-        $oauth = new MemberOAuth;
-        $this->redirect($oauth->login());
+        $logic = new LogicOAuth;
+        $this->redirect($logic->login());
     }
 
     /**
@@ -77,8 +77,8 @@ class Index extends Base
      */
     public function logout()
     {
-        $model = new MemberAccount;
-        $result = $model->logout();
+        $logic = new LogicAccount;
+        $result = $logic->logout();
         if (true === $result) {
             $this->redirect(Url::build('/login'));
         }

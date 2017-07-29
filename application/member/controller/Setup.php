@@ -16,7 +16,7 @@ namespace app\member\controller;
 use think\Url;
 use think\Lang;
 use app\member\controller\Base;
-use app\member\Logic\Setup as MemberSetup;
+use app\member\Logic\Setup as LogicSetup;
 
 class Setup extends Base
 {
@@ -39,8 +39,8 @@ class Setup extends Base
             if (true !== $result) {
                 $this->error(Lang::get($result));
             }
-            $member = new MemberSetup();
-            $result = $member->editor();
+            $logic = new LogicSetup();
+            $result = $logic->editor();
             if (true === $result) {
                 $this->success(Lang::get('success editor'));
             } else {
@@ -48,13 +48,13 @@ class Setup extends Base
             }
         }
 
-        $member = new MemberSetup();
+        $logic = new LogicSetup();
 
-        $data = $member->getUserInfo();
+        $data = $logic->getUserInfo();
 
-        $this->assign('region', $member->getRegion(1));
-        $this->assign('city', $member->getRegion($data['province']));
-        $this->assign('area', $member->getRegion($data['city']));
+        $this->assign('region', $logic->getRegion(1));
+        $this->assign('city', $logic->getRegion($data['province']));
+        $this->assign('area', $logic->getRegion($data['city']));
         $this->assign('user_data', $data);
 
         return $this->fetch();
@@ -68,14 +68,14 @@ class Setup extends Base
      */
     public function password()
     {
-        $member = new MemberSetup();
+        $logic = new LogicSetup();
 
         if ($this->request->isPost()) {
             $result = $this->validate($_POST, 'Member.editor_pwd');
             if (true !== $result) {
                 $this->error(Lang::get($result));
             }
-            $result = $member->updatePassword();
+            $result = $logic->updatePassword();
             if (true === $result) {
                 $this->success(Lang::get('success editor'));
             } else {
@@ -83,7 +83,7 @@ class Setup extends Base
             }
         }
 
-        $this->assign('user_data', $member->getUserInfo());
+        $this->assign('user_data', $logic->getUserInfo());
         return $this->fetch();
     }
 
@@ -95,8 +95,8 @@ class Setup extends Base
      */
     public function portrait()
     {
-        $member = new MemberSetup();
-        $this->assign('user_data', $member->getUserInfo());
+        $logic = new LogicSetup();
+        $this->assign('user_data', $logic->getUserInfo());
         return $this->fetch();
     }
 
@@ -110,8 +110,8 @@ class Setup extends Base
     {
         $id = $this->request->post('id/f');
 
-        $member = new MemberSetup();
-        $data = $member->getRegion($id);
+        $logic = new LogicSetup();
+        $data = $logic->getRegion($id);
 
         $option = '';
         foreach ($data as $key => $value) {

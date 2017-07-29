@@ -33,9 +33,9 @@ class Mall extends Base
         $this->assign('submenu_button_added', 1);
 
         if (in_array($this->method, ['added', 'editor'])) {
-            $goods = new LogicMallGoods;
-            $this->assign('type', $goods->getType());
-            $this->assign('brand', $goods->getBrand());
+            $logic = new LogicMallGoods;
+            $this->assign('type', $logic->getType());
+            $this->assign('brand', $logic->getBrand());
         }
 
         // 新增
@@ -76,8 +76,8 @@ class Mall extends Base
         $this->assign('submenu_button_added', 1);
 
         // 父级分类信息
-        $model = new LogicMallCategory;
-        $this->assign('parent', $model->getParent());
+        $logic = new LogicMallCategory;
+        $this->assign('parent', $logic->getParent());
 
         // 新增
         if ($this->method == 'added') {
@@ -117,8 +117,8 @@ class Mall extends Base
         $this->assign('submenu_button_added', 1);
 
         // 父级分类信息
-        $model = new LogicMallType;
-        $this->assign('parent', $model->getParent());
+        $logic = new LogicMallType;
+        $this->assign('parent', $logic->getParent());
 
         // 新增
         if ($this->method == 'added') {

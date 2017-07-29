@@ -23,7 +23,7 @@ use app\member\logic\Common as LogicCommon;
 class Base extends Controller
 {
     // 网站基本数据
-    protected $website_data = [];
+    protected $websiteData = [];
 
     /**
      * 初始化
@@ -33,34 +33,30 @@ class Base extends Controller
      */
     protected function _initialize()
     {
-        if (rand(1, 18000) == 18000) {
-            Cache::clear();
-        }
-
         // 设置IP为授权Key
         // Log::key($this->request->ip(0, true));
 
         Config::load(CONF_PATH . 'website.php');
 
         // 访问与搜索日志
-        $visit = new IndexLogicVisit;
-        $visit->visit();
-        $visit->requestLog();
+        $logic = new IndexLogicVisit;
+        $logic->visit();
+        $logic->requestLog();
 
-        $common_model = new LogicCommon;
+        $common_logic = new LogicCommon;
 
         // 权限
-        $result = $common_model->accountAuth();
+        $result = $common_logic->accountAuth();
         if (true !== $result) {
             $this->redirect($result);
         }
 
         // 网站基本数据
-        $this->website_data = $common_model->getWetsiteData();
+        $this->websiteData = $common_logic->getWetsiteData();
 
         $this->themeConfig();
 
-        $this->assign('nav', $common_model->getAuthMenu());
+        $this->assign('nav', $common_logic->getAuthMenu());
         $this->assign('controller', strtolower($this->request->controller()));
         $this->assign('menu_name', strtolower($this->request->controller()) . '_' . $this->request->action());
     }
@@ -80,7 +76,7 @@ class Base extends Controller
 
         // 模板路径
         $template['view_path'] = ROOT_PATH . 'public' . DS . 'theme' . DS . $module . DS;
-        $template['view_path'] .= $this->website_data[$module . '_theme'] . DS;
+        $template['view_path'] .= $this->websiteData[$module . '_theme'] . DS;
 
         // 判断访问端
         $mobile = $this->request->isMobile() ? 'mobile' . DS : '';
@@ -103,7 +99,7 @@ class Base extends Controller
         $domain = $this->request->domain();
         $domain .= substr($this->request->baseFile(), 0, -10);
         $default_theme = $domain . '/public/theme/' . $module . '/';
-        $default_theme .= $this->website_data[$module . '_theme'] . '/' . $mobile;
+        $default_theme .= $this->websiteData[$module . '_theme'] . '/' . $mobile;
 
         $replace = [
             '__DOMAIN__'      => $domain,
@@ -111,17 +107,17 @@ class Base extends Controller
             '__STATIC__'      => $domain . '/public/static/',
             '__LIBRARY__'     => $domain . '/public/static/library/',
             '__LAYOUT__'      => $domain . '/public/static/layout/',
-            '__THEME__'       => $this->website_data[$module . '_theme'],
+            '__THEME__'       => $this->websiteData[$module . '_theme'],
             '__CSS__'         => $default_theme . 'css/',
             '__JS__'          => $default_theme . 'js/',
             '__IMG__'         => $default_theme . 'img/',
-            '__MESSAGE__'     => $this->website_data['bottom_message'],
-            '__COPYRIGHT__'   => $this->website_data['copyright'],
-            '__SCRIPT__'      => $this->website_data['script'],
+            '__MESSAGE__'     => $this->websiteData['bottom_message'],
+            '__COPYRIGHT__'   => $this->websiteData['copyright'],
+            '__SCRIPT__'      => $this->websiteData['script'],
 
-            '__TITLE__'       => $this->website_data['website_name'],
-            '__KEYWORDS__'    => $this->website_data['website_keywords'],
-            '__DESCRIPTION__' => $this->website_data['website_description'],
+            '__TITLE__'       => $this->websiteData['website_name'],
+            '__KEYWORDS__'    => $this->websiteData['website_keywords'],
+            '__DESCRIPTION__' => $this->websiteData['website_description'],
         ];
         $this->view->replace($replace);
     }

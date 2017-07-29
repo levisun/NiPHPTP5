@@ -28,7 +28,7 @@ class Label extends TagLib
         'article'    => ['attr' => 'id,cid',                   'alias' => 'neirong'],
         'list'       => ['attr' => 'id,num,order,com,top,hot', 'alias' => 'entry'],
         'tags'       => ['attr' => '',                         'alias' => 'biaoqian'],
-        'member'     => ['attr' => '',                         'alias' => 'huiyuan'],
+        'member'     => ['attr' => '',                         'alias' => 'user'],
 
         'meta'       => ['attr' => '', 'close' => 0],
 
@@ -217,6 +217,13 @@ class Label extends TagLib
         return $parseStr;
     }
 
+    /**
+     * 获得会员信息
+     * @access public
+     * @param  array  $tag     标签属性
+     * @param  string $content 标签内容
+     * @return string
+     */
     public function tagMember($tag, $content)
     {
         $parseStr = '<?php ';
@@ -229,16 +236,6 @@ class Label extends TagLib
         $parseStr .= ' $label["member_url"]["forget"] = url("/forget"); ?>';
         $parseStr .= $content;
         return $parseStr;
-
-        /*$parseStr = '<?php ';
-        $parseStr .= ' $label["member"] = cookie(config("USER_AUTH_KEY"));';
-        $parseStr .= ' if (empty($label["member"])) {';
-        $parseStr .= ' echo \'' . $tag['empty'] . '\';';
-        $parseStr .= '} else {';
-        $parseStr .= ' echo \'' . $tag['notempty'] . '\';';
-        $parseStr .= '} ?>';
-        $parseStr .= $content;
-        return $parseStr;*/
     }
 
     /**

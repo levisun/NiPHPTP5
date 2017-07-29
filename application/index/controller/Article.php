@@ -29,10 +29,10 @@ class Article extends Base
      */
     public function index()
     {
-        $model = new LogicArticle;
-        $model->setTableModel($this->table_name);
+        $logic = new LogicArticle;
+        $logic->setTableModel($this->table_name);
 
-        $data = $model->getArticle();
+        $data = $logic->getArticle();
 
         if ($data['is_link']) {
             $this->redirect(Url::build('/jump/' . $data['category_id'] . '/' . $data['id']), 302);

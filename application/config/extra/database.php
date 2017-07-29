@@ -15,7 +15,7 @@ return [
     // 数据库类型
     'type'            => 'mysql',
     // 服务器地址
-    'hostname'        => 'rm-bp1iy6gl671t2vdlm.mysql.rds.aliyuncs.com',
+    'hostname'        => 'localhost',
     // 数据库名
     'database'        => 'tp_new',
     // 用户名

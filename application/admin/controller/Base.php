@@ -18,7 +18,6 @@ use think\Loader;
 use think\Url;
 use think\Lang;
 use think\Config;
-use think\View;
 use think\Session;
 use think\Cache;
 use think\Log;
@@ -39,8 +38,8 @@ class Base extends Controller
     public function upload()
     {
         if ($this->request->isPost()) {
-            $model = new LogicCommonUpload;
-            $result = $model->upload();
+            $logic = new LogicCommonUpload;
+            $result = $logic->upload();
             if (is_string($result)) {
                 $this->error($result);
             }
@@ -58,25 +57,25 @@ class Base extends Controller
      */
     public function delupload()
     {
-        $model = new LogicCommonUpload;
-        $result = $model->delUpload();
+        $logic = new LogicCommonUpload;
+        $result = $logic->delUpload();
     }
 
     /**
      * 新增方法
      * @access public
-     * @param  string $model_name    操作模型名
+     * @param  string $logic_name    操作模型名
      * @param  string $validate_name 验证器名
      * @param  string $log_name      操作日志记录名|为空自动获取记录名
      * @return void
      */
-    protected function added($model_name, $validate_name = '', $log_name = '')
+    protected function added($logic_name, $validate_name = '', $log_name = '')
     {
         if ($this->request->isPost()) {
             // 数据验证
             $this->illegal($validate_name);
 
-            $result = Loader::model($model_name, 'logic')->added();
+            $result = Loader::model($logic_name, 'logic')->added();
             if (true === $result) {
                 Cache::clear();
                 $this->actionLog($log_name);
@@ -101,17 +100,17 @@ class Base extends Controller
     /**
      * 删除方法
      * @access public
-     * @param  string $model_name    操作模型名
+     * @param  string $logic_name    操作模型名
      * @param  string $validate_name 验证器名
      * @param  string $log_name      操作日志记录名|为空自动获取记录名
      * @return void
      */
-    protected function remove($model_name, $validate_name = '', $log_name = '')
+    protected function remove($logic_name, $validate_name = '', $log_name = '')
     {
         // 数据验证
         $this->illegal($validate_name);
 
-        $result = Loader::model($model_name, 'logic')->remove();
+        $result = Loader::model($logic_name, 'logic')->remove();
         if (true === $result) {
             Cache::clear();
             // 获得操作数据ID,后期再做
@@ -139,19 +138,19 @@ class Base extends Controller
     /**
      * 编辑方法
      * @access public
-     * @param  string $model_name    操作模型名
+     * @param  string $logic_name    操作模型名
      * @param  string $validate_name 验证器名
      * @param  string $log_name      操作日志记录名|为空自动获取记录名
      * @param  string $illegal_      是否自动验证合法信息 默认true
      * @return array                 编辑数据
      */
-    protected function editor($model_name, $validate_name = '', $log_name = '', $illegal_ = true)
+    protected function editor($logic_name, $validate_name = '', $log_name = '', $illegal_ = true)
     {
         if ($this->request->isPost()) {
             // 数据验证
             $this->illegal($validate_name);
 
-            $result = Loader::model($model_name, 'logic')->editor();
+            $result = Loader::model($logic_name, 'logic')->editor();
             if (true === $result) {
                 Cache::clear();
                 $this->actionLog($log_name);
@@ -172,20 +171,20 @@ class Base extends Controller
 
         $this->illegal($validate_name, $illegal_);
 
-        return Loader::model($model_name, 'logic')->getEditorData();
+        return Loader::model($logic_name, 'logic')->getEditorData();
     }
 
     /**
      * 查询方法
      * @access public
-     * @param  string $model_name 操作模型名
+     * @param  string $logic_name 操作模型名
      * @param  string $log_name   操作日志记录名|为空自动获取记录名
      * @return array              查询数据
      */
-    protected function select($model_name, $log_name = '')
+    protected function select($logic_name, $log_name = '')
     {
         if ($this->request->isPost()) {
-            $result = Loader::model($model_name, 'logic')->listSort();
+            $result = Loader::model($logic_name, 'logic')->listSort();
             if (true === $result) {
                 $this->actionLog($log_name);
                 $url = Url::build($this->request->action());
@@ -194,7 +193,7 @@ class Base extends Controller
                 $this->error(Lang::get('error sort'));
             }
         }
-        return Loader::model($model_name, 'logic')->getListData();
+        return Loader::model($logic_name, 'logic')->getListData();
     }
 
     /**
@@ -244,9 +243,9 @@ class Base extends Controller
             $action_name = $this->method !== 'list' ? $this->method : 'sort';
             $action_name = $this->request->action() . '_' . $action_name;
         }
-        $model = new LogicCommonAccount;
-        $model->actionLog($action_name, $record_id, $remark);
-        $model->requestLog($login);
+        $logic = new LogicCommonAccount;
+        $logic->actionLog($action_name, $record_id, $remark);
+        $logic->requestLog($login);
     }
 
     /**
@@ -257,8 +256,8 @@ class Base extends Controller
      */
     public function requestLog($login)
     {
-        $model = new LogicCommonAccount;
-        $model->requestLog($login);
+        $logic = new LogicCommonAccount;
+        $logic->requestLog($login);
     }
 
     /**
@@ -269,8 +268,8 @@ class Base extends Controller
      */
     public function ipRequestError()
     {
-        $model = new LogicCommonAccount;
-        return $model->ipRequestError();
+        $logic = new LogicCommonAccount;
+        return $logic->ipRequestError();
     }
 
     /**

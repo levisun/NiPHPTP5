@@ -27,8 +27,8 @@ class Settings extends Base
      */
     public function info()
     {
-        $model = new LogicSettingsInfo;
-        $this->assign('data', $model->getSysInfo());
+        $logic = new LogicSettingsInfo;
+        $this->assign('data', $logic->getSysInfo());
         return $this->fetch();
     }
 

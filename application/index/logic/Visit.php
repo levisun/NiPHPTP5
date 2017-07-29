@@ -15,7 +15,7 @@ namespace app\index\logic;
 
 use think\Model;
 use think\Request;
-use net\IpLocation;
+use net\IpLocation as NetIpLocation;
 use app\admin\model\Searchengine as ModelSearchengine;
 use app\admin\model\Visit as ModelVisit;
 use app\admin\model\RequestLog as ModelRequestLog;
@@ -44,7 +44,7 @@ class Visit extends Model
             return false;
         }
 
-        $ip = new IpLocation();
+        $ip = new NetIpLocation;
         $area = $ip->getlocation($this->request->ip(0, true));
 
         $visit_ip = include(CONF_PATH . 'visit.php');
@@ -182,7 +182,7 @@ class Visit extends Model
      */
     public function requestLog()
     {
-        $ip = new IpLocation();
+        $ip = new NetIpLocation;
         $request_log = new ModelRequestLog;
 
         // 删除过期的日志(保留三个月)

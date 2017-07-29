@@ -25,7 +25,7 @@ use app\admin\model\TagsArticle as ModelTagsArticle;
 class Page extends Model
 {
     protected $request    = null;
-    protected $model_name = null;
+    protected $modelName = null;
 
     protected function initialize()
     {

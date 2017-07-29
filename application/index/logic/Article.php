@@ -26,7 +26,7 @@ use app\admin\model\TagsArticle as ModelTagsArticle;
 class Article extends Model
 {
     protected $request    = null;
-    protected $model_name = null;
+    protected $modelName = null;
 
     protected function initialize()
     {
@@ -43,7 +43,7 @@ class Article extends Model
      */
     public function setTableModel($name)
     {
-        $this->model_name = $name;
+        $this->modelName = $name;
     }
 
     /**
@@ -72,11 +72,11 @@ class Article extends Model
 
         $order = 'a.sort DESC, a.update_time DESC';
 
-        $model = Loader::model(ucfirst($this->model_name), 'model', false, 'admin');
+        $model = Loader::model(ucfirst($this->modelName), 'model', false, 'admin');
         $CACHE = check_key($map, __METHOD__);
 
         $result =
-        $model->view($this->model_name . ' a', 'id,title,keywords,description,thumb,category_id,hits,comment_count,create_time,update_time,type_id,access_id,is_link,url')
+        $model->view($this->modelName . ' a', 'id,title,keywords,description,thumb,category_id,hits,comment_count,create_time,update_time,type_id,access_id,is_link,url')
         ->view('type t', ['name' => 'type_name'], 't.id=a.type_id', 'LEFT')
         ->view('level l', ['name' => 'level_name'], 'l.id=a.access_id', 'LEFT')
         ->view('category c', ['name' => 'cat_name'], 'c.id=a.category_id')
@@ -169,11 +169,11 @@ class Article extends Model
         ];
         $order = 'a.sort DESC, a.update_time DESC';
 
-        $model = Loader::model(ucfirst($this->model_name), 'model', false, 'admin');
+        $model = Loader::model(ucfirst($this->modelName), 'model', false, 'admin');
         $CACHE = check_key($map, __METHOD__);
 
         $result =
-        $model->view($this->model_name . ' a', true)
+        $model->view($this->modelName . ' a', true)
         ->view('type t', ['name' => 'type_name'], 't.id=a.type_id', 'LEFT')
         ->view('level l', ['name' => 'level_name'], 'l.id=a.access_id', 'LEFT')
         ->view('category c', ['name' => 'cat_name'], 'c.id=a.category_id')
@@ -190,7 +190,7 @@ class Article extends Model
             $data['field'] = $this->getFieldsData();
             $data['tags'] = $this->getTagsData();
 
-            if (in_array($this->model_name, ['picture', 'product'])) {
+            if (in_array($this->modelName, ['picture', 'product'])) {
                 $data['album'] = $this->getAlbumData();
             }
 
@@ -215,7 +215,7 @@ class Article extends Model
             'show_time'   => ['ELT', strtotime(date('Y-m-d'))]
         ];
 
-        $model = Loader::model(ucfirst($this->model_name), 'model', false, 'admin');
+        $model = Loader::model(ucfirst($this->modelName), 'model', false, 'admin');
         $model->where($map)
         ->setInc('hits');
     }
@@ -230,7 +230,7 @@ class Article extends Model
     {
         $map = ['main_id' => $this->request->param('id/f')];
 
-        $album = Loader::model($this->model_name . 'Album', 'model', false, 'admin');
+        $album = Loader::model($this->modelName . 'Album', 'model', false, 'admin');
         $CACHE = check_key($map, __METHOD__);
 
         $result =
@@ -256,7 +256,7 @@ class Article extends Model
     protected function getFieldsData()
     {
         $map = ['f.category_id' => $this->request->param('cid/f')];
-        $table_name = $this->model_name . '_data d';
+        $table_name = $this->modelName . '_data d';
 
         $fields = new ModelFields;
         $CACHE = check_key($map, __METHOD__);

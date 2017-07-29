@@ -18,12 +18,13 @@ use think\Lang;
 use think\Config;
 use think\Log;
 use app\index\logic\Visit as IndexLogicVisit;
-use app\member\logic\Common as MallCommon;
+use app\mall\logic\Common as LogicCommon;
+use app\mall\logic\Type as LogicType;
 
 class Base extends Controller
 {
     // 网站基本数据
-    protected $website_data = [];
+    protected $mallData = [];
 
     /**
      * 初始化
@@ -33,9 +34,7 @@ class Base extends Controller
      */
     protected function _initialize()
     {
-        if (rand(1, 18000) == 18000) {
-            Cache::clear();
-        }
+        cache_clear();
 
         // 设置IP为授权Key
         // Log::key($this->request->ip(0, true));
@@ -45,18 +44,23 @@ class Base extends Controller
         $visit->visit();
         $visit->requestLog();
 
-        $common_model = new MallCommon;
+        $common_model = new LogicCommon;
 
-        // 权限
-        // $result = $common_model->accountAuth();
-        // if (true !== $result) {
-        //     $this->redirect($result);
-        // }
-
-        // 网站基本数据
-        $this->website_data = $common_model->getWetsiteData();
-
+        // 商城基本数据
+        $this->mallData = $common_model->getMallData();
         $this->themeConfig();
+    }
+
+    /**
+     * 商品分类
+     * @access protected
+     * @param
+     * @return array
+     */
+    protected function type()
+    {
+        $type = new LogicType;
+        return $type->getType();
     }
 
     /**
@@ -68,13 +72,13 @@ class Base extends Controller
     protected function themeConfig()
     {
         $template = Config::get('template');
-        $template['taglib_pre_load'] = 'taglib\Label';
+        // $template['taglib_pre_load'] = 'taglib\Label';
 
         $module = strtolower($this->request->module());
 
         // 模板路径
         $template['view_path'] = ROOT_PATH . 'public' . DS . 'theme' . DS . $module . DS;
-        $template['view_path'] .= $this->website_data[$module . '_theme'] . DS;
+        $template['view_path'] .= $this->mallData[$module . '_theme'] . DS;
 
         // 判断访问端
         $mobile = $this->request->isMobile() ? 'mobile' . DS : '';
@@ -97,7 +101,7 @@ class Base extends Controller
         $domain = $this->request->domain();
         $domain .= substr($this->request->baseFile(), 0, -10);
         $default_theme = $domain . '/public/theme/' . $module . '/';
-        $default_theme .= $this->website_data[$module . '_theme'] . '/' . $mobile;
+        $default_theme .= $this->mallData[$module . '_theme'] . '/' . $mobile;
 
         $replace = [
             '__DOMAIN__'      => $domain,
@@ -105,17 +109,19 @@ class Base extends Controller
             '__STATIC__'      => $domain . '/public/static/',
             '__LIBRARY__'     => $domain . '/public/static/library/',
             '__LAYOUT__'      => $domain . '/public/static/layout/',
-            '__THEME__'       => $this->website_data[$module . '_theme'],
+            '__THEME__'       => $this->mallData[$module . '_theme'],
             '__CSS__'         => $default_theme . 'css/',
             '__JS__'          => $default_theme . 'js/',
             '__IMG__'         => $default_theme . 'img/',
-            '__MESSAGE__'     => $this->website_data['bottom_message'],
-            '__COPYRIGHT__'   => $this->website_data['copyright'],
-            '__SCRIPT__'      => $this->website_data['script'],
+            '__MESSAGE__'     => $this->mallData['mall_bottom_message'],
+            '__COPYRIGHT__'   => $this->mallData['mall_copyright'],
+            '__SCRIPT__'      => $this->mallData['mall_script'],
 
-            '__TITLE__'       => $this->website_data['website_name'],
-            '__KEYWORDS__'    => $this->website_data['website_keywords'],
-            '__DESCRIPTION__' => $this->website_data['website_description'],
+            '__TITLE__'       => $this->mallData['mall_name'],
+            '__KEYWORDS__'    => $this->mallData['mall_keywords'],
+            '__DESCRIPTION__' => $this->mallData['mall_description'],
+
+            '__MALL_TYPE__'   => $this->type(),
         ];
         $this->view->replace($replace);
     }

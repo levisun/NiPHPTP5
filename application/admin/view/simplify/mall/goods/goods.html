@@ -42,6 +42,14 @@
                                 {/eq}
                                 </a>
 
+                                <a class="btn btn-danger btn-xs disabled">
+                                {eq name="vo.is_show" value="1"}
+                                {:lang('is_show')}
+                                {else/}
+                                {:lang('no_show')}
+                                {/eq}
+                                </a>
+
                                 {notempty name="vo.is_com"}
                                 <a class="btn btn-primary btn-xs disabled">{:lang('goods com')}</a>
                                 {/notempty}

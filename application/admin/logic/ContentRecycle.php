@@ -23,10 +23,10 @@ class ContentRecycle extends Model
     protected $request       = null;
     protected $table_model   = null;
 
-    public $data_model = null;
-    public $table_name = null;
-    public $type_data  = null;
-    public $level_data = null;
+    public $dataModel = null;
+    public $tableName = null;
+    public $typeData  = null;
+    public $levelData = null;
 
     protected function initialize()
     {
@@ -35,17 +35,17 @@ class ContentRecycle extends Model
         $this->request = Request::instance();
 
         // 内容数据业务层
-        $this->data_model = new ModelContentContentData;
+        $this->dataModel = new ModelContentContentData;
         // 分类
-        $this->type_data = $this->data_model->getTypeData();
+        $this->typeData = $this->dataModel->getTypeData();
         // 权限
-        $this->level_data = $this->data_model->getLevelData();
+        $this->levelData = $this->dataModel->getLevelData();
 
         // 表名
-        $this->table_name = $this->data_model->getModelTable();
+        $this->tableName = $this->dataModel->getModelTable();
 
         // 对应表模型
-        $this->table_model = $this->table_name ? Loader::model(ucfirst($this->table_name)) : null;
+        $this->table_model = $this->tableName ? Loader::model(ucfirst($this->tableName)) : null;
     }
 
     /**
@@ -63,9 +63,9 @@ class ContentRecycle extends Model
             $map['remark'] = ['LIKE', '%' . $key . '%'];
         }
 
-        if ($this->table_name == 'link') {
+        if ($this->tableName == 'link') {
             $order = 'is_pass ASC, sort DESC, update_time DESC';
-        } elseif (in_array($this->table_name, ['message', 'feedback'])) {
+        } elseif (in_array($this->tableName, ['message', 'feedback'])) {
             $order = 'is_pass ASC, update_time DESC';
         } else {
             $order = 'is_pass ASC, is_com DESC, is_top DESC, is_hot DESC, sort DESC, update_time DESC';
@@ -84,7 +84,7 @@ class ContentRecycle extends Model
 
         $page = $result->render();
 
-        return ['list' => $list, 'page' => $page, 'table_name' => $this->table_name];
+        return ['list' => $list, 'page' => $page, 'tableName' => $this->tableName];
     }
 
     /**
@@ -95,7 +95,7 @@ class ContentRecycle extends Model
      */
     public function getEditorData()
     {
-        if ($this->table_name == 'page') {
+        if ($this->tableName == 'page') {
             $map = ['category_id' => $this->request->param('cid/f')];
         } else {
             $map = ['id' => $this->request->param('id/f')];
@@ -114,17 +114,17 @@ class ContentRecycle extends Model
         }
 
         // 非友链
-        if ($this->table_name != 'link') {
+        if ($this->tableName != 'link') {
             $data['content'] = htmlspecialchars_decode($data['content']);
 
-            $data['field_data'] = $this->data_model->getEditorFieldsData($data, $this->table_name);
+            $data['field_data'] = $this->dataModel->getEditorFieldsData($data, $this->tableName);
 
-            $data['tags'] = $this->data_model->getEditorTagsData($data);
+            $data['tags'] = $this->dataModel->getEditorTagsData($data);
         }
 
         // 图文 产品
-        if (in_array($this->table_name, ['picture', 'product'])) {
-            $data['album_data'] = $this->data_model->getEditorAlbumData($this->table_name);
+        if (in_array($this->tableName, ['picture', 'product'])) {
+            $data['album_data'] = $this->dataModel->getEditorAlbumData($this->tableName);
         }
 
         return $data;
@@ -146,20 +146,20 @@ class ContentRecycle extends Model
         ->where($map)
         ->delete();
 
-        if ($this->table_name != 'link') {
+        if ($this->tableName != 'link') {
             $map = ['main_id' => $id];
 
-            $model = Loader::model(ucfirst($this->table_name) . '_data');
+            $model = Loader::model(ucfirst($this->tableName) . '_data');
             $result =
             $model->where($map)
             ->delete();
         }
 
-        if (in_array($this->table_name, ['picture', 'product'])) {
+        if (in_array($this->tableName, ['picture', 'product'])) {
             // 图文 产品
             $map = ['main_id' => $id];
 
-            $model = Loader::model(ucfirst($this->table_name) . '_album');
+            $model = Loader::model(ucfirst($this->tableName) . '_album');
             $result =
             $model->where($map)
             ->delete();

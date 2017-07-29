@@ -23,14 +23,14 @@ use app\admin\model\Category as ModelCategory;
 class Common extends Model
 {
     protected $request = null;
-    protected $to_html = [
+    protected $toHtml = [
         'bottom_message',
         'copyright',
         'script'
     ];
 
     // 表名
-    public $table_name = null;
+    public $tableName = null;
 
     protected function initialize()
     {
@@ -38,7 +38,7 @@ class Common extends Model
 
         $this->request = Request::instance();
 
-        $this->table_name = $this->getModelTable();
+        $this->tableName = $this->getModelTable();
     }
 
     /**
@@ -110,7 +110,7 @@ class Common extends Model
         $data = [];
         foreach ($result as $value) {
             $value = $value->toArray();
-            if (in_array($value['name'], $this->to_html)) {
+            if (in_array($value['name'], $this->toHtml)) {
                 $data[$value['name']] = htmlspecialchars_decode($value['value']);
             } else {
                 $data[$value['name']] = $value['value'];

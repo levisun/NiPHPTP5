@@ -26,12 +26,12 @@ use app\admin\model\TagsArticle as ModelTagsArticle;
 class ContentContent extends Model
 {
     protected $request       = null;
-    protected $table_model   = null;
+    protected $tableModel   = null;
 
-    public $data_model = null;
-    public $table_name = null;
-    public $type_data  = null;
-    public $level_data = null;
+    public $dataModel = null;
+    public $tableName = null;
+    public $typeData  = null;
+    public $levelData = null;
 
     protected function initialize()
     {
@@ -40,17 +40,17 @@ class ContentContent extends Model
         $this->request = Request::instance();
 
         // 内容数据业务层
-        $this->data_model = new ModelContentContentData;
+        $this->dataModel = new ModelContentContentData;
         // 分类
-        $this->type_data = $this->data_model->getTypeData();
+        $this->typeData = $this->dataModel->getTypeData();
         // 权限
-        $this->level_data = $this->data_model->getLevelData();
+        $this->levelData = $this->dataModel->getLevelData();
 
         // 表名
-        $this->table_name = $this->data_model->getModelTable();
+        $this->tableName = $this->dataModel->getModelTable();
 
         // 对应表模型
-        $this->table_model = $this->table_name ? Loader::model(ucfirst($this->table_name)) : null;
+        $this->tableModel = $this->tableName ? Loader::model(ucfirst($this->tableName)) : null;
     }
 
     /**
@@ -68,16 +68,16 @@ class ContentContent extends Model
             $map['title'] = ['LIKE', '%' . $key . '%'];
         }
 
-        if ($this->table_name == 'link') {
+        if ($this->tableName == 'link') {
             $order = 'is_pass ASC, sort DESC, update_time DESC';
-        } elseif (in_array($this->table_name, ['message', 'feedback'])) {
+        } elseif (in_array($this->tableName, ['message', 'feedback'])) {
             $order = 'is_pass ASC, update_time DESC';
         } else {
             $order = 'is_pass ASC, is_com DESC, is_top DESC, is_hot DESC, sort DESC, update_time DESC';
         }
 
         $result =
-        $this->table_model->field(true)
+        $this->tableModel->field(true)
         ->where($map)
         ->order($order)
         ->paginate();
@@ -89,7 +89,7 @@ class ContentContent extends Model
 
         $page = $result->render();
 
-        return ['list' => $list, 'page' => $page, 'table_name' => $this->table_name];
+        return ['list' => $list, 'page' => $page, 'tableName' => $this->tableName];
     }
 
     /**
@@ -124,16 +124,16 @@ class ContentContent extends Model
             'lang'        => Lang::detect(),
         ];
 
-        $this->table_model->allowField(true)
+        $this->tableModel->allowField(true)
         ->isUpdate(false)
         ->data($data)
         ->save();
 
-        $this->AEField($this->table_model->id);
-        $this->AEAlbum($this->table_model->id);
-        $this->AETags($this->table_model->id);
+        $this->AEField($this->tableModel->id);
+        $this->AEAlbum($this->tableModel->id);
+        $this->AETags($this->tableModel->id);
 
-        return $this->table_model->id ? true : false;
+        return $this->tableModel->id ? true : false;
     }
 
     /**
@@ -144,14 +144,14 @@ class ContentContent extends Model
      */
     public function getEditorData()
     {
-        if ($this->table_name == 'page') {
+        if ($this->tableName == 'page') {
             $map = ['category_id' => $this->request->param('cid/f')];
         } else {
             $map = ['id' => $this->request->param('id/f')];
         }
 
         $result =
-        $this->table_model->field(true)
+        $this->tableModel->field(true)
         ->where($map)
         ->find();
 
@@ -162,17 +162,17 @@ class ContentContent extends Model
         }
 
         // 非友链
-        if ($this->table_name != 'link') {
+        if ($this->tableName != 'link') {
             $data['content'] = htmlspecialchars_decode($data['content']);
 
-            $data['field_data'] = $this->data_model->getEditorFieldsData($data, $this->table_name);
+            $data['field_data'] = $this->dataModel->getEditorFieldsData($data, $this->tableName);
 
-            $data['tags'] = $this->data_model->getEditorTagsData($data);
+            $data['tags'] = $this->dataModel->getEditorTagsData($data);
         }
 
         // 图文 产品
-        if (in_array($this->table_name, ['picture', 'product'])) {
-            $data['album_data'] = $this->data_model->getEditorAlbumData($this->table_name);
+        if (in_array($this->tableName, ['picture', 'product'])) {
+            $data['album_data'] = $this->dataModel->getEditorAlbumData($this->tableName);
         }
 
         return $data;
@@ -214,7 +214,7 @@ class ContentContent extends Model
         $map = ['id' => $id];
 
         $result =
-        $this->table_model->allowField(true)
+        $this->tableModel->allowField(true)
         ->isUpdate(true)
         ->save($data, $map);
 
@@ -236,8 +236,8 @@ class ContentContent extends Model
         $id = $this->request->param('id/f');
         $map = ['id' => $id];
 
-        $this->table_model->where($map);
-        $result = $this->table_model->delete();
+        $this->tableModel->where($map);
+        $result = $this->tableModel->delete();
 
         return $result ? true : false;
     }
@@ -250,13 +250,13 @@ class ContentContent extends Model
      */
     protected function AEAlbum($master_id = false)
     {
-        if (!in_array($this->table_name, ['picture', 'product'])) {
+        if (!in_array($this->tableName, ['picture', 'product'])) {
             return true;
         }
 
         $id = $master_id ? $master_id : $this->request->post('id/f');
 
-        $model = Loader::model(ucfirst($this->table_name) . 'Album');
+        $model = Loader::model(ucfirst($this->tableName) . 'Album');
 
         $map = ['main_id' => $id];
 
@@ -291,7 +291,7 @@ class ContentContent extends Model
      */
     protected function AEField($master_id = false)
     {
-        if (in_array($this->table_name, ['link', 'external'])) {
+        if (in_array($this->tableName, ['link', 'external'])) {
             return true;
         }
 
@@ -302,7 +302,7 @@ class ContentContent extends Model
             return true;
         }
 
-        $model = Loader::model(ucfirst($this->table_name) . 'Data');
+        $model = Loader::model(ucfirst($this->tableName) . 'Data');
 
         $added_data = [];
         foreach ($fields as $key => $value) {
@@ -343,7 +343,7 @@ class ContentContent extends Model
      */
     protected function AETags($master_id = false)
     {
-        if (in_array($this->table_name, ['link', 'external'])) {
+        if (in_array($this->tableName, ['link', 'external'])) {
             return true;
         }
 

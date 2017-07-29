@@ -20,13 +20,13 @@ use think\Url;
 use think\Config;
 use think\Cache;
 use think\Db;
-use app\admin\model\Category as IndexCategory;
-use app\admin\model\Ads as IndexAds;
-use app\admin\model\Banner as IndexBanner;
-use app\admin\model\Tags as IndexTags;
-use app\admin\model\Level as IndexLevel;
-use app\admin\model\Type as IndexType;
-use app\admin\model\Admin as IndexAdmin;
+use app\admin\model\Category as ModelCategory;
+use app\admin\model\Ads as ModelAds;
+use app\admin\model\Banner as ModelBanner;
+use app\admin\model\Tags as ModelTags;
+use app\admin\model\Level as ModelLevel;
+use app\admin\model\Type as ModelType;
+use app\admin\model\Admin as ModelAdmin;
 
 class LabelFun
 {
@@ -58,7 +58,7 @@ class LabelFun
             'url'
         ];
 
-        $category = new IndexCategory;
+        $category = new ModelCategory;
         $CACHE = check_key($map, __METHOD__);
 
         $result =
@@ -107,7 +107,7 @@ class LabelFun
             // 查询子类
             $map['pid'] = $value['id'];
 
-            $category = new IndexCategory;
+            $category = new ModelCategory;
             $CACHE = check_key($map, __METHOD__);
 
             $result =
@@ -178,7 +178,7 @@ class LabelFun
             'url'
         ];
 
-        $category = new IndexCategory;
+        $category = new ModelCategory;
         $CACHE = check_key($map, __METHOD__);
 
         $result =
@@ -233,7 +233,7 @@ class LabelFun
             'url'
         ];
 
-        $category = new IndexCategory;
+        $category = new ModelCategory;
         $CACHE = check_key($map, __METHOD__);
 
         $result =
@@ -280,7 +280,7 @@ class LabelFun
             'url'
         ];
 
-        $category = new IndexCategory;
+        $category = new ModelCategory;
         $CACHE = check_key($map, __METHOD__);
 
         $result =
@@ -313,7 +313,7 @@ class LabelFun
             'lang' => Lang::detect()
         ];
 
-        $category = new IndexAds;
+        $category = new ModelAds;
         $CACHE = check_key($map, __METHOD__);
 
         $result =
@@ -341,7 +341,7 @@ class LabelFun
             'id' => $id,
             'lang' => Lang::detect()
         ];
-        $banner = new IndexBanner;
+        $banner = new ModelBanner;
         $CACHE = !APP_DEBUG ? __METHOD__ . 'PARENT' . implode('', $map) : false;
 
         $result =
@@ -489,10 +489,10 @@ class LabelFun
         $union = 'SELECT * FROM (' . implode(' union ', $sql) . ') as a ' . $order . ' LIMIT ' . $limit;
         $result = Db::query($union);
 
-        $category = new IndexCategory;
-        $type = new IndexType;
-        $level = new IndexLevel;
-        $admin = new IndexAdmin;
+        $category = new ModelCategory;
+        $type = new ModelType;
+        $level = new ModelLevel;
+        $admin = new ModelAdmin;
 
         $list = [];
         foreach ($result as $value) {
@@ -531,7 +531,7 @@ class LabelFun
     {
         $map = ['lang' => Lang::detect()];
 
-        $tags = new IndexTags;
+        $tags = new ModelTags;
         $CACHE = check_key($map, __METHOD__);
 
         $result =
@@ -563,7 +563,7 @@ class LabelFun
             'c.lang' => Lang::detect()
         ];
 
-        $category = new IndexCategory;
+        $category = new ModelCategory;
         $CACHE = check_key($map, __METHOD__);
 
         $result =

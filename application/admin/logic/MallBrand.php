@@ -16,7 +16,6 @@ namespace app\admin\logic;
 use think\Model;
 use think\Request;
 use think\Lang;
-use think\Cache;
 use app\admin\model\MallBrand as ModelMallBrand;
 
 class MallBrand extends Model

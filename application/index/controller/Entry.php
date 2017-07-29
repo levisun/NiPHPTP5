@@ -35,11 +35,11 @@ class Entry extends Base
     {
         $model = ['article', 'download', 'picture', 'product'];
         if (in_array($this->table_name, $model)) {
-            $model = new LogicArticle;
-            $model->setTableModel($this->table_name);
+            $logic = new LogicArticle;
+            $logic->setTableModel($this->table_name);
         } else {
             // page link feedback message
-            $model = Loader::model($this->table_name, 'logic');
+            $logic = Loader::model($this->table_name, 'logic');
         }
 
         // feedback or message
@@ -49,7 +49,7 @@ class Entry extends Base
                 $this->error(Lang::get($result));
             }
 
-            $result = $model->added();
+            $result = $logic->added();
             if (true === $result) {
                 $url = Url::build('/list/' . $this->request->param('cid'));
                 $this->success(Lang::get('success ' . $this->table_name . ' added'), $url);
@@ -58,7 +58,7 @@ class Entry extends Base
             }
         }
 
-        $data = $model->getListData();
+        $data = $logic->getListData();
 
         $this->assign('data', $data['list']);
         $this->assign('list', $data['list']);

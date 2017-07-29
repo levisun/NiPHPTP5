@@ -17,7 +17,7 @@ use think\Model;
 use think\Request;
 use think\Cache;
 use think\Cookie;
-use net\Wechat;
+use net\Wechat as NetWechat;
 use app\admin\model\Config as ModelConfig;
 use app\member\logic\Account as MemberLogicAccount;
 
@@ -28,8 +28,8 @@ class Api extends Model
     public $wechat;
     public $type;           // 消息类型
     public $event = [];     // 事件类型
-    public $form_user;      // 请求用户ID
-    public $user_data = []; // 请求用户信息
+    public $formUser;      // 请求用户ID
+    public $userData = []; // 请求用户信息
     public $key = [];       // 请求内容
 
     protected function initialize()
@@ -46,7 +46,7 @@ class Api extends Model
             'appsecret'      => $data['wechat_appsecret']
         ];
 
-        $this->wechat = new Wechat($option);
+        $this->wechat = new NetWechat($option);
     }
 
     /**
@@ -61,8 +61,8 @@ class Api extends Model
 
         $this->type                 = $this->wechat->getRev()->getRevType();
         $this->event                = $this->wechat->getRevEvent();
-        $this->form_user            = $this->wechat->getRevFrom();
-        $this->user_data            = $this->wechat->getUserInfo($this->form_user);
+        $this->formUser             = $this->wechat->getRevFrom();
+        $this->userData             = $this->wechat->getUserInfo($this->formUser);
         $this->key['sceneId']       = escape_xss($this->wechat->getRevSceneId());   // 扫公众号二维码返回值
         $this->key['eventLocation'] = escape_xss($this->wechat->getRevEventGeo());  // 获得的地理信息
         $this->key['text']          = escape_xss($this->wechat->getRevContent());   // 文字信息
@@ -72,7 +72,7 @@ class Api extends Model
         $this->key['voice']         = escape_xss($this->wechat->getRevVoice());     // 音频信息
         $this->key['video']         = escape_xss($this->wechat->getRevVideo());     // 视频信息
 
-        defined('OPENID') or define('OPENID', $this->form_user);
+        defined('OPENID') or define('OPENID', $this->formUser);
     }
 
     /**

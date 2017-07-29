@@ -28,7 +28,6 @@ return [
     '/' => 'index',
 
     // website
-    'entry/:cid'          => 'index/entry/index',
     'list/:cid'           => 'index/entry/index',
     'article/:cid/:id'    => 'index/article/index',
     'tags/:id'            => 'index/tags/index',
@@ -63,7 +62,8 @@ return [
 
     // mall
     'mall'                => 'mall/index/index',
-    'mall/item/:id'       => 'mall/index/item',
+    'mall/list/:cid'      => 'mall/entry/index',
+    'mall/item/:cid/:id'  => 'mall/item/index',
     'mall/order/:id'      => 'mall/order/index',
     'mall/cart'           => 'mall/cart/index',
     'mall/shop/:id'       => 'mall/shop/index',

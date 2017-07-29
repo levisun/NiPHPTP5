@@ -16,7 +16,7 @@ namespace app\admin\logic;
 use think\Model;
 use think\Request;
 use think\Cache;
-use util\File;
+use util\File as UtilFile;
 
 class ContentCache extends Model
 {
@@ -45,11 +45,11 @@ class ContentCache extends Model
         }
 
         if ($type == 'compile') {
-            $list = File::get(RUNTIME_PATH . 'temp' . DS);
+            $list = UtilFile::get(RUNTIME_PATH . 'temp' . DS);
 
             // 删除编辑缓存
             foreach ($list as $key => $value) {
-                File::delete(RUNTIME_PATH . 'temp' . DS . $value['name']);
+                UtilFile::delete(RUNTIME_PATH . 'temp' . DS . $value['name']);
             }
             return 'compile';
         }

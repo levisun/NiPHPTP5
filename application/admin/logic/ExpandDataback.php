@@ -16,13 +16,13 @@ namespace app\admin\logic;
 use think\Model;
 use think\Request;
 use think\Config;
-use util\File;
-use util\Pclzip;
+use util\File as UtilFile;
+use util\Pclzip as UtilPclzip;
 
 class ExpandDataback extends Model
 {
     protected $request = null;
-    protected $not_back_table = [
+    protected $notBackTable = [
         'admin',
         'access',
         'action',
@@ -50,7 +50,7 @@ class ExpandDataback extends Model
      */
     public function getListData()
     {
-        $list = File::get(ROOT_PATH . 'public' . DS . 'backup' . DS);
+        $list = UtilFile::get(ROOT_PATH . 'public' . DS . 'backup' . DS);
 
         rsort($list);
 
@@ -58,7 +58,7 @@ class ExpandDataback extends Model
         $days = strtotime('-180 days');
         foreach ($list as $key => $value) {
             if (strtotime($value['time']) <= $days) {
-                File::delete(ROOT_PATH . 'public' . DS . 'backup' . DS . $value['name']);
+                UtilFile::delete(ROOT_PATH . 'public' . DS . 'backup' . DS . $value['name']);
                 unset($list[$key]);
             } else {
                 $list[$key]['id'] = encrypt($value['name']);
@@ -84,12 +84,12 @@ class ExpandDataback extends Model
         $tables = $this->getTables();
         $tables_sql = '';
 
-        foreach ($this->not_back_table as $key => $value) {
-            $this->not_back_table[$key] = Config::get('database.prefix') . $value;
+        foreach ($this->notBackTable as $key => $value) {
+            $this->notBackTable[$key] = Config::get('database.prefix') . $value;
         }
 
         foreach ($tables as $table) {
-            if (in_array($table, $this->not_back_table)) {
+            if (in_array($table, $this->notBackTable)) {
                 continue;
             }
             $tableRs = $this->query('SHOW CREATE TABLE `' . $table . '`');
@@ -157,12 +157,12 @@ class ExpandDataback extends Model
         file_put_contents($dir . 'tables.sql', $tables_sql);
 
         // 打包备份
-        $zip = new Pclzip('');
+        $zip = new UtilPclzip('');
         $zip->zipname = ROOT_PATH . 'public' . DS . 'backup' . DS . 'back ' . date('YmdHis') . '.zip';
         $zip->create($dir, PCLZIP_OPT_REMOVE_PATH, $dir);
 
         // 删除临时文件
-        File::delete($dir);
+        UtilFile::delete($dir);
 
         return true;
     }
@@ -233,11 +233,11 @@ class ExpandDataback extends Model
 
         $dir = TEMP_PATH . $name[0] . DS;
 
-        $zip = new Pclzip('');
-        $zip->zipname = ROOT_PATH . 'public' . DS . 'backup' . DS . $file;
+        $zipname = ROOT_PATH . 'public' . DS . 'backup' . DS . $file;
+        $zip = new UtilPclzip($zipname);
         $zip->extract(PCLZIP_OPT_PATH, $dir);
 
-        $list = File::get($dir . DS);
+        $list = UtilFile::get($dir . DS);
         foreach ($list as $key => $value) {
             if ($value['name'] == 'tables.sql') {
                 $sql = file_get_contents($dir . $value['name']);
@@ -254,7 +254,7 @@ class ExpandDataback extends Model
         }
 
         // 删除临时文件
-        File::delete($dir);
+        UtilFile::delete($dir);
 
         return true;
     }

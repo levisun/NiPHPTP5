@@ -36,8 +36,8 @@ class Account extends Base
 
             $result = $this->validate($_POST, 'Account.login');
             if(true === $result){
-                $model = new LogicCommonLogin;
-                $result = $model->checkLogin();
+                $logic = new LogicCommonLogin;
+                $result = $logic->checkLogin();
             }
 
             if (true === $result) {
@@ -61,8 +61,8 @@ class Account extends Base
     public function logout()
     {
         $this->actionLog('admin_logout');
-        $model = new LogicCommonLogin;
-        $result = $model->logout();
+        $logic = new LogicCommonLogin;
+        $result = $logic->logout();
         if (true === $result) {
             $this->redirect(Url::build('account/login'));
         }

@@ -15,8 +15,8 @@ namespace app\admin\controller;
 
 use think\Url;
 use think\Lang;
-use net\Http;
-use util\File;
+use net\Http as NetHttp;
+use util\File as UtilFile;
 use app\admin\controller\Base;
 use app\admin\logic\ExpandDataback as LogicExpandDataback;
 use app\admin\logic\ExpandELog as LogicExpandELog;
@@ -46,11 +46,11 @@ class Expand extends Base
      */
     public function databack()
     {
-        $model = new LogicExpandDataback;
+        $logic = new LogicExpandDataback;
 
         // 备份
         if ($this->method == 'back') {
-            $result = $model->createZipSql();
+            $result = $logic->createZipSql();
             if (true === $result) {
                 $this->actionLog('databack_back');
                 $url = Url::build($this->request->action());
@@ -62,7 +62,7 @@ class Expand extends Base
 
         // 优化/修复表
         if ($this->method == 'optimize') {
-            $result = $model->optimize();
+            $result = $logic->optimize();
             if (true === $result) {
                 $this->actionLog('databack_optimize');
                 $url = Url::build($this->request->action());
@@ -78,13 +78,13 @@ class Expand extends Base
 
             // define('UPLOAD_PATH', './pulbic/upload/');
             $file = ROOT_PATH . 'public' . DS . 'backup' . DS . decrypt($this->request->param('id'));
-            Http::download($file, 'databack ' . date('Ymd') . '.zip');
+            NetHttp::download($file, 'databack ' . date('Ymd') . '.zip');
         }
 
         // 删除
         if ($this->method == 'remove') {
             $file = ROOT_PATH . 'public' . DS . 'backup' . DS .  decrypt($this->request->param('id'));
-            File::delete($file);
+            UtilFile::delete($file);
             $this->actionLog('databack_remove');
 
             $url = Url::build($this->request->action());
@@ -93,7 +93,7 @@ class Expand extends Base
 
         // 还原
         if ($this->method == 'reduction') {
-            $result = $model->reduction();
+            $result = $logic->reduction();
 
             $url = Url::build($this->request->action());
             $this->success(Lang::get('success reduction'), $url);
@@ -124,8 +124,8 @@ class Expand extends Base
     public function elog()
     {
         if ($this->method == 'show') {
-            $model = new LogicExpandELog;
-            $data = $model->getOneData();
+            $logic = new LogicExpandELog;
+            $data = $logic->getOneData();
             $this->assign('data', $data);
             return $this->fetch('elog_show');
         }

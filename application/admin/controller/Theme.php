@@ -57,8 +57,8 @@ class Theme extends Base
     protected function theme()
     {
         if ($this->method == 'update') {
-            $model = new LogicThemeTemplate;
-            $result = $model->editor();
+            $logic = new LogicThemeTemplate;
+            $result = $logic->editor();
             if (true === $result) {
                 $this->actionLog('config_editor');
                 $url = Url::build($this->request->action());

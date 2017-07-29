@@ -16,8 +16,6 @@ namespace app\admin\logic;
 use think\Model;
 use think\Request;
 use think\Lang;
-use think\Config;
-use think\Cache;
 use app\admin\model\MallGoods as ModelMallGoods;
 use app\admin\model\MallGoodsPromote as ModelMallGoodsPromote;
 use app\admin\model\MallGoodsAlbum as ModelMallGoodsAlbum;

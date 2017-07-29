@@ -26,8 +26,8 @@ class Tags extends Base
 
     public function index()
     {
-        $tags = new LogicTags;
-        $data = $tags->getListData();
+        $logic = new LogicTags;
+        $data = $logic->getListData();
 
         $this->assign('list', $data['list']);
         $this->assign('page', $data['page']);

@@ -29,8 +29,8 @@ class Jump extends Base
      */
     public function index()
     {
-        $model = new LogicJump;
-        $url = $model->jump($this->table_name);
+        $logic = new LogicJump;
+        $url = $logic->jump($this->table_name);
         $this->redirect($url, 302);
     }
 }

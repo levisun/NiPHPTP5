@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS `np_order`;
-CREATE TABLE IF NOT EXISTS `np_order` (
+DROP TABLE IF EXISTS `np_mall_order`;
+CREATE TABLE IF NOT EXISTS `np_mall_order` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `trade_no` varchar(32) NOT NULL DEFAULT '0' COMMENT '订单号',
   `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '会员ID',
@@ -22,8 +22,8 @@ CREATE TABLE IF NOT EXISTS `np_order` (
   KEY `status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '订单表';
 
-DROP TABLE IF EXISTS `np_order_goods`;
-CREATE TABLE IF NOT EXISTS `np_order_goods` (
+DROP TABLE IF EXISTS `np_mall_order_goods`;
+CREATE TABLE IF NOT EXISTS `np_mall_order_goods` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `order_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '订单ID',
   `goods_id` int(11) NOT NULL DEFAULT '0' COMMENT '商品ID',
@@ -37,8 +37,8 @@ CREATE TABLE IF NOT EXISTS `np_order_goods` (
   KEY `goods_id` (`goods_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '订单商品表';
 
-DROP TABLE IF EXISTS `np_order_address`;
-CREATE TABLE IF NOT EXISTS `np_order_address` (
+DROP TABLE IF EXISTS `np_mall_order_address`;
+CREATE TABLE IF NOT EXISTS `np_mall_order_address` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `order_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '订单ID',
   `consignee` varchar(50) NOT NULL DEFAULT '' COMMENT '收货人姓名',
@@ -57,8 +57,8 @@ CREATE TABLE IF NOT EXISTS `np_order_address` (
 
 
 
-DROP TABLE IF EXISTS `np_bonus`;
-CREATE TABLE IF NOT EXISTS `np_bonus` (
+DROP TABLE IF EXISTS `np_mall_bonus`;
+CREATE TABLE IF NOT EXISTS `np_mall_bonus` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `order_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '订单ID',
   `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '会员ID',

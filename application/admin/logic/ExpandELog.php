@@ -15,7 +15,7 @@ namespace app\admin\logic;
 
 use think\Model;
 use think\Request;
-use util\File;
+use util\File as UtilFile;
 
 class ExpandELog extends Model
 {
@@ -39,7 +39,7 @@ class ExpandELog extends Model
         $dir = $this->request->param('name');
         $dir = $dir ? decrypt($dir) . DS : $dir;
 
-        $list = File::get(LOG_PATH . $dir);
+        $list = UtilFile::get(LOG_PATH . $dir);
 
         rsort($list);
 
@@ -47,7 +47,7 @@ class ExpandELog extends Model
         $days = strtotime('-90 days');
         foreach ($list as $key => $value) {
             if ($value['time'] <= $days) {
-                File::delete(LOG_PATH . $dir . $value['name']);
+                UtilFile::delete(LOG_PATH . $dir . $value['name']);
                 unset($list[$key]);
             } else {
                 $list[$key]['id'] = encrypt($value['name']);

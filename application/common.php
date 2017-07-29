@@ -13,7 +13,8 @@
  */
 
 use think\Request;
-
+use think\Cache;
+use util\File as UtilFile;
 
 /**
  * 是否微信请求
@@ -50,6 +51,39 @@ function url_params($url)
     ];
 
     return $params;
+}
+
+/**
+ * 删除过期缓存
+ * @param
+ * @return string
+ */
+function cache_clear()
+{
+    if (APP_DEBUG) {
+        return false;
+    }
+
+    if (rand(1, 100000) == 100000) {
+        Cache::clear();
+        return false;
+    }
+
+    if (rand(1, 10000) != 10000) {
+        return false;
+    }
+
+    $list = UtilFile::get(CACHE_PATH);
+
+    rsort($list);
+
+    // 删除过期缓存
+    $days = strtotime('-15 days');
+    foreach ($list as $key => $value) {
+        if ($value['time'] <= $days) {
+            UtilFile::delete(CACHE_PATH . $value['name']);
+        }
+    }
 }
 
 /**

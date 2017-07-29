@@ -18,7 +18,7 @@ use think\Url;
 use think\Lang;
 use think\Config;
 use think\Log;
-use net\Wechat;
+use net\Wechat as NetWechat;
 use app\wechat\logic\Api as LogicApi;
 use app\wechat\logic\Attention as LogicAttention;
 use app\wechat\logic\AutoKey as LogicAutoKey;
@@ -26,9 +26,9 @@ use app\member\logic\Account as MemberLogicAccount;
 
 class Index extends Controller
 {
-    protected $api;
-    protected $wechat_member;
-    protected $auto_key;
+    protected $apiLogic;
+    protected $wechatMemberLogic;
+    protected $autoKeyLogic;
     protected $attention;
 
     /**
@@ -40,54 +40,54 @@ class Index extends Controller
     protected function _initialize()
     {
         // 设置IP为授权Key
-        Log::key($this->request->ip(0, true));
+        // Log::key($this->request->ip(0, true));
 
         Config::load(CONF_PATH . 'website.php');
 
-        $this->api           = new LogicApi;
-        $this->api->server();
-        $this->wechat_member = new MemberLogicAccount;
-        $this->auto_key      = new LogicAutoKey;
-        $this->attention     = new LogicAttention;
+        $this->apiLogic          = new LogicApi;
+        $this->autoKeyLogic      = new LogicAutoKey;
+        $this->attentionLogic    = new LogicAttention;
+        $this->wechatMemberLogic = new MemberLogicAccount;
+        $this->apiLogic->server();
     }
 
     public function index()
     {
-        switch ($this->api->type) {
-            case Wechat::MSGTYPE_TEXT:
+        switch ($this->apiLogic->type) {
+            case NetWechat::MSGTYPE_TEXT:
                 $this->text();
                 break;
 
-            case Wechat::MSGTYPE_IMAGE:
+            case NetWechat::MSGTYPE_IMAGE:
                 $this->image();
                 break;
 
-            case Wechat::MSGTYPE_LOCATION:
+            case NetWechat::MSGTYPE_LOCATION:
                 $this->location();
                 break;
 
-            case Wechat::MSGTYPE_LINK:
+            case NetWechat::MSGTYPE_LINK:
                 $this->link();
                 break;
 
-            case Wechat::MSGTYPE_VOICE:
+            case NetWechat::MSGTYPE_VOICE:
                 $this->voice();
                 break;
 
-            case Wechat::MSGTYPE_VIDEO:
-            case Wechat::MSGTYPE_SHORTVIDEO:
+            case NetWechat::MSGTYPE_VIDEO:
+            case NetWechat::MSGTYPE_SHORTVIDEO:
                 $this->video();
                 break;
 
-            case Wechat::MSGTYPE_MUSIC:
+            case NetWechat::MSGTYPE_MUSIC:
                 $this->music();
                 break;
 
-            case Wechat::MSGTYPE_NEWS:
+            case NetWechat::MSGTYPE_NEWS:
                 $this->news();
                 break;
 
-            case Wechat::MSGTYPE_EVENT:
+            case NetWechat::MSGTYPE_EVENT:
                 $this->event();
                 break;
 
@@ -105,12 +105,12 @@ class Index extends Controller
      */
     protected function text()
     {
-        if ($this->api->type != Wechat::MSGTYPE_TEXT) {
+        if ($this->apiLogic->type != NetWechat::MSGTYPE_TEXT) {
             return false;
         }
 
         // 关键词回复信息
-        $data = $this->auto_key->reply($this->api->key['text']);
+        $data = $this->autoKeyLogic->reply($this->apiLogic->key['text']);
         return $this->reply($data);
 
     }
@@ -123,12 +123,12 @@ class Index extends Controller
      */
     protected function image()
     {
-        if ($this->api->type != Wechat::MSGTYPE_IMAGE) {
+        if ($this->apiLogic->type != NetWechat::MSGTYPE_IMAGE) {
             return false;
         }
-        $this->api->key['image'];
-        return $this->api->wechat
-        ->image($this->api->key['image']['mediaid'])
+        $this->apiLogic->key['image'];
+        return $this->apiLogic->wechat
+        ->image($this->apiLogic->key['image']['mediaid'])
         ->reply();
     }
 
@@ -140,10 +140,10 @@ class Index extends Controller
      */
     protected function location()
     {
-        if ($this->api->type != Wechat::MSGTYPE_LOCATION) {
+        if ($this->apiLogic->type != NetWechat::MSGTYPE_LOCATION) {
             return false;
         }
-        $this->api->key['location'];
+        $this->apiLogic->key['location'];
     }
 
     /**
@@ -154,10 +154,10 @@ class Index extends Controller
      */
     protected function link()
     {
-        if ($this->api->type != Wechat::MSGTYPE_LINK) {
+        if ($this->apiLogic->type != NetWechat::MSGTYPE_LINK) {
             return false;
         }
-        $this->api->key['link'];
+        $this->apiLogic->key['link'];
     }
 
     /**
@@ -168,10 +168,10 @@ class Index extends Controller
      */
     protected function voice()
     {
-        if ($this->api->type != Wechat::MSGTYPE_VOICE) {
+        if ($this->apiLogic->type != NetWechat::MSGTYPE_VOICE) {
             return false;
         }
-        $this->api->key['voice'];
+        $this->apiLogic->key['voice'];
     }
 
     /**
@@ -182,11 +182,11 @@ class Index extends Controller
      */
     protected function video()
     {
-        if ($this->api->type != Wechat::MSGTYPE_VIDEO &&
-            $this->api->type != Wechat::MSGTYPE_SHORTVIDEO) {
+        if ($this->apiLogic->type != NetWechat::MSGTYPE_VIDEO &&
+            $this->apiLogic->type != NetWechat::MSGTYPE_SHORTVIDEO) {
             return false;
         }
-        $this->api->key['video'];
+        $this->apiLogic->key['video'];
     }
 
     /**
@@ -197,7 +197,7 @@ class Index extends Controller
      */
     protected function music()
     {
-        if ($this->api->type != Wechat::MSGTYPE_MUSIC) {
+        if ($this->apiLogic->type != NetWechat::MSGTYPE_MUSIC) {
             return false;
         }
     }
@@ -210,7 +210,7 @@ class Index extends Controller
      */
     protected function news()
     {
-        if ($this->api->type != Wechat::MSGTYPE_NEWS) {
+        if ($this->apiLogic->type != NetWechat::MSGTYPE_NEWS) {
             return false;
         }
     }
@@ -223,43 +223,43 @@ class Index extends Controller
      */
     protected function event()
     {
-        if ($this->api->type != Wechat::MSGTYPE_EVENT) {
+        if ($this->apiLogic->type != NetWechat::MSGTYPE_EVENT) {
             return false;
         }
 
         // 关注事件
-        if ($this->api->event['event'] == Wechat::EVENT_SUBSCRIBE) {
+        if ($this->apiLogic->event['event'] == NetWechat::EVENT_SUBSCRIBE) {
             // 获取二维码的场景值
-            if ($this->api->key['sceneId']) {
+            if ($this->apiLogic->key['sceneId']) {
 
             }
 
             // 更新微信用户信息
-            $this->wechat_member->AEMember($this->api->user_data, $this->api->form_user, 1);
+            $this->wechatMemberLogic->AEMember($this->apiLogic->userData, $this->apiLogic->formUser, 1);
 
             // 关注回复信息
-            $data = $this->attention->reply();
+            $data = $this->attentionLogic->reply();
             return $this->reply($data);
         }
 
         // 取消关注事件
-        if ($this->api->event['event'] == Wechat::EVENT_UNSUBSCRIBE) {
+        if ($this->apiLogic->event['event'] == NetWechat::EVENT_UNSUBSCRIBE) {
             // 更新微信用户信息
-            $this->wechat_member->AEMember($this->api->user_data, $this->api->form_user, 0);
+            $this->wechatMemberLogic->AEMember($this->apiLogic->userData, $this->apiLogic->formUser, 0);
         }
 
         // 上报地理位置事件
-        if ($this->api->event['event'] == Wechat::EVENT_LOCATION) {
-            $this->api->key['eventLocation'];
+        if ($this->apiLogic->event['event'] == NetWechat::EVENT_LOCATION) {
+            $this->apiLogic->key['eventLocation'];
         }
 
         // 点击菜单跳转链接
-        if ($this->api->event['event'] == Wechat::EVENT_MENU_VIEW) {
+        if ($this->apiLogic->event['event'] == NetWechat::EVENT_MENU_VIEW) {
             # code...
         }
 
         // 点击菜单拉取消息
-        if ($this->api->event['event'] == Wechat::EVENT_MENU_CLICK) {
+        if ($this->apiLogic->event['event'] == NetWechat::EVENT_MENU_CLICK) {
             # code...
         }
     }
@@ -281,9 +281,9 @@ class Index extends Controller
         }
 
         if (!empty($news)) {
-            return $this->api->wechat->news($news)->reply();
+            return $this->apiLogic->wechat->news($news)->reply();
         } else {
-            return $this->api->wechat->text($text)->reply();
+            return $this->apiLogic->wechat->text($text)->reply();
         }
     }
 }

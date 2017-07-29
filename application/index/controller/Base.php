@@ -27,11 +27,11 @@ use app\wechat\logic\Api as WechatLogicApi;
 class Base extends Controller
 {
     // 公众业务
-    protected $common_model = null;
+    protected $commonLogic = null;
     // 当前请求表名
-    protected $table_name   = null;
+    protected $tableName   = null;
     // 网站基本数据
-    protected $website_data = [];
+    protected $websiteData = [];
 
     /**
      * 初始化
@@ -41,9 +41,7 @@ class Base extends Controller
      */
     protected function _initialize()
     {
-        if (rand(1, 18000) == 18000) {
-            Cache::clear();
-        }
+        cache_clear();
 
         // 设置IP为授权Key
         // Log::key($this->request->ip(0, true));
@@ -58,12 +56,12 @@ class Base extends Controller
         $visit->requestLog();
 
         // 公众业务
-        $this->common_model = new LogicCommon;
+        $this->commonLogic = new LogicCommon;
 
         // 当前请求表名
-        $this->table_name = $this->common_model->table_name;
+        $this->tableName = $this->commonLogic->tableName;
         // 网站基本数据
-        $this->website_data = $this->common_model->getWetsiteData();
+        $this->websiteData = $this->commonLogic->getWetsiteData();
 
         $this->themeConfig();
 
@@ -83,20 +81,20 @@ class Base extends Controller
             return false;
         }
 
-        $account = new MemberLogicAccount;
-        $account->autoLogin();
+        $account_logic = new MemberLogicAccount;
+        $account_logic->autoLogin();
 
-        $api = new WechatLogicApi;
+        $api_logic = new WechatLogicApi;
 
         // 生成微信用户信息cookie
-        $api->openid();
+        $api_logic->openid();
 
         $this->assign('wechat_url', $this->request->url(true));
 
         $this->assign('wechat_openid', Cookie::get('WECHAT_OPENID'));
 
         // 生成微信JS签名
-        $this->assign('wechat_js', $api->jsSign());
+        $this->assign('wechat_js', $api_logic->jsSign());
     }
 
     /**
@@ -111,9 +109,9 @@ class Base extends Controller
             $web_info = $this->getCatWebInfo();
         } else {
             $web_info = [
-                'title' => $this->website_data['website_name'],
-                'keywords' => $this->website_data['website_keywords'],
-                'description' => $this->website_data['website_description']
+                'title' => $this->websiteData['website_name'],
+                'keywords' => $this->websiteData['website_keywords'],
+                'description' => $this->websiteData['website_description']
             ];
         }
         $replace = [
@@ -134,7 +132,7 @@ class Base extends Controller
     {
         $web_title = $web_keywords = $web_description = '';
         if ($this->request->has('cid', 'param')) {
-            $data = $this->common_model->getCategoryData();
+            $data = $this->commonLogic->getCategoryData();
             $this->assign('__SUB_TITLE__', $data[0]['name']);
 
             foreach ($data as $value) {
@@ -144,11 +142,11 @@ class Base extends Controller
             $web_keywords = $data[0]['seo_keywords'];
             $web_description = $data[0]['seo_description'];
 
-            $web_keywords = $web_keywords ? $web_keywords : $this->website_data['website_keywords'];
-            $web_description = $web_description ? $web_description : $this->website_data['website_description'];
+            $web_keywords = $web_keywords ? $web_keywords : $this->websiteData['website_keywords'];
+            $web_description = $web_description ? $web_description : $this->websiteData['website_description'];
         }
 
-        $web_title .= $this->website_data['website_name'];
+        $web_title .= $this->websiteData['website_name'];
 
         return [
             'title' => $web_title,
@@ -172,7 +170,7 @@ class Base extends Controller
 
         // 模板路径
         $template['view_path'] = ROOT_PATH . 'public' . DS . 'theme' . DS . $module . DS;
-        $template['view_path'] .= $this->website_data[$module . '_theme'] . DS;
+        $template['view_path'] .= $this->websiteData[$module . '_theme'] . DS;
 
         // 判断访问端
         $mobile = $this->request->isMobile() ? 'mobile' . DS : '';
@@ -194,7 +192,7 @@ class Base extends Controller
         $domain = $this->request->domain();
         $domain .= substr($this->request->baseFile(), 0, -10);
         $default_theme = $domain . '/public/theme/' . $module . '/';
-        $default_theme .= $this->website_data[$module . '_theme'] . '/' . $mobile;
+        $default_theme .= $this->websiteData[$module . '_theme'] . '/' . $mobile;
 
         $replace = [
             '__DOMAIN__'    => $domain,
@@ -202,13 +200,13 @@ class Base extends Controller
             '__STATIC__'    => $domain . '/public/static/',
             '__LIBRARY__'   => $domain . '/public/static/library/',
             '__LAYOUT__'    => $domain . '/public/static/layout/',
-            '__THEME__'     => $this->website_data[$module . '_theme'],
+            '__THEME__'     => $this->websiteData[$module . '_theme'],
             '__CSS__'       => $default_theme . 'css/',
             '__JS__'        => $default_theme . 'js/',
             '__IMG__'       => $default_theme . 'img/',
-            '__MESSAGE__'   => $this->website_data['bottom_message'],
-            '__COPYRIGHT__' => $this->website_data['copyright'],
-            '__SCRIPT__'    => $this->website_data['script'],
+            '__MESSAGE__'   => $this->websiteData['bottom_message'],
+            '__COPYRIGHT__' => $this->websiteData['copyright'],
+            '__SCRIPT__'    => $this->websiteData['script'],
         ];
         $this->view->replace($replace);
     }

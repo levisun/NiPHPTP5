@@ -17,7 +17,6 @@ use think\Model;
 use think\Request;
 use think\Lang;
 use think\Config;
-use think\Cache;
 use app\admin\model\MallGoods as ModelMallGoods;
 use app\admin\model\MallType as ModelMallType;
 use app\admin\model\MallBrand as ModelMallBrand;

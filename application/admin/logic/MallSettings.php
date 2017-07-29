@@ -23,7 +23,7 @@ class MallSettings extends Model
 {
     protected $request = null;
 
-    protected $to_html = [
+    protected $toHtml = [
         'mall_bottom_message',
         'mall_copyright',
         'mall_script'
@@ -61,7 +61,7 @@ class MallSettings extends Model
         $data = [];
         foreach ($result as $value) {
             $value = $value->toArray();
-            if (in_array($value['name'], $this->to_html)) {
+            if (in_array($value['name'], $this->toHtml)) {
                 $data[$value['name']] = htmlspecialchars_decode($value['value']);
             } elseif (in_array($value['name'], ['mall_postage', 'mall_free_postage'])) {
                 $data[$value['name']] = (int) $value['value'] / 100;
@@ -85,7 +85,7 @@ class MallSettings extends Model
 
         foreach ($_POST as $key => $value) {
             $map = ['name' => $key];
-            if (in_array($key, $this->to_html)) {
+            if (in_array($key, $this->toHtml)) {
                 $data = ['value' => $this->request->post($key, '', 'trim,htmlspecialchars')];
             } elseif (in_array($key, ['mall_postage', 'mall_free_postage'])) {
                 $data = ['value' => $this->request->post($key . '/f') * 100];

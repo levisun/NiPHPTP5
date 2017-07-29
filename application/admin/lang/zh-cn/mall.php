@@ -26,6 +26,8 @@ return [
     'goods hot'          => '最热',
     'is_pass'            => '已审',
     'no_pass'            => '未审',
+    'is_show'            => '上架',
+    'no_show'            => '下架',
 
     'error mall type_id require'       => '请选择商品分类',
     'error mall type_id number'        => '商品分类格式不正确',
