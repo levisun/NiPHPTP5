@@ -20,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `np_mall_type` (
 DROP TABLE IF EXISTS `np_mall_brand`;
 CREATE TABLE IF NOT EXISTS `np_mall_brand` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `type_id` smallint(6) unsigned NOT NULL COMMENT '分类ID',
   `name` varchar(255) NOT NULL COMMENT '品牌名',
   `image` varchar(255) NOT NULL DEFAULT '' COMMENT 'LOGO',
   `sort` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
@@ -27,6 +28,7 @@ CREATE TABLE IF NOT EXISTS `np_mall_brand` (
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
   `lang` varchar(20) NOT NULL DEFAULT 'zh-cn' COMMENT '语言',
   PRIMARY KEY (`id`),
+  KEY `type_id` (`type_id`),
   UNIQUE KEY `name` (`name`),
   KEY `lang` (`lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商城品牌表';

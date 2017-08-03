@@ -18,6 +18,8 @@ use think\Request;
 use think\Lang;
 use think\Config;
 use think\Cookie;
+use think\Cache;
+use net\IpLocation as NetIpLocation;
 use app\admin\model\Feedback as ModelFeedback;
 use app\admin\model\FeedbackData as ModelFeedbackData;
 use app\admin\model\Fields as ModelFields;
@@ -58,7 +60,7 @@ class Feedback extends Model
      */
     public function added()
     {
-        $ip = new \net\IpLocation();
+        $ip = new NetIpLocation;
         $area = $ip->getlocation($this->request->ip(0, true));
 
         $data = [

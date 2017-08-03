@@ -19,6 +19,7 @@ use think\Lang;
 use think\Url;
 use think\Config;
 use think\Db;
+use think\Cache;
 use app\admin\model\Tags as ModelTags;
 use app\admin\model\Article as ModelArticle;
 use app\admin\model\Download as ModelDownload;

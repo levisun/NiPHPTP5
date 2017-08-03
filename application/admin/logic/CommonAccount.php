@@ -78,15 +78,15 @@ class CommonAccount extends Model
             'remark'    => $remark
         ];
 
-        $action = new ModelActionLog;
-        $action->data($data)
+        $action_log = new ModelActionLog;
+        $action_log->data($data)
         ->allowField(true)
         ->isUpdate(false)
         ->save();
 
         // 删除过期的日志(保留三个月)
         $map = ['create_time' => ['ELT', strtotime('-90 days')]];
-        $action->where($map)
+        $action_log->where($map)
         ->delete();
     }
 

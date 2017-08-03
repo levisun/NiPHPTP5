@@ -157,6 +157,11 @@ class Mall extends Base
         $this->assign('submenu', 1);
         $this->assign('submenu_button_added', 1);
 
+        if (in_array($this->method, ['added', 'editor'])) {
+            $logic = new LogicMallGoods;
+            $this->assign('type', $logic->getType());
+        }
+
         // 新增
         if ($this->method == 'added') {
             parent::added('MallBrand', 'MallBrand.added');

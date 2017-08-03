@@ -19,6 +19,7 @@ class MallBrand extends Validate
 {
     protected $rule = [
         'id'        => ['require', 'number'],
+        'type_id'   => ['require', 'number'],
         'name'      => ['require', 'length:2,255', 'unique:mall_brand', 'token'],
         'image'     => ['max:255'],
     ];
@@ -26,20 +27,24 @@ class MallBrand extends Validate
     protected $message = [
         'id.require'        => 'illegal operation',
         'id.number'         => 'illegal operation',
-        'name.require'      => 'error type name require',
-        'name.length'       => 'error type name length not',
-        'name.unique'       => 'error type name unique',
-        'image.max'         => 'error image'
+        'type_id.require'   => 'error mall type_id require',
+        'type_id.number'    => 'error mall type_id number',
+        'name.require'      => 'error brand name require',
+        'name.length'       => 'error brand name length not',
+        'name.unique'       => 'error brand name unique',
+        'image.max'         => 'error brand image'
     ];
 
     protected $scene = [
         'added' => [
             'name',
+            'type_id',
             'image',
         ],
         'editor' => [
             'id',
             'name',
+            'type_id',
             'image',
         ],
         'illegal' => ['id'],

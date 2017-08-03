@@ -122,9 +122,9 @@ class CategoryCategory extends Model
     {
         $map = ['status' => 1];
 
-        $category = new ModelModels;
+        $models = new ModelModels;
         $result =
-        $category->field(true)
+        $models->field(true)
         ->where($map)
         ->order('sort DESC')
         ->select();

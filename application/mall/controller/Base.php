@@ -20,6 +20,7 @@ use think\Log;
 use app\index\logic\Visit as IndexLogicVisit;
 use app\mall\logic\Common as LogicCommon;
 use app\mall\logic\Type as LogicType;
+use app\mall\logic\Brand as LogicBrand;
 
 class Base extends Controller
 {
@@ -60,7 +61,22 @@ class Base extends Controller
     protected function type()
     {
         $type = new LogicType;
-        return $type->getType();
+        return [
+            'all_type' => $type->getType(),
+            'child_type_id' => $type->getCurrentId(3),
+        ];
+    }
+
+    /**
+     * 商品品牌
+     * @access protected
+     * @param
+     * @return array
+     */
+    protected function brand()
+    {
+        $brand = new LogicBrand;
+        return $brand->getBrand();
     }
 
     /**
@@ -122,6 +138,7 @@ class Base extends Controller
             '__DESCRIPTION__' => $this->mallData['mall_description'],
 
             '__MALL_TYPE__'   => $this->type(),
+            '__MALL_BRAND__'  => $this->brand(),
         ];
         $this->view->replace($replace);
     }

@@ -29,9 +29,9 @@ return [
     'is_show'            => '上架',
     'no_show'            => '下架',
 
-    'error mall type_id require'       => '请选择商品分类',
-    'error mall type_id number'        => '商品分类格式不正确',
-    'error mall brand_id number'       => '商品品牌格式不正确',
+    'error goods type_id require'       => '请选择商品分类',
+    'error goods type_id number'        => '商品分类格式不正确',
+    'error goods brand_id number'       => '商品品牌格式不正确',
     'error goods name require'         => '请输入商品名称',
     'error goods name length'          => '商品名称长度不得小于2位并大于250位',
     'error goods name unique'          => '商品名称已存在',
@@ -41,13 +41,13 @@ return [
     'error goods price float'          => '商品价格格式不正确',
     'error goods market_price require' => '请输入商品市场价',
     'error goods market_price float'   => '商品市场价格式不正确',
-    'error mall number number'         => '商品库存格式不正确',
-    'error mall is_pass number'        => '商品审核格式不正确',
-    'error mall is_show number'        => '商品显示格式不正确',
-    'error mall is_com number'         => '商品推荐格式不正确',
-    'error mall is_top number'         => '商品置顶格式不正确',
-    'error mall is_hot number'         => '商品最热格式不正确',
-    'error mall sort number'           => '商品排序格式不正确',
+    'error goods number number'         => '商品库存格式不正确',
+    'error goods is_pass number'        => '商品审核格式不正确',
+    'error goods is_show number'        => '商品显示格式不正确',
+    'error goods is_com number'         => '商品推荐格式不正确',
+    'error goods is_top number'         => '商品置顶格式不正确',
+    'error goods is_hot number'         => '商品最热格式不正确',
+    'error goods sort number'           => '商品排序格式不正确',
 
 
     // 商品分类
@@ -58,10 +58,18 @@ return [
     'type url'      => '链接地址',
     'type image'    => '分类图标',
     'select parent' => '顶级分类',
+    'error type name require' => '请输入分类名称',
+    'error type name length'  => '分类名称长度不得小于2位并大于250位',
+    'error type name unique'  => '分类名称已存在',
+    'error type image'        => '品牌图片长度不得大于250位',
 
     // 品牌
     'brand name'  => '品牌名',
     'brand image' => 'LOGO',
+    'error brand name require' => '请输入品牌名称',
+    'error brand name length'  => '品牌名称长度不得小于2位并大于250位',
+    'error brand name unique'  => '品牌名称已存在',
+    'error brand image'        => '品牌图片长度不得大于250位',
 
     // 商品设置
     'basic'               => '基本设置',

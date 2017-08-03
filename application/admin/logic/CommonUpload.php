@@ -58,8 +58,8 @@ class CommonUpload extends Model
      */
     public function upload()
     {
-        $file = $this->request->file('upload');
-        if (null === $file) {
+        $upload_file = $this->request->file('upload');
+        if (null === $upload_file) {
             return Lang::get('error upload');
         }
 
@@ -93,7 +93,7 @@ class CommonUpload extends Model
         $save_path = ROOT_PATH . 'public/upload/' . $upload_type['dir'];
 
         $result =
-        $file->validate($validate)
+        $upload_file->validate($validate)
         ->move($save_path);
 
         if ($result) {

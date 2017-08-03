@@ -34,17 +34,17 @@ class Entry extends Base
     public function index()
     {
         $model = ['article', 'download', 'picture', 'product'];
-        if (in_array($this->table_name, $model)) {
+        if (in_array($this->tableName, $model)) {
             $logic = new LogicArticle;
-            $logic->setTableModel($this->table_name);
+            $logic->setTableModel($this->tableName);
         } else {
             // page link feedback message
-            $logic = Loader::model($this->table_name, 'logic');
+            $logic = Loader::model($this->tableName, 'logic');
         }
 
         // feedback or message
-        if ($this->request->isPost() && in_array($this->table_name, ['feedback', 'message'])) {
-            $result = $this->validate($_POST, ucfirst($this->table_name));
+        if ($this->request->isPost() && in_array($this->tableName, ['feedback', 'message'])) {
+            $result = $this->validate($_POST, ucfirst($this->tableName));
             if (true !== $result) {
                 $this->error(Lang::get($result));
             }
@@ -52,9 +52,9 @@ class Entry extends Base
             $result = $logic->added();
             if (true === $result) {
                 $url = Url::build('/list/' . $this->request->param('cid'));
-                $this->success(Lang::get('success ' . $this->table_name . ' added'), $url);
+                $this->success(Lang::get('success ' . $this->tableName . ' added'), $url);
             } else {
-                $this->error(Lang::get('error ' . $this->table_name . ' added'));
+                $this->error(Lang::get('error ' . $this->tableName . ' added'));
             }
         }
 
@@ -65,6 +65,6 @@ class Entry extends Base
         $this->assign('page', $data['page']);
         $this->assign('count', count($data['list']));
 
-        return $this->fetch('entry/' . $this->table_name);
+        return $this->fetch('entry/' . $this->tableName);
     }
 }

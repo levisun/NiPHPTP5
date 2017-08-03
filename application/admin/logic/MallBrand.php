@@ -38,18 +38,19 @@ class MallBrand extends Model
     public function getListData()
     {
         $map = [
-            'lang' => Lang::detect()
+            'b.lang' => Lang::detect()
         ];
 
         if ($key = $this->request->param('key')) {
-            $map['name'] = ['LIKE', '%' . $key . '%'];
+            $map['b.name'] = ['LIKE', '%' . $key . '%'];
         }
 
         $brand = new ModelMallBrand;
         $result =
-        $brand->field(true)
+        $brand->view('mall_brand b', 'id,type_id,name,image')
+        ->view('mall_type t', ['name'=>'type_name'], 't.id=b.type_id')
         ->where($map)
-        ->order('id DESC')
+        ->order('b.id DESC')
         ->paginate();
 
         $list = [];
@@ -72,10 +73,10 @@ class MallBrand extends Model
     public function added()
     {
         $data = [
-            'name'  => $this->request->post('name'),
-            'image' => $this->request->post('image'),
-            'pid'   => $this->request->post('pid/f', 0),
-            'lang'  => Lang::detect(),
+            'name'    => $this->request->post('name'),
+            'type_id' => $this->request->post('type_id', 0),
+            'image'   => $this->request->post('image'),
+            'lang'    => Lang::detect(),
         ];
 
         $brand = new ModelMallBrand;
@@ -115,9 +116,10 @@ class MallBrand extends Model
     public function editor()
     {
         $data = [
-            'name'  => $this->request->post('name'),
-            'image' => $this->request->post('image'),
-            'lang'  => Lang::detect(),
+            'name'    => $this->request->post('name'),
+            'type_id' => $this->request->post('type_id', 0),
+            'image'   => $this->request->post('image'),
+            'lang'    => Lang::detect(),
         ];
         $map = ['id' => $this->request->post('id/f')];
 

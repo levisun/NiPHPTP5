@@ -23,6 +23,7 @@ class MallBrand extends Model
     protected $pk = 'id';
     protected $field = [
         'id',
+        'type_id',
         'name',
         'image',
         'create_time',

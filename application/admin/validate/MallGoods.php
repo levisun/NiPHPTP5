@@ -38,9 +38,9 @@ class MallGoods extends Validate
     protected $message = [
         'id.require'           => 'illegal operation',
         'id.number'            => 'illegal operation',
-        'type_id.require'      => 'error mall type_id require',
-        'type_id.number'       => 'error mall type_id number',
-        'brand_id.number'      => 'error mall brand_id number',
+        'type_id.require'      => 'error goods type_id require',
+        'type_id.number'       => 'error goods type_id number',
+        'brand_id.number'      => 'error goods brand_id number',
         'name.require'         => 'error goods name require',
         'name.length'          => 'error goods name length',
         'name.unique'          => 'error goods name unique',
@@ -50,13 +50,13 @@ class MallGoods extends Validate
         'price.float'          => 'error goods price float',
         'market_price.require' => 'error goods market_price require',
         'market_price.float'   => 'error goods market_price float',
-        'number.number'        => 'error mall number number',
-        'is_pass.number'       => 'error mall is_pass number',
-        'is_show.number'       => 'error mall is_show number',
-        'is_com.number'        => 'error mall is_com number',
-        'is_top.number'        => 'error mall is_top number',
-        'is_hot.number'        => 'error mall is_hot number',
-        'sort.number'          => 'error mall sort number',
+        'number.number'        => 'error goods number number',
+        'is_pass.number'       => 'error goods is_pass number',
+        'is_show.number'       => 'error goods is_show number',
+        'is_com.number'        => 'error goods is_com number',
+        'is_top.number'        => 'error goods is_top number',
+        'is_hot.number'        => 'error goods is_hot number',
+        'sort.number'          => 'error goods sort number',
 
     ];
 

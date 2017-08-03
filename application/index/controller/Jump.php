@@ -30,7 +30,7 @@ class Jump extends Base
     public function index()
     {
         $logic = new LogicJump;
-        $url = $logic->jump($this->table_name);
+        $url = $logic->jump($this->tableName);
         $this->redirect($url, 302);
     }
 }

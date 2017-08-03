@@ -42,9 +42,9 @@ class CategoryModel extends Model
             $map['remark'] = ['LIKE', '%' . $key . '%'];
         }
 
-        $model = new ModelModels;
+        $models = new ModelModels;
         $result =
-        $model->field(true)
+        $models->field(true)
         ->where($map)
         ->paginate();
 
@@ -73,9 +73,9 @@ class CategoryModel extends Model
         ];
         $field = ['id', 'name', 'table_name'];
 
-        $model = new ModelModels;
+        $models = new ModelModels;
         $result =
-        $model->field($field)
+        $models->field($field)
         ->where($map)
         ->select();
 
@@ -122,20 +122,20 @@ class CategoryModel extends Model
             'remark'     => $this->request->post('remark')
         ];
 
-        $model = new ModelModels;
+        $models = new ModelModels;
 
         foreach ($create_table as $value) {
             if ($value) {
-                $model->execute($value);
+                $models->execute($value);
             }
         }
 
-        $model->data($data)
+        $models->data($data)
         ->allowField(true)
         ->isUpdate(false)
         ->save();
 
-        return $model->id ? true : false;
+        return $models->id ? true : false;
     }
 
     /**
@@ -148,9 +148,9 @@ class CategoryModel extends Model
     {
         $map = ['id' => $this->request->param('id/f')];
 
-        $model = new ModelModels;
+        $models = new ModelModels;
         $result =
-        $model->field(true)
+        $models->field(true)
         ->where($map)
         ->find();
 
@@ -172,9 +172,9 @@ class CategoryModel extends Model
         ];
         $map = ['id' => $this->request->post('id/f')];
 
-        $model = new ModelModels;
+        $models = new ModelModels;
         $result =
-        $model->allowField(true)
+        $models->allowField(true)
         ->isUpdate(true)
         ->save($data, $map);
 
@@ -204,9 +204,9 @@ class CategoryModel extends Model
             'external'
         ];
 
-        $model = new ModelModels;
+        $models = new ModelModels;
         $table_name =
-        $model->where($map)
+        $models->where($map)
         ->value('table_name');
 
         if (in_array($table_name, $no_table_name)) {
@@ -216,7 +216,7 @@ class CategoryModel extends Model
         $prefix = Config::get('database.prefix');
 
         $result =
-        $model->where($map)
+        $models->where($map)
         ->delete();
         if ($result) {
             $drop_table = 'DROP TABLE IF EXISTS `' . $prefix . $table_name . '`;';
@@ -244,9 +244,9 @@ class CategoryModel extends Model
             ];
         }
 
-        $model = new ModelModels;
+        $models = new ModelModels;
         $result =
-        $model->saveAll($data);
+        $models->saveAll($data);
 
         return true;
     }

@@ -17,6 +17,7 @@ use think\Model;
 use think\Request;
 use think\Lang;
 use think\Url;
+use think\Cache;
 use app\admin\model\Link as ModelLink;
 
 class Link extends Model

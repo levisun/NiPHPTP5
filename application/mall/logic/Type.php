@@ -33,7 +33,7 @@ class Type extends Model
     /**
      * 获得商品分类
      * @access public
-     * @param  intval $type_id
+     * @param
      * @return array
      */
     public function getType()
@@ -120,5 +120,104 @@ class Type extends Model
         }
 
         return $type_data;
+    }
+
+    /**
+     * 获得当前类下所有类ID
+     * @access protected
+     * @param  int       $id
+     * @return int
+     */
+    public function getCurrentId()
+    {
+        if (!$this->request->has('cid')) {
+            return false;
+        }
+
+        $id = $this->request->param('cid/f');
+
+        $parent_id = $this->getParentId($id);
+
+        $child_id = $this->getChildId($parent_id);
+
+        return $child_id;
+    }
+
+    /**
+     * 获得子类ID
+     * @access protected
+     * @param  int       $id
+     * @return int
+     */
+    protected function getChildId($id)
+    {
+        $map = [
+            'pid' => (int) $id,
+            'is_show' => 1,
+            'lang' => Lang::detect()
+        ];
+        $order = 'sort ASC, id DESC';
+
+        $type = new ModelMallType;
+        $CACHE = check_key($map, __METHOD__);
+
+        $result =
+        $type->field('id')
+        ->where($map)
+        ->order($order)
+        ->cache($CACHE)
+        ->select();
+
+        $type_data = [];
+        foreach ($result as $key => $value) {
+            $value = $value->toArray();
+            $type_data[] = $value['id'];
+
+            $_type = $this->getChildId($value['id']);
+            if ($_type) {
+                $type_data = array_merge($type_data, $_type);
+            }
+        }
+
+        return $type_data;
+    }
+
+    /**
+     * 获得父类ID
+     * @access protected
+     * @param  int       $cid
+     * @return int
+     */
+    protected function getParentId($id)
+    {
+        $map = [
+            'id' => (int) $id,
+            'is_show' => 1,
+            'lang' => Lang::detect()
+        ];
+        $field = [
+            'id',
+            'pid',
+        ];
+        $order = 'sort ASC, id DESC';
+
+        $type = new ModelMallType;
+        $CACHE = check_key($map, __METHOD__);
+
+        $result =
+        $type->field($field)
+        ->where($map)
+        ->order($order)
+        ->cache($CACHE)
+        ->find();
+
+        $type_data = $result ? $result->toArray() : [];
+
+        if ($type_data) {
+            if (!$type_data['pid']) {
+                return $type_data['id'];
+            }
+            return $this->getParentId($type_data['pid']);
+        }
     }
 }

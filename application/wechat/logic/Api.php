@@ -71,8 +71,8 @@ class Api extends Model
         $this->key['link']          = escape_xss($this->wechat->getRevLink());      // 链接信息
         $this->key['voice']         = escape_xss($this->wechat->getRevVoice());     // 音频信息
         $this->key['video']         = escape_xss($this->wechat->getRevVideo());     // 视频信息
+        $this->key['result']        = escape_xss($this->wechat->getRevResult());    // 群发或模板信息回复内容
 
-        defined('OPENID') or define('OPENID', $this->formUser);
     }
 
     /**
@@ -105,7 +105,9 @@ class Api extends Model
                 $reuslt = $this->wechat->getUserInfo($result['openid']);
                 // 增或编辑用户信息
                 $member_account = new MemberLogicAccount;
-                $member_account->AEMember($result);
+                if (!$member_account->hasWecahtMember($result)) {
+                    $member_account->AUWecahtMember($result);
+                }
                 Cookie::set('WECHAT_OPENID', $reuslt['openid']);
             }
         } else {

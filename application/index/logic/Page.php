@@ -18,6 +18,7 @@ use think\Request;
 use think\Lang;
 use think\Url;
 use think\Loader;
+use think\Cache;
 use app\admin\model\Page as ModelPage;
 use app\admin\model\Fields as ModelFields;
 use app\admin\model\TagsArticle as ModelTagsArticle;

@@ -82,7 +82,7 @@ class Base extends Controller
         }
 
         $account_logic = new MemberLogicAccount;
-        $account_logic->autoLogin();
+        $account_logic->autoWechatLogin();
 
         $api_logic = new WechatLogicApi;
 

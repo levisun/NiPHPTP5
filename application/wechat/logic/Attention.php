@@ -43,10 +43,6 @@ class Attention extends LogicCommon
         foreach ($result as $value) {
             $value = $value->toArray();
 
-            if (!empty($value['url'])) {
-                $value['url'] .= is_url_param($value['url']) ? '&openid=' . OPENID : '?openid=' . OPENID;
-            }
-
             if (!empty($value['image']) && !empty($value['url'])) {
                 if (file_exists($value['image'])) {
                     $value['image'] = $this->domain . $value['image'];

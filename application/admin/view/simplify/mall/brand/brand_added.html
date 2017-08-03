@@ -6,13 +6,32 @@
         <div class="smart-widget-body">
             <form action="" method="post" class="form-horizontal">
                 <div class="form-group">
-                    <label for="name" class="col-lg-2 control-label">{:lang('type name')}</label>
+                    <label for="name" class="col-lg-2 control-label">{:lang('brand name')}</label>
                     <div class="col-lg-10">
                         <input type="text" name="name" id="name" class="form-control" value="" >
                     </div>
                 </div>
                 <div class="form-group">
-                    <label for="image" class="col-lg-2 control-label">{:lang('type image')}</label>
+                    <label for="type_id" class="col-lg-2 control-label">{:lang('goods type')}</label>
+                    <div class="col-lg-10">
+                        <select name="type_id" id="type_id" class="form-control">
+                            <option value="">{:lang('please goods type')}</option>
+                            {volist name="type" id="vo"}
+                                {empty name="vo.child"}
+                                <option value="{$vo.id}">{$vo.name}</option>
+                                {else/}
+                                <option value="{$vo.id}" disabled>{$vo.name}</option>
+                                {volist name="vo.child" id="v"}
+                                <option value="{$v.id}">|__{$v.name}</option>
+                                {/volist}
+                                {/empty}
+
+                            {/volist}
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="image" class="col-lg-2 control-label">{:lang('brand image')}</label>
                     <div class="col-lg-10">
                         <input type="text" name="image" id="image" class="form-control" value="">
                         <button type="button" class="btn btn-info btn-sm np-upload" data-type="brand" data-id="image" data-model="">{:lang('button upload')}</button>

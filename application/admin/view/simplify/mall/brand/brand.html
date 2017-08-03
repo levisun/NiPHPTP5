@@ -12,6 +12,7 @@
                         <tr>
                             <th>{:lang('id')}</th>
                             <th>{:lang('name')}</th>
+                            <th>{:lang('type name')}</th>
                             <th>{:lang('operation')}</th>
                         </tr>
                     </thead>
@@ -20,6 +21,7 @@
                         <tr>
                             <td>{$vo.id}</td>
                             <td>{$vo.name}</td>
+                            <td>{$vo.type_name}</td>
                             <td>
                                 <a href="{:url('', array('method' => 'editor', 'id' => $vo['id']))}"><i class="fa fa-edit"></i>{:lang('button editor')}</a>
                                 <a href="{:url('', array('method' => 'remove', 'id' => $vo['id']))}" class="remove"><i class="fa fa-times"></i>{:lang('button delete')}</a>

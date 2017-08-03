@@ -30,7 +30,7 @@ class Article extends Base
     public function index()
     {
         $logic = new LogicArticle;
-        $logic->setTableModel($this->table_name);
+        $logic->setTableModel($this->tableName);
 
         $data = $logic->getArticle();
 
@@ -48,6 +48,6 @@ class Article extends Base
         ];
         $this->view->replace($replace);
 
-        return $this->fetch('article/' . $this->table_name);
+        return $this->fetch('article/' . $this->tableName);
     }
 }

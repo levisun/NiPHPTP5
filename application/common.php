@@ -116,6 +116,13 @@ function check_key($array, $method)
  */
 function escape_xss($data)
 {
+    if (is_array($data)) {
+        foreach ($data as $key => $value) {
+            $data[escape_xss($key)] = escape_xss($value);
+        }
+        return $data;
+    }
+
     $pattern = [
         '/<\?php(.*?)\?>/si',
         '/<\?(.*?)\?>/si',
@@ -274,9 +281,8 @@ function escape_xss($data)
     $data = strtr($data, $strtr);
 
     // 个性字符过虑
-    $rule = '/[\x{4e00}-\x{9fa5}a-zA-Z0-9\s\_\-\(\)\[\]\{\}\|\?\/\!\@\#\$\%\^\&\+\=\:\;\"\'\<\>\,\.\，\。\《\》]+/u';
-    preg_match_all($rule, $data, $matches);
-    $data = implode('', $matches[0]);
+    $rule = '/[^\x{4e00}-\x{9fa5}a-zA-Z0-9\s\_\-\(\)\[\]\{\}\|\?\/\!\@\#\$\%\^\&\+\=\:\;\"\'\<\>\,\.\，\。\《\》]+/u';
+    $data = preg_replace($rule, '', $data);
 
     return $data;
 }

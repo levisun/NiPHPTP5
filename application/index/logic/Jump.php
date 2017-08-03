@@ -18,6 +18,7 @@ use think\Request;
 use think\Lang;
 use think\Url;
 use think\Loader;
+use think\Cache;
 
 class Jump extends Model
 {

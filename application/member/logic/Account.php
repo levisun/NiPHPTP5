@@ -17,7 +17,7 @@ use think\Model;
 use think\Request;
 use think\Config;
 use think\Cookie;
-use net\IpLocation;
+use net\IpLocation as NetIpLocation;
 use app\admin\model\Member as ModelMember;
 use app\admin\model\MemberWechat as ModelMemberWechat;
 
@@ -59,7 +59,7 @@ class Account extends Model
 
         $user_data['last_login_ip'] = $this->request->ip(0, true);
 
-        $ip = new IpLocation();
+        $ip = new NetIpLocation;
         $area = $ip->getlocation($this->request->ip(0, true));
         $user_data['last_login_ip_attr'] = $area['country'] . $area['area'];
 
@@ -122,7 +122,7 @@ class Account extends Model
      * @param
      * @return boolean
      */
-    public function autoLogin()
+    public function autoWechatLogin()
     {
         // 是否微信请求
         if (!is_wechat_request()) {
@@ -137,7 +137,7 @@ class Account extends Model
         $map = ['mw.openid' => Cookie::get('WECHAT_OPENID')];
 
         $result =
-        $member_wechat->view('member_wechat mw', 'nickname,openid')
+        $member_wechat->view('member_wechat mw', 'user_id,nickname,openid')
         ->view('member m', 'id,username,email', 'm.id=mw.user_id')
         ->view('level_member lm', 'user_id', 'm.id=lm.user_id')
         ->view('level l', ['id'=>'level_id', 'name'=>'Level_name'], 'l.id=lm.level_id')
@@ -146,11 +146,19 @@ class Account extends Model
 
         $wechat_data = $result ? $result->toArray() : [];
 
+        // 用户登录关未绑定
+        if (empty($wechat_data['user_id']) && Cookie::has(Config::get('USER_AUTH_KEY'))) {
+            $field = ['user_id'];
+            $wechat_data = ['user_id' => Cookie::get(Config::get('USER_AUTH_KEY'))];
+            $member_wechat->allowField($field)
+            ->save($wechat_data, $map);
+        }
+
         // 用户已经绑定
-        if (!empty($wechat_data['openid'])) {
+        if (!empty($wechat_data['user_id'])) {
             $wechat_data['last_login_ip'] = $this->request->ip(0, true);
 
-            $ip = new IpLocation();
+            $ip = new NetIpLocation;
             $area = $ip->getlocation($this->request->ip(0, true));
             $wechat_data['last_login_ip_attr'] = $area['country'] . $area['area'];
 
@@ -172,15 +180,37 @@ class Account extends Model
     }
 
     /**
+     * 微信用户是否存在
+     * @access public
+     * @param  array  $data
+     * @return boolean
+     */
+    public function hasWecahtMember($data)
+    {
+        $map = ['openid' => $data['openid']];
+
+        $member_wechat = new ModelMemberWechat;
+
+        $result =
+        $member_wechat->field(true)
+        ->where($map)
+        ->find();
+
+        if ($result) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    /**
      * 新增微信用户
      * 编辑微信用户
      * @access public
      * @param  array  $data
-     * @param  string $openid
-     * @param  int    $subscribe
      * @return void
      */
-    public function AEMember($data)
+    public function AUWecahtMember($data)
     {
         $data['tagid_list'] = !empty($data['tagid_list']) ? serialize($data['tagid_list']) : '';
 
@@ -192,7 +222,6 @@ class Account extends Model
         $result =
         $member_wechat->field(true)
         ->where($map)
-        ->cache($CACHE)
         ->find();
 
         if (!$result) {

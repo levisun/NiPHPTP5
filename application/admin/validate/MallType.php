@@ -29,7 +29,7 @@ class MallType extends Validate
         'name.require'      => 'error type name require',
         'name.length'       => 'error type name length not',
         'name.unique'       => 'error type name unique',
-        'image.max'         => 'error image'
+        'image.max'         => 'error type image'
     ];
 
     protected $scene = [
