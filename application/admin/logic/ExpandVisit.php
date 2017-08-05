@@ -46,7 +46,7 @@ class ExpandVisit extends Model
             $obj = new ModelSearchengine;
         } elseif ($this->request->param('method') == 'request') {
             $obj = new ModelRequest;
-            $order = 'create_time DESC';
+            $order = 'update_time DESC';
         } else {
             $obj = new ModelVisit;
         }

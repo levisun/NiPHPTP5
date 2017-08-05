@@ -182,6 +182,9 @@ class Visit extends Model
      */
     public function requestLog()
     {
+        if (rand(1, 100) != 100) {
+            return false;
+        }
         $ip = new NetIpLocation;
         $request_log = new ModelRequestLog;
 

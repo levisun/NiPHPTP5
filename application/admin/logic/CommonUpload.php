@@ -104,7 +104,7 @@ class CommonUpload extends Model
 
             // 非图片文件
             if (!in_array($file_ext, $this->ext)) {
-                $data['file_name'] = './public/upload/' . $upload_type['dir'] . $file_name;
+                $data['file_name'] = '/public/upload/' . $upload_type['dir'] . $file_name;
                 $data['file_name'] = str_replace('\\', '/', $data['file_name']);
                 return $data;
             }
@@ -117,11 +117,11 @@ class CommonUpload extends Model
             // 添加水印
             $this->water($save_path, $file_name, $file_thumb_name, $upload_type['type']);
             // 图片保存地址
-            $data['file_name'] = './public/upload/' . $upload_type['dir'] . $file_name;
+            $data['file_name'] = '/public/upload/' . $upload_type['dir'] . $file_name;
             $data['file_name'] = str_replace('\\', '/', $data['file_name']);
 
             if ($file_thumb_name) {
-                $data['file_thumb_name'] = './public/upload/' . $upload_type['dir'] . $file_thumb_name;
+                $data['file_thumb_name'] = '/public/upload/' . $upload_type['dir'] . $file_thumb_name;
                 $data['file_thumb_name'] = str_replace('\\', '/', $data['file_thumb_name']);
             } else {
                 $data['file_thumb_name'] = $data['file_name'];

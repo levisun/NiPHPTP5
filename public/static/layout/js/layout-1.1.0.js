@@ -26,7 +26,7 @@ Layout.projectName = Layout.pathName.substring(0, Layout.pathName.substr(1).inde
  * 执行脚本目录
  */
 Layout.phpself = Layout.pathName.substring(
-    Layout.pathName.substr(1).indexOf("/") + 1,
+    Layout.pathName.substr(1).indexOf("/") + 2,
     Layout.pathName.substr(1).indexOf(".php") + 5
     ) + "/";
 

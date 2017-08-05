@@ -24,7 +24,7 @@ function to_yen($value, $param = true)
     }
 
     if ($param) {
-        $value = number_format((float) $value / 100, 2);
+        $value = number_format((float) $value / 100, 2, '.', '');
         return '&yen;' . $value;
     } else {
         $strtr = ['&yen;' => '', '¥' => '', '￥' => '', '元' => ''];
@@ -127,17 +127,15 @@ function upload_to_javasecipt($update_file)
 {
     $request = \think\Request::instance();
 
-    $domain = $request->root(true);
-    $domain_arr = explode('/', $domain);
-    array_pop($domain_arr);
-    $domain = implode('/', $domain_arr);
+    $domain = $request->domain();
+    $base_file = substr($request->baseFile(), 0, -10);
 
     if ($request->param('type') == 'ckeditor') {
         // 编辑器
         $ckefn = $request->param('CKEditorFuncNum');
         $javascript = '<script type="text/javascript">';
         $javascript .= 'window.parent.CKEDITOR.tools.callFunction(';
-        $javascript .= $ckefn . ',\'' . $domain . $update_file['file_name'] . '\',';
+        $javascript .= $ckefn . ',\'' . $base_file . $update_file['file_name'] . '\',';
         $javascript .= '\'' . \think\Lang::get('success upload') . '\'';
         $javascript .= ');';
         $javascript .= '</script>';
@@ -145,19 +143,19 @@ function upload_to_javasecipt($update_file)
         // 相册
         $id = $request->post('id');
         $javascript = '<script type="text/javascript">';
-        $javascript .= 'opener.document.getElementById("album-image-' . $id . '").value="' . $update_file['file_name'] . '";';
-        $javascript .= 'opener.document.getElementById("album-thumb-' . $id . '").value="' . $update_file['file_thumb_name'] . '";';
+        $javascript .= 'opener.document.getElementById("album-image-' . $id . '").value="' . $base_file . $update_file['file_name'] . '";';
+        $javascript .= 'opener.document.getElementById("album-thumb-' . $id . '").value="' . $base_file . $update_file['file_thumb_name'] . '";';
         $javascript .= 'opener.document.getElementById("img-album-' . $id . '").style.display="";';
-        $javascript .= 'opener.document.getElementById("img-album-' . $id . '").src="' . $domain . $update_file['file_thumb_name'] . '";';
+        $javascript .= 'opener.document.getElementById("img-album-' . $id . '").src="' . $base_file . $update_file['file_thumb_name'] . '";';
         $javascript .= 'window.close();';
         $javascript .= '</script>';
     } else {
         // 普通缩略图
         $id = $request->post('id');
         $javascript = '<script type="text/javascript">';
-        $javascript .= 'opener.document.getElementById("' . $id . '").value="' . $update_file['file_thumb_name'] . '";';
+        $javascript .= 'opener.document.getElementById("' . $id . '").value="' . $base_file . $update_file['file_thumb_name'] . '";';
         $javascript .= 'opener.document.getElementById("img-' . $id . '").style.display="";';
-        $javascript .= 'opener.document.getElementById("img-' . $id . '").src="' . $domain . $update_file['file_thumb_name'] . '";';
+        $javascript .= 'opener.document.getElementById("img-' . $id . '").src="' . $base_file . $update_file['file_thumb_name'] . '";';
         $javascript .= 'window.close();';
         $javascript .= '</script>';
     }
