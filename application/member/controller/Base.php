@@ -39,9 +39,9 @@ class Base extends Controller
         Config::load(CONF_PATH . 'website.php');
 
         // 访问与搜索日志
-        $logic = new IndexLogicVisit;
-        $logic->visit();
-        $logic->requestLog();
+        // $logic = new IndexLogicVisit;
+        // $logic->visit();
+        // $logic->requestLog();
 
         $common_logic = new LogicCommon;
 

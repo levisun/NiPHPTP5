@@ -43,7 +43,7 @@ class Base extends Controller
         // 访问与搜索日志
         $visit = new IndexLogicVisit;
         $visit->visit();
-        $visit->requestLog();
+        // $visit->requestLog();
 
         $common_model = new LogicCommon;
 

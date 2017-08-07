@@ -40,7 +40,7 @@ class ExpandVisit extends Model
     {
         $this->delLog();
 
-        $order = 'date DESC, count DESC';
+        $order = 'id DESC';
 
         if ($this->request->param('method') == 'searchengine') {
             $obj = new ModelSearchengine;

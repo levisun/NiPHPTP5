@@ -53,7 +53,7 @@ class Base extends Controller
         $visit = new LogicVisit;
         $visit->searchengine();
         $visit->visit();
-        $visit->requestLog();
+        // $visit->requestLog();
 
         // 公众业务
         $this->commonLogic = new LogicCommon;

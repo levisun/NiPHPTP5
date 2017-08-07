@@ -44,9 +44,10 @@ Temporary Items
 
 #Project
 *.back
+*.log
 public/backup/*.zip
-public/static/layout/js/*.log
-public/upload/*.jpg
+public/upload/*/*/*.jpg
+public/upload/*/*/*.png
 runtime/
 thinkphp/
 vendor/

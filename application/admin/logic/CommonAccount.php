@@ -125,12 +125,15 @@ class CommonAccount extends Model
             unset($post_params['password']);
         }
 
+        $info = $this->request->header();
+
         if ($result) {
             // 更新同IP日志
             $data = [
                 'get_params'  => serialize($get_params),
                 'post_params' => serialize($post_params),
                 'url'         => $this->request->url(true),
+                'user_agent'  => $info['user-agent'],
             ];
             $data['count'] = $login ? ['exp', 'count+1'] : 0;
 
@@ -145,6 +148,7 @@ class CommonAccount extends Model
                 'get_params'  => serialize($get_params),
                 'post_params' => serialize($post_params),
                 'url'         => $this->request->url(true),
+                'user_agent'  => $info['user-agent'],
                 'count'       => 1,
                 'type'        => 1
             ];

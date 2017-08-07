@@ -10,9 +10,9 @@
                 <span class="fa fa-eye"></span>{:lang('searchengine')}
             </a>
 
-            <a href="{:url('', array('method' => 'request'))}" class="btn btn-default btn-xs">
+            <!-- <a href="{:url('', array('method' => 'request'))}" class="btn btn-default btn-xs">
                 <span class="fa fa-eye"></span>{:lang('request')}
-            </a>
+            </a> -->
         </span>
     </div>
     <div class="smart-widget-inner">
@@ -29,9 +29,12 @@
                     <tbody>
                         {volist name="list" id="vo"}
                         <tr>
-                            <td>{$vo.date|date='Y-m-d',###}</td>
-                            <td>{$vo.ip} [{$vo.ip_attr}]</td>
-                            <td>{$vo.count}</td>
+                            <td width="10%">{$vo.date|date='Y-m-d',###}</td>
+                            <td>
+                                <p>{$vo.user_agent}</p>
+                                <p>{$vo.ip} [{$vo.ip_attr}]</p>
+                            </td>
+                            <td width="10%">{$vo.count}</td>
                         </tr>
                         {/volist}
                     </tbody>

@@ -47,14 +47,18 @@ class Visit extends Model
         $ip = new NetIpLocation;
         $area = $ip->getlocation($this->request->ip(0, true));
 
-        $visit_ip = include(CONF_PATH . 'visit.php');
-        if (in_array($area['ip'], $visit_ip)) {
+        // 判断是否客户访问 不是返回false
+        $info = $this->request->header();
+        $visit = include(CONF_PATH . 'visit.php');
+        $visit_rule = '/(' . implode('|', $visit) . ')/si';
+        if (preg_match($visit_rule, $info['user-agent'])) {
             return false;
         }
 
         $map = [
-            'ip'      => $area['ip'],
-            'date'    => strtotime(date('Y-m-d'))
+            'ip'   => $area['ip'],
+            'user_agent' => $info['user-agent'],
+            'date' => strtotime(date('Y-m-d'))
         ];
 
         $model = new ModelVisit;
@@ -93,6 +97,7 @@ class Visit extends Model
         }
         $map = [
             'name' => $key,
+            'user_agent' => $info['user-agent'],
             'date' => strtotime(date('Y-m-d'))
         ];
 
@@ -107,6 +112,7 @@ class Visit extends Model
             $model->where($map)
             ->setInc('count');
         } else {
+            $info = $this->request->header();
             $model->allowField(true)
             ->isUpdate(false)
             ->data($map)
@@ -155,21 +161,25 @@ class Visit extends Model
         $searchengine = [
             'GOOGLE'         => 'googlebot',
             'GOOGLE ADSENSE' => 'mediapartners-google',
-            'BAIDU'          => 'baiduspider+',
+            'BAIDU'          => 'baiduspider',
             'MSN'            => 'msnbot',
             'YODAO'          => 'yodaobot',
             'YAHOO'          => 'yahoo! slurp;',
             'Yahoo China'    => 'yahoo! slurp china;',
             'IASK'           => 'iaskspider',
             'SOGOU'          => 'sogou web spider',
-            'SOGOU'          => 'sogou push spider'
+            'SOGOU'          => 'sogou push spider',
+            'YISOU'          => 'yisouspider',
         ];
 
-        $spider = strtolower($info['user-agent']);
+        // $spider = strtolower($info['user-agent']);
         foreach ($searchengine as $key => $value) {
-            if (strpos($spider, $value) !== false) {
+            if (preg_match('/(' . $value . ')/si', $info['user-agent'])) {
                 return $key;
             }
+            // if (strpos($spider, $value) !== false) {
+            //     return $key;
+            // }
         }
         return false;
     }
@@ -182,10 +192,28 @@ class Visit extends Model
      */
     public function requestLog()
     {
-        if (rand(1, 100) != 100) {
+        $key = $this->isSpider();
+        if ($key !== false) {
             return false;
         }
+        $get_params = array_merge($this->request->get(), $this->request->param());
+        $post_params = $this->request->post();
+        // rand(1, 10) != 10 &&
+        if (empty($get_params) && empty($get_params)) {
+            return false;
+        }
+
         $ip = new NetIpLocation;
+        $area = $ip->getlocation($this->request->ip(0, true));
+
+        // 判断是否客户访问 不是返回false
+        $info = $this->request->header();
+        $visit = include(CONF_PATH . 'visit.php');
+        $visit_rule = '/(' . implode('|', $visit) . ')/si';
+        if (preg_match($visit_rule, $info['user-agent'])) {
+            return false;
+        }
+
         $request_log = new ModelRequestLog;
 
         // 删除过期的日志(保留三个月)
@@ -204,11 +232,9 @@ class Visit extends Model
         $request_log->where($map)
         ->find();
 
-        $get_params = array_merge($this->request->get(), $this->request->param());
         if (!empty($get_params['password'])) {
             unset($get_params['password']);
         }
-        $post_params = $this->request->post();
         if (!empty($post_params['password'])) {
             unset($post_params['password']);
         }
@@ -225,7 +251,6 @@ class Visit extends Model
             ->isUpdate(true)
             ->save($data, $map);
         } else {
-            $area = $ip->getlocation($this->request->ip(0, true));
             $data = [
                 'ip'          => $this->request->ip(0, true),
                 'ip_attr'     => $area['country'] . $area['area'],
@@ -234,7 +259,8 @@ class Visit extends Model
                 'url'         => $this->request->url(true),
                 'count'       => 1,
                 'type'        => 0,
-                'create_time' => strtotime(date('Y-m-d'))
+                'create_time' => strtotime(date('Y-m-d')),
+                'user_agent'  => $info['user-agent'],
             ];
             $request_log->data($data)
             ->allowField(true)
