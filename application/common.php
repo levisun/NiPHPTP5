@@ -64,21 +64,21 @@ function cache_clear()
         return false;
     }
 
-    if (rand(1, 100000) == 100000) {
-        Cache::clear();
-        return false;
-    }
-
-    if (rand(1, 10000) != 10000) {
+    if (rand(1, 1000) != 1000) {
         return false;
     }
 
     $list = UtilFile::get(CACHE_PATH);
 
-    rsort($list);
+    $rand = array_rand($list, 10);
+    foreach ($list as $key => $value) {
+        if (!in_array($key, $rand)) {
+            unset($list[$key]);
+        }
+    }
 
     // 删除过期缓存
-    $days = strtotime('-15 days');
+    $days = strtotime('-30 days');
     foreach ($list as $key => $value) {
         if ($value['time'] <= $days) {
             UtilFile::delete(CACHE_PATH . $value['name']);

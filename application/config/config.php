@@ -12,7 +12,7 @@
  * @since     2016/10/22
  */
 return [
-    'sys_version' => '0.2.2 Alpha',
+    'sys_version' => '0.2.3 Alpha',
 
     // 系统设置
     'USER_AUTH_ON'      => 1,
@@ -44,17 +44,26 @@ return [
     // 是否开启请求缓存
     'request_cache'        => false,
     // 请求缓存有效期
-    'request_cache_expire' => 1800,
+    'request_cache_expire' => 300,
     // 过滤方法
     'default_filter'       => 'trim,strip_tags,escape_xss',
     'content_filter'       => 'trim,escape_xss,htmlspecialchars',
     // 语言
     'lang_switch_on'       => true,
     'default_lang'         => 'zh-cn',
+    // 默认模块名
+    'default_module'       => 'index',
     // 禁止访问模块
-    'deny_module_list' => [
-        'admin'
-    ],
+    'deny_module_list'     => ['admin'],
+    // 默认控制器名
+    'default_controller'   => 'Index',
+    // 默认操作名
+    'default_action'       => 'index',
+    // 操作方法前缀
+    'use_action_prefix'    => false,
+    // 操作方法后缀
+    'action_suffix'        => '',
+
     // 模板设置
     'template' => [
         'view_path'   => '',
@@ -100,7 +109,7 @@ return [
     // 缓存设置
     'cache' => [
         'type'         => 'File',
-        'cache_subdir' => false,
+        'cache_subdir' => true,
         'prefix'       => '',
         'expire'       => 1800,
     ],
