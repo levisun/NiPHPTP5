@@ -66,6 +66,8 @@ class SettingsInfo extends Model
         $sys_data['visit']['date'] = $result['date'];
         $sys_data['visit']['count'] = $result['count'];
 
+        $sys_data['table_err'] = $this->dbTableErr();
+
         return $sys_data;
     }
 
@@ -197,5 +199,41 @@ class SettingsInfo extends Model
         }
 
         return $visit;
+    }
+
+    /**
+     * 错误表
+     * @access private
+     * @param
+     * @return int
+     */
+    private function dbTableErr()
+    {
+        $result = $this->query('SHOW TABLES FROM ' . Config::get('database.database'));
+        $tables = array();
+        foreach ($result as $key => $value) {
+            $tables[] = current($value);
+        }
+
+        $error = 0;
+        foreach ($tables as $key => $value) {
+            $map = ['TABLE_NAME' => $value];
+
+            $result =
+            $this->table('information_schema.TABLES')
+            ->field('DATA_FREE, ENGINE')
+            ->where($map)
+            ->find();
+
+            $result = $result ? $result->toArray() : [];
+
+            if ($result['DATA_FREE'] == 0) {
+                continue;
+            }
+
+            $error += $result['DATA_FREE'];
+        }
+
+        return $error;
     }
 }

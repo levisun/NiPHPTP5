@@ -19,6 +19,7 @@ return [
     'info php env' => 'PHP/解译引擎',
     'info db' => '数据库',
     'info copy' => '版权所有',
+    'info table error' => '表碎片',
 
     // 基本设置
     'basic website name' => '网站名称',

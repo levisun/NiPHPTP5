@@ -34,6 +34,10 @@ class Article extends Base
 
         $data = $logic->getArticle();
 
+        if (empty($data)) {
+            $this->redirect('/', 302);
+        }
+
         if ($data['is_link']) {
             $this->redirect(Url::build('/jump/' . $data['category_id'] . '/' . $data['id']), 302);
         }

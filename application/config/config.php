@@ -12,7 +12,9 @@
  * @since     2016/10/22
  */
 return [
-    'sys_version' => '0.2.3 Alpha',
+    'sys_version' => '0.2.4 Alpha',
+
+    'url_domain_root' => 'niphp.com',
 
     // 系统设置
     'USER_AUTH_ON'      => 1,

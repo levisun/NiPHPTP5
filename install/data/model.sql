@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `np_fields` (
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`),
   KEY `type_id` (`type_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='自定义字段表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='自定义字段表';
 
 DROP TABLE IF EXISTS `np_fields_type`;
 CREATE TABLE IF NOT EXISTS `np_fields_type` (
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS `np_fields_type` (
   `regex` varchar(255) NOT NULL DEFAULT '' COMMENT '验证方式',
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='字段类型表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='字段类型表';
 INSERT INTO `np_fields_type` (`id`, `name`, `description`, `regex`) VALUES
 (1, 'text', '文本', 'require'),
 (2, 'number', '数字', 'number'),
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `np_model` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `name` (`name`),
   UNIQUE KEY `table_name` (`table_name`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='模型表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='模型表';
 INSERT INTO `np_model` (`id`, `name`, `table_name`, `remark`, `status`, `sort`) VALUES
 (1, 'article', 'article', '文章模型', 1, 9),
 (2, 'picture', 'picture', '图片模型', 1, 8),

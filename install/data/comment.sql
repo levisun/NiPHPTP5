@@ -23,7 +23,7 @@ CREATE TABLE IF NOT EXISTS `np_comment` (
   KEY `is_report` (`is_report`),
   KEY `report_time` (`report_time`),
   KEY `lang` (`lang`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评论表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='评论表';
 
 DROP TABLE IF EXISTS `np_comment_support`;
 CREATE TABLE IF NOT EXISTS `np_comment_support` (
@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `np_comment_support` (
   KEY `comment_id` (`comment_id`),
   KEY `user_id` (`user_id`),
   KEY `ip` (`ip`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评论支持表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='评论支持表';
 
 DROP TABLE IF EXISTS `np_comment_report`;
 CREATE TABLE IF NOT EXISTS `np_comment_report` (
@@ -51,4 +51,4 @@ CREATE TABLE IF NOT EXISTS `np_comment_report` (
   KEY `comment_id` (`comment_id`),
   KEY `user_id` (`user_id`),
   KEY `ip` (`ip`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评论举报表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='评论举报表';

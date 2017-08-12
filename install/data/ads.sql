@@ -18,4 +18,4 @@ CREATE TABLE IF NOT EXISTS `np_ads` (
   KEY `start_time` (`start_time`),
   KEY `end_time` (`end_time`),
   KEY `lang` (`lang`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='广告表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='广告表';

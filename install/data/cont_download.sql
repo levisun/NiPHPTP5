@@ -36,7 +36,7 @@ CREATE TABLE IF NOT EXISTS `np_download` (
   KEY `is_hot` (`is_hot`),
   KEY `delete_time` (`delete_time`),
   KEY `lang` (`lang`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='下载表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='下载表';
 
 DROP TABLE IF EXISTS `np_download_data`;
 CREATE TABLE IF NOT EXISTS `np_download_data` (
@@ -47,4 +47,4 @@ CREATE TABLE IF NOT EXISTS `np_download_data` (
   PRIMARY KEY (`id`),
   KEY `main_id` (`main_id`),
   KEY `fields_id` (`fields_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='下载扩展表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='下载扩展表';

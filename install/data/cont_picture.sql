@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `np_picture` (
   KEY `is_hot` (`is_hot`),
   KEY `delete_time` (`delete_time`),
   KEY `lang` (`lang`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='图文表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='图文表';
 
 DROP TABLE IF EXISTS `np_picture_album`;
 CREATE TABLE IF NOT EXISTS `np_picture_album` (
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `np_picture_album` (
   `image` varchar(255) NOT NULL DEFAULT '' COMMENT '原图',
   PRIMARY KEY (`id`),
   KEY `main_id` (`main_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='图文相册表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='图文相册表';
 
 
 DROP TABLE IF EXISTS `np_picture_data`;
@@ -57,4 +57,4 @@ CREATE TABLE IF NOT EXISTS `np_picture_data` (
   PRIMARY KEY (`id`),
   KEY `main_id` (`main_id`),
   KEY `fields_id` (`fields_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='图文扩展表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='图文扩展表';

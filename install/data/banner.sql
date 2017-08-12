@@ -20,4 +20,4 @@ CREATE TABLE IF NOT EXISTS `np_banner` (
   KEY `title` (`title`),
   KEY `sort` (`sort`),
   KEY `lang` (`lang`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='幻灯片表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='幻灯片表';

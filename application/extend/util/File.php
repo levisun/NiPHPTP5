@@ -43,7 +43,7 @@ class File
         self::createDir($file_name);
 
         // 不是文件名
-        if (false === strpos($file_name, '.')) {
+        if (false === strpos($file_name, '.php')) {
             return false;
         }
 
@@ -69,7 +69,7 @@ class File
 
         foreach ($dir as $key => $value) {
             // 文件名跳出
-            if (false !== strpos($value, '.')) {
+            if (false !== strpos($value, '.php')) {
                 continue;
             }
 
@@ -201,7 +201,7 @@ class File
      */
     public static function has($file_path)
     {
-        if (false !== strpos($file_path, '.')) {
+        if (false !== strpos($file_path, '.php')) {
             return is_file($file_path);
         } else {
             return is_dir($file_path);

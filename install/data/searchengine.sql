@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `np_searchengine` (
   PRIMARY KEY (`id`),
   KEY `date` (`date`),
   KEY `name` (`name`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT '搜索引擎';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT '搜索引擎';
 
 DROP TABLE IF EXISTS `np_visit`;
 CREATE TABLE IF NOT EXISTS `np_visit` (
@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `np_visit` (
   PRIMARY KEY (`id`),
   KEY `date` (`date`),
   KEY `ip` (`ip`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT '访问表';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT '访问表';
 
 /*DROP TABLE IF EXISTS `np_request_log`;
 CREATE TABLE IF NOT EXISTS `np_request_log` (
@@ -38,4 +38,4 @@ CREATE TABLE IF NOT EXISTS `np_request_log` (
   `create_time` int(11) NOT NULL COMMENT '创建日期',
   PRIMARY KEY (`id`),
   KEY `ip` (`ip`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT '请求日志表';*/
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT '请求日志表';*/

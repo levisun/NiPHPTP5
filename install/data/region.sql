@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `np_region` (
   KEY `pid` (`pid`),
   KEY `name` (`name`),
   KEY `type` (`type`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='地区表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='地区表';
 INSERT INTO `np_region` (`id`, `pid`, `name`, `type`) VALUES
 (1, 0, '中国', 0),
 (2, 1, '北京', 1),

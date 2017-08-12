@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `np_tags` (
   KEY `name` (`name`),
   KEY `count` (`count`),
   KEY `lang` (`lang`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT '标签表';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT '标签表';
 DROP TABLE IF EXISTS `np_tags_article`;
 CREATE TABLE IF NOT EXISTS `np_tags_article` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
@@ -19,4 +19,4 @@ CREATE TABLE IF NOT EXISTS `np_tags_article` (
   KEY `tags_id` (`tags_id`),
   KEY `category_id` (`category_id`),
   KEY `article_id` (`article_id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT '标签文章关联表';
+) ENGINE=MyISAM  DEFAULT CHARSET=utf8 COMMENT '标签文章关联表';

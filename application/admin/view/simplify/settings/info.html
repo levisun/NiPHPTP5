@@ -114,6 +114,19 @@
                             <td>失眠小枕头 [levisun.mail@gmail.com]</td>
                         </tr>
                         <tr>
+                            <th>{:lang('info table error')}</th>
+                            {egt name="data.table_err" value="1000"}
+                            <td style="background-color:red;color:#fff;font-weight:bold;">
+                            {else/}
+                            <td>
+                            {/egt}
+                            <a href="{:url('expand/databack', array('method' => 'optimize'))}">
+                            {$data.table_err}
+                            </a>
+                            </td>
+
+                        </tr>
+                        <tr>
                             <th>在线升级</th>
                             <td>检测更新</td>
                         </tr>

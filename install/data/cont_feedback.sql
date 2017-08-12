@@ -20,7 +20,7 @@ CREATE TABLE IF NOT EXISTS `np_feedback` (
   KEY `is_pass` (`is_pass`),
   KEY `delete_time` (`delete_time`),
   KEY `lang` (`lang`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='反馈表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='反馈表';
 
 DROP TABLE IF EXISTS `np_feedback_data`;
 CREATE TABLE IF NOT EXISTS `np_feedback_data` (
@@ -31,4 +31,4 @@ CREATE TABLE IF NOT EXISTS `np_feedback_data` (
   PRIMARY KEY (`id`),
   KEY `main_id` (`main_id`),
   KEY `fields_id` (`fields_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='反馈扩展表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='反馈扩展表';

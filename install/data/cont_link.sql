@@ -21,4 +21,4 @@ CREATE TABLE IF NOT EXISTS `np_link` (
   KEY `is_pass` (`is_pass`),
   KEY `delete_time` (`delete_time`),
   KEY `lang` (`lang`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='友链表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='友链表';

@@ -6,4 +6,4 @@ CREATE TABLE IF NOT EXISTS `np_type` (
   `description` varchar(555) NOT NULL DEFAULT '' COMMENT '描述',
   PRIMARY KEY (`id`),
   KEY `category_id` (`category_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='分类';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='分类';

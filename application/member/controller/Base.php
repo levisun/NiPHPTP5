@@ -33,6 +33,11 @@ class Base extends Controller
      */
     protected function _initialize()
     {
+        /*if ($this->request->isMobile() && substr($this->request->domain(), -9) != 'localhost') {
+            $url = $this->request->scheme() . '://m.' . Config::get('url_domain_root');
+            $this->redirect($url, 302);
+        }*/
+
         // 设置IP为授权Key
         // Log::key($this->request->ip(0, true));
 

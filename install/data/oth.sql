@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `ecs_order_ext` (
   PRIMARY KEY (`id`),
   KEY `user_id` (`user_id`),
   UNIQUE KEY `order_id` (`order_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '订单扩展表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '订单扩展表';
 
 DROP TABLE IF EXISTS `ecs_parity_mall`;
 CREATE TABLE IF NOT EXISTS `ecs_parity_mall` (
@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS `ecs_parity_mall` (
   `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '比价商城表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '比价商城表';
 INSERT INTO `ecs_parity_mall` (`name`, `status`) VALUES
 ('天猫', 1),
 ('京东', 1),
@@ -42,6 +42,6 @@ CREATE TABLE IF NOT EXISTS `ecs_parity` (
   KEY `goods_id` (`goods_id`),
   KEY `mall_id` (`mall_id`),
   KEY `end_time` (`end_time`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '商品比价表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '商品比价表';
 
 

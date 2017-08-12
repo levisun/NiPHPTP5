@@ -23,16 +23,16 @@ class ExpandDataback extends Model
 {
     protected $request = null;
     protected $notBackTable = [
-        'admin',
-        'access',
-        'action',
-        'action_log',
-        'config',
-        'node',
-        'role',
-        'role_admin',
-        'searchengine',
-        'visit',
+        // 'admin',
+        // 'access',
+        // 'action',
+        // 'action_log',
+        // 'config',
+        // 'node',
+        // 'role',
+        // 'role_admin',
+        // 'searchengine',
+        // 'visit',
     ];
 
     protected function initialize()
@@ -57,7 +57,7 @@ class ExpandDataback extends Model
         // 删除过期备份
         $days = strtotime('-180 days');
         foreach ($list as $key => $value) {
-            if (strtotime($value['time']) <= $days) {
+            if ($value['time'] <= $days) {
                 UtilFile::delete(ROOT_PATH . 'public' . DS . 'backup' . DS . $value['name']);
                 unset($list[$key]);
             } else {
@@ -124,29 +124,19 @@ class ExpandDataback extends Model
 
                     $insert_sql = "INSERT INTO `{$table}` (`" . implode('`,`', $fieldRs) . "`) VALUES ";
                     $values = array();
-                    foreach ($table_data as $data) {
-                        if (!empty($data['delete_time']) && !is_null($data['delete_time'])) {
-                            $data['delete_time'] = strtotime($data['delete_time']);
-                        }
-                        if (array_key_exists("delete_time",$data) && is_null($data['delete_time'])) {
-                            $data['delete_time'] = 'null';
-                        }
-
-                        if (isset($data['create_time'])) {
-                            $data['create_time'] = strtotime($data['create_time']);
+                    foreach ($table_data as $key => $data) {
+                        foreach ($data as $k => $val) {
+                            if ($k != 'delete_time') {
+                                $data[$k] = '\'' . $val . '\'';
+                            } elseif (!$val) {
+                                $data[$k] = 'NULL';
+                            }
                         }
 
-                        if (isset($data['update_time'])) {
-                            $data['update_time'] = strtotime($data['update_time']);
-                        }
-
-                        if (isset($data['show_time'])) {
-                            $data['show_time'] = (float) strtotime($data['show_time']);
-                        }
-
-                        $values[] = '(\'' . implode('\',\'', $data) . '\')';
+                        $values[] = '(' . implode(',', $data) . ')';
                     }
                     $insert_sql .= implode(',', $values) . ';';
+
                     $insert_sql = strtr($insert_sql, ['\'NULL\''=>'NULL']);
 
                     $num = 700001 + $i;
@@ -158,7 +148,7 @@ class ExpandDataback extends Model
 
         // 打包备份
         $zip = new UtilPclzip('');
-        $zip->zipname = ROOT_PATH . 'public' . DS . 'backup' . DS . 'back ' . date('YmdHis') . '.zip';
+        $zip->zipname = ROOT_PATH . 'public' . DS . 'backup' . DS . 'back' . date('YmdHis') . '.zip';
         $zip->create($dir, PCLZIP_OPT_REMOVE_PATH, $dir);
 
         // 删除临时文件
@@ -182,11 +172,11 @@ class ExpandDataback extends Model
         if (file_exists($optimize)) {
             $time = include($optimize);
         } else {
-            $time = strtotime('-30 days');
+            $time = strtotime('-7 days');
         }
 
         // 执行时间大于一个月前时不执行
-        if ($time > strtotime('-30 days')) {
+        if ($time > strtotime('-7 days')) {
             return $time;
         }
 
@@ -195,10 +185,31 @@ class ExpandDataback extends Model
         file_put_contents($optimize, '<?php return ' . $time . ';');
 
         $tables = $this->getTables();
-        $tables_sql = '';
 
-        $sql = 'REPAIR TABLE `' . implode('`,`', $tables) . '`;';
-        $sql .= ' OPTIMIZE TABLE `' . implode('`,`', $tables) . '`;';
+        $sql = [];
+        foreach ($tables as $key => $value) {
+            $map = ['TABLE_NAME' => $value];
+
+            $result =
+            $this->table('information_schema.TABLES')
+            ->field('DATA_FREE, ENGINE')
+            ->where($map)
+            ->find();
+
+            $result = $result ? $result->toArray() : [];
+
+            if ($result['DATA_FREE'] == 0) {
+                continue;
+            }
+
+            if ($result['ENGINE'] == 'InnoDB') {
+                $sql[] = 'ALTER TABLE `' . $value . '` ENGINE=Innodb;';
+            } else {
+                $sql[] = 'REPAIR TABLE `' . $value . '`;';
+                $sql[] = 'OPTIMIZE TABLE `' . $value . '`;';
+            }
+        }
+
         $this->batchQuery($sql);
 
         return true;
@@ -228,19 +239,23 @@ class ExpandDataback extends Model
      */
     public function reduction()
     {
+        set_time_limit(0);
+
         $file = decrypt($this->request->param('id'));
         $name = explode('.', $file);
 
         $dir = TEMP_PATH . $name[0] . DS;
 
         $zipname = ROOT_PATH . 'public' . DS . 'backup' . DS . $file;
-        $zip = new UtilPclzip($zipname);
+        $zip = new UtilPclzip('');
+        $zip->zipname = $zipname;
         $zip->extract(PCLZIP_OPT_PATH, $dir);
 
         $list = UtilFile::get($dir . DS);
         foreach ($list as $key => $value) {
             if ($value['name'] == 'tables.sql') {
                 $sql = file_get_contents($dir . $value['name']);
+                UtilFile::delete($dir. $value['name']);
                 unset($list[$key]);
             }
         }
@@ -251,6 +266,7 @@ class ExpandDataback extends Model
         foreach ($list as $key => $value) {
             $execute_insert_sql = [file_get_contents($dir . $value['name'])];
             $this->batchQuery($execute_insert_sql);
+            UtilFile::delete($dir. $value['name']);
         }
 
         // 删除临时文件

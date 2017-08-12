@@ -28,4 +28,4 @@ CREATE TABLE IF NOT EXISTS `np_category` (
   KEY `is_show` (`is_show`),
   KEY `access_id` (`access_id`),
   KEY `lang` (`lang`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='栏目表';
+) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='栏目表';
