@@ -15,10 +15,8 @@ namespace app\wechat\logic;
 
 use think\Model;
 use think\Request;
-use think\Cache;
 use think\Cookie;
-use net\Wechat as NetWechat;
-use app\admin\model\Config as ModelConfig;
+use app\wechat\logic\Wechat as LogicWechat;
 use app\member\logic\Account as MemberLogicAccount;
 
 class Api extends Model
@@ -38,41 +36,42 @@ class Api extends Model
 
         $this->request = Request::instance();
 
-        $data = $this->getConfig();
-        $option = [
-            'token'          => $data['wechat_token'],
-            'encodingaeskey' => $data['wechat_encodingaeskey'],
-            'appid'          => $data['wechat_appid'],
-            'appsecret'      => $data['wechat_appsecret']
-        ];
-
-        $this->wechat = new NetWechat($option);
+        $this->wechat = new LogicWechat();
     }
 
     /**
-     * 服务器
+     * 获取Js分享
+     * $param = ['title', 'link', 'desc', 'img', success', 'cancel', 'type', 'data_url'];
      * @access public
-     * @param
-     * @return void
+     * @param  array  $param
+     * @return mixed
      */
-    public function server()
+    public function jsShare($param)
     {
-        $this->wechat->valid();
+        // 是否微信请求
+        if (!is_wechat_request()) {
+            return false;
+        }
 
-        $this->type                 = $this->wechat->getRev()->getRevType();
-        $this->event                = $this->wechat->getRevEvent();
-        $this->formUser             = $this->wechat->getRevFrom();
-        $this->userData             = $this->wechat->getUserInfo($this->formUser);
-        $this->key['sceneId']       = escape_xss($this->wechat->getRevSceneId());   // 扫公众号二维码返回值
-        $this->key['eventLocation'] = escape_xss($this->wechat->getRevEventGeo());  // 获得的地理信息
-        $this->key['text']          = escape_xss($this->wechat->getRevContent());   // 文字信息
-        $this->key['image']         = escape_xss($this->wechat->getRevPic());       // 图片信息
-        $this->key['location']      = escape_xss($this->wechat->getRevGeo());       // 地理信息
-        $this->key['link']          = escape_xss($this->wechat->getRevLink());      // 链接信息
-        $this->key['voice']         = escape_xss($this->wechat->getRevVoice());     // 音频信息
-        $this->key['video']         = escape_xss($this->wechat->getRevVideo());     // 视频信息
-        $this->key['result']        = escape_xss($this->wechat->getRevResult());    // 群发或模板信息回复内容
+        if (empty($param['title']) || empty($param['link']) || empty($param['desc']) || empty($param['img'])) {
+            return false;
+        }
 
+        $share_param = [
+            'title'    => $param['title'],  // 分享标题
+            'link'     => $param['link'],   // 分享链接
+            'desc'     => $param['desc'],   // 分享描述
+            'img'      => $param['img'],    // 分享图标
+            'success'  => !empty($param['success']) ? $param['success'] : '',   // 用户确认分享后执行的回调函数
+            'cancel'   => !empty($param['cancel']) ? $param['cancel'] : '',     // 用户取消分享后执行的回调函数
+
+            // 分享类型,music、video或link，不填默认为link
+            'type'     => !empty($param['type']) ? 'type: "' . $param['type'] . '",' : '',
+            // 如果type是music或video，则要提供数据链接，默认为空
+            'data_url' => !empty($param['data_url']) ? 'dataUrl: "' . $param['data_url'] . '",' : '',
+        ];
+
+        return '<script type="text/javascript">wx.onMenuShareTimeline({title:"' . $share_param['title'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});wx.onMenuShareAppMessage({title:"' . $share_param['title'] . '",desc:"' . $share_param['desc'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",' . $share_param['type'] . $share_param['data_url'] . 'success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});wx.onMenuShareQQ({title:"' . $share_param['title'] . '",desc:"' . $share_param['desc'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});wx.onMenuShareWeibo({title:"' . $share_param['title'] . '",desc:"' . $share_param['desc'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});wx.onMenuShareQZone({title:"' . $share_param['title'] . '",desc:"' . $share_param['desc'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});</script>';
     }
 
     /**
@@ -90,31 +89,17 @@ class Api extends Model
             return false;
         }
 
-        if (Cookie::has('WECHAT_OPENID')) {
-            return true;
-        }
+        $this->wechat->getOpenId();
 
-        // 网页授权获得用户openid后再获得用户信息
-        if ($this->request->has('code', 'param')) {
-            $code = $this->request->param('code');
-            $state = $this->request->param('state');
-            if ($state == 'wechatOauth') {
-                // 通过code获得openid
-                $result = $this->wechat->getOauthAccessToken($code);
+        if (Cookie::has('WECHAT_OPENID')) {
+            $member_account = new MemberLogicAccount;
+            // 判断用户是否存在
+            if (!$member_account->hasWecahtMember(Cookie::get('WECHAT_OPENID'))) {
                 // 通过openid获得用户信息
-                $reuslt = $this->wechat->getUserInfo($result['openid']);
-                // 增或编辑用户信息
-                $member_account = new MemberLogicAccount;
-                if (!$member_account->hasWecahtMember($result)) {
-                    $member_account->AUWecahtMember($result);
-                }
-                Cookie::set('WECHAT_OPENID', $reuslt['openid']);
+                $result = $this->wechat->getUserInfo(Cookie::get('WECHAT_OPENID'));
+                // 添加用户
+                $member_account->AUWecahtMember($result);
             }
-        } else {
-            // 直接跳转不授权获取code
-            $url = $this->request->url(true);
-            $url = $this->wechat->getOauthRedirect($url, 'wechatOauth', 'snsapi_base');
-            redirect($url);
         }
     }
 
@@ -131,45 +116,27 @@ class Api extends Model
             return false;
         }
 
-        $result = $this->wechat->getJsSign($this->request->url(true));
-
-        return [
-            'wechat_js_sign' => $result,
-            'wecaht_js_code' => '<script type="text/javascript">wx.config({debug: false,appId: "' . $result['appId'] . '",timestamp: ' . $result['timestamp'] . ',nonceStr: "' . $result['nonceStr'] . '",signature: "' . $result['signature'] . '",jsApiList: ["checkJsApi","onMenuShareTimeline","onMenuShareAppMessage","onMenuShareQQ","onMenuShareWeibo","onMenuShareQZone","hideMenuItems","showMenuItems","hideAllNonBaseMenuItem","showAllNonBaseMenuItem","translateVoice","startRecord","stopRecord","onVoiceRecordEnd","playVoice","onVoicePlayEnd","pauseVoice","stopVoice","uploadVoice","downloadVoice","chooseImage","previewImage","uploadImage","downloadImage","getNetworkType","openLocation","getLocation","hideOptionMenu","showOptionMenu","closeWindow","scanQRCode","chooseWXPay","openProductSpecificView","addCard","chooseCard","openCard"]});</script>'
-        ];
+        return $this->wechat->getJsSign($this->request->url(true));
     }
 
     /**
-     * 获得微信接口配置
-     * @access private
+     * 服务器
+     * @access public
      * @param
-     * @return array
+     * @return void
      */
-    private function getConfig()
+    public function server()
     {
-        $map = [
-            'name' => [
-                'in',
-                'wechat_token,wechat_encodingaeskey,wechat_appid,wechat_appsecret'
-            ],
-            'lang' => 'niphp'
-        ];
+        $result = $this->wechat->apiRequest();
 
-        $config = new ModelConfig;
-        $CACHE = check_key($map, __METHOD__);
-
-        $result =
-        $config->field(true)
-        ->where($map)
-        ->cache($CACHE)
-        ->select();
-
-        $data = [];
-        foreach ($result as $value) {
-            $value = $value->toArray();
-            $data[$value['name']] = $value['value'];
+        if (!is_array($result)) {
+            halt($result);
         }
 
-        return $data;
+        $this->type     = $result['type'];
+        $this->event    = $result['event'];
+        $this->formUser = $result['formUser'];
+        $this->userData = $result['userData'];
+        $this->key      = $result['key'];
     }
 }

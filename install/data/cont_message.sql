@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `np_message` (
   KEY `is_pass` (`is_pass`),
   KEY `delete_time` (`delete_time`),
   KEY `lang` (`lang`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='留言表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='留言表';
 
 DROP TABLE IF EXISTS `np_message_data`;
 CREATE TABLE IF NOT EXISTS `np_message_data` (
@@ -32,4 +32,4 @@ CREATE TABLE IF NOT EXISTS `np_message_data` (
   PRIMARY KEY (`id`),
   KEY `main_id` (`main_id`),
   KEY `fields_id` (`fields_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='留言扩展表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='留言扩展表';

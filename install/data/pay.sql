@@ -6,7 +6,7 @@ CREATE TABLE IF NOT EXISTS `np_pay` (
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
   PRIMARY KEY (`id`),
   KEY `status` (`status`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '支付方法表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '支付方法表';
 
 DROP TABLE IF EXISTS `np_pay_log`;
 CREATE TABLE IF NOT EXISTS `np_pay_log` (
@@ -22,7 +22,7 @@ CREATE TABLE IF NOT EXISTS `np_pay_log` (
   KEY `order_id` (`order_id`)
   KEY `status` (`status`)
   KEY `create_time` (`create_time`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '支付日志表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '支付日志表';
 
 
 DROP TABLE IF EXISTS `np_account_log`;
@@ -40,4 +40,4 @@ CREATE TABLE IF NOT EXISTS `np_account_log` (
   KEY `user_id` (`user_id`),
   KEY `order_id` (`order_id`),
   KEY `status` (`status`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '会员帐户流水';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '会员帐户流水';

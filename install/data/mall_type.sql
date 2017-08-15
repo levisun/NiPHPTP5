@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `np_mall_type` (
   KEY `pid` (`pid`),
   KEY `is_show` (`is_show`),
   KEY `lang` (`lang`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='商城分类表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商城分类表';
 
 
 DROP TABLE IF EXISTS `np_mall_brand`;
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `np_mall_brand` (
   KEY `type_id` (`type_id`),
   UNIQUE KEY `name` (`name`),
   KEY `lang` (`lang`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='商城品牌表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商城品牌表';
 
 DROP TABLE IF EXISTS `np_mall_category`;
 CREATE TABLE IF NOT EXISTS `np_mall_category` (
@@ -54,4 +54,4 @@ CREATE TABLE IF NOT EXISTS `np_mall_category` (
   KEY `pid` (`pid`),
   KEY `is_show` (`is_show`),
   KEY `lang` (`lang`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='商城栏目表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商城栏目表';

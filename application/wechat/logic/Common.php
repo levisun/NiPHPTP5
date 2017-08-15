@@ -32,4 +32,29 @@ class Common extends Model
         $this->domain = $this->request->domain();
         $this->domain .= substr($this->request->baseFile(), 0, -10);
     }
+
+    protected function toReply($data)
+    {
+        $result = [];
+        foreach ($data as $value) {
+            $value = $value->toArray();
+
+            if (!empty($value['image']) && !empty($value['url'])) {
+                if (file_exists($value['image'])) {
+                    $value['image'] = $this->domain . $value['image'];
+                }
+                $result['item'][] = [
+                    'Title' => $value['title'],
+                    'Description' => $value['content'],
+                    'PicUrl' => $value['image'],
+                    'Url' => $value['url']
+                ];
+            } elseif(!empty($value['url'])) {
+                $result[] = '<a href="' . $value['url'] . '">' . $value['content'] . '</a>';
+            } else {
+                $result[] = $value['content'];
+            }
+        }
+        return $result;
+    }
 }

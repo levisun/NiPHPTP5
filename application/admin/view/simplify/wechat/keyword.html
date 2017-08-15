@@ -10,6 +10,7 @@
                 <table class="table table-striped" id="dataTable">
                     <thead>
                         <tr>
+                            <th>{:lang('sort')}</th>
                             <th>{:lang('keyword')}</th>
                             <th>{:lang('title')}</th>
                             <th>{:lang('reply')}</th>
@@ -24,7 +25,7 @@
                             <td>{$vo.keyword}</td>
                             <td>{$vo.title}</td>
                             <td>{$vo.content}</td>
-                            <td>{$vo.image}</td>
+                            <td><img src="__DOMAIN__{$vo.image}" width="50" height="50"></td>
                             <td>
                                 {eq name="vo.status" value="1"}
                                 {:lang('button open')}
@@ -38,6 +39,15 @@
                             </td>
                         </tr>
                         {/volist}
+                        <tr>
+                            <td><input type="submit" value="{:lang('sort')}" class="btn btn-info"></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                     </tbody>
                 </table>
             </form>

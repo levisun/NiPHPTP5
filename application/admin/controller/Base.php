@@ -236,7 +236,7 @@ class Base extends Controller
      * @param  string $remark      备注
      * @return void
      */
-    protected function actionLog($action_name, $record_id = '', $remark = '', $login = false)
+    protected function actionLog($action_name, $record_id = '', $remark = '')
     {
         // 行为为空自动获得
         if (empty($action_name)) {
@@ -245,31 +245,6 @@ class Base extends Controller
         }
         $logic = new LogicCommonAccount;
         $logic->actionLog($action_name, $record_id, $remark);
-        $logic->requestLog($login);
-    }
-
-    /**
-     * 记录请求日志
-     * @access protected
-     * @param
-     * @return void
-     */
-    public function requestLog($login)
-    {
-        $logic = new LogicCommonAccount;
-        $logic->requestLog($login);
-    }
-
-    /**
-     * IP请求错误
-     * @access public
-     * @param
-     * @return void
-     */
-    public function ipRequestError()
-    {
-        $logic = new LogicCommonAccount;
-        return $logic->ipRequestError();
     }
 
     /**

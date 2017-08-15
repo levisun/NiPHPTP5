@@ -24,7 +24,6 @@ use util\Rbac;
 use app\admin\model\Category as ModelCategory;
 use app\admin\model\Action as ModelAction;
 use app\admin\model\ActionLog as ModelActionLog;
-use app\admin\model\RequestLog as ModelRequestLog;
 
 class CommonAccount extends Model
 {
@@ -88,101 +87,6 @@ class CommonAccount extends Model
         $map = ['create_time' => ['ELT', strtotime('-90 days')]];
         $action_log->where($map)
         ->delete();
-    }
-
-    /**
-     * 记录请求日志
-     * @access public
-     * @param
-     * @return void
-     */
-    public function requestLog($login = false)
-    {
-        $ip = new IpLocation();
-        $request_log = new ModelRequestLog;
-
-        // 删除过期的日志(保留三个月)
-        $map = ['create_time' => ['ELT', strtotime('-90 days')]];
-        $request_log->where($map)
-        ->delete();
-
-        // 日志是否存在
-        $map = [
-            'ip'   => $this->request->ip(0, true),
-            'type' => 1
-        ];
-
-        $result =
-        $request_log->where($map)
-        ->find();
-
-        $get_params = array_merge($this->request->get(), $this->request->param());
-        if (!empty($get_params['password'])) {
-            unset($get_params['password']);
-        }
-        $post_params = $this->request->post();
-        if (!empty($post_params['password'])) {
-            unset($post_params['password']);
-        }
-
-        $info = $this->request->header();
-
-        if ($result) {
-            // 更新同IP日志
-            $data = [
-                'get_params'  => serialize($get_params),
-                'post_params' => serialize($post_params),
-                'url'         => $this->request->url(true),
-                'user_agent'  => $info['user-agent'],
-            ];
-            $data['count'] = $login ? ['exp', 'count+1'] : 0;
-
-            $request_log->allowField(true)
-            ->isUpdate(true)
-            ->save($data, $map);
-        } else {
-            $area = $ip->getlocation($this->request->ip(0, true));
-            $data = [
-                'ip'          => $this->request->ip(0, true),
-                'ip_attr'     => $area['country'] . $area['area'],
-                'get_params'  => serialize($get_params),
-                'post_params' => serialize($post_params),
-                'url'         => $this->request->url(true),
-                'user_agent'  => $info['user-agent'],
-                'count'       => 1,
-                'type'        => 1
-            ];
-            $request_log->data($data)
-            ->allowField(true)
-            ->isUpdate(false)
-            ->save();
-        }
-    }
-
-    /**
-     * IP请求错误
-     * 大于三次请求并在3小时内
-     * @access public
-     * @param
-     * @return void
-     */
-    public function ipRequestError()
-    {
-        $ip = new IpLocation();
-        $request_log = new ModelRequestLog;
-
-        $map = [
-            'ip'          => $this->request->ip(0, true),
-            'count'       => ['EGT', 4],
-            'type'        => 1,
-            'update_time' => ['EGT', strtotime('-3 hours')]
-        ];
-
-        $result =
-        $request_log->where($map)
-        ->find();
-
-        return $result ? true : false;
     }
 
     /**

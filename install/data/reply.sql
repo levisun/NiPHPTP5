@@ -7,6 +7,7 @@ CREATE TABLE IF NOT EXISTS `np_reply` (
   `type` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '类型 1自动回复 2关注回复 0关键词回复',
   `image` varchar(255) NOT NULL DEFAULT '' COMMENT '图片',
   `url` varchar(500) NOT NULL DEFAULT '' COMMENT '跳转链接',
+  `sort` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
   `lang` varchar(20) NOT NULL DEFAULT 'zh-cn'  COMMENT '语言',
   PRIMARY KEY (`id`),
@@ -14,4 +15,4 @@ CREATE TABLE IF NOT EXISTS `np_reply` (
   KEY `type` (`type`),
   KEY `status` (`status`),
   KEY `lang` (`lang`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='微信回复表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='微信回复表';

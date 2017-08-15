@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `np_mall_goods` (
   KEY `is_hot` (`is_hot`),
   KEY `number` (`number`),
   KEY `lang` (`lang`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '商品表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '商品表';
 
 DROP TABLE IF EXISTS `np_mall_goods_promote`;
 CREATE TABLE IF NOT EXISTS `np_mall_goods_promote` (
@@ -44,7 +44,7 @@ CREATE TABLE IF NOT EXISTS `np_mall_goods_promote` (
   UNIQUE KEY `goods_id` (`goods_id`),
   KEY `promote_start_time` (`promote_start_time`),
   KEY `promote_end_time` (`promote_end_time`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '商品促销表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '商品促销表';
 
 DROP TABLE IF EXISTS `np_mall_goods_album`;
 CREATE TABLE IF NOT EXISTS `np_mall_goods_album` (
@@ -54,7 +54,7 @@ CREATE TABLE IF NOT EXISTS `np_mall_goods_album` (
   `image` varchar(255) NOT NULL DEFAULT '' COMMENT '原图',
   PRIMARY KEY (`id`),
   KEY `goods_id` (`goods_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='商品相册表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='商品相册表';
 
 DROP TABLE IF EXISTS `np_mall_goods_attr`;
 CREATE TABLE IF NOT EXISTS `np_mall_goods_attr` (
@@ -68,4 +68,4 @@ CREATE TABLE IF NOT EXISTS `np_mall_goods_attr` (
   KEY `pid` (`pid`),
   KEY `goods_id` (`goods_id`),
   KEY `number` (`number`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '商品属性表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '商品属性表';

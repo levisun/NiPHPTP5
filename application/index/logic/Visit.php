@@ -18,7 +18,6 @@ use think\Request;
 use net\IpLocation as NetIpLocation;
 use app\admin\model\Searchengine as ModelSearchengine;
 use app\admin\model\Visit as ModelVisit;
-use app\admin\model\RequestLog as ModelRequestLog;
 
 class Visit extends Model
 {
@@ -182,90 +181,5 @@ class Visit extends Model
             // }
         }
         return false;
-    }
-
-    /**
-     * 记录请求日志
-     * @access public
-     * @param
-     * @return void
-     */
-    public function requestLog()
-    {
-        $key = $this->isSpider();
-        if ($key !== false) {
-            return false;
-        }
-        $get_params = array_merge($this->request->get(), $this->request->param());
-        $post_params = $this->request->post();
-        // rand(1, 10) != 10 &&
-        if (empty($get_params) && empty($get_params)) {
-            return false;
-        }
-
-        $ip = new NetIpLocation;
-        $area = $ip->getlocation($this->request->ip(0, true));
-
-        // 判断是否客户访问 不是返回false
-        $info = $this->request->header();
-        $visit = include(CONF_PATH . 'visit.php');
-        $visit_rule = '/(' . implode('|', $visit) . ')/si';
-        if (preg_match($visit_rule, $info['user-agent'])) {
-            return false;
-        }
-
-        $request_log = new ModelRequestLog;
-
-        // 删除过期的日志(保留三个月)
-        $map = ['create_time' => ['ELT', strtotime('-90 days')]];
-        $request_log->where($map)
-        ->delete();
-
-        // 日志是否存在
-        $map = [
-            'ip' => $this->request->ip(0, true),
-            'create_time' => strtotime(date('Y-m-d')),
-            'type' => 0
-        ];
-
-        $result =
-        $request_log->where($map)
-        ->find();
-
-        if (!empty($get_params['password'])) {
-            unset($get_params['password']);
-        }
-        if (!empty($post_params['password'])) {
-            unset($post_params['password']);
-        }
-
-        if ($result) {
-            // 更新同IP日志
-            $data = [
-                'get_params'  => serialize($get_params),
-                'post_params' => serialize($post_params),
-                'url'         => $this->request->url(true),
-                'count'       => ['exp', 'count+1']
-            ];
-            $request_log->allowField(true)
-            ->isUpdate(true)
-            ->save($data, $map);
-        } else {
-            $data = [
-                'ip'          => $this->request->ip(0, true),
-                'ip_attr'     => $area['country'] . $area['area'],
-                'get_params'  => serialize($get_params),
-                'post_params' => serialize($post_params),
-                'url'         => $this->request->url(true),
-                'count'       => 1,
-                'type'        => 0,
-                'create_time' => strtotime(date('Y-m-d')),
-                'user_agent'  => $info['user-agent'],
-            ];
-            $request_log->data($data)
-            ->allowField(true)
-            ->isUpdate(false)
-            ->save();
-        }
     }
 }

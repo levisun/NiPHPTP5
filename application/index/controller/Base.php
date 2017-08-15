@@ -32,6 +32,8 @@ class Base extends Controller
     protected $tableName   = null;
     // 网站基本数据
     protected $websiteData = [];
+    // 微信对象
+    protected $wechatLogicApi = null;
 
     /**
      * 初始化
@@ -41,9 +43,16 @@ class Base extends Controller
      */
     protected function _initialize()
     {
-        if ($this->request->isMobile() && substr($this->request->domain(), -9) != 'localhost') {
-            $url = $this->request->scheme() . '://m.' . Config::get('url_domain_root');
-            $this->redirect($url, 302);
+        if ($this->request->isMobile()) {
+            $host = $this->request->host();
+            $no = [
+                'localhost',
+                'm.' . Config::get('url_domain_root')
+            ];
+            if (!in_array($host, $no)) {
+                $url = $this->request->scheme() . '://m.' . Config::get('url_domain_root');
+                $this->redirect($url, 302);
+            }
         }
         cache_clear();
 
@@ -88,17 +97,26 @@ class Base extends Controller
         $account_logic = new MemberLogicAccount;
         $account_logic->autoWechatLogin();
 
-        $api_logic = new WechatLogicApi;
+        $this->wechatLogicApi = new WechatLogicApi;
 
         // 生成微信用户信息cookie
-        $api_logic->openid();
+        $this->wechatLogicApi->openid();
 
         $this->assign('wechat_url', $this->request->url(true));
 
         $this->assign('wechat_openid', Cookie::get('WECHAT_OPENID'));
 
         // 生成微信JS签名
-        $this->assign('wechat_js', $api_logic->jsSign());
+        $this->assign('wechat_js', $this->wechatLogicApi->jsSign());
+
+        // 生成微信分享代码
+        $param = [
+            'title' => $this->websiteData['website_name'],
+            'link'  => $this->request->url(true),
+            'desc'  => $this->websiteData['website_description'],
+            'img'   => 'http://www.youtuiyou.cn/images/201708/thumb_img/5403_thumb_G_1502702568078.jpg',
+        ];
+        $this->assign('wechat_share', $this->wechatLogicApi->jsShare($param));
     }
 
     /**

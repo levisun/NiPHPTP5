@@ -20,6 +20,8 @@ use think\Cookie;
 use net\IpLocation as NetIpLocation;
 use app\admin\model\Member as ModelMember;
 use app\admin\model\MemberWechat as ModelMemberWechat;
+use app\admin\model\RequestLog as ModelRequestLog;
+use app\admin\Logic\CommonRequest as AdminLogicCommonRequest;
 
 class Account extends Model
 {
@@ -40,6 +42,8 @@ class Account extends Model
      */
     public function checkLogin()
     {
+        $request_log = new AdminLogicCommonRequest;
+
         $map = ['m.username' => $this->request->post('username')];
         $member = new ModelMember;
         $result =
@@ -53,6 +57,7 @@ class Account extends Model
 
         $password = $this->request->post('password', '', 'trim,md5');
         if (empty($user_data) || $user_data['password'] !== md5($password . $user_data['salt'])) {
+            $request_log->requestLog();
             return 'error username or password';
         }
         unset($user_data['password']);
@@ -75,6 +80,8 @@ class Account extends Model
 
         Cookie::set('USER_DATA', $user_data);
         Cookie::set(Config::get('USER_AUTH_KEY'), $user_data['id']);
+
+        $request_log->requestLog(true);
 
         return true;
     }
@@ -185,9 +192,9 @@ class Account extends Model
      * @param  array  $data
      * @return boolean
      */
-    public function hasWecahtMember($data)
+    public function hasWecahtMember($openid)
     {
-        $map = ['openid' => $data['openid']];
+        $map = ['openid' => $openid];
 
         $member_wechat = new ModelMemberWechat;
 

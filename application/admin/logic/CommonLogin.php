@@ -19,7 +19,7 @@ use think\Request;
 use think\Session;
 use net\IpLocation;
 use app\admin\model\Admin as ModelAdmin;
-
+use app\admin\Logic\CommonRequest as LogicCommonRequest;
 
 class CommonLogin extends Model
 {
@@ -40,6 +40,8 @@ class CommonLogin extends Model
      */
     public function checkLogin()
     {
+        $request_log = new LogicCommonRequest;
+
         $map = ['a.username' => $this->request->post('username')];
         $admin = new ModelAdmin;
         $result =
@@ -53,6 +55,7 @@ class CommonLogin extends Model
 
         $password = $this->request->post('password', '', 'trim,md5');
         if (empty($user_data) || $user_data['password'] !== md5($password . $user_data['salt'])) {
+            $request_log->requestLog();
             return 'error username or password';
         }
         unset($user_data['password']);
@@ -74,6 +77,8 @@ class CommonLogin extends Model
 
         Session::set('ADMIN_DATA', $user_data);
         Session::set(Config::get('USER_AUTH_KEY'), $user_data['id']);
+
+        $request_log->requestLog(true);
 
         return true;
     }

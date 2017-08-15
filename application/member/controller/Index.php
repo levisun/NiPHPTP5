@@ -18,6 +18,7 @@ use think\Lang;
 use app\member\controller\Base;
 use app\member\logic\Account as LogicAccount;
 use app\member\logic\OAuth as LogicOAuth;
+use app\admin\Logic\CommonRequest as AdminLogicCommonRequest;
 
 class Index extends Base
 {
@@ -41,6 +42,12 @@ class Index extends Base
         }
 
         if ($this->request->isPost()) {
+            // IP锁定
+            $request_log = new AdminLogicCommonRequest;
+            if ($request_log->ipRequestError()) {
+                $this->error(Lang::get('error username or password'));
+            }
+
             $result = $this->validate($_POST, 'Account.login');
 
             if(true === $result){

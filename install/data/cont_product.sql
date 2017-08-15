@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `np_product` (
   KEY `is_hot` (`is_hot`),
   KEY `delete_time` (`delete_time`),
   KEY `lang` (`lang`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='产品表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品表';
 
 DROP TABLE IF EXISTS `np_product_album`;
 CREATE TABLE IF NOT EXISTS `np_product_album` (
@@ -45,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `np_product_album` (
   `image` varchar(255) NOT NULL DEFAULT '' COMMENT '原图',
   PRIMARY KEY (`id`),
   KEY `main_id` (`main_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='产品相册表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品相册表';
 
 DROP TABLE IF EXISTS `np_product_data`;
 CREATE TABLE IF NOT EXISTS `np_product_data` (
@@ -56,4 +56,4 @@ CREATE TABLE IF NOT EXISTS `np_product_data` (
   PRIMARY KEY (`id`),
   KEY `main_id` (`main_id`),
   KEY `fields_id` (`fields_id`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT='产品扩展表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='产品扩展表';

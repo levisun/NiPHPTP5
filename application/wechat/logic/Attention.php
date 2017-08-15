@@ -36,29 +36,10 @@ class Attention extends LogicCommon
         $result =
         $model->field(true)
         ->where($map)
+        ->order('id DESC')
         ->cache($CACHE)
         ->select();
 
-        $data = [];
-        foreach ($result as $value) {
-            $value = $value->toArray();
-
-            if (!empty($value['image']) && !empty($value['url'])) {
-                if (file_exists($value['image'])) {
-                    $value['image'] = $this->domain . $value['image'];
-                }
-                $data['item'][] = [
-                    'Title' => $value['title'],
-                    'Description' => $value['content'],
-                    'PicUrl' => $value['image'],
-                    'Url' => $value['url']
-                ];
-            } elseif(!empty($value['url'])) {
-                $data[] = '<a href="' . $value['url'] . '">' . $value['content'] . '</a>';
-            } else {
-                $data[] = $value['content'];
-            }
-        }
-        return $data;
+        return $this->toReply($result);
     }
 }

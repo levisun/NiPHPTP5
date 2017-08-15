@@ -151,4 +151,27 @@ class WechatKeyword extends Model
 
         return !empty($result) ? true : false;
     }
+
+    /**
+     * 排序
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function listSort()
+    {
+        $post = $this->request->post('sort/a');
+        foreach ($post as $key => $value) {
+            $data[] = [
+                'id' => $key,
+                'sort' => $value,
+            ];
+        }
+
+        $banner = new ModelReply;
+        $result =
+        $banner->saveAll($data);
+
+        return true;
+    }
 }

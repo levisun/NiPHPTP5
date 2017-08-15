@@ -17,6 +17,7 @@ use think\Url;
 use think\Lang;
 use app\admin\controller\Base;
 use app\admin\logic\CommonLogin as LogicCommonLogin;
+use app\admin\Logic\CommonRequest as LogicCommonRequest;
 
 class Account extends Base
 {
@@ -30,7 +31,8 @@ class Account extends Base
     {
         if ($this->request->isPost()) {
             // IP锁定
-            if ($this->ipRequestError()) {
+            $request_log = new LogicCommonRequest;
+            if ($request_log->ipRequestError()) {
                 $this->error(Lang::get('error username or password'));
             }
 
@@ -41,7 +43,7 @@ class Account extends Base
             }
 
             if (true === $result) {
-                $this->actionLog('admin_login');
+                $this->actionLog('admin_login', '', 'login success', true);
                 $this->redirect(Url::build('settings/info'));
             } else {
                 $this->actionLog('admin_login', '', 'username or password', true);

@@ -26,9 +26,9 @@
                 <div class="form-group">
                     <label for="image" class="col-lg-2 control-label">{:lang('image')}</label>
                     <div class="col-lg-10">
-                        <input type="text" name="image" id="image" class="form-control" value="">
+                        <input type="text" name="image" id="image" class="form-control" value="{$data.image}">
                         <button type="button" class="btn btn-success marginTB-xs" id="upload" data-type="image" data-id="image" data-model="">{:lang('button upload')}</button>
-                        <img src="{$data.image}" id="img-image" width="100">
+                        <img src="__DOMAIN__{$data.image}" id="img-image" width="100">
                         <font class="grey align-t">{:lang('img info')}</font>
                     </div>
                 </div>

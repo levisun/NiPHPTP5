@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS `np_config` (
   UNIQUE KEY `name` (`name`),
   KEY `value` (`value`),
   KEY `lang` (`lang`)
-) ENGINE=MyISAM DEFAULT CHARSET=utf8 COMMENT '设置表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '设置表';
 INSERT INTO `np_config` (`name`, `value`, `lang`) VALUES
 
 -- 安全与效率

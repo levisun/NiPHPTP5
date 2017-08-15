@@ -18,8 +18,9 @@ use think\Url;
 use think\Lang;
 use think\Config;
 use think\Log;
-use net\Wechat as NetWechat;
+// use net\Wechat as netWechat;
 use util\File as UtilFile;
+use app\wechat\logic\Wechat as LogicWechat;
 use app\wechat\logic\Api as LogicApi;
 use app\wechat\logic\Attention as LogicAttention;
 use app\wechat\logic\AutoKey as LogicAutoKey;
@@ -28,9 +29,10 @@ use app\member\logic\Account as MemberLogicAccount;
 class Index extends Controller
 {
     protected $logicApi;
-    protected $logicWechatMember;
     protected $logicAutoKey;
-    protected $attention;
+    protected $logicAttention;
+
+    protected $logicWechatMember;
 
     /**
      * 初始化
@@ -47,7 +49,7 @@ class Index extends Controller
 
         $this->logicApi          = new LogicApi;
         $this->logicAutoKey      = new LogicAutoKey;
-        $this->attentionLogic    = new LogicAttention;
+        $this->logicAttention    = new LogicAttention;
         $this->logicWechatMember = new MemberLogicAccount;
         $this->logicApi->server();
     }
@@ -55,40 +57,40 @@ class Index extends Controller
     public function index()
     {
         switch ($this->logicApi->type) {
-            case NetWechat::MSGTYPE_TEXT:
+            case LogicWechat::MSGTYPE_TEXT:
                 $this->text();
                 break;
 
-            case NetWechat::MSGTYPE_IMAGE:
+            case LogicWechat::MSGTYPE_IMAGE:
                 $this->image();
                 break;
 
-            case NetWechat::MSGTYPE_LOCATION:
+            case LogicWechat::MSGTYPE_LOCATION:
                 $this->location();
                 break;
 
-            case NetWechat::MSGTYPE_LINK:
+            case LogicWechat::MSGTYPE_LINK:
                 $this->link();
                 break;
 
-            case NetWechat::MSGTYPE_VOICE:
+            case LogicWechat::MSGTYPE_VOICE:
                 $this->voice();
                 break;
 
-            case NetWechat::MSGTYPE_VIDEO:
-            case NetWechat::MSGTYPE_SHORTVIDEO:
+            case LogicWechat::MSGTYPE_VIDEO:
+            case LogicWechat::MSGTYPE_SHORTVIDEO:
                 $this->video();
                 break;
 
-            case NetWechat::MSGTYPE_MUSIC:
+            case LogicWechat::MSGTYPE_MUSIC:
                 $this->music();
                 break;
 
-            case NetWechat::MSGTYPE_NEWS:
+            case LogicWechat::MSGTYPE_NEWS:
                 $this->news();
                 break;
 
-            case NetWechat::MSGTYPE_EVENT:
+            case LogicWechat::MSGTYPE_EVENT:
                 $this->event();
                 break;
 
@@ -106,7 +108,7 @@ class Index extends Controller
      */
     protected function text()
     {
-        if ($this->logicApi->type != NetWechat::MSGTYPE_TEXT) {
+        if ($this->logicApi->type != LogicWechat::MSGTYPE_TEXT) {
             return false;
         }
 
@@ -124,7 +126,7 @@ class Index extends Controller
      */
     protected function image()
     {
-        if ($this->logicApi->type != NetWechat::MSGTYPE_IMAGE) {
+        if ($this->logicApi->type != LogicWechat::MSGTYPE_IMAGE) {
             return false;
         }
         $this->logicApi->key['image'];
@@ -141,7 +143,7 @@ class Index extends Controller
      */
     protected function location()
     {
-        if ($this->logicApi->type != NetWechat::MSGTYPE_LOCATION) {
+        if ($this->logicApi->type != LogicWechat::MSGTYPE_LOCATION) {
             return false;
         }
         $this->logicApi->key['location'];
@@ -155,7 +157,7 @@ class Index extends Controller
      */
     protected function link()
     {
-        if ($this->logicApi->type != NetWechat::MSGTYPE_LINK) {
+        if ($this->logicApi->type != LogicWechat::MSGTYPE_LINK) {
             return false;
         }
         $this->logicApi->key['link'];
@@ -169,7 +171,7 @@ class Index extends Controller
      */
     protected function voice()
     {
-        if ($this->logicApi->type != NetWechat::MSGTYPE_VOICE) {
+        if ($this->logicApi->type != LogicWechat::MSGTYPE_VOICE) {
             return false;
         }
         $this->logicApi->key['voice'];
@@ -183,8 +185,8 @@ class Index extends Controller
      */
     protected function video()
     {
-        if ($this->logicApi->type != NetWechat::MSGTYPE_VIDEO &&
-            $this->logicApi->type != NetWechat::MSGTYPE_SHORTVIDEO) {
+        if ($this->logicApi->type != LogicWechat::MSGTYPE_VIDEO &&
+            $this->logicApi->type != LogicWechat::MSGTYPE_SHORTVIDEO) {
             return false;
         }
         $this->logicApi->key['video'];
@@ -198,7 +200,7 @@ class Index extends Controller
      */
     protected function music()
     {
-        if ($this->logicApi->type != NetWechat::MSGTYPE_MUSIC) {
+        if ($this->logicApi->type != LogicWechat::MSGTYPE_MUSIC) {
             return false;
         }
     }
@@ -211,7 +213,7 @@ class Index extends Controller
      */
     protected function news()
     {
-        if ($this->logicApi->type != NetWechat::MSGTYPE_NEWS) {
+        if ($this->logicApi->type != LogicWechat::MSGTYPE_NEWS) {
             return false;
         }
     }
@@ -224,12 +226,12 @@ class Index extends Controller
      */
     protected function event()
     {
-        if ($this->logicApi->type != NetWechat::MSGTYPE_EVENT) {
+        if ($this->logicApi->type != LogicWechat::MSGTYPE_EVENT) {
             return false;
         }
 
         // 关注事件
-        if ($this->logicApi->event['event'] == NetWechat::EVENT_SUBSCRIBE) {
+        if ($this->logicApi->event['event'] == LogicWechat::EVENT_SUBSCRIBE) {
             // 获取二维码的场景值
             if ($this->logicApi->key['sceneId']) {
 
@@ -239,34 +241,34 @@ class Index extends Controller
             $this->logicWechatMember->AUWecahtMember($this->logicApi->userData);
 
             // 关注回复信息
-            $data = $this->attentionLogic->reply();
+            $data = $this->logicAttention->reply();
             return $this->reply($data);
         }
 
         // 取消关注事件
-        if ($this->logicApi->event['event'] == NetWechat::EVENT_UNSUBSCRIBE) {
+        if ($this->logicApi->event['event'] == LogicWechat::EVENT_UNSUBSCRIBE) {
             // 更新微信用户信息
             $this->logicWechatMember->AUWecahtMember($this->logicApi->userData);
         }
 
         // 上报地理位置事件
-        if ($this->logicApi->event['event'] == NetWechat::EVENT_LOCATION) {
+        if ($this->logicApi->event['event'] == LogicWechat::EVENT_LOCATION) {
             $this->logicApi->key['eventLocation'];
         }
 
         // 点击菜单跳转链接
-        if ($this->logicApi->event['event'] == NetWechat::EVENT_MENU_VIEW) {
+        if ($this->logicApi->event['event'] == LogicWechat::EVENT_MENU_VIEW) {
             # code...
         }
 
         // 点击菜单拉取消息
-        if ($this->logicApi->event['event'] == NetWechat::EVENT_MENU_CLICK) {
+        if ($this->logicApi->event['event'] == LogicWechat::EVENT_MENU_CLICK) {
             # code...
         }
 
         // 模板消息发送结果
-        if ($this->logicApi->event['event'] == NetWechat::EVENT_SEND_TEMPLATE ||
-            $this->logicApi->event['event'] == NetWechat::EVENT_SEND_MASS) {
+        if ($this->logicApi->event['event'] == LogicWechat::EVENT_SEND_TEMPLATE ||
+            $this->logicApi->event['event'] == LogicWechat::EVENT_SEND_MASS) {
             $result = $this->logicApi->key['result'];
             if ($result !== false) {
                 // UtilFile::create();
