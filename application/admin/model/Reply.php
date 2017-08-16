@@ -29,6 +29,7 @@ class Reply extends Model
         'type',
         'image',
         'url',
+        'sort',
         'status',
         'lang'
     ];

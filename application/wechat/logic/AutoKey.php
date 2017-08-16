@@ -43,8 +43,7 @@ class AutoKey extends LogicCommon
     {
         $map = [
             'type' => 0,
-            // 'keyword' => ['LIKE', '%' . $key . '%'],
-            'keyword' => $key,
+            'keyword' => ['LIKE', '%' . $key . '%'],
             'lang' => Lang::detect()
         ];
 
@@ -54,7 +53,7 @@ class AutoKey extends LogicCommon
         $result =
         $model->field(true)
         ->where($map)
-        ->order('id DESC')
+        ->order('sort DESC, id DESC')
         ->cache($CACHE)
         ->select();
 
@@ -80,7 +79,7 @@ class AutoKey extends LogicCommon
         $result =
         $model->field(true)
         ->where($map)
-        ->order('id DESC')
+        ->order('sort DESC, id DESC')
         ->cache($CACHE)
         ->select();
 

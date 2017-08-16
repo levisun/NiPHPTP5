@@ -129,10 +129,6 @@ class Api extends Model
     {
         $result = $this->wechat->apiRequest();
 
-        if (!is_array($result)) {
-            halt($result);
-        }
-
         $this->type     = $result['type'];
         $this->event    = $result['event'];
         $this->formUser = $result['formUser'];

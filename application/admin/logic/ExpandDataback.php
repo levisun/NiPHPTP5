@@ -55,7 +55,7 @@ class ExpandDataback extends Model
         rsort($list);
 
         // 删除过期备份
-        $days = strtotime('-180 days');
+        $days = strtotime('-90 days');
         foreach ($list as $key => $value) {
             if ($value['time'] <= $days) {
                 UtilFile::delete(ROOT_PATH . 'public' . DS . 'backup' . DS . $value['name']);
@@ -74,7 +74,7 @@ class ExpandDataback extends Model
      * @param
      * @return boolean
      */
-    public function createZipSql($limit_=7000)
+    public function createZipSql($limit_=1000)
     {
         $dir = TEMP_PATH . 'BACK' . date('YmdHis') . DS;
         if (!is_dir($dir)) {

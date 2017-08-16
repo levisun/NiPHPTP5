@@ -16,7 +16,7 @@ namespace app\index\controller;
 use think\Url;
 use think\Lang;
 use app\index\controller\Base;
-
+use net\WechatPay;
 class Index extends Base
 {
     protected $beforeActionList = [
@@ -31,6 +31,8 @@ class Index extends Base
      */
     public function index()
     {
-        return $this->fetch();
+
+
+        // return $this->fetch();
     }
 }

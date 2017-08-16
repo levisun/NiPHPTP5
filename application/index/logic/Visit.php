@@ -140,6 +140,7 @@ class Visit extends Model
         }
 
         $model->where($map)
+        ->limit(1000)
         ->delete();
     }
 

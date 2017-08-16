@@ -83,11 +83,13 @@ class ExpandVisit extends Model
         // 删除过期的搜索日志(保留三个月)
         $searchengine = new ModelSearchengine;
         $searchengine->where($map)
+        ->limit(1000)
         ->delete();
 
         // 删除过期的访问日志(保留三个月)
         $visit = new ModelVisit;
         $visit->where($map)
+        ->limit(1000)
         ->delete();
 
         // 删除过期的请求日志(保留三个月)
@@ -98,6 +100,7 @@ class ExpandVisit extends Model
         ];
         $visit = new ModelRequest;
         $visit->where($map)
+        ->limit(1000)
         ->delete();
     }
 }
