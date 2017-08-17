@@ -14,8 +14,6 @@
 return [
     'sys_version' => '0.2.4 Alpha',
 
-    'url_domain_root' => 'niphp.com',
-
     // 系统设置
     'USER_AUTH_ON'      => 1,
     'USER_AUTH_TYPE'    => 2,
@@ -46,7 +44,7 @@ return [
     // 是否开启请求缓存
     'request_cache'        => false,
     // 请求缓存有效期
-    'request_cache_expire' => 300,
+    'request_cache_expire' => 7200,
     // 过滤方法
     'default_filter'       => 'trim,strip_tags,escape_xss',
     'content_filter'       => 'trim,escape_xss,htmlspecialchars',
@@ -113,7 +111,7 @@ return [
         'type'         => 'File',
         'cache_subdir' => true,
         'prefix'       => '',
-        'expire'       => 1800,
+        'expire'       => 7200,
     ],
 
     'http_exception_template' => [

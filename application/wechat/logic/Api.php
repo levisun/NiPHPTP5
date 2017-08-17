@@ -71,7 +71,15 @@ class Api extends Model
             'data_url' => !empty($param['data_url']) ? 'dataUrl: "' . $param['data_url'] . '",' : '',
         ];
 
-        return '<script type="text/javascript">wx.onMenuShareTimeline({title:"' . $share_param['title'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});wx.onMenuShareAppMessage({title:"' . $share_param['title'] . '",desc:"' . $share_param['desc'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",' . $share_param['type'] . $share_param['data_url'] . 'success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});wx.onMenuShareQQ({title:"' . $share_param['title'] . '",desc:"' . $share_param['desc'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});wx.onMenuShareWeibo({title:"' . $share_param['title'] . '",desc:"' . $share_param['desc'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});wx.onMenuShareQZone({title:"' . $share_param['title'] . '",desc:"' . $share_param['desc'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});</script>';
+        $js = '<script type="text/javascript">wx.onMenuShareTimeline({title:"' . $share_param['title'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});wx.onMenuShareQQ({title:"' . $share_param['title'] . '",desc:"' . $share_param['desc'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});wx.onMenuShareWeibo({title:"' . $share_param['title'] . '",desc:"' . $share_param['desc'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});wx.onMenuShareQZone({title:"' . $share_param['title'] . '",desc:"' . $share_param['desc'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});';
+
+        if (!empty($share_param['date_url'])) {
+            $js .= 'wx.onMenuShareAppMessage({title:"' . $share_param['title'] . '",desc:"' . $share_param['desc'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",' . $share_param['type'] . $share_param['data_url'] . 'success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});';
+        }
+
+        $js .= '</script>';
+
+        return $js;
     }
 
     /**

@@ -47,10 +47,10 @@ class Base extends Controller
             $host = $this->request->host();
             $no = [
                 'localhost',
-                'm.' . Config::get('url_domain_root')
+                'm.' . top_domain()
             ];
             if (!in_array($host, $no)) {
-                $url = $this->request->scheme() . '://m.' . Config::get('url_domain_root');
+                $url = $this->request->scheme() . '://m.' . top_domain();
                 $this->redirect($url, 302);
             }
         }

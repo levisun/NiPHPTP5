@@ -17,6 +17,20 @@ use think\Cache;
 use util\File as UtilFile;
 
 /**
+ * 获得顶级域名
+ * @param
+ * @return string
+ */
+function top_domain()
+{
+    $host = Request::instance()->host();
+    $domain = explode('.', $host);
+    array_shift($domain);
+
+    return implode('.', $domain);
+}
+
+/**
  * 是否微信请求
  * @param
  * @return boolean

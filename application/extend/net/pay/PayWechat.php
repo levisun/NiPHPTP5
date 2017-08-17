@@ -1,27 +1,51 @@
 <?php
 /**
-*
+ * 微信支付
+ *
+ * @category   Common\Library
+ * @package    NiPHPCMS
+ * @author     失眠小枕头 [levisun.mail@gmail.com]
+ * @copyright  Copyright (c) 2013, 失眠小枕头, All rights reserved.
+ * @version    CVS: $Id: Wxpay.class.php 2016-09 $
+ * @link       http://www.NiPHP.com
+ * @since      File available since Release 0.1
+ */
+/*
+$config = array(
+    'appid' => 'wx9b2b0724c11c788b',
+    'appsecret' => 'c2d5a77cfc5b71117d3dcd5cf569cbad',
+    'mch_id' => '1303680001',
+    'key' => '0af4769d381ece7b4fddd59dcf048da6'
+);
+$obj = new PayWechat($config);
+$param = array(
+    'body'         => '商品描述 128位',
+    'detail'       => '商品详情',
+    'attach'       => '附加数据 127位',
+    'out_trade_no' => '商户订单号 32位',
+    'total_fee'    => 1000,
+    'goods_tag'    => '商品标记 32位',
+    'notify_url'   => '异步通知回调地址,不能携带参数',
+    'product_id'   => '商品ID 32位',
+    'openid'       => '请求微信OPENID',
+);
+$obj->getJsApi($param);
 */
-namespace net;
+namespace net\pay;
 
-class WechatPay
+class PayWechat
 {
     // 支付配置
     protected $config = [];
 
-    protected $params = [
-        // 'body'         => '',       // 商品描述 128位
-        // 'detail'       => '',       // 商品详情
-        // 'attach'       => '',       // 附加数据 127位
-        // 'out_trade_no' => 0,        // 商户订单号 32位
-        // 'total_fee'    => 1,        // 支付金额 单位分
-        // 'goods_tag'    => '',       // 商品标记 32位
-        // 'notify_url'   => '',       // 异步通知回调地址,不能携带参数
-        // 'trade_type'   => 'JSAPI',  // 交易类型
-        // 'product_id'   => '',       // 商品ID 32位
-        // 'device_info'  => 'WEB',
-    ];
+    protected $params = [];
 
+    /**
+     * 微信支付配置信息
+     * @access public
+     * @param  array  $config
+     * @return void
+     */
     public function __construct($config)
     {
         $this->config = [
@@ -40,7 +64,7 @@ class WechatPay
      * @param  array  $params 支付参数
      * @return string JS
      */
-    public function getJsApi($params)
+    public function jsPay($params)
     {
         $this->params = $params;
 
@@ -52,7 +76,7 @@ class WechatPay
         // 新请求参数
         $params = [
             'appId'     => $result['appid'],
-            'timeStamp' => time(),
+            'timeStamp' => (string) time(),
             'nonceStr'  => $this->getNonceStr(32),
             'package'   => 'prepay_id=' . $result['prepay_id'],
             'signType'  => strtoupper($this->config['sign_type']),
@@ -64,18 +88,20 @@ class WechatPay
         return [
             'js_api_parameters' => $js_api_parameters,
             'notify_url' => $this->params['notify_url'],
-            'js' => '<script type="text/javascript">function jsApiCall(){WeixinJSBridge.invoke("getBrandWCPayRequest",' . $js_api_parameters . ',function(res){if (res.err_msg == "get_brand_wcpay_request:ok") {window.location.replace("' . $this->params['notify_url'] . '?out_trade_no=' . $this->params['out_trade_no'] . '");} else if (res.err_msg == "get_brand_wcpay_request:cancel") {alert("已取消微信支付!");}});}function callpay(){if (typeof WeixinJSBridge == "undefined"){if( document.addEventListener ){document.addEventListener("WeixinJSBridgeReady", jsApiCall, false);}else if (document.attachEvent){document.attachEvent("WeixinJSBridgeReady", jsApiCall);document.attachEvent("onWeixinJSBridgeReady", jsApiCall);}}else{jsApiCall();}}</script>',
+            'js' => '<script type="text/javascript">function jsApiCall(){WeixinJSBridge.invoke("getBrandWCPayRequest",' . $js_api_parameters . ',function(res){if (res.err_msg == "get_brand_wcpay_request:ok") {window.location.replace("' . $this->params['notify_url'] . '?out_trade_no=' . $this->params['out_trade_no'] . '");} else if (res.err_msg == "get_brand_wcpay_request:cancel") {}});}function callpay(){if (typeof WeixinJSBridge == "undefined"){if( document.addEventListener ){document.addEventListener("WeixinJSBridgeReady", jsApiCall, false);}else if (document.attachEvent){document.attachEvent("WeixinJSBridgeReady", jsApiCall);document.attachEvent("onWeixinJSBridgeReady", jsApiCall);}}else{jsApiCall();}}</script>',
         ];
     }
 
     /**
      * 二维码支付
      * @access public
-     * @param
+     * @param  array  $params 支付参数
      * @return string 二维码图片地址
      */
-    public function qrcode()
+    public function qrcode($params)
     {
+        $this->params = $params;
+
         $this->params['trade_type'] = 'NATIVE';  // 交易类型
         $this->params['device_info'] = 'WEB';
 
@@ -97,15 +123,14 @@ class WechatPay
         }
         $xml = $GLOBALS['HTTP_RAW_POST_DATA'];
         $result = (array)simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA);
-        halt($result);
-        if ($result['return_code'] == 'SUCCESS') {
-            /*if (!empty($GLOBALS['out_trade_no'])) {
-                $result = $this->queryOrder(['out_trade_no' => $GLOBALS['out_trade_no']]);
-            }*/
-
-
-            // 订单处理业务
-            return true;
+        if ($result['return_code'] == 'SUCCESS' && $result['result_code'] == 'SUCCESS') {
+            return [
+                'out_trade_no'   => $result['out_trade_no'],    // 商户订单号
+                'openid'         => $result['openid'],          // 支付人OPENID
+                'total_fee'      => $result['total_fee'],       // 支付金额
+                'trade_type'     => $result['trade_type'],      // 支付类型
+                'transaction_id' => $result['transaction_id'],  // 微信订单号
+            ];
         } else {
             return false;
         }
@@ -213,7 +238,6 @@ class WechatPay
         $this->params['spbill_create_ip'] = request()->ip(0, true);
         $this->params['time_start']       = date('YmdHis');
         $this->params['time_expire']      = date('YmdHis', time() + 600);
-        $this->params['openid']           = '';
         $this->params['sign']             = $this->getSign($this->params);
 
         $url = 'https://api.mch.weixin.qq.com/pay/unifiedorder';
@@ -305,7 +329,7 @@ class WechatPay
 
         $sign = '';
         foreach ($params as $key => $value) {
-            if (!in_array($key, ['sign', 'sslcert_path', '']) && !is_array($value)) {
+            if (!in_array($key, ['sign', 'sslcert_path']) && !is_array($value) && $value != '') {
                 $sign .= $key . '=' . $value . '&';
             }
         }
