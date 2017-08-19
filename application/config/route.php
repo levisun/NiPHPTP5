@@ -44,7 +44,8 @@ return [
     'logout'              => 'member/index/logout',
     'reg'                 => 'member/index/reg',
     'forget'              => 'member/index/forget',
-    'my'                  => 'member/my/index',
+
+    'my'                  => 'member/index/index',
     'my/setup'            => 'member/setup/bases',
     'my/setup/bases'      => 'member/setup/bases',
     'my/setup/portrait'   => 'member/setup/portrait',
@@ -57,7 +58,6 @@ return [
 
     'my/collect'          => 'member/collect/article',
     'my/collect/article'  => 'member/collect/article',
-    'my/collect/common'   => 'member/collect/common',
     'my/collect/goods'    => 'member/collect/goods',
 
     // mall
@@ -65,6 +65,8 @@ return [
     'mall/list/:cid'      => 'mall/entry/index',
     'mall/item/:cid/:id'  => 'mall/item/index',
     'mall/order/:id'      => 'mall/order/index',
+    'mall/respond/:type'  => 'mall/order/respond',
+    'mall/notify/:type'   => 'mall/order/notify',
     'mall/cart'           => 'mall/cart/index',
     'mall/shop/:id'       => 'mall/shop/index',
 ];

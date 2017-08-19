@@ -140,11 +140,11 @@ class ExpandDataback extends Model
                     $insert_sql = strtr($insert_sql, ['\'NULL\''=>'NULL']);
 
                     $num = 700001 + $i;
-                    file_put_contents($dir . $table . '_' . $num . '.sql', $insert_sql);
+                    UtilFile::create($dir . $table . '_' . $num . '.sql', $insert_sql);
                 }
             }
         }
-        file_put_contents($dir . 'tables.sql', $tables_sql);
+        UtilFile::create($dir . 'tables_sql', $tables_sql);
 
         // 打包备份
         $zip = new UtilPclzip('');
@@ -182,7 +182,7 @@ class ExpandDataback extends Model
 
         // 记录执行时间
         $time = strtotime(date('Y-m-d H:i:s'));
-        file_put_contents($optimize, '<?php return ' . $time . ';');
+        UtilFile::create($optimize, '<?php return ' . $time . ';');
 
         $tables = $this->getTables();
 

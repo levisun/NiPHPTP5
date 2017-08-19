@@ -16,6 +16,7 @@ namespace app\admin\logic;
 use think\Model;
 use think\Request;
 use think\Config;
+use util\File as UtilFile;
 
 class SettingsLang extends Model
 {
@@ -61,7 +62,7 @@ class SettingsLang extends Model
         $config['lang_switch_on'] = $lang_switch_on ? true : false;
         $config = var_export($config, true);
         $config = '<?php return ' . strtr($config, $str) . ';';
-        file_put_contents(CONF_PATH . 'admin/config.php', $config);
+        UtilFile::create(CONF_PATH . 'admin/config.php', $config, true);
 
 
 
@@ -72,7 +73,7 @@ class SettingsLang extends Model
         $config['lang_switch_on'] = $lang_switch_on ? true : false;
         $config = var_export($config, true);
         $config = '<?php return ' . strtr($config, $str) . ';';
-        file_put_contents(CONF_PATH . 'website.php', $config);
+        UtilFile::create(CONF_PATH . 'website.php', $config, true);
 
         return true;
     }

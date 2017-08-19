@@ -15,8 +15,10 @@ namespace app\wechat\logic;
 use think\Cache;
 use think\Request;
 use think\Cookie;
-use app\admin\model\Config as ModelConfig;
 use net\Wechat as NetWechat;
+use util\File as UtilFile;
+use app\admin\model\Config as ModelConfig;
+
 
 class Wechat extends NetWechat
 {
@@ -116,9 +118,9 @@ class Wechat extends NetWechat
 
     /**
      * 设置缓存，按需重载
-     * @param string $cachename
-     * @param mixed $value
-     * @param int $expired
+     * @param  string  $cachename
+     * @param  mixed   $value
+     * @param  int     $expired
      * @return boolean
      */
     protected function setCache($cachename, $value, $expired)
@@ -132,7 +134,7 @@ class Wechat extends NetWechat
             'time' => $time,
             );
 
-        file_put_contents($file, '<?php $wat=' . var_export($data, true) . ';?>', true);
+        UtilFile::create($file, '<?php $wat=' . var_export($data, true) . ';?>', true);
         return false;
     }
 

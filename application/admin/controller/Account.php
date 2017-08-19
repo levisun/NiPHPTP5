@@ -17,7 +17,7 @@ use think\Url;
 use think\Lang;
 use app\admin\controller\Base;
 use app\admin\logic\CommonLogin as LogicCommonLogin;
-use app\admin\Logic\CommonRequest as LogicCommonRequest;
+use app\admin\logic\CommonRequest as LogicCommonRequest;
 
 class Account extends Base
 {

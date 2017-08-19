@@ -61,7 +61,6 @@ class Visit extends Model
         ];
 
         $model = new ModelVisit;
-        // $CACHE = check_key($map, __METHOD__);
 
         $result =
         $model->field(true)

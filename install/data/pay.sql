@@ -15,8 +15,8 @@ CREATE TABLE IF NOT EXISTS `np_pay_log` (
   `order_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '订单ID',
   `pay_amount` int(11) NOT NULL DEFAULT '0' COMMENT '金额',
   `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态',
-  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
+  `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   PRIMARY KEY (`id`),
   KEY `pid` (`pid`),
   KEY `order_id` (`order_id`)

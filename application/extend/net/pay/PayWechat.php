@@ -26,10 +26,11 @@ $param = array(
     'total_fee'    => 1000,
     'goods_tag'    => '商品标记 32位',
     'notify_url'   => '异步通知回调地址,不能携带参数',
+    'respond_url'  => '同步通知回调地址,不能携带参数',
     'product_id'   => '商品ID 32位',
     'openid'       => '请求微信OPENID',
 );
-$obj->getJsApi($param);
+$obj->jsPay($param);
 */
 namespace net\pay;
 
@@ -66,8 +67,11 @@ class PayWechat
      */
     public function jsPay($params)
     {
-        $this->params = $params;
+        // 同步通知回调地址
+        $respond_url = $params['respond_url'];
+        unset($params['respond_url']);
 
+        $this->params = $params;
         $this->params['trade_type'] = 'JSAPI';  // 交易类型
         $this->params['device_info'] = 'WEB';
 
@@ -88,7 +92,7 @@ class PayWechat
         return [
             'js_api_parameters' => $js_api_parameters,
             'notify_url' => $this->params['notify_url'],
-            'js' => '<script type="text/javascript">function jsApiCall(){WeixinJSBridge.invoke("getBrandWCPayRequest",' . $js_api_parameters . ',function(res){if (res.err_msg == "get_brand_wcpay_request:ok") {window.location.replace("' . $this->params['notify_url'] . '?out_trade_no=' . $this->params['out_trade_no'] . '");} else if (res.err_msg == "get_brand_wcpay_request:cancel") {}});}function callpay(){if (typeof WeixinJSBridge == "undefined"){if( document.addEventListener ){document.addEventListener("WeixinJSBridgeReady", jsApiCall, false);}else if (document.attachEvent){document.attachEvent("WeixinJSBridgeReady", jsApiCall);document.attachEvent("onWeixinJSBridgeReady", jsApiCall);}}else{jsApiCall();}}</script>',
+            'js' => '<script type="text/javascript">function jsApiCall(){WeixinJSBridge.invoke("getBrandWCPayRequest",' . $js_api_parameters . ',function(res){if (res.err_msg == "get_brand_wcpay_request:ok") {window.location.replace("' . $respond_url . '?out_trade_no=' . $this->params['out_trade_no'] . '");} else if (res.err_msg == "get_brand_wcpay_request:cancel") {}});}function callpay(){if (typeof WeixinJSBridge == "undefined"){if( document.addEventListener ){document.addEventListener("WeixinJSBridgeReady", jsApiCall, false);}else if (document.attachEvent){document.attachEvent("WeixinJSBridgeReady", jsApiCall);document.attachEvent("onWeixinJSBridgeReady", jsApiCall);}}else{jsApiCall();}}</script>',
         ];
     }
 
@@ -98,10 +102,13 @@ class PayWechat
      * @param  array  $params 支付参数
      * @return string 二维码图片地址
      */
-    public function qrcode($params)
+    public function qrcodePay($params)
     {
-        $this->params = $params;
+        // 同步通知回调地址
+        $respond_url = $params['respond_url'];
+        unset($params['respond_url']);
 
+        $this->params = $params;
         $this->params['trade_type'] = 'NATIVE';  // 交易类型
         $this->params['device_info'] = 'WEB';
 
@@ -111,16 +118,42 @@ class PayWechat
     }
 
     /**
-     * 回调
+     * 同步通知回调
      * @access public
      * @param
-     * @return void
+     * @return mexid
+     */
+    public function respond()
+    {
+        if (!request()->has('out_trade_no', 'param')) {
+            return false;
+        }
+
+        $out_trade_no = $this->request->param('out_trade_no');
+        $result = $this->queryOrder(['out_trade_no' => $out_trade_no]);
+        if ($result['return_code'] == 'SUCCESS' && $result['result_code'] == 'SUCCESS' && $result['trade_state'] == 'SUCCESS') {
+            return [
+                'out_trade_no'   => $result['out_trade_no'],    // 商户订单号
+                'openid'         => $result['openid'],          // 支付人OPENID
+                'total_fee'      => $result['total_fee'],       // 支付金额
+                'trade_type'     => $result['trade_type'],      // 支付类型
+                'transaction_id' => $result['transaction_id'],  // 微信订单号
+            ];
+        }
+    }
+
+    /**
+     * 异步通知回调
+     * @access public
+     * @param
+     * @return mexid
      */
     public function notify()
     {
         if (empty($GLOBALS['HTTP_RAW_POST_DATA'])) {
             return false;
         }
+
         $xml = $GLOBALS['HTTP_RAW_POST_DATA'];
         $result = (array)simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA);
         if ($result['return_code'] == 'SUCCESS' && $result['result_code'] == 'SUCCESS') {

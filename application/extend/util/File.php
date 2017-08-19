@@ -7,7 +7,7 @@
  * @category  extend\util\
  * @author    失眠小枕头 [levisun.mail@gmail.com]
  * @copyright Copyright (c) 2013, 失眠小枕头, All rights reserved.
- * @version   CVS: $Id: common.php v1.0.1 $
+ * @version   CVS: $Id: File.php v1.0.1 $
  * @link      http://www.NiPHP.com
  */
 namespace util;
@@ -43,7 +43,8 @@ class File
         self::createDir($file_name);
 
         // 不是文件名
-        if (false === strpos($file_name, '.php')) {
+        $pathinfo = pathinfo($file_name);
+        if (empty($pathinfo['extension'])) {
             return false;
         }
 
@@ -69,7 +70,8 @@ class File
 
         foreach ($dir as $key => $value) {
             // 文件名跳出
-            if (false !== strpos($value, '.php')) {
+            $pathinfo = pathinfo($value);
+            if (!empty($pathinfo['extension'])) {
                 continue;
             }
 
@@ -201,7 +203,8 @@ class File
      */
     public static function has($file_path)
     {
-        if (false !== strpos($file_path, '.php')) {
+        $pathinfo = pathinfo($file_path);
+        if (!empty($pathinfo['extension'])) {
             return is_file($file_path);
         } else {
             return is_dir($file_path);
