@@ -84,6 +84,10 @@ function cache_clear()
 
     $list = UtilFile::get(CACHE_PATH);
 
+    if (empty($list)) {
+        return false;
+    }
+
     $rand = array_rand($list, 10);
     foreach ($list as $key => $value) {
         if (!in_array($key, $rand)) {
@@ -92,7 +96,7 @@ function cache_clear()
     }
 
     // 删除过期缓存
-    $days = strtotime('-30 days');
+    $days = strtotime('-90 days');
     foreach ($list as $key => $value) {
         if ($value['time'] <= $days) {
             UtilFile::delete(CACHE_PATH . $value['name']);

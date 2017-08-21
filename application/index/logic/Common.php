@@ -104,7 +104,7 @@ class Common extends Model
         $result =
         $config->field(true)
         ->where($map)
-        ->cache($CACHE)
+        ->cache($CACHE, 0)
         ->select();
 
         $data = [];
@@ -145,7 +145,7 @@ class Common extends Model
         ->view('model m', ['name' => 'model_name'], 'm.id=c.model_id AND m.name!=\'external\'')
         ->view('category cc', 'pid', 'c.id=cc.pid', 'LEFT')
         ->where($map)
-        ->cache($CACHE)
+        ->cache($CACHE, 0)
         ->find();
 
         $data = $result ? $result->toArray() : [];

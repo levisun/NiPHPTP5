@@ -107,7 +107,7 @@ class Base extends Controller
         $this->assign('wechat_openid', Cookie::get('WECHAT_OPENID'));
 
         // 生成微信JS签名
-        $this->assign('wechat_js', $this->wechatLogicApi->jsSign());
+        $this->assign('wechat_js', $this->wechatLogicApi->jsSign('false'));
 
         // 生成微信分享代码
         $param = [

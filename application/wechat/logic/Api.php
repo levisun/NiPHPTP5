@@ -66,20 +66,12 @@ class Api extends Model
             'cancel'   => !empty($param['cancel']) ? $param['cancel'] : '',     // 用户取消分享后执行的回调函数
 
             // 分享类型,music、video或link，不填默认为link
-            'type'     => !empty($param['type']) ? 'type: "' . $param['type'] . '",' : '',
+            'type'     => !empty($param['type']) ? 'type: "' . $param['type'] . '",' : 'link',
             // 如果type是music或video，则要提供数据链接，默认为空
             'data_url' => !empty($param['data_url']) ? 'dataUrl: "' . $param['data_url'] . '",' : '',
         ];
 
-        $js = '<script type="text/javascript">wx.onMenuShareTimeline({title:"' . $share_param['title'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});wx.onMenuShareQQ({title:"' . $share_param['title'] . '",desc:"' . $share_param['desc'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});wx.onMenuShareWeibo({title:"' . $share_param['title'] . '",desc:"' . $share_param['desc'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});wx.onMenuShareQZone({title:"' . $share_param['title'] . '",desc:"' . $share_param['desc'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});';
-
-        if (!empty($share_param['date_url'])) {
-            $js .= 'wx.onMenuShareAppMessage({title:"' . $share_param['title'] . '",desc:"' . $share_param['desc'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",' . $share_param['type'] . $share_param['data_url'] . 'success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});';
-        }
-
-        $js .= '</script>';
-
-        return $js;
+        return 'wx.ready(function(){wx.onMenuShareTimeline({title:"' . $share_param['title'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});wx.onMenuShareQQ({title:"' . $share_param['title'] . '",desc:"' . $share_param['desc'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});wx.onMenuShareWeibo({title:"' . $share_param['title'] . '",desc:"' . $share_param['desc'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});wx.onMenuShareQZone({title:"' . $share_param['title'] . '",desc:"' . $share_param['desc'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});wx.onMenuShareAppMessage({title:"' . $share_param['title'] . '",desc:"' . $share_param['desc'] . '",link:"' . $share_param['link'] . '",imgUrl:"' . $share_param['img'] . '",type:"' . $share_param['type'] . '",dataUrl:"' . $share_param['data_url'] . '",success:function(){' . $share_param['success'] . '},cancel:function(){' . $share_param['cancel'] . '}});});';
     }
 
     /**
@@ -117,14 +109,14 @@ class Api extends Model
      * @param
      * @return mixed
      */
-    public function jsSign()
+    public function jsSign($debug = 'false')
     {
         // 是否微信请求
         if (!is_wechat_request()) {
             return false;
         }
 
-        return $this->wechat->getJsSign($this->request->url(true));
+        return $this->wechat->jsSign($debug);
     }
 
     /**

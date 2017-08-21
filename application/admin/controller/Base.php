@@ -77,10 +77,8 @@ class Base extends Controller
 
             $result = Loader::model($logic_name, 'logic')->added();
             if (true === $result) {
-                Cache::clear();
                 $this->actionLog($log_name);
 
-                // $url = Url::build($this->request->action());
                 $url_param = [];
                 if ($this->request->has('cid')) {
                     $url_param = [
@@ -112,7 +110,6 @@ class Base extends Controller
 
         $result = Loader::model($logic_name, 'logic')->remove();
         if (true === $result) {
-            Cache::clear();
             // 获得操作数据ID,后期再做
             $this->actionLog($log_name);
 
@@ -152,7 +149,6 @@ class Base extends Controller
 
             $result = Loader::model($logic_name, 'logic')->editor();
             if (true === $result) {
-                Cache::clear();
                 $this->actionLog($log_name);
 
                 $this->success(Lang::get('success editor'));

@@ -40,8 +40,6 @@ class File
      */
     public static function create($file_name, $data = '', $is_cover = false)
     {
-        self::createDir($file_name);
-
         // 不是文件名
         $pathinfo = pathinfo($file_name);
         if (empty($pathinfo['extension'])) {
@@ -64,33 +62,17 @@ class File
      */
     public static function createDir($dir_path)
     {
-        $dir = explode(DIRECTORY_SEPARATOR, $dir_path);
-
-        $dir_path = '';
-
-        foreach ($dir as $key => $value) {
-            // 文件名跳出
-            $pathinfo = pathinfo($value);
-            if (!empty($pathinfo['extension'])) {
-                continue;
-            }
-
-            $dir_path .= $value . DIRECTORY_SEPARATOR;
-
-            // 目录是否存在
-            if (self::has($dir_path)) {
-                continue;
-            }
-
-            // 目录为空跳出
-            if ($dir_path == DIRECTORY_SEPARATOR) {
-                continue;
-            }
-
-            // 新建目录
-            mkdir($dir_path, 0755);
-            chmod($dir_path, 0755);
+        $pathinfo = pathinfo($dir_path);
+        if (!empty($pathinfo['extension'])) {
+            return false;
         }
+
+        if (is_dir($dir_path)) {
+            return true;
+        }
+
+        mkdir($dir_path, 0755);
+        // chmod($dir_path, 0755);
     }
 
     /**
@@ -107,10 +89,10 @@ class File
             return unlink($file_or_dir);
         } elseif (is_dir($file_or_dir)) {
             // 获得目录中的所有文件
-            if (substr($file_or_dir, -1) === DIRECTORY_SEPARATOR) {
+            if (substr($file_or_dir, -1) === DS) {
                 $file = glob($file_or_dir . '*');
             } else {
-                $file = glob($file_or_dir . DIRECTORY_SEPARATOR . '*');
+                $file = glob($file_or_dir . DS . '*');
             }
 
             // 删除目录中的所有文件
@@ -135,12 +117,12 @@ class File
     public static function rename($old, $new)
     {
         // 旧名的文件或目录不存在
-        if (!self::has($old)) {
+        if (!is_file($old)) {
             return false;
         }
 
         // 新名的文件或目录存在
-        if (self::has($new)) {
+        if (is_file($new)) {
             return false;
         }
 
@@ -157,9 +139,9 @@ class File
      */
     public static function get($dir)
     {
-        if (self::has($dir)) {
-            if (substr($dir, -1) !== DIRECTORY_SEPARATOR) {
-                $dir .= DIRECTORY_SEPARATOR;
+        if (is_dir($dir)) {
+            if (substr($dir, -1) !== DS) {
+                $dir .= DS;
             }
 
             $no = [
@@ -191,23 +173,6 @@ class File
             return $list;
         } else {
             return false;
-        }
-    }
-
-    /**
-     * 检查文件或目录是否存在
-     * @static
-     * @access public
-     * @param  string  $file_path 文件名或目录
-     * @return boolean
-     */
-    public static function has($file_path)
-    {
-        $pathinfo = pathinfo($file_path);
-        if (!empty($pathinfo['extension'])) {
-            return is_file($file_path);
-        } else {
-            return is_dir($file_path);
         }
     }
 }

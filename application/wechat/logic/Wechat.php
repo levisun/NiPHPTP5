@@ -75,13 +75,13 @@ class Wechat extends NetWechat
      * @param
      * @return mixed
      */
-    public function getJsSign($url, $timestamp = 0, $noncestr = '', $appid = '')
+    public function jsSign($debug = 'false')
     {
-        $result = parent::getJsSign($url, $timestamp, $noncestr, $appid);
+        $result = parent::getJsSign($this->request->url(true));
 
         return [
             'wechat_js_sign' => $result,
-            'wecaht_js_code' => '<script type="text/javascript">wx.config({debug: false,appId: "' . $result['appId'] . '",timestamp: ' . $result['timestamp'] . ',nonceStr: "' . $result['nonceStr'] . '",signature: "' . $result['signature'] . '",jsApiList: ["checkJsApi","onMenuShareTimeline","onMenuShareAppMessage","onMenuShareQQ","onMenuShareWeibo","onMenuShareQZone","hideMenuItems","showMenuItems","hideAllNonBaseMenuItem","showAllNonBaseMenuItem","translateVoice","startRecord","stopRecord","onVoiceRecordEnd","playVoice","onVoicePlayEnd","pauseVoice","stopVoice","uploadVoice","downloadVoice","chooseImage","previewImage","uploadImage","downloadImage","getNetworkType","openLocation","getLocation","hideOptionMenu","showOptionMenu","closeWindow","scanQRCode","chooseWXPay","openProductSpecificView","addCard","chooseCard","openCard"]});</script>'
+            'wecaht_js_code' => 'wx.config({debug: '. $debug . ',appId: "' . $result['appId'] . '",timestamp: ' . $result['timestamp'] . ',nonceStr: "' . $result['nonceStr'] . '",signature: "' . $result['signature'] . '",jsApiList: ["checkJsApi","onMenuShareTimeline","onMenuShareAppMessage","onMenuShareQQ","onMenuShareWeibo","onMenuShareQZone","hideMenuItems","showMenuItems","hideAllNonBaseMenuItem","showAllNonBaseMenuItem","translateVoice","startRecord","stopRecord","onVoiceRecordEnd","playVoice","onVoicePlayEnd","pauseVoice","stopVoice","uploadVoice","downloadVoice","chooseImage","previewImage","uploadImage","downloadImage","getNetworkType","openLocation","getLocation","hideOptionMenu","showOptionMenu","closeWindow","scanQRCode","chooseWXPay","openProductSpecificView","addCard","chooseCard","openCard"]});wx.error(function (res) {alert(res.errMsg);});'
         ];
     }
 
@@ -191,7 +191,7 @@ class Wechat extends NetWechat
         $result =
         $config->field(true)
         ->where($map)
-        ->cache($CACHE)
+        ->cache($CACHE, 0)
         ->select();
 
         $data = [];

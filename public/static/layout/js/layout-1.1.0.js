@@ -41,6 +41,34 @@ if (window.location.host == "localhost") {
 }
 
 /**
+ * 判断微信端
+ */
+Layout.isWechat = function () {
+    var reg = /(MicroMessenger)/i;
+    var user_agent = navigator.userAgent.toLowerCase();
+    var result = user_agent.match(reg);
+    if (result == null) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+/**
+ * 判断移动端
+ */
+Layout.isMobile = function () {
+    var reg = /(blackberry|configuration\/cldc|hp |hp-|htc |htc_|htc-|iemobile|kindle|midp|mmp|motorola|mobile|nokia|opera mini|opera |Googlebot-Mobile|YahooSeeker\/M1A1-R2D2|android|iphone|ipod|mobi|palm|palmos|pocket|portalmmm|ppc;|smartphone|sonyericsson|sqh|spv|symbian|treo|up.browser|up.link|vodafone|windows ce|xda |xda_)/i;
+    var user_agent = navigator.userAgent.toLowerCase();
+    var result = user_agent.match(reg);
+    if (result == null) {
+        return false;
+    } else {
+        return true;
+    }
+}
+
+/**
  * AJAX加载更多
  * var params = {"type": "get",  "data": {"p": 1}}
  * Layout.scrollBot(params, "function_name": "alert");

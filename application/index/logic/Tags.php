@@ -50,6 +50,7 @@ class Tags extends Model
     public function getListData()
     {
         $map = [
+            't.id'   => $this->request->param('id/f'),
             't.lang' => Lang::detect(),
         ];
 

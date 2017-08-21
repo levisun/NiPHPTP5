@@ -119,12 +119,12 @@ class Common extends Model
         ];
 
         $config = new ModelConfig;
-        $CACHE = !APP_DEBUG ? __METHOD__ . implode('', $map['name']) . $map['lang'] : false;
+        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $config->field(true)
         ->where($map)
-        ->cache($CACHE)
+        ->cache($CACHE, 0)
         ->select();
 
         $data = [];

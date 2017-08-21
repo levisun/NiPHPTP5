@@ -77,9 +77,7 @@ class ExpandDataback extends Model
     public function createZipSql($limit_=1000)
     {
         $dir = TEMP_PATH . 'BACK' . date('YmdHis') . DS;
-        if (!is_dir($dir)) {
-            mkdir($dir, 0777, true);
-        }
+        UtilFile::createDir($dir);
 
         $tables = $this->getTables();
         $tables_sql = '';
