@@ -116,15 +116,16 @@ function check_key($array, $method)
         return false;
     }
 
-    $key = $method;
-    foreach ($array as $value) {
+    $check_key = $method;
+    foreach ($array as $key => $value) {
+        $check_key .= $key;
         if (is_array($value)) {
-            $key .= check_key($value, '');
+            $check_key .= implode('', $value);
         } else {
-            $key .= $value;
+            $check_key .= $value;
         }
     }
-    return $key;
+    return $check_key;
 }
 
 /**

@@ -56,12 +56,11 @@ class Common extends Model
         ];
 
         $config = new ModelConfig;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $config->field(true)
         ->where($map)
-        ->cache($CACHE, 0)
+        ->cache(!APP_DEBUG, 0)
         ->select();
 
         $data = [];

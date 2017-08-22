@@ -50,7 +50,6 @@ class Page extends Model
         ];
 
         $model = new ModelPage;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $model->view('page a', true)
@@ -58,7 +57,7 @@ class Page extends Model
         ->view('level l', ['name' => 'level_name'], 'l.id=a.access_id', 'LEFT')
         ->view('category c', ['name' => 'cat_name'], 'c.id=a.category_id')
         ->where($map)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->find();
 
         $list = $result ? $result->toArray() : '';
@@ -85,14 +84,13 @@ class Page extends Model
         $table_name = 'page_data d';
 
         $fields = new ModelFields;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $fields->view('fields f', ['id', 'name' => 'field_name'])
         ->view('fields_type t', ['name' => 'field_type'], 'f.type_id=t.id')
         ->view($table_name, ['data' => 'field_data'], 'f.id=d.fields_id AND d.main_id=' . $id, 'LEFT')
         ->where($map)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->select();
 
         $list = [];
@@ -117,13 +115,12 @@ class Page extends Model
         ];
 
         $tags = new ModelTagsArticle;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $tags->view('tags_article a', 'tags_id')
         ->view('tags t', 'name', 't.id=a.tags_id')
         ->where($map)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->select();
 
         $list = [];

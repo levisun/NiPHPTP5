@@ -66,7 +66,7 @@ class Article extends Model
 
         $CACHE = check_key($map, __METHOD__);
 
-        if ($CACHE && $list = Cache::get($CACHE)) {
+        if ($list = Cache::get($CACHE)) {
             return $list;
         }
 
@@ -125,12 +125,11 @@ class Article extends Model
         ];
 
         $category = new ModelCategory;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $category->field(['id'])
         ->where($map)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->select();
 
         if (!$result) {
@@ -170,7 +169,6 @@ class Article extends Model
         $order = 'a.sort DESC, a.update_time DESC';
 
         $model = Loader::model(ucfirst($this->modelName), 'model', false, 'admin');
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $model->view($this->modelName . ' a', true)
@@ -179,7 +177,7 @@ class Article extends Model
         ->view('category c', ['name' => 'cat_name'], 'c.id=a.category_id')
         ->view('admin ad', ['username' => 'editor_name'], 'a.user_id=ad.id')
         ->where($map)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->find();
 
         $data = $result ? $result->toArray() : [];
@@ -231,12 +229,11 @@ class Article extends Model
         $map = ['main_id' => $this->request->param('id/f')];
 
         $album = Loader::model($this->modelName . 'Album', 'model', false, 'admin');
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $album->field(true)
         ->where($map)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->select();
 
         $list = [];
@@ -259,14 +256,13 @@ class Article extends Model
         $table_name = $this->modelName . '_data d';
 
         $fields = new ModelFields;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $fields->view('fields f', ['id', 'name' => 'field_name'])
         ->view('fields_type t', ['name' => 'field_type'], 'f.type_id=t.id')
         ->view($table_name, ['data' => 'field_data'], 'f.id=d.fields_id AND d.main_id=' . $this->request->param('id/f'), 'LEFT')
         ->where($map)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->select();
 
         $list = [];
@@ -291,13 +287,12 @@ class Article extends Model
         ];
 
         $tags = new ModelTagsArticle;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $tags->view('tags_article a', 'tags_id')
         ->view('tags t', 'name', 't.id=a.tags_id')
         ->where($map)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->select();
 
         $list = [];

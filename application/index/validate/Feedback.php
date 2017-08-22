@@ -25,11 +25,11 @@ class Feedback extends Validate
     ];
 
     protected $message = [
-        'title.require'    => 'error feedback title require',
-        'title.length'     => 'error feedback title length not',
-        'username.require' => 'error feedback username require',
-        'username.length'  => 'error feedback username length not',
-        'content.require'  => 'error feedback content require',
-        'content.max'      => 'error feedback content length not',
+        'title.require'    => '{%error feedback title require}',
+        'title.length'     => '{%error feedback title length not}',
+        'username.require' => '{%error feedback username require}',
+        'username.length'  => '{%error feedback username length not}',
+        'content.require'  => '{%error feedback content require}',
+        'content.max'      => '{%error feedback content length not}',
     ];
 }

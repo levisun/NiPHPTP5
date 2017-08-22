@@ -117,13 +117,12 @@ class Feedback extends Model
         $map = ['f.category_id' => $this->request->param('cid/f')];
 
         $fields = new ModelFields;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $fields->view('fields f', ['id', 'name' => 'field_name'])
         ->view('fields_type t', ['name' => 'field_type'], 'f.type_id=t.id')
         ->where($map)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->select();
 
         $list = [];
@@ -147,11 +146,11 @@ class Feedback extends Model
         $map = ['category_id' => $this->request->param('cid/f')];
 
         $type = new ModelType;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $type->field(true)
         ->where($map)
+        ->cache(!APP_DEBUG)
         ->select();
 
         $list = [];

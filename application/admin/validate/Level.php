@@ -26,16 +26,16 @@ class Level extends Validate
     ];
 
     protected $message = [
-        'id.require'       => 'illegal operation',
-        'id.number'        => 'illegal operation',
-        'name.require'     => 'error levelname require',
-        'name.length'      => 'error levelname length not',
-        'name.unique'      => 'error levelname unique',
-        'integral.require' => 'error integral require',
-        'integral.number'  => 'error integral number',
-        'status.require'   => 'error status require',
-        'status.number'    => 'error status number',
-        'remark.max'       => 'error remark length not',
+        'id.require'       => '{%illegal operation}',
+        'id.number'        => '{%illegal operation}',
+        'name.require'     => '{%error levelname require}',
+        'name.length'      => '{%error levelname length not}',
+        'name.unique'      => '{%error levelname unique}',
+        'integral.require' => '{%error integral require}',
+        'integral.number'  => '{%error integral number}',
+        'status.require'   => '{%error status require}',
+        'status.number'    => '{%error status number}',
+        'remark.max'       => '{%error remark length not}',
     ];
 
     protected $scene = [

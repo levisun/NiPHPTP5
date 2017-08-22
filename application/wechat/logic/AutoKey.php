@@ -48,13 +48,12 @@ class AutoKey extends LogicCommon
         ];
 
         $model = new ModelReply;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $model->field(true)
         ->where($map)
         ->order('sort DESC, id DESC')
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->select();
 
         return $this->toReply($result);
@@ -74,13 +73,12 @@ class AutoKey extends LogicCommon
         ];
 
         $model = new ModelReply;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $model->field(true)
         ->where($map)
         ->order('sort DESC, id DESC')
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->select();
 
         return $this->toReply($result);

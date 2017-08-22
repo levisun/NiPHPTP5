@@ -59,13 +59,12 @@ class LabelFun
         ];
 
         $category = new ModelCategory;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $category->field($field)
         ->where($map)
         ->order($order)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->select();
 
         $data = [];
@@ -108,13 +107,12 @@ class LabelFun
             $map['pid'] = $value['id'];
 
             $category = new ModelCategory;
-            $CACHE = check_key($map, __METHOD__);
 
             $result =
             $category->field($field)
             ->where($map)
             ->order($order)
-            ->cache($CACHE)
+            ->cache(!APP_DEBUG)
             ->select();
 
             $child = [];
@@ -179,12 +177,11 @@ class LabelFun
         ];
 
         $category = new ModelCategory;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $category->field($field)
         ->where($map)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->find();
 
         $data = $result ? $result->toArray() : [];
@@ -234,12 +231,11 @@ class LabelFun
         ];
 
         $category = new ModelCategory;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $category->field($field)
         ->where($map)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->select();
 
         $data = [];
@@ -281,12 +277,11 @@ class LabelFun
         ];
 
         $category = new ModelCategory;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $category->field($field)
         ->where($map)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->find();
 
         $data = $result ? $result->toArray() : [];
@@ -314,12 +309,11 @@ class LabelFun
         ];
 
         $category = new ModelAds;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $category->field(true)
         ->where($map)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->find();
 
         return $result ? $result->toArray() : [];
@@ -342,12 +336,11 @@ class LabelFun
             'lang' => Lang::detect()
         ];
         $banner = new ModelBanner;
-        $CACHE = !APP_DEBUG ? __METHOD__ . 'PARENT' . implode('', $map) : false;
 
         $result =
         $banner->field(true)
         ->where($map)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->find();
 
         $size = $result ? $result->toArray() : [];
@@ -360,12 +353,11 @@ class LabelFun
             'pid' => $id,
             'lang' => Lang::detect()
         ];
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $banner->field(true)
         ->where($map)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->select();
 
         $data = [];
@@ -407,7 +399,6 @@ class LabelFun
         ];
 
         $model = Loader::model(ucfirst($table_name), 'model', false, 'admin');
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $model->view($table_name . ' a', true)
@@ -416,7 +407,7 @@ class LabelFun
         ->view('category c', ['name' => 'cat_name'], 'c.id=a.category_id')
         ->view('admin ad', ['username' => 'editor_name'], 'a.user_id=ad.id')
         ->where($map)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->find();
 
         $data = $result ? $result->toArray() : [];
@@ -454,7 +445,7 @@ class LabelFun
     {
         $CACHE = check_key($param, __METHOD__);
 
-        if ($CACHE && $list = Cache::get($CACHE)) {
+        if ($list = Cache::get($CACHE)) {
             return $list;
         }
 
@@ -532,12 +523,11 @@ class LabelFun
         $map = ['lang' => Lang::detect()];
 
         $tags = new ModelTags;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $tags->field(true)
         ->where($map)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->select();
 
         $data = [];
@@ -564,14 +554,13 @@ class LabelFun
         ];
 
         $category = new ModelCategory;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $category->view('category c', 'id')
         ->view('model m', ['name' => 'model_name'], 'm.id=c.model_id AND m.name!=\'external\'')
         ->view('category cc', 'pid', 'c.id=cc.pid', 'LEFT')
         ->where($map)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->find();
 
         $data = $result ? $result->toArray() : [];

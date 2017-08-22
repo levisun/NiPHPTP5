@@ -25,14 +25,14 @@ class Role extends Validate
     ];
 
     protected $message = [
-        'id.require'     => 'illegal operation',
-        'id.number'      => 'illegal operation',
-        'name.require'   => 'error rolename require',
-        'name.length'    => 'error rolename length not',
-        'name.unique'    => 'error rolename unique',
-        'status.require' => 'error status require',
-        'status.number'  => 'error status number',
-        'remark.max'     => 'error remark length not',
+        'id.require'     => '{%illegal operation}',
+        'id.number'      => '{%illegal operation}',
+        'name.require'   => '{%error rolename require}',
+        'name.length'    => '{%error rolename length not}',
+        'name.unique'    => '{%error rolename unique}',
+        'status.require' => '{%error status require}',
+        'status.number'  => '{%error status number}',
+        'remark.max'     => '{%error remark length not}',
     ];
 
     protected $scene = [

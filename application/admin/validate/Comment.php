@@ -29,22 +29,22 @@ class Comment extends Validate
     ];
 
     protected $message = [
-        'id.require'          => 'illegal operation',
-        'id.number'           => 'illegal operation',
-        'category_id.require' => 'error category_id require',
-        'category_id.number'  => 'error category_id number',
-        'content_id.require'  => 'error content_id require',
-        'content_id.number'   => 'error content_id number',
-        'user_id.require'     => 'error user_id require',
-        'user_id.number'      => 'error user_id number',
-        'pid.require'         => 'error pid require',
-        'pid.number'          => 'error pid number',
-        'content.require'     => 'error content require',
-        'content.max'         => 'error content length not',
-        'is_pass.require'     => 'error is_pass require',
-        'is_pass.number'      => 'error is_pass number',
-        'is_report.require'   => 'error is_report require',
-        'is_report.number'    => 'error is_report number',
+        'id.require'          => '{%illegal operation}',
+        'id.number'           => '{%illegal operation}',
+        'category_id.require' => '{%error category_id require}',
+        'category_id.number'  => '{%error category_id number}',
+        'content_id.require'  => '{%error content_id require}',
+        'content_id.number'   => '{%error content_id number}',
+        'user_id.require'     => '{%error user_id require}',
+        'user_id.number'      => '{%error user_id number}',
+        'pid.require'         => '{%error pid require}',
+        'pid.number'          => '{%error pid number}',
+        'content.require'     => '{%error content require}',
+        'content.max'         => '{%error content length not}',
+        'is_pass.require'     => '{%error is_pass require}',
+        'is_pass.number'      => '{%error is_pass number}',
+        'is_report.require'   => '{%error is_report require}',
+        'is_report.number'    => '{%error is_report number}',
     ];
 
     protected $scene = [

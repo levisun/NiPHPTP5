@@ -48,7 +48,7 @@ class Common extends Model
     {
         $CACHE = check_key([], __METHOD__);
 
-        if ($CACHE && $auth_menu = Cache::get($CACHE)) {
+        if ($auth_menu = Cache::get($CACHE)) {
             return $auth_menu;
         }
 
@@ -119,12 +119,11 @@ class Common extends Model
         ];
 
         $config = new ModelConfig;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $config->field(true)
         ->where($map)
-        ->cache($CACHE, 0)
+        ->cache(!APP_DEBUG, 0)
         ->select();
 
         $data = [];

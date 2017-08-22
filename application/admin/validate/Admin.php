@@ -27,19 +27,19 @@ class Admin extends Validate
     ];
 
     protected $message = [
-        'id.require'           => 'illegal operation',
-        'id.number'            => 'illegal operation',
-        'username.require'     => 'error adminname require',
-        'username.length'      => 'error adminname length not',
-        'username.unique'      => 'error adminname unique',
-        'password.require'     => 'error password require',
-        'password.max'         => 'error password length not',
-        'not_password.require' => 'error not_password require',
-        'not_password.confirm' => 'error not_password confirm',
-        'email.require'        => 'error email require',
-        'email.email'          => 'error email email',
-        'role.require'         => 'error role require',
-        'role.number'          => 'error role number',
+        'id.require'           => '{%illegal operation}',
+        'id.number'            => '{%illegal operation}',
+        'username.require'     => '{%error adminname require}',
+        'username.length'      => '{%error adminname length not}',
+        'username.unique'      => '{%error adminname unique}',
+        'password.require'     => '{%error password require}',
+        'password.max'         => '{%error password length not}',
+        'not_password.require' => '{%error not_password require}',
+        'not_password.confirm' => '{%error not_password confirm}',
+        'email.require'        => '{%error email require}',
+        'email.email'          => '{%error email email}',
+        'role.require'         => '{%error role require}',
+        'role.number'          => '{%error role number}',
     ];
 
     protected $scene = [

@@ -52,13 +52,12 @@ class Type extends Model
         $order = 'sort ASC, id DESC';
 
         $type = new ModelMallType;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $type->field($field)
         ->where($map)
         ->order($order)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->select();
 
         $data = [];
@@ -97,13 +96,12 @@ class Type extends Model
 
             // 查询子类
             $map['pid'] = $value['id'];
-            $CACHE = check_key($map, __METHOD__);
 
             $result =
             $type->field($field)
             ->where($map)
             ->order($order)
-            ->cache($CACHE)
+            ->cache(!APP_DEBUG)
             ->select();
 
             $child = [];
@@ -159,13 +157,12 @@ class Type extends Model
         $order = 'sort ASC, id DESC';
 
         $type = new ModelMallType;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $type->field('id')
         ->where($map)
         ->order($order)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->select();
 
         $type_data = [];
@@ -202,13 +199,12 @@ class Type extends Model
         $order = 'sort ASC, id DESC';
 
         $type = new ModelMallType;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $type->field($field)
         ->where($map)
         ->order($order)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->find();
 
         $type_data = $result ? $result->toArray() : [];

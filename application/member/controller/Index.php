@@ -58,7 +58,8 @@ class Index extends Base
             if (true === $result) {
                 $this->redirect(Url::build('/my'));
             } else {
-                $this->error(Lang::get($result));
+                $this->error($result);
+                // $this->error(Lang::get($result));
             }
         }
         return $this->fetch();

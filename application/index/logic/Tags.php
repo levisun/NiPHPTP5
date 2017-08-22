@@ -56,7 +56,7 @@ class Tags extends Model
 
         $CACHE = check_key($map, __METHOD__);
 
-        if ($CACHE && $list = Cache::get($CACHE)) {
+        if ($list = Cache::get($CACHE)) {
             return $list;
         }
 

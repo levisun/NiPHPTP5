@@ -46,7 +46,8 @@ class Entry extends Base
         if ($this->request->isPost() && in_array($this->tableName, ['feedback', 'message'])) {
             $result = $this->validate($_POST, ucfirst($this->tableName));
             if (true !== $result) {
-                $this->error(Lang::get($result));
+                $this->error($result);
+                // $this->error(Lang::get($result));
             }
 
             $result = $logic->added();

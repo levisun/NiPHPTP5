@@ -49,7 +49,6 @@ class Brand extends Model
         $order = 'b.sort ASC, b.id DESC';
 
         $brand = new ModelMallBrand;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $result =
@@ -57,6 +56,7 @@ class Brand extends Model
         ->view('mall_type t', ['name'=>'type_name'], 't.id=b.type_id')
         ->where($map)
         ->order($order)
+        ->cache(!APP_DEBUG)
         ->select();
 
         $data = [];

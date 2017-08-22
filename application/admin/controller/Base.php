@@ -165,7 +165,9 @@ class Base extends Controller
             $validate_name = ucfirst($this->request->action()) . '.illegal';
         }
 
-        $this->illegal($validate_name, $illegal_);
+        if ($illegal_) {
+            $this->illegal($validate_name);
+        }
 
         return Loader::model($logic_name, 'logic')->getEditorData();
     }
@@ -198,15 +200,10 @@ class Base extends Controller
      * @param  string $validate_name 验证器名
      * @return mexid                 返回true or false or 提示信息
      */
-    protected function illegal($validate_name = '', $illegal_ = true)
+    protected function illegal($validate_name = '')
     {
-        // 不进行数据合法验证
-        if (false === $illegal_) {
-            return false;
-        }
-
         // 验证器为空自动获得验证器
-        if (empty($validate_name)) {
+        if ($validate_name == '') {
             $validate_name = ucfirst($this->request->action());
             $validate_name .= '.' . $this->method;
         }
@@ -220,7 +217,8 @@ class Base extends Controller
 
         $result = $this->validate($data, $validate_name);
         if (true !== $result) {
-            $this->error(Lang::get($result));
+            $this->error($result);
+            // $this->error(Lang::get($result));
         }
     }
 

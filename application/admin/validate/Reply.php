@@ -29,18 +29,18 @@ class Reply extends Validate
     ];
 
     protected $message = [
-        'id.require'      => 'illegal operation',
-        'id.number'       => 'illegal operation',
-        'keyword.require' => 'error keyword require',
-        'keyword.length'  => 'error keyword length not',
-        'title.require'   => 'error title require',
-        'title.max'       => 'error title max',
-        'content.require' => 'error content require',
-        'content.max'     => 'error content max',
-        'type.require'    => 'error type require',
-        'type.number'     => 'error type number',
-        'image.max'       => 'error image max',
-        'url.max'         => 'error url max',
+        'id.require'      => '{%illegal operation}',
+        'id.number'       => '{%illegal operation}',
+        'keyword.require' => '{%error keyword require}',
+        'keyword.length'  => '{%error keyword length not}',
+        'title.require'   => '{%error title require}',
+        'title.max'       => '{%error title max}',
+        'content.require' => '{%error content require}',
+        'content.max'     => '{%error content max}',
+        'type.require'    => '{%error type require}',
+        'type.number'     => '{%error type number}',
+        'image.max'       => '{%error image max}',
+        'url.max'         => '{%error url max}',
     ];
 
     protected $scene = [

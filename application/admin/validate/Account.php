@@ -24,13 +24,13 @@ class Account extends Validate
     ];
 
     protected $message = [
-        'username.require' => 'error username require',
-        'username.length'  => 'error username length not',
-        'password.require' => 'error password require',
-        'password.length'  => 'error password length not',
-        'captcha.require'  => 'error captcha require',
-        'captcha.length'   => 'error captcha length',
-        'captcha.captcha'  => 'error captcha',
+        'username.require' => '{%error username require}',
+        'username.length'  => '{%error username length not}',
+        'password.require' => '{%error password require}',
+        'password.length'  => '{%error password length not}',
+        'captcha.require'  => '{%error captcha require}',
+        'captcha.length'   => '{%error captcha length}',
+        'captcha.captcha'  => '{%error captcha}',
     ];
 
     protected $scene = [

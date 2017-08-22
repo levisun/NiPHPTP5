@@ -25,11 +25,11 @@ class Message extends Validate
     ];
 
     protected $message = [
-        'title.require'    => 'error message title require',
-        'title.length'     => 'error message title length not',
-        'username.require' => 'error message username require',
-        'username.length'  => 'error message username length not',
-        'content.require'  => 'error message content require',
-        'content.max'      => 'error message content length not',
+        'title.require'    => '{%error message title require}',
+        'title.length'     => '{%error message title length not}',
+        'username.require' => '{%error message username require}',
+        'username.length'  => '{%error message username length not}',
+        'content.require'  => '{%error message content require}',
+        'content.max'      => '{%error message content length not}',
     ];
 }

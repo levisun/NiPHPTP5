@@ -25,14 +25,14 @@ class MallBrand extends Validate
     ];
 
     protected $message = [
-        'id.require'        => 'illegal operation',
-        'id.number'         => 'illegal operation',
-        'type_id.require'   => 'error mall type_id require',
-        'type_id.number'    => 'error mall type_id number',
-        'name.require'      => 'error brand name require',
-        'name.length'       => 'error brand name length not',
-        'name.unique'       => 'error brand name unique',
-        'image.max'         => 'error brand image'
+        'id.require'        => '{%illegal operation}',
+        'id.number'         => '{%illegal operation}',
+        'type_id.require'   => '{%error mall type_id require}',
+        'type_id.number'    => '{%error mall type_id number}',
+        'name.require'      => '{%error brand name require}',
+        'name.length'       => '{%error brand name length not}',
+        'name.unique'       => '{%error brand name unique}',
+        'image.max'         => '{%error brand image}',
     ];
 
     protected $scene = [

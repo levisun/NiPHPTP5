@@ -24,12 +24,12 @@ class MallType extends Validate
     ];
 
     protected $message = [
-        'id.require'        => 'illegal operation',
-        'id.number'         => 'illegal operation',
-        'name.require'      => 'error type name require',
-        'name.length'       => 'error type name length not',
-        'name.unique'       => 'error type name unique',
-        'image.max'         => 'error type image'
+        'id.require'        => '{%illegal operation}',
+        'id.number'         => '{%illegal operation}',
+        'name.require'      => '{%error type name require}',
+        'name.length'       => '{%error type name length not}',
+        'name.unique'       => '{%error type name unique}',
+        'image.max'         => '{%error type image}',
     ];
 
     protected $scene = [

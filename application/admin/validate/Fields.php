@@ -27,18 +27,18 @@ class Fields extends Validate
     ];
 
     protected $message = [
-        'id.require'             => 'illegal operation',
-        'id.number'              => 'illegal operation',
-        'category_id.require'    => 'error fieldscategory require array',
-        'category_id.array'      => 'error fieldscategory require array',
-        'category_id.checkArray' => 'error fieldscategory require array',
-        'type_id.require'        => 'error fieldstype require number',
-        'type_id.number'         => 'error fieldstype require number',
-        'name.require'           => 'error fieldsname require',
-        'name.length'            => 'error catname length not',
-        'description.max'        => 'error aliases length not',
-        'is_require.require'     => 'error isrequire require number',
-        'is_require.number'      => 'error isrequire require number',
+        'id.require'             => '{%illegal operation}',
+        'id.number'              => '{%illegal operation}',
+        'category_id.require'    => '{%error fieldscategory require array}',
+        'category_id.array'      => '{%error fieldscategory require array}',
+        'category_id.checkArray' => '{%error fieldscategory require array}',
+        'type_id.require'        => '{%error fieldstype require number}',
+        'type_id.number'         => '{%error fieldstype require number}',
+        'name.require'           => '{%error fieldsname require}',
+        'name.length'            => '{%error catname length not}',
+        'description.max'        => '{%error aliases length not}',
+        'is_require.require'     => '{%error isrequire require number}',
+        'is_require.number'      => '{%error isrequire require number}',
     ];
 
     protected $scene = [

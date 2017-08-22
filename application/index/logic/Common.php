@@ -59,12 +59,11 @@ class Common extends Model
         ];
 
         $category = new ModelCategory;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $category->field(['id', 'pid', 'name', 'seo_title', 'seo_keywords', 'seo_description'])
         ->where($map)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->find();
 
         $self = $result ? $result->toArray() : [];
@@ -99,12 +98,11 @@ class Common extends Model
         ];
 
         $config = new ModelConfig;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $config->field(true)
         ->where($map)
-        ->cache($CACHE, 0)
+        ->cache(!APP_DEBUG, 0)
         ->select();
 
         $data = [];
@@ -138,14 +136,13 @@ class Common extends Model
         ];
 
         $category = new ModelCategory;
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $category->view('category c', 'id')
         ->view('model m', ['name' => 'model_name'], 'm.id=c.model_id AND m.name!=\'external\'')
         ->view('category cc', 'pid', 'c.id=cc.pid', 'LEFT')
         ->where($map)
-        ->cache($CACHE, 0)
+        ->cache(!APP_DEBUG, 0)
         ->find();
 
         $data = $result ? $result->toArray() : [];

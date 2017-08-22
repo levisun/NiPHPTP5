@@ -46,7 +46,6 @@ class Jump extends Model
         ];
 
         $model = Loader::model(ucfirst($name), 'model', false, 'admin');
-        $CACHE = check_key($map, __METHOD__);
 
         // 更新点击数
         $model->where($map)
@@ -56,7 +55,7 @@ class Jump extends Model
         $result =
         $model->field(true)
         ->where($map)
-        ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->find();
 
         $data = $result ? $result->toArray() : [];

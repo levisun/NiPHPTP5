@@ -25,13 +25,13 @@ class Type extends Validate
     ];
 
     protected $message = [
-        'id.require'          => 'illegal operation',
-        'id.number'           => 'illegal operation',
-        'name.require'        => 'error typename require',
-        'name.length'         => 'error typename length not',
-        'category_id.require' => 'error category_id require',
-        'category_id.number'  => 'error category_id number',
-        'description.max'     => 'error description length not',
+        'id.require'          => '{%illegal operation}',
+        'id.number'           => '{%illegal operation}',
+        'name.require'        => '{%error typename require}',
+        'name.length'         => '{%error typename length not}',
+        'category_id.require' => '{%error category_id require}',
+        'category_id.number'  => '{%error category_id number}',
+        'description.max'     => '{%error description length not}',
     ];
 
     protected $scene = [

@@ -29,22 +29,22 @@ class Category extends Validate
     ];
 
     protected $message = [
-        'id.require'        => 'illegal operation',
-        'id.number'         => 'illegal operation',
-        'name.require'      => 'error catname require',
-        'name.length'       => 'error catname length not',
-        'name.unique'       => 'error catname unique',
-        'aliases.length'    => 'error aliases length not',
-        'aliases.unique'    => 'error aliases unique',
-        'aliases.alpha'     => 'error aliases alpha',
-        'type_id.require'   => 'error type',
-        'type_id.number'    => 'error type',
-        'image.max'         => 'error image',
-        'model_id.require'  => 'error model',
-        'model_id.number'   => 'error model',
-        'access_id.require' => 'error access',
-        'access_id.number'  => 'error access',
-        'url.url'           => 'error url',
+        'id.require'        => '{%illegal operation}',
+        'id.number'         => '{%illegal operation}',
+        'name.require'      => '{%error catname require}',
+        'name.length'       => '{%error catname length not}',
+        'name.unique'       => '{%error catname unique}',
+        'aliases.length'    => '{%error aliases length not}',
+        'aliases.unique'    => '{%error aliases unique}',
+        'aliases.alpha'     => '{%error aliases alpha}',
+        'type_id.require'   => '{%error type}',
+        'type_id.number'    => '{%error type}',
+        'image.max'         => '{%error image}',
+        'model_id.require'  => '{%error model}',
+        'model_id.number'   => '{%error model}',
+        'access_id.require' => '{%error access}',
+        'access_id.number'  => '{%error access}',
+        'url.url'           => '{%error url}',
     ];
 
     protected $scene = [

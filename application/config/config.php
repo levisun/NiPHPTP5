@@ -26,10 +26,12 @@ return [
     'route_complete_match' => true,
     // 域名路由
     'url_domain_deploy'    => true,
+    // 路由配置文件（支持配置多个）
+    'route_config_file'    => ['route'],
     // 是否开启请求缓存
     'request_cache'        => false,
     // 请求缓存有效期
-    'request_cache_expire' => 1800,
+    'request_cache_expire' => 1200,
     // 过滤方法
     'default_filter'       => 'trim,strip_tags,escape_xss',
     'content_filter'       => 'trim,escape_xss,htmlspecialchars',
@@ -39,7 +41,7 @@ return [
     // 默认模块名
     'default_module'       => 'index',
     // 禁止访问模块
-    'deny_module_list'     => ['admin'],
+    'deny_module_list'     => ['admin','common','home'],
     // 默认控制器名
     'default_controller'   => 'Index',
     // 默认操作名
@@ -51,10 +53,30 @@ return [
 
     // 模板设置
     'template' => [
-        'view_path'   => '',
-        'layout_on'   => true,
-        'layout_name' => 'layout',
-        'layout_item' => '{__CONTENT__}'
+        // 模板引擎类型 支持 php think 支持扩展
+        'type'         => 'Think',
+        // 视图基础目录，配置目录为所有模块的视图起始目录
+        'view_base'    => '',
+        // 当前模板的视图目录 留空为自动获取
+        'view_path'    => '',
+        // 模板后缀
+        'view_suffix'  => 'html',
+        // 模板文件名分隔符
+        'view_depr'    => DS,
+        // 模板引擎普通标签开始标记
+        'tpl_begin'    => '{',
+        // 模板引擎普通标签结束标记
+        'tpl_end'      => '}',
+        // 标签库标签开始标记
+        'taglib_begin' => '{',
+        // 标签库标签结束标记
+        'taglib_end'   => '}',
+        // 布局
+        'layout_on'    => true,
+        // 布局入口文件名
+        'layout_name'  => 'layout',
+        // 布局输出替换变量
+        'layout_item'  => '{__CONTENT__}'
     ],
     // Trace设置
     'trace' => [
@@ -94,9 +116,9 @@ return [
     // 缓存设置
     'cache' => [
         'type'         => 'File',
-        'cache_subdir' => true,
+        'cache_subdir' => false,
         'prefix'       => '',
-        'expire'       => 1800,
+        'expire'       => 1200,
     ],
 
     'http_exception_template' => [
