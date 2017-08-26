@@ -35,7 +35,7 @@ class Base extends Controller
      */
     protected function _initialize()
     {
-        cache_clear();
+        cache_remove();
 
         // 设置IP为授权Key
         // Log::key($this->request->ip(0, true));

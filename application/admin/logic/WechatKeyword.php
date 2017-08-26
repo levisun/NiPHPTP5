@@ -46,7 +46,7 @@ class WechatKeyword extends Model
         $result =
         $reply->field(true)
         ->where($map)
-        ->order('keyword DESC, id DESC')
+        ->order('keyword DESC, sort ASC, id DESC')
         ->paginate();
 
         $list = [];

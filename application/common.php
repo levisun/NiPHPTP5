@@ -72,7 +72,7 @@ function url_params($url)
  * @param
  * @return string
  */
-function cache_clear()
+function cache_remove()
 {
     if (APP_DEBUG) {
         return false;
@@ -83,23 +83,23 @@ function cache_clear()
     }
 
     $list = UtilFile::get(CACHE_PATH);
-
     if (empty($list)) {
         return false;
     }
 
-    $rand = array_rand($list, 10);
-    foreach ($list as $key => $value) {
-        if (!in_array($key, $rand)) {
-            unset($list[$key]);
-        }
-    }
+    $count = count($list) > 30 ? 30 : count($list);
+    $rand = array_rand($list, $count);
 
-    // 删除过期缓存
     $days = strtotime('-90 days');
+
+    $total = 0;
     foreach ($list as $key => $value) {
-        if ($value['time'] <= $days) {
+        if (in_array($key, $rand) && $value['time'] <= $days && $total <= $count) {
+            // 删除过期缓存
             UtilFile::delete(CACHE_PATH . $value['name']);
+            $total++;
+        } else {
+            break;
         }
     }
 }

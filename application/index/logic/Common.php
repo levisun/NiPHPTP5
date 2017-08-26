@@ -61,7 +61,7 @@ class Common extends Model
         $category = new ModelCategory;
 
         $result =
-        $category->field(['id', 'pid', 'name', 'seo_title', 'seo_keywords', 'seo_description'])
+        $category->field(['id', 'pid', 'name', 'seo_title', 'seo_keywords', 'seo_description', 'access_id'])
         ->where($map)
         ->cache(!APP_DEBUG)
         ->find();
@@ -76,6 +76,8 @@ class Common extends Model
                 $data = array_merge($data, $pid);
             }
         }
+
+        access_auth($data[0]['access_id']);
 
         return $data;
     }

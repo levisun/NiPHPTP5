@@ -12,25 +12,36 @@
  */
 /*
 $config = array(
-    'appid' => 'wx9b2b0724c11c788b',
-    'appsecret' => 'c2d5a77cfc5b71117d3dcd5cf569cbad',
-    'mch_id' => '1303680001',
-    'key' => '0af4769d381ece7b4fddd59dcf048da6'
+    'appid' => 'wxea53b7eabf4beb2d',
+    'appsecret' => 'ac1a9edce78573f3d287f9560a2d50a7',
+    'mch_id' => '1487938612',
+    'key' => '0af4769d381ece7b4fddd59dcf048da6',
+    'sslcert_path' => '1487938612_cert.pem',
+    'sslkey_path' => '1487938612_key.pem',
 );
 $obj = new PayWechat($config);
 $param = array(
     'body'         => '商品描述 128位',
     'detail'       => '商品详情',
     'attach'       => '附加数据 127位',
-    'out_trade_no' => '商户订单号 32位',
+    'out_trade_no' => '商户订单号 32位 数字',
     'total_fee'    => 1000,
     'goods_tag'    => '商品标记 32位',
     'notify_url'   => '异步通知回调地址,不能携带参数',
     'respond_url'  => '同步通知回调地址,不能携带参数',
     'product_id'   => '商品ID 32位',
-    'openid'       => '请求微信OPENID',
+    'openid'       => '请求微信OPENID 必填',
 );
 $obj->jsPay($param);
+
+$param = array(
+    'out_trade_no' => '商户订单号 32位 数字',
+    'total_fee' => '订单金额',
+    'refund_fee' => '退款金额',
+    'refund_desc' => '退款描述',
+    );
+$obj->refund($param);
+
 */
 namespace net\pay;
 
@@ -55,7 +66,10 @@ class PayWechat
             'mch_id'       => !empty($config['mch_id']) ? $config['mch_id'] : '',
             'key'          => !empty($config['key']) ? $config['key'] : '',
             'sign_type'    => !empty($config['sign_type']) ? $config['sign_type'] : 'md5',
-            'sslcert_path' => !empty($config['sslcert_path']) ? $config['sslcert_path'] : '',
+            'sslcert_path' => !empty($config['sslcert_path']) ?
+            EXTEND_PATH . 'net' . DS . 'pay' . DS . $config['sslcert_path'] : '',
+            'sslkey_path'  => !empty($config['sslkey_path']) ?
+            EXTEND_PATH . 'net' . DS . 'pay' . DS . $config['sslkey_path'] : '',
         ];
     }
 
@@ -203,8 +217,6 @@ class PayWechat
             return false;
         }
 
-
-
         return $result;
 
         /*if ($result['return_code'] == 'SUCCESS' && $result['result_code'] == 'SUCCESS') {
@@ -330,10 +342,10 @@ class PayWechat
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);    //要求结果为字符串且输出到屏幕上
         if($useCert == true){
             //设置证书 使用证书：cert 与 key 分别属于两个.pem文件
-            curl_setopt($ch,CURLOPT_SSLCERTTYPE, 'PEM');
-            curl_setopt($ch,CURLOPT_SSLCERT, $this->config['SSLCERT_PATH']);
-            curl_setopt($ch,CURLOPT_SSLKEYTYPE,'PEM');
-            curl_setopt($ch,CURLOPT_SSLKEY, $this->config['SSLKEY_PATH']);
+            curl_setopt($curl, CURLOPT_SSLCERTTYPE, 'PEM');
+            curl_setopt($curl, CURLOPT_SSLCERT, $this->config['sslcert_path']);
+            curl_setopt($curl, CURLOPT_SSLKEYTYPE, 'PEM');
+            curl_setopt($curl, CURLOPT_SSLKEY, $this->config['sslkey_path']);
         }
         curl_setopt($curl, CURLOPT_POST, true);                //post提交方式
         curl_setopt($curl, CURLOPT_POSTFIELDS, $xml);        //post传输数据

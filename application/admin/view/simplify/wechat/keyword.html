@@ -22,6 +22,9 @@
                     <tbody>
                         {volist name="list" id="vo"}
                         <tr>
+                            <td>
+                                <input type="text" name="sort[{$vo.id}]" class="form-control mini" value="{$vo.sort}">
+                            </td>
                             <td>{$vo.keyword}</td>
                             <td>{$vo.title}</td>
                             <td>{$vo.content}</td>

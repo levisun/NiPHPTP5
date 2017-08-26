@@ -194,6 +194,8 @@ class Article extends Model
 
             $this->hits();
         }
+
+        access_auth($data['access_id']);
         return $data;
     }
 

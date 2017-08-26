@@ -116,7 +116,7 @@ return [
     // 缓存设置
     'cache' => [
         'type'         => 'File',
-        'cache_subdir' => false,
+        'cache_subdir' => true,
         'prefix'       => '',
         'expire'       => 1200,
     ],

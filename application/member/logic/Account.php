@@ -203,11 +203,7 @@ class Account extends Model
         ->where($map)
         ->find();
 
-        if ($result) {
-            return true;
-        } else {
-            return false;
-        }
+        return $result ? true : false;
     }
 
     /**

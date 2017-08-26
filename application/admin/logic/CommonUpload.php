@@ -22,7 +22,7 @@ use app\admin\model\Config as ModelConfig;
 
 class CommonUpload extends Model
 {
-    protected $ext = ['gif', 'jpg', 'jpeg', 'bmp', 'png'];
+    protected $ext = ['gif', 'jpg', 'jpeg', 'png'];
     protected $request = null;
 
     protected function initialize()

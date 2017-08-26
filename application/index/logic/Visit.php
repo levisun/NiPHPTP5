@@ -151,12 +151,6 @@ class Visit extends Model
      */
     protected function isSpider()
     {
-        $info = $this->request->header();
-
-        if (empty($info['user-agent'])) {
-            return false;
-        }
-
         $searchengine = [
             'GOOGLE'         => 'googlebot',
             'GOOGLE ADSENSE' => 'mediapartners-google',
@@ -171,6 +165,7 @@ class Visit extends Model
             'YISOU'          => 'yisouspider',
         ];
 
+        $info = $this->request->header();
         // $spider = strtolower($info['user-agent']);
         foreach ($searchengine as $key => $value) {
             if (preg_match('/(' . $value . ')/si', $info['user-agent'])) {

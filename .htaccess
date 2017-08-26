@@ -2,7 +2,12 @@
   Options +FollowSymlinks -Multiviews
   RewriteEngine On
 
+
+  # RewriteCond %{REQUEST_URI} !^/public/
+
+
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteCond %{REQUEST_FILENAME} !-f
+  #RewriteCond %{REQUEST_FILENAME}.php -f
   RewriteRule ^(.*)$ index.php/$1 [QSA,PT,L]
 </IfModule>

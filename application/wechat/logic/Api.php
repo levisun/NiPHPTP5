@@ -75,8 +75,7 @@ class Api extends Model
     }
 
     /**
-     * 查询微信用户openid
-     * 生成openid cookie
+     * 查询微信用户是否存在
      * 新增或编辑微信用户
      * @access public
      * @param

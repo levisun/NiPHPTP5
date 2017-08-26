@@ -43,6 +43,8 @@ class Base extends Controller
      */
     protected function _initialize()
     {
+        cache_remove();
+
         if ($this->request->isMobile()) {
             $host = $this->request->host();
             $no = [
@@ -54,7 +56,6 @@ class Base extends Controller
                 $this->redirect($url, 302);
             }
         }
-        cache_clear();
 
         // 设置IP为授权Key
         // Log::key($this->request->ip(0, true));
