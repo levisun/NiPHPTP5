@@ -13,20 +13,17 @@
  */
 namespace app\admin\logic;
 
-use think\Model;
 use think\Request;
 use app\admin\model\Role as ModelRole;
 use app\admin\model\Node as ModelNode;
 use app\admin\model\Access as ModelAccess;
 
-class UserRole extends Model
+class UserRole
 {
     protected $request = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

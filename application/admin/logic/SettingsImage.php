@@ -13,20 +13,17 @@
  */
 namespace app\admin\logic;
 
-use think\Model;
 use think\Request;
 use think\Lang;
 use think\Cache;
 use app\admin\model\Config as ModelConfig;
 
-class SettingsImage extends Model
+class SettingsImage
 {
     protected $request = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

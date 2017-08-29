@@ -35,7 +35,7 @@ class ExpandDataback extends Model
         // 'visit',
     ];
 
-    protected function initialize()
+    public function initialize()
     {
         parent::initialize();
 
@@ -142,7 +142,7 @@ class ExpandDataback extends Model
                 }
             }
         }
-        UtilFile::create($dir . 'tables_sql', $tables_sql);
+        UtilFile::create($dir . 'tables_sql.sql', $tables_sql);
 
         // 打包备份
         $zip = new UtilPclzip('');

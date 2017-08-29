@@ -13,7 +13,6 @@
  */
 namespace app\admin\logic;
 
-use think\Model;
 use think\Request;
 use think\Lang;
 use think\Loader;
@@ -24,14 +23,12 @@ use app\admin\model\Fields as ModelFields;
 use app\admin\model\TagsArticle as ModelTagsArticle;
 use app\admin\model\Level as ModelLevel;
 
-class ContentContentData extends Model
+class ContentContentData
 {
     protected $request = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

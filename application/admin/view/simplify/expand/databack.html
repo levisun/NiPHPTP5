@@ -26,8 +26,8 @@
                         {volist name="list" id="vo"}
                         <tr>
                             <td>{$vo.name}</td>
-                            <td>{$vo.time}</td>
-                            <td>{$vo.size}</td>
+                            <td>{$vo.time|date='Y-m-d H:i:s',###}</td>
+                            <td>{$vo.size|to_file_size}</td>
                             <td>
                                 <a href="{:url('', array('method' => 'reduction', 'id' => $vo['id']))}" class="reduction"><i class="fa fa-retweet"></i>{:lang('button reduction')}</a>
                                 <a href="{:url('', array('method' => 'down', 'id' => $vo['id']))}"><i class="fa fa-download"></i>{:lang('button download')}</a>

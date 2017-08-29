@@ -13,20 +13,17 @@
  */
 namespace app\admin\logic;
 
-use think\Model;
 use think\Request;
 use think\Session;
 use think\Cache;
 use app\admin\model\Config as ModelConfig;
 
-class SettingsSafe extends Model
+class SettingsSafe
 {
     protected $request = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

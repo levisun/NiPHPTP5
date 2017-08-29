@@ -13,13 +13,12 @@
  */
 namespace app\wechat\logic;
 
-use think\Model;
 use think\Request;
 use think\Cookie;
 use app\wechat\logic\Wechat as LogicWechat;
 use app\member\logic\Account as MemberLogicAccount;
 
-class Api extends Model
+class Api
 {
     protected $request = null;
 
@@ -30,10 +29,8 @@ class Api extends Model
     public $userData = []; // 请求用户信息
     public $key = [];       // 请求内容
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
 
         $this->wechat = new LogicWechat();

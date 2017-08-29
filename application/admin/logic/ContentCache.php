@@ -13,19 +13,16 @@
  */
 namespace app\admin\logic;
 
-use think\Model;
 use think\Request;
 use think\Cache;
 use util\File as UtilFile;
 
-class ContentCache extends Model
+class ContentCache
 {
     protected $request = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

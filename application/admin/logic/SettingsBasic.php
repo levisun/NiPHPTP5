@@ -13,13 +13,12 @@
  */
 namespace app\admin\logic;
 
-use think\Model;
 use think\Request;
 use think\Lang;
 use think\Cache;
 use app\admin\model\Config as ModelConfig;
 
-class SettingsBasic extends Model
+class SettingsBasic
 {
     protected $request = null;
 
@@ -29,10 +28,8 @@ class SettingsBasic extends Model
         'script'
     ];
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

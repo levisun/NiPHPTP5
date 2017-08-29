@@ -9,7 +9,7 @@
   'wechat' => 'comments',
   'mall' => 'shopping-cart',
   'expand' => 'wrench',
-  'sys_version' => '0.2.5 Alpha 1734',
+  'sys_version' => '0.2.5 Alpha 1737',
   'USER_AUTH_ON' => 1,
   'USER_AUTH_TYPE' => 2,
   'USER_AUTH_KEY' => 'USER_ID',

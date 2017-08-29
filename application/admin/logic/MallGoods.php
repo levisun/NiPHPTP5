@@ -13,7 +13,6 @@
  */
 namespace app\admin\logic;
 
-use think\Model;
 use think\Request;
 use think\Lang;
 use think\Config;
@@ -23,14 +22,12 @@ use app\admin\model\MallBrand as ModelMallBrand;
 use app\admin\model\MallGoodsPromote as ModelMallGoodsPromote;
 use app\admin\model\MallGoodsAlbum as ModelMallGoodsAlbum;
 
-class MallGoods extends Model
+class MallGoods
 {
     protected $request = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

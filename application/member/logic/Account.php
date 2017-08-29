@@ -13,7 +13,6 @@
  */
 namespace app\member\logic;
 
-use think\Model;
 use think\Request;
 use think\Config;
 use think\Cookie;
@@ -23,14 +22,12 @@ use app\admin\model\MemberWechat as ModelMemberWechat;
 use app\admin\model\RequestLog as ModelRequestLog;
 use app\admin\Logic\CommonRequest as AdminLogicCommonRequest;
 
-class Account extends Model
+class Account
 {
     protected $request = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

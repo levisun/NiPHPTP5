@@ -13,18 +13,15 @@
  */
 namespace app\admin\logic;
 
-use think\Model;
 use think\Request;
-use net\IpLocation;
+use net\IpLocation as NetIpLocation;
 use app\admin\model\RequestLog as ModelRequestLog;
 
-class CommonRequest extends Model
+class CommonRequest
 {
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 
@@ -37,7 +34,7 @@ class CommonRequest extends Model
      */
     public function requestLog($success = false)
     {
-        $ip = new IpLocation();
+        $ip = new NetIpLocation();
         $request_log = new ModelRequestLog;
 
         // 删除过期的日志(保留三个月)
@@ -85,7 +82,7 @@ class CommonRequest extends Model
      */
     public function ipRequestError()
     {
-        $ip = new IpLocation();
+        $ip = new NetIpLocation();
         $request_log = new ModelRequestLog;
 
         $map = [

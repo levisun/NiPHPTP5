@@ -13,19 +13,16 @@
  */
 namespace app\admin\logic;
 
-use think\Model;
 use think\Request;
 use think\Cache;
 use app\admin\model\Config AS ModelConfig;
 
-class SettingsEmail extends Model
+class SettingsEmail
 {
     protected $request = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

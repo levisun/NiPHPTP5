@@ -90,7 +90,7 @@ function cache_remove()
     $count = count($list) > 30 ? 30 : count($list);
     $rand = array_rand($list, $count);
 
-    $days = strtotime('-90 days');
+    $days = strtotime('-7 days');
 
     $total = 0;
     foreach ($list as $key => $value) {

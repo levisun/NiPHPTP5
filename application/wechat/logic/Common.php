@@ -13,19 +13,16 @@
  */
 namespace app\wechat\logic;
 
-use think\Model;
 use think\Request;
 
-class Common extends Model
+class Common
 {
 
     protected $request = null;
     protected $domain;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
 
         // 获得域名地址

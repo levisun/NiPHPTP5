@@ -35,6 +35,16 @@ function to_yen($value, $param = true)
 }
 
 /**
+ * 文件大小
+ * @param  float $value
+ * @return string
+ */
+function to_file_size($value)
+{
+    return number_format((float) $value / 1048576, 2, '.', '') . 'MB';
+}
+
+/**
  * 商城 商品分类 树型结构
  * @param  array $data
  * @return array

@@ -13,19 +13,16 @@
  */
 namespace app\admin\logic;
 
-use think\Model;
 use think\Request;
 use app\admin\model\Type as ModelType;
 use app\admin\model\Category as ModelCategory;
 
-class CategoryType extends Model
+class CategoryType
 {
     protected $request = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

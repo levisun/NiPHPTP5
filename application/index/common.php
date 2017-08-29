@@ -23,7 +23,7 @@ function access_auth($id)
         return false;
     }
 
-    halt($id);
+    // halt($id);
 }
 
 /**

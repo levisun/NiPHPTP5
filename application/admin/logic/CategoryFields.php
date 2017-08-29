@@ -13,7 +13,6 @@
  */
 namespace app\admin\logic;
 
-use think\Model;
 use think\Request;
 use think\Lang;
 use think\Loader;
@@ -21,14 +20,12 @@ use app\admin\model\Fields as ModelFields;
 use app\admin\model\Category as ModelCategory;
 use app\admin\model\FieldsType as ModelFieldsType;
 
-class CategoryFields extends Model
+class CategoryFields
 {
     protected $request = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

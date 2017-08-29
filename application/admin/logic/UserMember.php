@@ -13,21 +13,18 @@
  */
 namespace app\admin\logic;
 
-use think\Model;
 use think\Request;
 use app\admin\model\Member as ModelMember;
 use app\admin\model\LevelMember as ModelLevelMember;
 use app\admin\model\Region as ModelRegion;
 use app\admin\model\Level as ModelLevel;
 
-class UserMember extends Model
+class UserMember
 {
     protected $request = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

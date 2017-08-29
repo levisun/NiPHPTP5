@@ -13,13 +13,12 @@
  */
 namespace app\admin\logic;
 
-use think\Model;
 use think\Request;
 use think\Lang;
 use think\Cache;
 use app\admin\model\Config as ModelConfig;
 
-class MallSettings extends Model
+class MallSettings
 {
     protected $request = null;
 
@@ -29,10 +28,8 @@ class MallSettings extends Model
         'mall_script'
     ];
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

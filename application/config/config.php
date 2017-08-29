@@ -99,13 +99,13 @@ return [
     'session' => [
         'id'             => '',
         'var_session_id' => '',
-        'prefix'         => 'niphp_',
+        'prefix'         => 'niphp_insomnia_',
         'type'           => '',
         'auto_start'     => true,
     ],
     // cookie设置
     'cookie' => [
-        'prefix'    => 'niphp_',
+        'prefix'    => 'niphp_insomnia_',
         'expire'    => 0,
         'path'      => '/',
         'domain'    => '',
@@ -117,7 +117,7 @@ return [
     'cache' => [
         'type'         => 'File',
         'cache_subdir' => true,
-        'prefix'       => '',
+        'prefix'       => 'niphp_insomnia_',
         'expire'       => 1200,
     ],
 

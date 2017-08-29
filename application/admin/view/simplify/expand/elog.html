@@ -17,7 +17,7 @@
                         {volist name="list" id="vo"}
                         <tr>
                             <td>{$vo.name}</td>
-                            <td>{$vo.size}</td>
+                            <td>{$vo.size|to_file_size}</td>
                             <td>
                                 {empty name="Request.param.name"}
                                 <a href="{:url('', array('name' => $vo['id']))}"><i class="fa fa-eye"></i>{:lang('button view')}</a>

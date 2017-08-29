@@ -13,7 +13,6 @@
  */
 namespace app\member\logic;
 
-use think\Model;
 use think\Request;
 use think\Url;
 use think\Config;
@@ -21,14 +20,12 @@ use think\Cookie;
 use app\admin\model\Member as ModelMember;
 use app\admin\model\Region as ModelRegion;
 
-class Setup extends Model
+class Setup
 {
     protected $request = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

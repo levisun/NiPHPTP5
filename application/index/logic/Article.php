@@ -13,7 +13,6 @@
  */
 namespace app\index\logic;
 
-use think\Model;
 use think\Request;
 use think\Lang;
 use think\Url;
@@ -23,15 +22,13 @@ use app\admin\model\Category as ModelCategory;
 use app\admin\model\Fields as ModelFields;
 use app\admin\model\TagsArticle as ModelTagsArticle;
 
-class Article extends Model
+class Article
 {
     protected $request    = null;
     protected $modelName = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

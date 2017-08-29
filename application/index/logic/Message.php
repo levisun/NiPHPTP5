@@ -13,7 +13,6 @@
  */
 namespace app\index\logic;
 
-use think\Model;
 use think\Request;
 use think\Lang;
 use think\Config;
@@ -25,14 +24,12 @@ use app\admin\model\MessageData as ModelMessageData;
 use app\admin\model\Fields as ModelFields;
 use app\admin\model\Type as ModelType;
 
-class Message extends Model
+class Message
 {
     protected $request = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

@@ -13,14 +13,13 @@
  */
 namespace app\wechat\logic;
 
-use think\Model;
 use think\Lang;
 use think\Request;
 use think\Cache;
-use app\wechat\logic\Common as LogicCommon;
+use app\wechat\logic\Common;
 use app\admin\model\Reply as ModelReply;
 
-class AutoKey extends LogicCommon
+class AutoKey extends Common
 {
 
     public function reply($key)

@@ -13,20 +13,17 @@
  */
 namespace app\index\logic;
 
-use think\Model;
 use think\Request;
 use net\IpLocation as NetIpLocation;
 use app\admin\model\Searchengine as ModelSearchengine;
 use app\admin\model\Visit as ModelVisit;
 
-class Visit extends Model
+class Visit
 {
     protected $request = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

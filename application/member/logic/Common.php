@@ -13,7 +13,6 @@
  */
 namespace app\member\logic;
 
-use think\Model;
 use think\Request;
 use think\Lang;
 use think\Config;
@@ -22,7 +21,7 @@ use think\Url;
 use think\Cache;
 use app\admin\model\Config as ModelConfig;
 
-class Common extends Model
+class Common
 {
     protected $request = null;
     protected $to_html = [
@@ -31,10 +30,8 @@ class Common extends Model
         'script'
     ];
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

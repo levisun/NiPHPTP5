@@ -151,6 +151,7 @@ class File
                 '.svn',
                 '.DS_Store',
                 '.gitignore',
+                '.htaccess',
                 'Thumbs.db'
             ];
 

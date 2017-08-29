@@ -13,14 +13,13 @@
  */
 namespace app\index\logic;
 
-use think\Model;
 use think\Request;
 use think\Lang;
 use think\Cookie;
 use app\admin\model\Config as ModelConfig;
 use app\admin\model\Category as ModelCategory;
 
-class Common extends Model
+class Common
 {
     protected $request = null;
     protected $toHtml = [
@@ -32,10 +31,8 @@ class Common extends Model
     // 表名
     public $tableName = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
 
         $this->tableName = $this->getModelTable();

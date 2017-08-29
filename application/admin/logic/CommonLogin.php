@@ -13,22 +13,19 @@
  */
 namespace app\admin\logic;
 
-use think\Model;
 use think\Config;
 use think\Request;
 use think\Session;
-use net\IpLocation;
+use net\IpLocation as NetIpLocation;
 use app\admin\model\Admin as ModelAdmin;
 use app\admin\Logic\CommonRequest as LogicCommonRequest;
 
-class CommonLogin extends Model
+class CommonLogin
 {
     protected $request = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 
@@ -60,7 +57,7 @@ class CommonLogin extends Model
         }
         unset($user_data['password']);
 
-        $ip = new IpLocation();
+        $ip = new NetIpLocation();
         $area = $ip->getlocation($this->request->ip(0, true));
         $user_data['last_login_ip'] = $this->request->ip(0, true);
         $user_data['last_login_ip_attr'] = $area['country'] . $area['area'];

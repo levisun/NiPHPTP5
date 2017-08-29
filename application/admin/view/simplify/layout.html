@@ -7,80 +7,8 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Bootstrap core CSS -->
-    {css href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css" /}
+    {css href="//cdn.bootcss.com/bootstrap/3.3.7/css/bootstrap.min.css,//cdn.bootcss.com/font-awesome/4.1.0/css/font-awesome.min.css,//cdn.bootcss.com/ionicons/1.5.2/css/ionicons.min.css,__CSS__morris.css,//cdn.bootcss.com/animate.css/3.5.2/animate.min.css,__CSS__simplify.min.css,__LAYOUT__css/layout-3.0.css" /}
 
-    <!-- Font Awesome -->
-    {css href="//cdn.bootcss.com/font-awesome/4.1.0/css/font-awesome.min.css" /}
-
-    <!-- ionicons -->
-    {css href="//cdn.bootcss.com/ionicons/1.5.2/css/ionicons.min.css" /}
-
-    <!-- Morris -->
-    {css href="__CSS__morris.css" /}
-
-    <!-- Datepicker -->
-    <!-- {css href="__CSS__datepicker.css" /} -->
-
-    <!-- Animate -->
-    {css href="//cdn.bootcss.com/animate.css/3.5.2/animate.min.css" /}
-
-    <!-- Owl Carousel -->
-    <!-- {css href="__CSS__owl.carousel.min.css" /} -->
-    <!-- {css href="__CSS__owl.theme.default.min.css" /} -->
-
-    <!-- Simplify -->
-    {css href="__CSS__simplify.min.css" /}
-
-    {css href="__LAYOUT__css/layout-3.0.css" /}
-
-    <!-- Le javascript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-
-    <!-- Jquery -->
-    {js href="//cdn.bootcss.com/jquery/2.2.3/jquery.min.js" /}
-
-    <!-- Bootstrap -->
-    {js href="//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js" /}
-
-    <!-- Flot -->
-    {js href="//cdn.bootcss.com/flot/0.8.3/jquery.flot.min.js" /}
-
-    <!-- Slimscroll -->
-    {js href="//cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js" /}
-
-    <!-- Morris -->
-    <!-- {js href="__JS__rapheal.min.js" /} -->
-    <!-- {js href="__JS__morris.min.js" /} -->
-
-    <!-- Datepicker -->
-    <!-- {js href="__JS__uncompressed/datepicker.js" /} -->
-
-    <!-- Sparkline -->
-    <!-- {js href="__JS__sparkline.min.js" /} -->
-
-    <!-- Skycons -->
-    <!-- {js href="__JS__uncompressed/skycons.js" /} -->
-
-    <!-- Popup Overlay -->
-    {js href="__JS__jquery.popupoverlay.min.js" /}
-
-    <!-- Easy Pie Chart -->
-    <!-- {js href="__JS__jquery.easypiechart.min.js" /} -->
-
-    <!-- Sortable -->
-    <!-- {js href="__JS__uncompressed/jquery.sortable.js" /} -->
-
-    <!-- Owl Carousel -->
-    {js href="__JS__owl.carousel.min.js" /}
-
-    <!-- Modernizr -->
-    {js href="__JS__modernizr.min.js" /}
-
-    <!-- Simplify -->
-    {js href="__JS__simplify/simplify.js" /}
-    <!-- {js href="__JS__simplify/simplify_dashboard.js" /} -->
 
 </head>
 
@@ -121,8 +49,77 @@
 
 {/neq}
 
+{js href="//cdn.bootcss.com/jquery/2.2.3/jquery.min.js,//cdn.bootcss.com/bootstrap/3.3.7/js/bootstrap.min.js,//cdn.bootcss.com/flot/0.8.3/jquery.flot.min.js,//cdn.bootcss.com/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js,__JS__jquery.popupoverlay.min.js,__JS__owl.carousel.min.js,__JS__modernizr.min.js,__JS__simplify/simplify.js" /}
+
 {js href="__LAYOUT__js/layout-1.1.0.js,__LAYOUT__js/validate-1.0.1.js,__JS__main.js" /}
-<script>
+
+<script type="text/javascript">
+{eq name="Request.action" value="info"}
+jQuery(function  ()  {
+    //Flot Chart (Total Sales)
+    var d1 = [];
+    for (var i = 0; i <= 10; i += 1) {
+        //d1.push([i, parseInt(Math.random() * 30)]);
+        d1 = [{$data.visit.count}];
+    }
+
+    function plotWithOptions() {
+        jQuery.plot("#placeholder", [d1], {
+            series: {
+                lines: {
+                    show: true,
+                    fill: true,
+                    fillColor: '#eee',
+                    steps: false,
+
+                },
+                points: {
+                    show: true,
+                    fill: false
+                }
+            },
+
+            grid: {
+                color: '#fff',
+                hoverable: true,
+                autoHighlight: true,
+            },
+            colors: [ '#bbb'],
+        });
+    }
+
+    jQuery("<div id='tooltip'></div>").css({
+        position: "absolute",
+        display: "none",
+        border: "1px solid #222",
+        padding: "4px",
+        color: "#fff",
+        "border-radius": "4px",
+        "background-color": "rgb(0,0,0)",
+        opacity: 0.90
+    }).appendTo("body");
+
+    jQuery("#placeholder").bind("plothover", function (event, pos, item) {
+
+        var str = "(" + pos.x.toFixed(2) + ", " + pos.y.toFixed(2) + ")";
+        jQuery("#hoverdata").text(str);
+
+        if (item) {
+            var x = item.datapoint[0],
+                y = item.datapoint[1];
+
+                jQuery("#tooltip").html("Total Sales : " + y)
+                .css({top: item.pageY+5, left: item.pageX+5})
+                .fadeIn(200);
+        } else {
+            $("#tooltip").hide();
+        }
+    });
+
+    plotWithOptions();
+});
+{/eq}
+
 var domain = Layout.domain;
 parent.document.title = "{$__TITLE__}";
 
@@ -142,12 +139,15 @@ Validate.formSubmit(".np-login-btn", ".np-login");
 
 
 
+
 /*var param = {"type": "get", "url": Layout.domain, "data": {"p": 1}};
 Layout.scrollBot(param, "load_more");
 
 function load_more(data) {
     alert(data);
 }*/
+
+
 
 </script>
 </body>

@@ -13,20 +13,17 @@
  */
 namespace app\admin\logic;
 
-use think\Model;
 use think\Request;
 use app\admin\model\Visit as ModelVisit;
 use app\admin\model\Searchengine as ModelSearchengine;
 use app\admin\model\RequestLog as ModelRequest;
 
-class ExpandVisit extends Model
+class ExpandVisit
 {
     protected $request = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

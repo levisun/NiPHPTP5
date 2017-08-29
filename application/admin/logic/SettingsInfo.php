@@ -27,7 +27,7 @@ class SettingsInfo extends Model
 {
     protected $request = null;
 
-    protected function initialize()
+    public function initialize()
     {
         parent::initialize();
 

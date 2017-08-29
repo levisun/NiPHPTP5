@@ -13,20 +13,17 @@
  */
 namespace app\admin\logic;
 
-use think\Model;
 use think\Request;
 use app\admin\model\Admin as ModelAdmin;
 use app\admin\model\Role as ModelRole;
 use app\admin\model\RoleAdmin as ModelRoleAdmin;
 
-class UserAdmin extends Model
+class UserAdmin
 {
     protected $request = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

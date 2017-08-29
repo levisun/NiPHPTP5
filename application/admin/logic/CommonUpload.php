@@ -13,22 +13,19 @@
  */
 namespace app\admin\logic;
 
-use think\Model;
-use think\Lang;
 use think\Request;
+use think\Lang;
 use think\Image;
-use util\File;
+use util\File as UtilFile;
 use app\admin\model\Config as ModelConfig;
 
-class CommonUpload extends Model
+class CommonUpload
 {
     protected $ext = ['gif', 'jpg', 'jpeg', 'png'];
     protected $request = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 
@@ -42,11 +39,11 @@ class CommonUpload extends Model
     {
         $image = $this->request->post('image');
         if (!filter_var($image, FILTER_VALIDATE_URL)) {
-            File::delete($image);
+            UtilFile::delete($image);
         }
         $thumb = $this->request->post('thumb');
         if (!filter_var($thumb, FILTER_VALIDATE_URL)) {
-            File::delete($thumb);
+            UtilFile::delete($thumb);
         }
     }
 

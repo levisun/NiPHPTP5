@@ -13,7 +13,6 @@
  */
 namespace app\member\logic;
 
-use think\Model;
 use think\Request;
 use think\Url;
 use think\Cookie;
@@ -24,14 +23,12 @@ use app\admin\model\Member as ModelMember;
 use app\admin\model\Level as ModelLevel;
 use app\admin\model\LevelMember as ModelLevelMember;
 
-class OAuth extends Model
+class OAuth
 {
     protected $request = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

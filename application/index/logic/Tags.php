@@ -13,7 +13,6 @@
  */
 namespace app\index\logic;
 
-use think\Model;
 use think\Request;
 use think\Lang;
 use think\Url;
@@ -34,10 +33,8 @@ class Tags extends Model
 {
     protected $request = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

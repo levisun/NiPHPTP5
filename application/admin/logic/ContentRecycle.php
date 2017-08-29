@@ -13,25 +13,22 @@
  */
 namespace app\admin\logic;
 
-use think\Model;
 use think\Request;
 use think\Loader;
 use app\admin\logic\ContentContentData as ModelContentContentData;
 
-class ContentRecycle extends Model
+class ContentRecycle
 {
-    protected $request       = null;
-    protected $table_model   = null;
+    protected $request     = null;
+    protected $table_model = null;
 
     public $dataModel = null;
     public $tableName = null;
     public $typeData  = null;
     public $levelData = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
 
         // 内容数据业务层

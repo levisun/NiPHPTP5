@@ -13,20 +13,17 @@
  */
 namespace app\mall\logic;
 
-use think\Model;
 use think\Request;
 use think\Lang;
 use think\Url;
 use app\admin\model\MallType as ModelMallType;
 
-class Type extends Model
+class Type
 {
     protected $request = null;
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 

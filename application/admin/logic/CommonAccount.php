@@ -13,19 +13,18 @@
  */
 namespace app\admin\logic;
 
-use think\Model;
 use think\Config;
 use think\Lang;
 use think\Request;
 use think\Session;
 use think\Url;
-use net\IpLocation;
-use util\Rbac;
+use net\IpLocation as NetIpLocation;
+use util\Rbac as UtilRbac;
 use app\admin\model\Category as ModelCategory;
 use app\admin\model\Action as ModelAction;
 use app\admin\model\ActionLog as ModelActionLog;
 
-class CommonAccount extends Model
+class CommonAccount
 {
     protected $request = null;
     protected $_action = [
@@ -35,10 +34,8 @@ class CommonAccount extends Model
         'delupload',
     ];
 
-    protected function initialize()
+    public function __construct()
     {
-        parent::initialize();
-
         $this->request = Request::instance();
     }
 
@@ -63,7 +60,7 @@ class CommonAccount extends Model
             return false;
         }
 
-        $ip = new IpLocation();
+        $ip = new NetIpLocation();
         $area = $ip->getlocation($this->request->ip(0, true));
 
         $user_id = Session::get(Config::get('USER_AUTH_KEY'));
@@ -273,10 +270,10 @@ class CommonAccount extends Model
             return Url::build('settings/info');
         }
 
-        Rbac::checkLogin();
-        Rbac::saveAccessList();
-        if (Rbac::AccessDecision()) {
-            Session::set('_ACCESS_LIST', Rbac::getAccessList($user_auth_key));
+        UtilRbac::checkLogin();
+        UtilRbac::saveAccessList();
+        if (UtilRbac::AccessDecision()) {
+            Session::set('_ACCESS_LIST', UtilRbac::getAccessList($user_auth_key));
             return true;
         }
     }
