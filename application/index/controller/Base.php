@@ -45,7 +45,7 @@ class Base extends Controller
     {
         cache_remove();
 
-        if ($this->request->isMobile()) {
+        /*if ($this->request->isMobile()) {
             $host = $this->request->host();
             $no = [
                 'localhost',
@@ -55,7 +55,7 @@ class Base extends Controller
                 $url = $this->request->scheme() . '://m.' . top_domain();
                 $this->redirect($url, 302);
             }
-        }
+        }*/
 
         // 设置IP为授权Key
         // Log::key($this->request->ip(0, true));

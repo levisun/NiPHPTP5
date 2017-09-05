@@ -14,6 +14,7 @@
 
 use think\Request;
 use think\Cache;
+use think\Config;
 use util\File as UtilFile;
 
 /**
@@ -82,19 +83,22 @@ function cache_remove()
         return false;
     }
 
-    $list = UtilFile::get(CACHE_PATH);
+    $prefix = Config::get('cache.prefix');
+    $dir = CACHE_PATH;
+    $dir = $prefix ? $prefix . DS : '';
+    $list = UtilFile::get($dir);
     if (empty($list)) {
         return false;
     }
 
-    $count = count($list) > 30 ? 30 : count($list);
+    $count = count($list) >= 30 ? 30 : count($list);
     $rand = array_rand($list, $count);
 
-    $days = strtotime('-7 days');
+    // $days = strtotime('-7 days'); // && $value['time'] <= $days
 
     $total = 0;
     foreach ($list as $key => $value) {
-        if (in_array($key, $rand) && $value['time'] <= $days && $total <= $count) {
+        if (in_array($key, $rand) && $total <= $count) {
             // 删除过期缓存
             UtilFile::delete(CACHE_PATH . $value['name']);
             $total++;

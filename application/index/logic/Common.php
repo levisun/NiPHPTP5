@@ -87,11 +87,12 @@ class Common
      */
     public function getWetsiteData()
     {
+        $module = strtolower($this->request->module());
+
         $map = [
             'name' => [
                 'in',
-                'website_name,website_keywords,website_description,bottom_message,copyright,script,'
-                . strtolower($this->request->module()) . '_theme'
+                'website_name,website_keywords,website_description,bottom_message,copyright,script,' . $module . '_theme'
             ],
             'lang' => Lang::detect()
         ];

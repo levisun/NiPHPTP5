@@ -43,11 +43,11 @@ class Common
      */
     public function getMallData()
     {
+        $module = strtolower($this->request->module());
         $map = [
             'name' => [
                 'in',
-                'mall_name,mall_keywords,mall_description,mall_bottom_message,mall_copyright,mall_script,'
-                . strtolower($this->request->module()) . '_theme'
+                'mall_name,mall_keywords,mall_description,mall_bottom_message,mall_copyright,mall_script,' . $module . '_theme'
             ],
             'lang' => Lang::detect()
         ];
