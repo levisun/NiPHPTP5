@@ -116,7 +116,7 @@ return [
     // 缓存设置
     'cache' => [
         'type'         => 'File',
-        'cache_subdir' => true,
+        'cache_subdir' => false,
         'prefix'       => 'niphp_insomnia_',
         'expire'       => 1200,
     ],

@@ -60,6 +60,9 @@ class Base extends Controller
         // 设置IP为授权Key
         // Log::key($this->request->ip(0, true));
 
+        // 搜索分页关键词
+        Config::set('paginate.query', ['key' => $this->request->param('key')]);
+
         // 加载网站配置
         Config::load(CONF_PATH . 'website.php');
 

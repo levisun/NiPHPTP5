@@ -43,8 +43,7 @@ class Wechat extends Base
 
         // 编辑
         if ($this->method == 'editor') {
-            $data = parent::editor('WechatKeyword', 'Reply.added');
-            $this->assign('data', $data);
+            $this->assign('data', parent::editor('WechatKeyword', 'Reply.added'));
             return $this->fetch('keyword_editor');
         }
 

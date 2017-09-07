@@ -156,6 +156,11 @@ class Content extends Base
             return $this->fetch($theme . 'recycle/' . $logic->tableName . '_editor');
         }
 
+        // 还原
+        if ($this->method == 'reduction') {
+            parent::reduction('ContentRecycle');
+        }
+
         // 列表
         if ($this->method == 'manage') {
             $this->assign('submenu', 1);
@@ -166,7 +171,7 @@ class Content extends Base
             $data = $logic->getListData();
             $this->assign('list', $data['list']);
             $this->assign('page', $data['page']);
-            return $this->fetch($theme . 'list');
+            return $this->fetch($theme . 'recycle');
         }
 
         // 栏目

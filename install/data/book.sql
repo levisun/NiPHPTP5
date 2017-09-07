@@ -24,7 +24,6 @@ CREATE TABLE IF NOT EXISTS `np_book` (
 DROP TABLE IF EXISTS `np_book_type`;
 CREATE TABLE IF NOT EXISTS `np_book_type` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `book_id` smallint(6) unsigned NOT NULL COMMENT '书ID',
   `name` varchar(255) NOT NULL DEFAULT '' COMMENT '分类名',
   `description` varchar(555) NOT NULL DEFAULT '' COMMENT '描述',
   PRIMARY KEY (`id`),

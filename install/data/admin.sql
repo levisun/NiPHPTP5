@@ -82,6 +82,7 @@ CREATE TABLE IF NOT EXISTS `np_node` (
 ) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT '节点表';
 INSERT INTO np_node(`id`, `name`, `title`, `status`, `remark`, `sort`, `pid`, `level`) VALUES
 (1, 'admin', '后台', 1, '后台模块', 0, 0, 1),
+
 (2, 'Settings', '设置', 1, '设置控制器', 1, 1, 2),
 (3, 'info', '系统信息', 1, '系统信息方法', 2, 2, 3),
 (4, 'basic', '基本设置', 1, '基本设置方法', 3, 2, 3),
@@ -133,6 +134,11 @@ INSERT INTO np_node(`id`, `name`, `title`, `status`, `remark`, `sort`, `pid`, `l
 (44, 'account', '账户流水', 1, '账户流水方法', 8, 37, 3),
 (45, 'grecycle', '商品回收站', 1, '商品回收站方法', 7, 37, 3),
 (46, 'settings', '商城设置', 1, '商城设置方法', 9, 37, 3),
+
+(47, 'book', '书库', 1, '书库控制器', 1, 1, 2),
+(48, 'book', '管理书库', 1, '管理书库方法', 2, 47, 3),
+(49, 'type', '管理分类', 1, '管理分类方法', 2, 47, 3),
+(50, 'user', '管理作者', 1, '管管理作者方法', 3, 47, 3),
 
 (47, 'expand', '扩展', 1, '扩展控制器', 1, 1, 2),
 (48, 'log', '系统日志', 1, '系统日志方法', 2, 47, 3),

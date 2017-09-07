@@ -1,0 +1,298 @@
+{css href="__LIBRARY__datetimepicker/css/bootstrap-datetimepicker.min.css" /}
+{js href="__LIBRARY__moment/moment.min.js" /}
+{js href="__LIBRARY__moment/locale/zh-cn.js" /}
+{js href="__LIBRARY__datetimepicker/js/bootstrap-datetimepicker.min.js" /}
+{js href="__LIBRARY__ckeditor/ckeditor.js"}
+{js href="__LIBRARY__ckeditor/config.js"}
+<div class="smart-widget">
+    <div class="smart-widget-header">
+        {$__SUB_TITLE__}
+    </div>
+    <div class="smart-widget-inner">
+        <div class="smart-widget-body">
+            <form action="" method="post" class="form-horizontal">
+                <ul class="nav nav-tabs nav-justified" role="tablist">
+                    <li role="presentation" class="active">
+                        <a href="#CT-basic" id="tab-CT-basic" aria-controls="CT-basic" role="tab" data-toggle="tab">{:lang('basic info')}</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#CT-content" id="tab-CT-content" aria-controls="CT-content" role="tab" data-toggle="tab">{:lang('content')}</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#CT-status" id="tab-CT-status" aria-controls="CT-status" role="tab" data-toggle="tab">{:lang('status')}</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#CT-album" id="tab-CT-album" aria-controls="CT-album" role="tab" data-toggle="tab">{:lang('album')}</a>
+                    </li>
+                    <li role="presentation">
+                        <a href="#CT-attr" id="tab-CT-attr" aria-controls="CT-attr" role="tab" data-toggle="tab">{:lang('attr')}</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane active" id="CT-basic">
+                        <div class="form-group">
+                            <label for="name" class="col-lg-2 control-label">{:lang('goods name')}</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="name" id="name" class="form-control" value="{$data.name}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="type_id" class="col-lg-2 control-label">{:lang('goods type')}</label>
+                            <div class="col-lg-10">
+                                <select name="type_id" id="type_id" class="form-control">
+                                    <option value="">{:lang('please goods type')}</option>
+                                    {volist name="type" id="vo"}
+                                        {empty name="vo.child"}
+                                        <option value="{$vo.id}" {eq name="vo.id" value="$data.type_id"}selected="selected"{/eq}>{$vo.name}</option>
+                                        {else/}
+                                        <option value="{$vo.id}" disabled>{$vo.name}</option>
+                                        {volist name="vo.child" id="v"}
+                                        <option value="{$v.id}" {eq name="v.id" value="$data.type_id"}selected="selected"{/eq}>|__{$v.name}</option>
+                                        {/volist}
+                                        {/empty}
+
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="brand_id" class="col-lg-2 control-label">{:lang('goods brand')}</label>
+                            <div class="col-lg-10">
+                                <select name="brand_id" id="brand_id" class="form-control">
+                                    <option value="">{:lang('please goods brand')}</option>
+                                    {volist name="brand" id="vo"}
+                                    <option value="{$vo.id}" {eq name="vo.id" value="$data.brand_id"}selected="selected"{/eq}>{$vo.name}</option>
+                                    {/volist}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="price" class="col-lg-2 control-label">{:lang('goods price')}</label>
+                            <div class="col-lg-10">
+                                <div class="input-group">
+                                    <input type="text" name="price" id="price" class="form-control" value="{$data.price}">
+                                    <span class="input-group-addon">{:lang('mall yuan')}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="market_price" class="col-lg-2 control-label">{:lang('goods market price')}</label>
+                            <div class="col-lg-10">
+                                <div class="input-group">
+                                    <input type="text" name="market_price" id="market_price" class="form-control" value="{$data.market_price}">
+                                    <span class="input-group-addon">{:lang('mall yuan')}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="number" class="col-lg-2 control-label">{:lang('goods number')}</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="number" id="number" class="form-control" value="{$data.number}">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="thumb" class="col-lg-2 control-label">{:lang('thumb')}</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="thumb" id="thumb" class="form-control" value="{$data.thumb}">
+                                <button type="button" class="btn btn-success btn-sm np-upload" data-type="image" data-id="thumb" data-model="">{:lang('button upload')}</button>
+                                <img src="{$data.thumb}" id="img-thumb" width="100" style="display:none">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="promote_price" class="col-lg-2 control-label">{:lang('promote price')}</label>
+                            <div class="col-lg-10">
+                                <div class="input-group">
+                                    <input type="text" name="promote_price" id="promote_price" class="form-control" value="{$data.promote_price}">
+                                    <span class="input-group-addon">{:lang('mall yuan')}</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="promote_start_time" class="col-lg-2 control-label">{:lang('promote start time')}</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="promote_start_time" id="promote_start_time" class="form-control" value="{$data.promote_start_time|date="Y-m-d", ###}">
+                                <script type="text/javascript">
+                                $(function () {
+                                    $('#promote_start_time').datetimepicker(
+                                        {format: 'Y-M-D'}
+                                        );
+                                });
+                                </script>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="promote_end_time" class="col-lg-2 control-label">{:lang('promote end time')}</label>
+                            <div class="col-lg-10">
+                                <input type="text" name="promote_end_time" id="promote_end_time" class="form-control" value="{$data.promote_end_time|date="Y-m-d", ###}">
+                                <script type="text/javascript">
+                                $(function () {
+                                    $('#promote_end_time').datetimepicker(
+                                        {format: 'Y-M-D'}
+                                        );
+                                });
+                                </script>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="CT-content">
+                        <div class="form-group">
+                            <label for="content" class="col-lg-2 control-label">{:lang('content')}</label>
+                            <div class="col-lg-10">
+                                <textarea name="content" class="form-control ckeditor">{$data.content}</textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="CT-status">
+                        <div class="form-group">
+                            <label for="" class="col-lg-2 control-label">{:lang('goods pass')}</label>
+                            <div class="col-lg-10">
+                                <div class="radio inline-block">
+                                    <div class="custom-radio m-right-xs {eq name="data.is_pass" value="1"}checked{/eq}">
+                                        <input type="radio" id="is_pass1" name="is_pass" value="1" {eq name="data.is_pass" value="1"}checked{/eq}>
+                                        <label for="is_pass1"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {:lang('button yes')}
+                                    </div>
+                                </div>
+                                <div class="radio inline-block">
+                                    <div class="custom-radio m-right-xs {eq name="data.is_pass" value="0"}checked{/eq}">
+                                        <input type="radio" id="is_pass2" name="is_pass" value="0" {eq name="data.is_pass" value="0"}checked{/eq}>
+                                        <label for="is_pass2"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {:lang('button no')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-lg-2 control-label">{:lang('goods show')}</label>
+                            <div class="col-lg-10">
+                                <div class="radio inline-block">
+                                    <div class="custom-radio m-right-xs {eq name="data.is_show" value="1"}checked{/eq}">
+                                        <input type="radio" id="is_show1" name="is_show" value="1" {eq name="data.is_show" value="1"}checked{/eq}>
+                                        <label for="is_show1"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {:lang('button yes')}
+                                    </div>
+                                </div>
+                                <div class="radio inline-block">
+                                    <div class="custom-radio m-right-xs {eq name="data.is_show" value="0"}checked{/eq}">
+                                        <input type="radio" id="is_show2" name="is_show" value="0" {eq name="data.is_show" value="0"}checked{/eq}>
+                                        <label for="is_show2"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {:lang('button no')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-lg-2 control-label">{:lang('goods com')}</label>
+                            <div class="col-lg-10">
+                                <div class="radio inline-block">
+                                    <div class="custom-radio m-right-xs {eq name="data.is_com" value="1"}checked{/eq}">
+                                        <input type="radio" id="is_com1" name="is_com" value="1" {eq name="data.is_com" value="1"}checked{/eq}>
+                                        <label for="is_com1"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {:lang('button yes')}
+                                    </div>
+                                </div>
+                                <div class="radio inline-block">
+                                    <div class="custom-radio m-right-xs {eq name="data.is_com" value="0"}checked{/eq}">
+                                        <input type="radio" id="is_com2" name="is_com" value="0" {eq name="data.is_com" value="0"}checked{/eq}>
+                                        <label for="is_com2"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {:lang('button no')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-lg-2 control-label">{:lang('goods top')}</label>
+                            <div class="col-lg-10">
+                                <div class="radio inline-block">
+                                    <div class="custom-radio m-right-xs {eq name="data.is_top" value="1"}checked{/eq}">
+                                        <input type="radio" id="is_top1" name="is_top" value="1" {eq name="data.is_top" value="1"}checked{/eq}>
+                                        <label for="is_top1"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {:lang('button yes')}
+                                    </div>
+                                </div>
+                                <div class="radio inline-block">
+                                    <div class="custom-radio m-right-xs {eq name="data.is_top" value="0"}checked{/eq}">
+                                        <input type="radio" id="is_top2" name="is_top" value="0" {eq name="data.is_top" value="0"}checked{/eq}>
+                                        <label for="is_top2"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {:lang('button no')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="" class="col-lg-2 control-label">{:lang('goods hot')}</label>
+                            <div class="col-lg-10">
+                                <div class="radio inline-block">
+                                    <div class="custom-radio m-right-xs {eq name="data.is_hot" value="1"}checked{/eq}">
+                                        <input type="radio" id="is_hot1" name="is_hot" value="1" {eq name="data.is_hot" value="1"}checked{/eq}>
+                                        <label for="is_hot1"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {:lang('button yes')}
+                                    </div>
+                                </div>
+                                <div class="radio inline-block">
+                                    <div class="custom-radio m-right-xs {eq name="data.is_hot" value="0"}checked{/eq}">
+                                        <input type="radio" id="is_hot2" name="is_hot" value="0" {eq name="data.is_hot" value="0"}checked{/eq}>
+                                        <label for="is_hot2"></label>
+                                    </div>
+                                    <div class="inline-block vertical-top">
+                                        {:lang('button no')}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div role="tabpanel" class="tab-pane" id="CT-album">
+                        <div class="form-group">
+                            <label for="" class="col-lg-2 control-label">{:lang('album')}</label>
+                            <div class="col-lg-10">
+                                <button type="button" class="btn btn-success btn-sm np-album-add">{:lang("button add")}</button>
+                                <ol id="album">
+                                    {volist name="data.album_list" id="vo"}
+                                    <li id="album-{$vo.id}">
+                                        <input type="text" name="album_image[]" id="album-image-{$vo.id}" class="form-control" value="{$vo.image}">
+                                        <input type="hidden" name="album_thumb[]" id="album-thumb-{$vo.id}" class="form-control" value="{$vo.thumb}">
+                                        <img src="" id="img-album-{$vo.id}" width="100" style="display:none">
+                                        <button type="button" class="btn btn-success btn-sm np-upload" data-type="mallalbum" data-id="{$vo.id}" data-model="">{:lang('button upload')}</button>
+                                        <button type="button" class="btn btn-success btn-sm np-album-del" date-id="{$vo.id}">{:lang('button delete')}</button>
+                                    </li>
+                                    {/volist}
+                                </ol>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="form-group">
+                    <div class="col-lg-offset-2 col-lg-10">
+                        {:token()}
+                        <input type="hidden" name="id" value="{$data.id}">
+                        <!-- <input type="submit" value="{:lang('button save')}" class="btn btn-info marginTB-xs"> -->
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

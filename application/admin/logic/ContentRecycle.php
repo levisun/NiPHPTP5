@@ -20,7 +20,7 @@ use app\admin\logic\ContentContentData as ModelContentContentData;
 class ContentRecycle
 {
     protected $request     = null;
-    protected $table_model = null;
+    protected $tableModel = null;
 
     public $dataModel = null;
     public $tableName = null;
@@ -42,7 +42,7 @@ class ContentRecycle
         $this->tableName = $this->dataModel->getModelTable();
 
         // 对应表模型
-        $this->table_model = $this->tableName ? Loader::model(ucfirst($this->tableName)) : null;
+        $this->tableModel = $this->tableName ? Loader::model(ucfirst($this->tableName)) : null;
     }
 
     /**
@@ -68,11 +68,11 @@ class ContentRecycle
             $order = 'is_pass ASC, is_com DESC, is_top DESC, is_hot DESC, sort DESC, update_time DESC';
         }
 
-        $this->table_model->field(true)
+        $this->tableModel->field(true)
         ->where($map)
         ->order($order);
         $result =
-        $this->table_model->onlyTrashed()->paginate();
+        $this->tableModel->onlyTrashed()->paginate();
 
         $list = [];
         foreach ($result as $value) {
@@ -99,7 +99,7 @@ class ContentRecycle
         }
 
         $result =
-        $this->table_model->onlyTrashed()
+        $this->tableModel->onlyTrashed()
         ->field(true)
         ->where($map)
         ->find();
@@ -128,6 +128,27 @@ class ContentRecycle
     }
 
     /**
+     * 还原数据
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function reduction()
+    {
+        $id = $this->request->param('id/f');
+        $map = ['id' => $id];
+
+        $data = ['delete_time' => null];
+
+        $result =
+        $this->tableModel->allowField(true)
+        ->isUpdate(true)
+        ->save($data, $map);
+
+        return $result ? true : false;
+    }
+
+    /**
      * 删除数据
      * @access public
      * @param
@@ -139,7 +160,7 @@ class ContentRecycle
         $map = ['id' => $id];
 
         $result =
-        $this->table_model->onlyTrashed()
+        $this->tableModel->onlyTrashed()
         ->where($map)
         ->delete();
 

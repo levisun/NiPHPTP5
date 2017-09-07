@@ -112,7 +112,7 @@ class Expand extends Base
      */
     public function upgrade()
     {
-        halt('TODO');
+        return $this->fetch();
     }
 
     /**

@@ -22,7 +22,7 @@ use app\admin\model\Page as ModelPage;
 use app\admin\model\Fields as ModelFields;
 use app\admin\model\TagsArticle as ModelTagsArticle;
 
-class Page extends Model
+class Page
 {
     protected $request    = null;
     protected $modelName = null;
@@ -41,8 +41,9 @@ class Page extends Model
      */
     public function getListData()
     {
+        $cid = $this->request->param('cid/f');
         $map = [
-            'a.category_id' => $this->request->param('cid/f'),
+            'a.category_id' => $cid,
             'a.lang'        => Lang::detect()
         ];
 
@@ -77,7 +78,8 @@ class Page extends Model
      */
     protected function getFieldsData($id)
     {
-        $map = ['f.category_id' => $this->request->param('cid/f')];
+        $cid = $this->request->param('cid/f');
+        $map = ['f.category_id' => $cid];
         $table_name = 'page_data d';
 
         $fields = new ModelFields;
@@ -106,8 +108,9 @@ class Page extends Model
      */
     protected function getTagsData($id)
     {
+        $cid = $this->request->param('cid/f');
         $map = [
-            'a.category_id' => $this->request->param('cid/f'),
+            'a.category_id' => $cid,
             'a.article_id'  => $id
         ];
 

@@ -36,8 +36,9 @@ class Link
      */
     public function getListData()
     {
+        $cid = $this->request->param('cid/f');
         $map = [
-            'l.category_id' => $this->request->param('cid/f'),
+            'l.category_id' => $cid,
             'l.is_pass'     => 1,
             'l.lang'        => Lang::detect()
         ];

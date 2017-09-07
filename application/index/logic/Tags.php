@@ -29,7 +29,7 @@ use app\admin\model\Level as ModelLevel;
 use app\admin\model\Type as ModelType;
 use app\admin\model\Admin as ModelAdmin;
 
-class Tags extends Model
+class Tags
 {
     protected $request = null;
 
@@ -74,14 +74,32 @@ class Tags extends Model
         $article_id  = array_unique($article_id);
         $category_id = array_unique($category_id);
 
-        $where = ' WHERE is_pass=1 AND lang=\'' . Lang::detect() . '\'';
+        $where = ' WHERE ( is_pass=1 AND lang=\'' . Lang::detect() . '\'';
         $where .= ' AND show_time<=' . strtotime(date('Y-m-d'));
 
         $where .= ' AND id IN(' . implode(',', $article_id) . ')';
         $where .= ' AND category_id IN(' . implode(',', $category_id) . ')';
 
         $order = 'sort DESC, update_time DESC';
-        $where .= ' ORDER BY ' . $order;
+        $where .= ' ) ORDER BY ' . $order;
+
+
+        $map = [
+            'is_pass' => 1,
+            'lang' => Lang::detect(),
+        ];
+
+
+        $field = 'count(1) as count';
+        Db::field($field)
+        ->table(Config::get('database.prefix') . 'article')
+        ->union('SELECT ' . $field . ' FROM ' . Config::get('database.prefix') . 'download' . $where . ' LIMIT 1')
+        ->union('SELECT ' . $field . ' FROM ' . Config::get('database.prefix') . 'picture' . $where . ' LIMIT 1')
+        ->union('SELECT ' . $field . ' FROM ' . Config::get('database.prefix') . 'product' . $where . ' LIMIT 1')
+        ->where($where)
+        ->limit(1)
+        ->select();
+
 
         // 统计
         $field = 'count(1) as count';

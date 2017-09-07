@@ -36,9 +36,11 @@ class Jump
      */
     public function jump($name)
     {
+        $cid = $this->request->param('cid/f');
+        $id  = $this->request->param('id/f');
         $map = [
-            'category_id' => $this->request->param('cid/f'),
-            'id'          => $this->request->param('id/f'),
+            'category_id' => $cid,
+            'id'          => $id,
             'lang'        => Lang::detect(),
         ];
 

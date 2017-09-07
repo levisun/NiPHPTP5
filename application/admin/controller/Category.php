@@ -61,8 +61,7 @@ class Category extends Base
 
         // 编辑
         if ($this->method == 'editor') {
-            $data = parent::editor('CategoryCategory');
-            $this->assign('data', $data);
+            $this->assign('data', parent::editor('CategoryCategory'));
             return $this->fetch('category_editor');
         }
 

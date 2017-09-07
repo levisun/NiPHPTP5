@@ -79,31 +79,32 @@ function cache_remove()
         return false;
     }
 
-    if (rand(1, 1000) != 1000) {
+    if (rand(1, 100) != 100) {
         return false;
     }
 
     $prefix = Config::get('cache.prefix');
     $dir = CACHE_PATH;
-    $dir = $prefix ? $prefix . DS : '';
+    $dir .= $prefix ? $prefix . DS : '';
     $list = UtilFile::get($dir);
     if (empty($list)) {
         return false;
     }
 
-    $count = count($list) >= 30 ? 30 : count($list);
+    $count = count($list) >= 20 ? 20 : count($list);
     $rand = array_rand($list, $count);
 
-    // $days = strtotime('-7 days'); // && $value['time'] <= $days
-
+    $days = strtotime('-1 days'); // && $value['time'] <= $days
     $total = 0;
     foreach ($list as $key => $value) {
-        if (in_array($key, $rand) && $total <= $count) {
-            // 删除过期缓存
-            UtilFile::delete(CACHE_PATH . $value['name']);
-            $total++;
-        } else {
+        if ($total >= $count) {
             break;
+        }
+
+        if (in_array($key, $rand)) {
+            // 删除过期缓存
+            UtilFile::delete($dir . $value['name'] . DS);
+            $total++;
         }
     }
 }

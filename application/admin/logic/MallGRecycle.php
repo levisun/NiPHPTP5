@@ -66,6 +66,29 @@ class MallGRecycle
     }
 
     /**
+     * 还原数据
+     * @access public
+     * @param
+     * @return boolean
+     */
+    public function reduction()
+    {
+        $id = $this->request->param('id/f');
+        $map = ['id' => $id];
+
+        $data = ['delete_time' => null];
+
+        $goods = new ModelMallGoods;
+
+        $result =
+        $goods->allowField(true)
+        ->isUpdate(true)
+        ->save($data, $map);
+
+        return $result ? true : false;
+    }
+
+    /**
      * 删除数据
      * @access public
      * @param
@@ -90,10 +113,60 @@ class MallGRecycle
 
         // 商品相册
         $album = new ModelMallGoodsAlbum;
-        // 删除相册重新写入
+        // 删除相册
         $album->where($map)
         ->delete();
 
         return $result ? true : false;
+    }
+
+    /**
+     * 查询编辑数据
+     * @access public
+     * @param
+     * @return array
+     */
+    public function getEditorData()
+    {
+        $map = [
+            'g.lang' => Lang::detect(),
+            'g.id' => $this->request->param('id/f')
+        ];
+
+        $goods = new ModelMallGoods;
+
+        $goods->view('mall_goods g')
+        ->view('mall_goods_promote p', ['promote_price', 'promote_start_time', 'promote_end_time'], 'p.goods_id=g.id', 'LEFT')
+        ->where($map);
+
+        $result =
+        $goods->onlyTrashed()
+        ->find();
+
+        $data = [];
+        if (!empty($result)) {
+            $data = $result->toArray();
+            $data['price'] = number_format($data['price'] / 100, 2);
+            $data['market_price'] = number_format($data['market_price'] / 100, 2);
+            $data['content'] = htmlspecialchars_decode($data['content']);
+            $data['promote_price'] = $data['promote_price'] ? number_format($data['promote_price'] / 100, 2) : $data['promote_price'];
+        }
+
+        // 相册
+        $album = new ModelMallGoodsAlbum;
+        $map = ['goods_id' => $this->request->param('id/f')];
+        $result =
+        $album->field(true)
+        ->where($map)
+        ->select();
+
+        $album_list = [];
+        foreach ($result as $value) {
+            $album_list[] = $value->toArray();
+        }
+
+        $data['album_list'] = $album_list;
+
+        return $data;
     }
 }

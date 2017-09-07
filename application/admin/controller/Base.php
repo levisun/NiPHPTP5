@@ -173,6 +173,34 @@ class Base extends Controller
     }
 
     /**
+     * 还原方法
+     * @access public
+     * @param  string $logic_name    操作模型名
+     * @param  string $log_name      操作日志记录名|为空自动获取记录名
+     * @return void
+     */
+    public function reduction($logic_name, $log_name = '')
+    {
+        $result = Loader::model($logic_name, 'logic')->reduction();
+        if (true === $result) {
+            $this->actionLog($log_name);
+
+            $url_param = [];
+            if ($this->request->has('cid')) {
+                $url_param = [
+                    'method' => 'manage',
+                    'cid' => $this->request->param('cid')
+                ];
+            }
+            $url = Url::build($this->request->action(), $url_param);
+
+            $this->success(Lang::get('success reduction'), $url);
+        } else {
+            $this->error(Lang::get('error reduction'));
+        }
+    }
+
+    /**
      * 查询方法
      * @access public
      * @param  string $logic_name 操作模型名
@@ -251,6 +279,9 @@ class Base extends Controller
     {
         // 设置IP为授权Key
         Log::key($this->request->ip(0, true));
+
+        // 搜索分页关键词
+        Config::set('paginate.query', ['key' => $this->request->param('key')]);
 
         // 加载语言
         $lang_path = APP_PATH . $this->request->module();

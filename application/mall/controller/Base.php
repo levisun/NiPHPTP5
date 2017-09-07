@@ -40,6 +40,9 @@ class Base extends Controller
         // 设置IP为授权Key
         // Log::key($this->request->ip(0, true));
 
+        // 搜索分页关键词
+        Config::set('paginate.query', ['key' => $this->request->param('key')]);
+
         // 访问与搜索日志
         $visit = new IndexLogicVisit;
         $visit->visit();

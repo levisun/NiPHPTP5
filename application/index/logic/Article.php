@@ -53,24 +53,18 @@ class Article
     {
         // $id = $this->getChild(); 查询表不同会有错误
 
+        $cid = $this->request->param('cid/f');
         $map = [
             // 'a.category_id' => ['IN', $id], 查询表不同会有错误
-            'a.category_id' => $this->request->param('cid/f'),
+            'a.category_id' => $cid,
             'a.is_pass'     => 1,
             'a.lang'        => Lang::detect(),
             'a.show_time'   => ['ELT', strtotime(date('Y-m-d'))]
         ];
 
-        $CACHE = check_key($map, __METHOD__);
-
-        if ($list = Cache::get($CACHE)) {
-            return $list;
-        }
-
         $order = 'a.sort DESC, a.update_time DESC';
 
         $model = Loader::model(ucfirst($this->modelName), 'model', false, 'admin');
-        $CACHE = check_key($map, __METHOD__);
 
         $result =
         $model->view($this->modelName . ' a', 'id,title,keywords,description,thumb,category_id,hits,comment_count,create_time,update_time,type_id,access_id,is_link,url')
@@ -80,7 +74,7 @@ class Article
         ->view('admin ad', ['username' => 'editor_name'], 'a.user_id=ad.id')
         ->where($map)
         ->order($order)
-        // ->cache($CACHE)
+        ->cache(!APP_DEBUG)
         ->paginate();
 
         $list = [];
@@ -98,10 +92,6 @@ class Article
         $page = !empty($result) ? $result->render() : '';
 
         $data = ['list' => $list, 'page' => $page];
-
-        if ($CACHE) {
-            Cache::set($CACHE, $data);
-        }
 
         return $data;
     }
@@ -156,9 +146,11 @@ class Article
      */
     public function getArticle()
     {
+        $cid = $this->request->param('cid/f');
+        $id  = $this->request->param('id/f');
         $map = [
-            'a.category_id' => $this->request->param('cid/f'),
-            'a.id'          => $this->request->param('id/f'),
+            'a.category_id' => $cid,
+            'a.id'          => $id,
             'a.is_pass'     => 1,
             'a.lang'        => Lang::detect(),
             'a.show_time'   => ['ELT', strtotime(date('Y-m-d'))]
@@ -225,7 +217,8 @@ class Article
      */
     protected function getAlbumData()
     {
-        $map = ['main_id' => $this->request->param('id/f')];
+        $id = $this->request->param('id/f');
+        $map = ['main_id' => $id];
 
         $album = Loader::model($this->modelName . 'Album', 'model', false, 'admin');
 
@@ -251,7 +244,8 @@ class Article
      */
     protected function getFieldsData()
     {
-        $map = ['f.category_id' => $this->request->param('cid/f')];
+        $cid = $this->request->param('cid/f');
+        $map = ['f.category_id' => $cid];
         $table_name = $this->modelName . '_data d';
 
         $fields = new ModelFields;
@@ -280,9 +274,11 @@ class Article
      */
     protected function getTagsData()
     {
+        $cid = $this->request->param('cid/f');
+        $id  = $this->request->param('id/f');
         $map = [
-            'a.category_id' => $this->request->param('cid/f'),
-            'a.article_id'  => $this->request->param('id/f')
+            'a.category_id' => $cid,
+            'a.article_id'  => $id
         ];
 
         $tags = new ModelTagsArticle;

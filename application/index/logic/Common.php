@@ -130,8 +130,9 @@ class Common
             return null;
         }
 
+        $cid = $this->request->param('cid/f');
         $map = [
-            'c.id' => $this->request->param('cid/f'),
+            'c.id' => $cid,
             'c.lang' => Lang::detect()
         ];
 

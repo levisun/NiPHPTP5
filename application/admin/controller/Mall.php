@@ -17,6 +17,7 @@ use app\admin\controller\Base;
 use app\admin\logic\MallGoods as LogicMallGoods;
 use app\admin\logic\MallCategory as LogicMallCategory;
 use app\admin\logic\MallType as LogicMallType;
+use app\admin\logic\MallGRecycle as LogicMallGRecycle;
 
 class Mall extends Base
 {
@@ -52,8 +53,7 @@ class Mall extends Base
 
         // 编辑
         if ($this->method == 'editor') {
-            $data = parent::editor('MallGoods', 'MallGoods.editor');
-            $this->assign('data', $data);
+            $this->assign('data', parent::editor('MallGoods', 'MallGoods.editor'));
             return $this->fetch('mall/goods/goods_editor');
         }
 
@@ -62,6 +62,13 @@ class Mall extends Base
         $this->assign('page', $data['page']);
 
         return $this->fetch('mall/goods/goods');
+    }
+
+    public function orders()
+    {
+        $this->assign('submenu', 1);
+
+        return $this->fetch('mall/orders/orders');
     }
 
     /**
@@ -97,7 +104,6 @@ class Mall extends Base
             $this->assign('data', $data);
             return $this->fetch('mall/type/type_editor');
         }
-
 
         $data = parent::select('MallCategory');
         $this->assign('list', $data);
@@ -215,6 +221,22 @@ class Mall extends Base
         if ($this->method == 'remove') {
             parent::remove('MallGRecycle', 'MallGoods.remove');
             return ;
+        }
+
+        // 还原
+        if ($this->method == 'reduction') {
+            parent::reduction('MallGRecycle');
+        }
+
+        // 编辑
+        if ($this->method == 'editor') {
+            $logic = new LogicMallGoods;
+            $this->assign('type', $logic->getType());
+            $this->assign('brand', $logic->getBrand());
+
+            $data = parent::editor('MallGRecycle', 'MallGoods.editor');
+            $this->assign('data', parent::editor('MallGRecycle', 'MallGoods.editor'));
+            return $this->fetch('mall/goods/recycle_editor');
         }
 
         $data = parent::select('MallGRecycle');

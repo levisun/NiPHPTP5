@@ -111,7 +111,8 @@ class Message
      */
     protected function getFields()
     {
-        $map = ['f.category_id' => $this->request->param('cid/f')];
+        $cid = $this->request->param('cid/f');
+        $map = ['f.category_id' => $cid];
 
         $fields = new ModelFields;
 
@@ -140,7 +141,8 @@ class Message
      */
     protected function getType()
     {
-        $map = ['category_id' => $this->request->param('cid/f')];
+        $cid = $this->request->param('cid/f');
+        $map = ['category_id' => $cid];
 
         $type = new ModelType;
 

@@ -10,25 +10,23 @@
                 <table class="table table-striped" id="dataTable">
                     <thead>
                         <tr>
-                            <th>{:lang('id')}</th>
-                            <th>{:lang('type name')}</th>
-                            <th>{:lang('name')}</th>
-                            <th>{:lang('goods price')}</th>
-                            <th>{:lang('promote price')}</th>
+                            {eq name="sort" value="1"}
+                            <th>{:lang('sort')}</th>
+                            {/eq}
+                            <th>{:lang('title')}</th>
                             <th>{:lang('status')}</th>
+                            <th>{:lang('create time')}</th>
+                            <th>{:lang('update time')}</th>
                             <th>{:lang('operation')}</th>
                         </tr>
                     </thead>
                     <tbody>
                         {volist name="list" id="vo"}
                         <tr>
-                            <td>{$vo.id}</td>
-                            <td>{$vo.type_name}</td>
-                            <td>{$vo.name}</td>
-                            <td>{$vo.price}</td>
-                            <td>
-                                {$vo.promote_price}
-                            </td>
+                            {eq name="sort" value="1"}
+                            <td><input type="text" name="sort[{$vo.id}]" class="form-control mini" value="{$vo.sort}"></td>
+                            {/eq}
+                            <td>{$vo.title}</td>
                             <td>
                                 <a class="btn btn-danger btn-xs disabled">
                                 {eq name="vo.is_pass" value="1"}
@@ -39,34 +37,39 @@
                                 </a>
 
                                 {notempty name="vo.is_com"}
-                                <a class="btn btn-primary btn-xs disabled">{:lang('goods com')}</a>
+                                <a class="btn btn-primary btn-xs disabled">{:lang('com')}</a>
                                 {/notempty}
 
                                 {notempty name="vo.is_top"}
-                                <a class="btn btn-primary btn-xs disabled">{:lang('goods top')}</a>
+                                <a class="btn btn-primary btn-xs disabled">{:lang('top')}</a>
                                 {/notempty}
 
                                 {notempty name="vo.is_hot"}
-                                <a class="btn btn-primary btn-xs disabled">{:lang('goods hot')}</a>
+                                <a class="btn btn-primary btn-xs disabled">{:lang('hot')}</a>
                                 {/notempty}
                             </td>
+                            <td>{$vo.create_time|date="Y-m-d", ###}</td>
+                            <td>{$vo.update_time|date="Y-m-d", ###}</td>
                             <td>
-                                <a href="{:url('', array('method' => 'editor', 'id' => $vo['id']))}"><i class="fa fa-edit"></i>{:lang('button editor')}</a>
-                                <a href="{:url('', array('method' => 'reduction', 'id' => $vo['id']))}" class="reduction"><i class="fa fa-retweet"></i>{:lang('button reduction')}</a>
-                                <a href="{:url('', array('method' => 'remove', 'id' => $vo['id']))}" class="remove"><i class="fa fa-times"></i>{:lang('button delete')}</a>
+                                <a href="{:url('', array('method' => 'editor', 'cid' => $Request.param.cid, 'id' => $vo['id']))}"><i class="fa fa-edit"></i>{:lang('button editor')}</a>
+                                <a href="{:url('', array('method' => 'reduction', 'cid' => $Request.param.cid, 'id' => $vo['id']))}" class="reduction"><i class="fa fa-retweet"></i>{:lang('button reduction')}</a>
+                                <a href="{:url('', array('method' => 'remove', 'cid' => $Request.param.cid, 'id' => $vo['id']))}" class="remove"><i class="fa fa-times"></i>{:lang('button delete')}</a>
                             </td>
                         </tr>
                         {/volist}
+                        {eq name="sort" value="1"}
                         <tr>
-                            <td><input type="submit" value="{:lang('button sort')}" class="btn btn-primary"></td>
-                            <td></td>
-                            <td></td>
+                            <td>
+                                <input type="hidden" name="cid" value="{$Request.param.cid}">
+                                <input type="submit" value="{:lang('sort')}" class="btn btn-success">
+                            </td>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
                             <td></td>
                         </tr>
+                        {/eq}
                     </tbody>
                 </table>
             </form>
