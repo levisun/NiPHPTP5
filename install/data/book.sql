@@ -10,7 +10,9 @@ CREATE TABLE IF NOT EXISTS `np_book` (
   `user_id` smallint(6) unsigned NOT NULL COMMENT '作者ID',
   `is_show` tinyint(1) unsigned NOT NULL DEFAULT '1' COMMENT '显示',
   `sort` smallint(5) unsigned NOT NULL DEFAULT '0' COMMENT '排序',
+  `hits` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '点击量',
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
+  `delete_time` int(11) unsigned DEFAULT NULL COMMENT '删除时间',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `lang` varchar(20) NOT NULL DEFAULT 'zh-cn' COMMENT '语言',
   PRIMARY KEY (`id`),
@@ -18,6 +20,7 @@ CREATE TABLE IF NOT EXISTS `np_book` (
   KEY `type_id` (`type_id`),
   KEY `user_id` (`user_id`),
   KEY `is_show` (`is_show`),
+  KEY `delete_time` (`delete_time`),
   KEY `lang` (`lang`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='书库表';
 
@@ -45,10 +48,8 @@ CREATE TABLE IF NOT EXISTS `np_book_article` (
   `delete_time` int(11) unsigned DEFAULT NULL COMMENT '删除时间',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   `access_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '访问权限',
-  `lang` varchar(20) NOT NULL DEFAULT 'zh-cn' COMMENT '语言',
   PRIMARY KEY (`id`),
   KEY `book_id` (`book_id`),
   KEY `is_pass` (`is_pass`),
-  KEY `delete_time` (`delete_time`),
-  KEY `lang` (`lang`)
+  KEY `delete_time` (`delete_time`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='书库文章表';

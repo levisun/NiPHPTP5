@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `np_mall_order` (
   `integral` int(11) NOT NULL DEFAULT '0' COMMENT '积分',
   `pay_amount` int(11) NOT NULL DEFAULT '0' COMMENT '支付金额',
   `pay_type` tinyint(3) unsigned NOT NULL DEFAULT '0' COMMENT '支付类型',
-  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态 1待支付 2已支付待发货 3发货 4确认收货 5退货 6退款',
+  `status` tinyint(1) unsigned NOT NULL DEFAULT '0' COMMENT '状态 0取消订单 1待支付 2已支付待发货 3发货 4确认收货 5退货 6退款',
   `pay_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '支付时间',
   `confirm_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '确认时间',
   `return_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '退货时间',
@@ -19,6 +19,7 @@ CREATE TABLE IF NOT EXISTS `np_mall_order` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `trade_no` (`trade_no`),
   KEY `user_id` (`user_id`),
+  KEY `seller_id` (`seller_id`),
   KEY `status` (`status`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT '订单表';
 

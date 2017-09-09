@@ -89,6 +89,7 @@ return [
         'user'              => '用户',
         'wechat'            => '微信',
         'mall'              => '商城',
+        'book'              => '书库',
         'expand'            => '扩展',
         ],
 
@@ -140,6 +141,10 @@ return [
         'mall_account'      => '账户流水',
         'mall_grecycle'     => '商品回收站',
         'mall_settings'     => '商城设置',
+
+        'book_book'         => '管理书库',
+        'book_type'         => '管理分类',
+        'book_user'         => '管理作者',
 
         'expand_app'        => '应用中心',
         'expand_upgrade'    => '在线升级',

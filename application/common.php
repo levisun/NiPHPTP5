@@ -79,8 +79,8 @@ function cache_remove()
         return false;
     }
 
-    if (rand(1, 100) != 100) {
-        return false;
+    if (rand(1, 10) != 10) {
+        // return false;
     }
 
     $prefix = Config::get('cache.prefix');
@@ -89,6 +89,13 @@ function cache_remove()
     $list = UtilFile::get($dir);
     if (empty($list)) {
         return false;
+    }
+
+    $days = strtotime('-1 days');
+    foreach ($list as $key => $value) {
+        if ($value['time'] >= $days) {
+            unset($list[$key]);
+        }
     }
 
     $count = count($list) >= 20 ? 20 : count($list);
@@ -103,7 +110,7 @@ function cache_remove()
 
         if (in_array($key, $rand)) {
             // 删除过期缓存
-            UtilFile::delete($dir . $value['name'] . DS);
+            UtilFile::delete($dir . $value['name']);
             $total++;
         }
     }

@@ -8,6 +8,7 @@
   'user' => 'group',
   'wechat' => 'comments',
   'mall' => 'shopping-cart',
+  'book' => 'book',
   'expand' => 'wrench',
   'sys_version' => '0.2.5 Alpha 1737',
   'USER_AUTH_ON' => 1,

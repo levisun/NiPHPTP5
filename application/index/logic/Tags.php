@@ -19,6 +19,7 @@ use think\Url;
 use think\Config;
 use think\Db;
 use think\Cache;
+use think\Loader;
 use app\admin\model\Tags as ModelTags;
 use app\admin\model\Article as ModelArticle;
 use app\admin\model\Download as ModelDownload;
@@ -62,6 +63,7 @@ class Tags
         $tags->view('tags t', ['name'=>'tags_name'])
         ->view('tags_article ta', true, 'ta.tags_id=t.id')
         ->where($map)
+        ->cache(!APP_DEBUG)
         ->select();
 
         $article_id = $category_id = [];
@@ -85,20 +87,99 @@ class Tags
 
 
         $map = [
-            'is_pass' => 1,
-            'lang' => Lang::detect(),
+            'is_pass'     => 1,
+            'show_time'   => ['ELT', strtotime(date('Y-m-d'))],
+            'id'          => ['IN', implode(',', $article_id)],
+            'category_id' => ['IN', implode(',', $category_id)],
+            'lang'        => Lang::detect(),
         ];
 
+        $article = Loader::model('article', 'model', false, 'admin');
+        $download = Loader::model('download', 'model', false, 'admin');
+        $picture = Loader::model('picture', 'model', false, 'admin');
+        $product = Loader::model('product', 'model', false, 'admin');
 
-        $field = 'count(1) as count';
-        Db::field($field)
-        ->table(Config::get('database.prefix') . 'article')
-        ->union('SELECT ' . $field . ' FROM ' . Config::get('database.prefix') . 'download' . $where . ' LIMIT 1')
-        ->union('SELECT ' . $field . ' FROM ' . Config::get('database.prefix') . 'picture' . $where . ' LIMIT 1')
-        ->union('SELECT ' . $field . ' FROM ' . Config::get('database.prefix') . 'product' . $where . ' LIMIT 1')
-        ->where($where)
-        ->limit(1)
+        $result =
+        $article->field('COUNT(*) AS tp_count')
+        ->union($download->field('COUNT(*) AS tp_count')->where($map)->fetchSql(true)->select())
+        ->union($picture->field('COUNT(*) AS tp_count')->where($map)->fetchSql(true)->select())
+        ->union($picture->field('COUNT(*) AS tp_count')->where($map)->fetchSql(true)->select())
+        ->where($map)
+        ->cache(!APP_DEBUG)
         ->select();
+
+        $total = 0;
+        foreach ($result as $value) {
+            $value = $value->toArray();
+            $total += $value['tp_count'];
+        }
+
+        // 分页
+        $config = Config::get('paginate');
+
+        $class = false !== strpos($config['type'], '\\') ? $config['type'] : '\\think\\paginator\\driver\\' . ucwords($config['type']);
+        $page  = isset($config['page']) ? (int) $config['page'] : call_user_func([$class,'getCurrentPage'], $config['var_page']);
+
+        $page = $page < 1 ? 1 : $page;
+        $limit = $page - 1;
+        $page_obj = $class::make($result, $config['list_rows'], $page, $total, false, $config);
+        $paginate = $page_obj->render();
+        $limit .= ', ' . $config['list_rows'];
+
+        $field = 'id, title, keywords, description, thumb, category_id, type_id, is_com, is_top, is_hot, hits, comment_count, username, url, is_link, create_time, update_time, user_id, access_id';
+        $query_sql =
+        $article->field($field)
+        ->union($download->field($field)->where($map)->fetchSql(true)->select())
+        ->union($picture->field($field)->where($map)->fetchSql(true)->select())
+        ->union($picture->field($field)->where($map)->fetchSql(true)->select())
+        ->where($map)
+        ->fetchSql(true)
+        ->select();
+
+        $result =
+        $article->cache(!APP_DEBUG)->query($query_sql . ' LIMIT ' . $limit);
+
+        $category = new ModelCategory;
+        $type = new ModelType;
+        $level = new ModelLevel;
+        $admin = new ModelAdmin;
+
+        $list = [];
+        foreach ($result as $value) {
+            if ($value['is_link']) {
+                $value['url'] = Url::build('/jump/' . $value['category_id'] . '/' . $value['id']);
+            } else {
+                $value['url'] = Url::build('/article/' . $value['category_id'] . '/' . $value['id']);
+            }
+            $value['cat_url'] = Url::build('/list/' . $value['category_id']);
+
+            $value['cat_name'] =
+            $category->where(['id'=>$value['category_id']])
+            ->cache(!APP_DEBUG)
+            ->value('name');
+
+            $value['type_name'] =
+            $type->where(['id'=>$value['type_id']])
+            ->cache(!APP_DEBUG)
+            ->value('name');
+
+            $value['level_name'] =
+            $level->where(['id'=>$value['access_id']])
+            ->cache(!APP_DEBUG)
+            ->value('name');
+
+            $value['editor_name'] =
+            $admin->where(['id'=>$value['user_id']])
+            ->cache(!APP_DEBUG)
+            ->value('username');
+
+            $list[] = $value;
+        }
+
+        $data = ['list' => $list, 'page' => $paginate, 'tags_name' => $tags_name];
+
+        return $data;
+
 
 
         // 统计

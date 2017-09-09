@@ -2,13 +2,13 @@
 /**
  * 微信支付
  *
- * @category   Common\Library
- * @package    NiPHPCMS
- * @author     失眠小枕头 [levisun.mail@gmail.com]
- * @copyright  Copyright (c) 2013, 失眠小枕头, All rights reserved.
- * @version    CVS: $Id: Wxpay.class.php 2016-09 $
- * @link       http://www.NiPHP.com
- * @since      File available since Release 0.1
+ * @package   NiPHPCMS
+ * @category  net\pay\
+ * @author    失眠小枕头 [levisun.mail@gmail.com]
+ * @copyright Copyright (c) 2013, 失眠小枕头, All rights reserved.
+ * @version   CVS: $Id: PayWechat.php v1.0.1 $
+ * @link      http://www.NiPHP.com
+ * @since     2017/01/03
  */
 /*
 $config = array(
@@ -71,6 +71,40 @@ class PayWechat
             'sslkey_path'  => !empty($config['sslkey_path']) ?
             EXTEND_PATH . 'net' . DS . 'pay' . DS . $config['sslkey_path'] : '',
         ];
+    }
+
+    /**
+     *
+     */
+    public function sendBonus($params)
+    {
+        /*
+        $params[
+            'send_name' => '商户名称',
+            're_openid' => '接受红包的用户',
+            'total_amount' => '付款金额，单位分'
+            'wishing' => '红包祝福语',
+            'act_name' => '活动名称',
+            'remark' => '备注',
+        ]
+        */
+        $this->params = $params;
+
+        $this->params['nonce_str'] = $this->getNonceStr(32);
+        $this->params['mch_billno'] = $this->config['mch_id'] . date('YmdHis') . mt_rand(111, 999);
+        $this->params['mch_id'] = $this->config['mch_id'];
+        $this->params['wxappid'] = $this->config['appid'];
+        $this->params['client_ip'] = request()->ip(0, true);
+
+        $this->params['sign'] = $this->getSign($this->params);
+
+        $url = 'https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack';
+        $response = $this->postXmlCurl($this->toXml(), $url, true);
+        $result = $this->formXml($response);
+
+
+
+        return $result;
     }
 
     /**
@@ -196,12 +230,12 @@ class PayWechat
         $this->params['appid'] = $this->config['appid'];
         $this->params['mch_id'] = $this->config['mch_id'];
         $this->params['nonce_str'] = $this->getNonceStr(32);
-        $this->params['out_refund_no'] = $this->config['mch_id'] . date('YmdHis');
+        $this->params['out_refund_no'] = $this->config['mch_id'] . date('YmdHis') . mt_rand(111, 999);
         $this->params['op_user_id'] = $this->config['mch_id'];
 
         $this->params['sign'] = $this->getSign($this->params);
 
-        $url = "https://api.mch.weixin.qq.com/pay/orderquery";
+        $url = 'https://api.mch.weixin.qq.com/pay/orderquery';
         $response = $this->postXmlCurl($this->toXml(), $url, true);
         $result = $this->formXml($response);
 
@@ -263,7 +297,7 @@ class PayWechat
 
         $this->params['sign'] = $this->getSign($this->params);
 
-        $url = "https://api.mch.weixin.qq.com/pay/orderquery";
+        $url = 'https://api.mch.weixin.qq.com/pay/orderquery';
         $response = $this->postXmlCurl($this->toXml(), $url);
         $result = $this->formXml($response);
         return $result;

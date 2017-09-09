@@ -274,7 +274,7 @@
                                         <input type="text" name="album_image[]" id="album-image-{$vo.id}" class="form-control" value="{$vo.image}">
                                         <input type="hidden" name="album_thumb[]" id="album-thumb-{$vo.id}" class="form-control" value="{$vo.thumb}">
                                         <img src="" id="img-album-{$vo.id}" width="100" style="display:none">
-                                        <button type="button" class="btn btn-success btn-sm np-upload" data-type="mallalbum" data-id="{$vo.id}" data-model="">{:lang('button upload')}</button>
+                                        <button type="button" class="btn btn-success btn-sm np-upload" data-type="album" data-id="{$vo.id}" data-model="">{:lang('button upload')}</button>
                                         <button type="button" class="btn btn-success btn-sm np-album-del" date-id="{$vo.id}">{:lang('button delete')}</button>
                                     </li>
                                     {/volist}

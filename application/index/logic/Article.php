@@ -57,9 +57,9 @@ class Article
         $map = [
             // 'a.category_id' => ['IN', $id], 查询表不同会有错误
             'a.category_id' => $cid,
+            'a.show_time'   => ['ELT', strtotime(date('Y-m-d'))],
             'a.is_pass'     => 1,
             'a.lang'        => Lang::detect(),
-            'a.show_time'   => ['ELT', strtotime(date('Y-m-d'))]
         ];
 
         $order = 'a.sort DESC, a.update_time DESC';

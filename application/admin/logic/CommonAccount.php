@@ -127,6 +127,7 @@ class CommonAccount
             'User'     => 'member',
             'Wechat'   => 'keyword',
             'Mall'     => 'goods',
+            'Book'     => 'book',
             'Expand'   => 'log',
         ];
 
