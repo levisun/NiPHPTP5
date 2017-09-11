@@ -36,9 +36,9 @@ $obj->jsPay($param);
 
 $param = array(
     'out_trade_no' => '商户订单号 32位 数字',
-    'total_fee' => '订单金额',
-    'refund_fee' => '退款金额',
-    'refund_desc' => '退款描述',
+    'total_fee'    => '订单金额',
+    'refund_fee'   => '退款金额',
+    'refund_desc'  => '退款描述',
     );
 $obj->refund($param);
 
@@ -90,13 +90,12 @@ class PayWechat
         */
         $this->params = $params;
 
-        $this->params['nonce_str'] = $this->getNonceStr(32);
+        $this->params['nonce_str']  = $this->getNonceStr(32);
         $this->params['mch_billno'] = $this->config['mch_id'] . date('YmdHis') . mt_rand(111, 999);
-        $this->params['mch_id'] = $this->config['mch_id'];
-        $this->params['wxappid'] = $this->config['appid'];
-        $this->params['client_ip'] = request()->ip(0, true);
-
-        $this->params['sign'] = $this->getSign($this->params);
+        $this->params['mch_id']     = $this->config['mch_id'];
+        $this->params['wxappid']    = $this->config['appid'];
+        $this->params['client_ip']  = request()->ip(0, true);
+        $this->params['sign']       = $this->getSign($this->params);
 
         $url = 'https://api.mch.weixin.qq.com/mmpaymkttransfers/sendredpack';
         $response = $this->postXmlCurl($this->toXml(), $url, true);
@@ -120,7 +119,7 @@ class PayWechat
         unset($params['respond_url']);
 
         $this->params = $params;
-        $this->params['trade_type'] = 'JSAPI';  // 交易类型
+        $this->params['trade_type']  = 'JSAPI';  // 交易类型
         $this->params['device_info'] = 'WEB';
 
         $result = $this->unifiedOrder();
@@ -157,7 +156,7 @@ class PayWechat
         unset($params['respond_url']);
 
         $this->params = $params;
-        $this->params['trade_type'] = 'NATIVE';  // 交易类型
+        $this->params['trade_type']  = 'NATIVE';  // 交易类型
         $this->params['device_info'] = 'WEB';
 
         $result = $this->unifiedOrder();
@@ -187,6 +186,8 @@ class PayWechat
                 'trade_type'     => $result['trade_type'],      // 支付类型
                 'transaction_id' => $result['transaction_id'],  // 微信订单号
             ];
+        } else {
+            return false;
         }
     }
 
@@ -203,7 +204,7 @@ class PayWechat
         }
 
         $xml = $GLOBALS['HTTP_RAW_POST_DATA'];
-        $result = (array)simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA);
+        $result = (array) simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA);
         if ($result['return_code'] == 'SUCCESS' && $result['result_code'] == 'SUCCESS') {
             return [
                 'out_trade_no'   => $result['out_trade_no'],    // 商户订单号
@@ -227,13 +228,12 @@ class PayWechat
     {
         $this->params = $params;
 
-        $this->params['appid'] = $this->config['appid'];
-        $this->params['mch_id'] = $this->config['mch_id'];
-        $this->params['nonce_str'] = $this->getNonceStr(32);
+        $this->params['appid']         = $this->config['appid'];
+        $this->params['mch_id']        = $this->config['mch_id'];
+        $this->params['nonce_str']     = $this->getNonceStr(32);
         $this->params['out_refund_no'] = $this->config['mch_id'] . date('YmdHis') . mt_rand(111, 999);
-        $this->params['op_user_id'] = $this->config['mch_id'];
-
-        $this->params['sign'] = $this->getSign($this->params);
+        $this->params['op_user_id']    = $this->config['mch_id'];
+        $this->params['sign']          = $this->getSign($this->params);
 
         $url = 'https://api.mch.weixin.qq.com/pay/orderquery';
         $response = $this->postXmlCurl($this->toXml(), $url, true);
@@ -268,14 +268,50 @@ class PayWechat
     }
 
     /**
+     * 获得退款信息
+     * @access public
+     * @param
+     * @return mixed
+     */
+    public function queryRefund($params)
+    {
+        $this->params['appid']     = $this->config['appid'];
+        $this->params['mch_id']    = $this->config['mch_id'];
+        $this->params['nonce_str'] = $this->getNonceStr(32);
+
+        if (!empty($params['transaction_id'])) {
+            $this->params['transaction_id'] = $params['transaction_id'];
+        }
+
+        if (!empty($params['out_trade_no'])) {
+            $this->params['out_trade_no'] = $params['out_trade_no'];
+        }
+
+        if (empty($this->params['transaction_id'])) {
+            unset($this->params['transaction_id']);
+        }
+
+        if (empty($this->params['out_trade_no'])) {
+            unset($this->params['out_trade_no']);
+        }
+
+        $this->params['sign'] = $this->getSign($this->params);
+
+        $url = 'https://api.mch.weixin.qq.com/pay/refundquery';
+        $response = $this->postXmlCurl($this->toXml(), $url);
+        $result = $this->formXml($response);
+        return $result;
+    }
+
+    /**
      * 获得订单信息
      * @access public
      * @param
-     * @return void
+     * @return mixed
      */
     public function queryOrder($params)
     {
-        $this->params['appid']    = $this->config['appid'];
+        $this->params['appid']     = $this->config['appid'];
         $this->params['mch_id']    = $this->config['mch_id'];
         $this->params['nonce_str'] = $this->getNonceStr(32);
 
@@ -353,7 +389,7 @@ class PayWechat
     private function formXml($xml)
     {
         libxml_disable_entity_loader(true);
-        $data = (array)simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA);
+        $data = (array) simplexml_load_string($xml, 'SimpleXMLElement', LIBXML_NOCDATA);
         return $data;
     }
 
@@ -365,30 +401,29 @@ class PayWechat
      * @param  intval  $second url执行超时时间，默认30s
      * @return mixed
      */
-    private function postXmlCurl($xml, $url, $useCert = false, $second = 30)
+    private function postXmlCurl($xml, $url, $use_cert = false, $second = 30)
     {
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_TIMEOUT, $second);        //设置超时
+        curl_setopt($curl, CURLOPT_TIMEOUT, $second);       // 设置超时
         curl_setopt($curl, CURLOPT_URL, $url);
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, true);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);        //严格校验
-        curl_setopt($curl, CURLOPT_HEADER, false);            //设置header
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);    //要求结果为字符串且输出到屏幕上
-        if($useCert == true){
+        curl_setopt($curl, CURLOPT_SSL_VERIFYHOST, 2);      // 严格校验
+        curl_setopt($curl, CURLOPT_HEADER, false);          // 设置header
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);   // 要求结果为字符串且输出到屏幕上
+        if($use_cert == true){
             //设置证书 使用证书：cert 与 key 分别属于两个.pem文件
             curl_setopt($curl, CURLOPT_SSLCERTTYPE, 'PEM');
             curl_setopt($curl, CURLOPT_SSLCERT, $this->config['sslcert_path']);
             curl_setopt($curl, CURLOPT_SSLKEYTYPE, 'PEM');
             curl_setopt($curl, CURLOPT_SSLKEY, $this->config['sslkey_path']);
         }
-        curl_setopt($curl, CURLOPT_POST, true);                //post提交方式
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $xml);        //post传输数据
-        $data = curl_exec($curl);                            //运行curl
+        curl_setopt($curl, CURLOPT_POST, true);             // post提交方式
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $xml);       // post传输数据
+        $result = curl_exec($curl);                         // 运行curl
 
-        if($data){
+        if ($result) {
             curl_close($curl);
-            //返回结果
-            return $data;
+            return $result;
         } else {
             $error = curl_errno($curl);
             curl_close($curl);
@@ -428,9 +463,10 @@ class PayWechat
     private function getNonceStr($length = 32)
     {
         $chars = 'abcdefghijklmnopqrstuvwxyz0123456789';
+        $count = strlen($chars) -1;
         $string = '';
         for ($i=0; $i < $length; $i++) {
-            $string .= substr($chars, mt_rand(0, strlen($chars) -1), 1);
+            $string .= substr($chars, mt_rand(0, $count), 1);
         }
         return $string;
     }

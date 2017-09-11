@@ -98,6 +98,10 @@ function cache_remove()
         }
     }
 
+    if (empty($list)) {
+        return false;
+    }
+
     $count = count($list) >= 20 ? 20 : count($list);
     $rand = array_rand($list, $count);
 

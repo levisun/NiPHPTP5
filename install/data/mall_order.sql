@@ -1,7 +1,8 @@
 DROP TABLE IF EXISTS `np_mall_order`;
 CREATE TABLE IF NOT EXISTS `np_mall_order` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `trade_no` varchar(32) NOT NULL DEFAULT '0' COMMENT '订单号',
+  `order_no` varchar(32) NOT NULL DEFAULT '' COMMENT '订单号',
+  `trade_no` varchar(64) NOT NULL DEFAULT '' COMMENT '支付交易号',
   `user_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '会员ID',
   `seller_id` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '商户ID',
   `amount` int(11) NOT NULL DEFAULT '0' COMMENT '金额',
@@ -17,6 +18,7 @@ CREATE TABLE IF NOT EXISTS `np_mall_order` (
   `update_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '修改时间',
   `create_time` int(11) unsigned NOT NULL DEFAULT '0' COMMENT '创建时间',
   PRIMARY KEY (`id`),
+  UNIQUE KEY `order_no` (`order_no`),
   UNIQUE KEY `trade_no` (`trade_no`),
   KEY `user_id` (`user_id`),
   KEY `seller_id` (`seller_id`),
