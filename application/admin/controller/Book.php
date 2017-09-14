@@ -42,6 +42,27 @@ class Book extends Base
         $this->assign('submenu', 1);
         $this->assign('submenu_button_added', 1);
 
+        // 新增
+        if ($this->method == 'added') {
+            parent::added('BookType');
+            return $this->fetch('type_added');
+        }
+
+        // 删除
+        if ($this->method == 'remove') {
+            parent::remove('BookType');
+            return ;
+        }
+
+        // 编辑
+        if ($this->method == 'editor') {
+            $this->assign('data', parent::editor('BookType'));
+            return $this->fetch('type_editor');
+        }
+
+        $data = parent::select('BookType');
+        $this->assign('list', $data['list']);
+        $this->assign('page', $data['page']);
         return $this->fetch();
     }
 

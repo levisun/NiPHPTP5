@@ -42,11 +42,11 @@ class ContentCache
         }
 
         if ($type == 'compile') {
-            $list = UtilFile::get(RUNTIME_PATH . 'temp' . DS);
+            $list = UtilFile::get(RUNTIME_PATH . 'temp' . DIRECTORY_SEPARATOR);
 
             // 删除编辑缓存
             foreach ($list as $key => $value) {
-                UtilFile::delete(RUNTIME_PATH . 'temp' . DS . $value['name']);
+                UtilFile::delete(RUNTIME_PATH . 'temp' . DIRECTORY_SEPARATOR . $value['name']);
             }
             return 'compile';
         }

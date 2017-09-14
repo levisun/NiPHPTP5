@@ -210,14 +210,14 @@ class Tmall
         $file_name = array_pop($arr);
         $root_path = dirname(dirname(EXT_ROOT_PATH));
 
-        $save_dir = 'images' . DS . 'collection' . DS . date('Ym');
+        $save_dir = 'images' . DIRECTORY_SEPARATOR . 'collection' . DIRECTORY_SEPARATOR . date('Ym');
 
-        if (!File::has($root_path . DS . $save_dir . DS . $file_name)) {
-            File::createDir($root_path . DS . $save_dir);
+        if (!File::has($root_path . DIRECTORY_SEPARATOR . $save_dir . DIRECTORY_SEPARATOR . $file_name)) {
+            File::createDir($root_path . DIRECTORY_SEPARATOR . $save_dir);
             $img = file_get_contents($img_url);
-            file_put_contents($root_path . DS . $save_dir . DS . $file_name, $img);
+            file_put_contents($root_path . DIRECTORY_SEPARATOR . $save_dir . DIRECTORY_SEPARATOR . $file_name, $img);
         }
 
-        return str_replace(DS, '/', $save_dir . DS . $file_name);
+        return str_replace(DS, '/', $save_dir . DIRECTORY_SEPARATOR . $file_name);
     }
 }

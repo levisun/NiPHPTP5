@@ -50,7 +50,7 @@ class ExpandDataback extends Model
      */
     public function getListData()
     {
-        $list = UtilFile::get(ROOT_PATH . 'public' . DS . 'backup' . DS);
+        $list = UtilFile::get(ROOT_PATH . 'public' . DIRECTORY_SEPARATOR . 'backup' . DIRECTORY_SEPARATOR);
 
         rsort($list);
 
@@ -58,7 +58,7 @@ class ExpandDataback extends Model
         $days = strtotime('-90 days');
         foreach ($list as $key => $value) {
             if ($value['time'] <= $days) {
-                UtilFile::delete(ROOT_PATH . 'public' . DS . 'backup' . DS . $value['name']);
+                UtilFile::delete(ROOT_PATH . 'public' . DIRECTORY_SEPARATOR . 'backup' . DIRECTORY_SEPARATOR . $value['name']);
                 unset($list[$key]);
             } else {
                 $list[$key]['id'] = encrypt($value['name']);
@@ -76,7 +76,7 @@ class ExpandDataback extends Model
      */
     public function createZipSql($limit_=1000)
     {
-        $dir = TEMP_PATH . 'BACK' . date('YmdHis') . DS;
+        $dir = TEMP_PATH . 'BACK' . date('YmdHis') . DIRECTORY_SEPARATOR;
         UtilFile::createDir($dir);
 
         $tables = $this->getTables();
@@ -146,7 +146,7 @@ class ExpandDataback extends Model
 
         // 打包备份
         $zip = new UtilPclzip('');
-        $zip->zipname = ROOT_PATH . 'public' . DS . 'backup' . DS . 'back' . date('YmdHis') . '.zip';
+        $zip->zipname = ROOT_PATH . 'public' . DIRECTORY_SEPARATOR . 'backup' . DIRECTORY_SEPARATOR . 'back' . date('YmdHis') . '.zip';
         $zip->create($dir, PCLZIP_OPT_REMOVE_PATH, $dir);
 
         // 删除临时文件
@@ -180,7 +180,7 @@ class ExpandDataback extends Model
 
         // 记录执行时间
         $time = strtotime(date('Y-m-d H:i:s'));
-        UtilFile::create($optimize, '<?php return ' . $time . ';');
+        UtilFile::create($optimize, '<?php return ' . $time . ';', true);
 
         $tables = $this->getTables();
 
@@ -242,14 +242,14 @@ class ExpandDataback extends Model
         $file = decrypt($this->request->param('id'));
         $name = explode('.', $file);
 
-        $dir = TEMP_PATH . $name[0] . DS;
+        $dir = TEMP_PATH . $name[0] . DIRECTORY_SEPARATOR;
 
-        $zipname = ROOT_PATH . 'public' . DS . 'backup' . DS . $file;
+        $zipname = ROOT_PATH . 'public' . DIRECTORY_SEPARATOR . 'backup' . DIRECTORY_SEPARATOR . $file;
         $zip = new UtilPclzip('');
         $zip->zipname = $zipname;
         $zip->extract(PCLZIP_OPT_PATH, $dir);
 
-        $list = UtilFile::get($dir . DS);
+        $list = UtilFile::get($dir . DIRECTORY_SEPARATOR);
         foreach ($list as $key => $value) {
             if ($value['name'] == 'tables.sql') {
                 $sql = file_get_contents($dir . $value['name']);

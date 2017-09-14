@@ -11,6 +11,7 @@ return [
     'remark'                => '备注',
     'id'                    => '序号',
     'thumb'                 => '缩略图',
+    'description'           => '描述',
 
     /* 按钮信息 */
     'button login'          => '登录',

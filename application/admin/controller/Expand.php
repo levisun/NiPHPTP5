@@ -77,13 +77,13 @@ class Expand extends Base
             $this->actionLog('databack_down');
 
             // define('UPLOAD_PATH', './pulbic/upload/');
-            $file = ROOT_PATH . 'public' . DS . 'backup' . DS . decrypt($this->request->param('id'));
+            $file = ROOT_PATH . 'public' . DIRECTORY_SEPARATOR . 'backup' . DIRECTORY_SEPARATOR . decrypt($this->request->param('id'));
             NetHttp::download($file, 'databack ' . date('Ymd') . '.zip');
         }
 
         // 删除
         if ($this->method == 'remove') {
-            $file = ROOT_PATH . 'public' . DS . 'backup' . DS .  decrypt($this->request->param('id'));
+            $file = ROOT_PATH . 'public' . DIRECTORY_SEPARATOR . 'backup' . DIRECTORY_SEPARATOR .  decrypt($this->request->param('id'));
             UtilFile::delete($file);
             $this->actionLog('databack_remove');
 

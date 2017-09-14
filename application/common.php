@@ -80,12 +80,12 @@ function cache_remove()
     }
 
     if (rand(1, 10) != 10) {
-        // return false;
+        return false;
     }
 
     $prefix = Config::get('cache.prefix');
     $dir = CACHE_PATH;
-    $dir .= $prefix ? $prefix . DS : '';
+    $dir .= $prefix ? $prefix . DIRECTORY_SEPARATOR : '';
     $list = UtilFile::get($dir);
     if (empty($list)) {
         return false;

@@ -11,17 +11,24 @@
                     <thead>
                         <tr>
                             <th>{:lang('typename')}</th>
-                            <th>{:lang('fieldscategory')}</th>
                             <th>{:lang('operation')}</th>
                         </tr>
                     </thead>
                     <tbody>
-
+                        {volist name="list" id="vo"}
+                        <tr>
+                            <td>{$vo.name}</td>
+                            <td>
+                                <a href="{:url('', array('method' => 'editor', 'id' => $vo['id']))}"><i class="fa fa-edit"></i>{:lang('button editor')}</a>
+                                <a href="{:url('', array('method' => 'remove', 'id' => $vo['id']))}" class="remove"><i class="fa fa-times"></i>{:lang('button delete')}</a>
+                            </td>
+                        </tr>
+                        {/volist}
                     </tbody>
                 </table>
             </form>
             <div>
-
+            {$page}
             </div>
         </div>
     </div>

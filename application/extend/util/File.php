@@ -92,7 +92,7 @@ class File
             if (substr($file_or_dir, -1) === DS) {
                 $file = glob($file_or_dir . '*');
             } else {
-                $file = glob($file_or_dir . DS . '*');
+                $file = glob($file_or_dir . DIRECTORY_SEPARATOR . '*');
             }
 
             // 删除目录中的所有文件

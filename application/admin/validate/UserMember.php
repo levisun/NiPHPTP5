@@ -7,7 +7,7 @@
  * @category  admin\validate\
  * @author    失眠小枕头 [levisun.mail@gmail.com]
  * @copyright Copyright (c) 2013, 失眠小枕头, All rights reserved.
- * @version   CVS: $Id: Member.php v1.0.1 $
+ * @version   CVS: $Id: UserMember.php v1.0.1 $
  * @link      http://www.NiPHP.com
  * @since     2016/10/28
  */
@@ -15,7 +15,7 @@ namespace app\admin\validate;
 
 use think\Validate;
 
-class Member extends Validate
+class UserMember extends Validate
 {
     protected $rule = [
         'id'           => ['require', 'number'],

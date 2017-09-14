@@ -31,19 +31,19 @@ class Wechat extends Base
 
         // 新增
         if ($this->method == 'added') {
-            parent::added('WechatKeyword', 'Reply.added');
+            parent::added('WechatKeyword', 'WechatReply.added');
             return $this->fetch('keyword_added');
         }
 
         // 删除
         if ($this->method == 'remove') {
-            parent::remove('WechatKeyword', 'Reply.remove');
+            parent::remove('WechatKeyword', 'WechatReply.remove');
             return ;
         }
 
         // 编辑
         if ($this->method == 'editor') {
-            $this->assign('data', parent::editor('WechatKeyword', 'Reply.added'));
+            $this->assign('data', parent::editor('WechatKeyword', 'WechatReply.added'));
             return $this->fetch('keyword_editor');
         }
 
@@ -67,19 +67,19 @@ class Wechat extends Base
 
         // 新增
         if ($this->method == 'added') {
-            parent::added('WechatKeyword', 'Reply.added');
+            parent::added('WechatKeyword', 'WechatReply.added');
             return $this->fetch('keyword_added');
         }
 
         // 删除
         if ($this->method == 'remove') {
-            parent::remove('WechatKeyword', 'Reply.remove');
+            parent::remove('WechatKeyword', 'WechatReply.remove');
             return ;
         }
 
         // 编辑
         if ($this->method == 'editor') {
-            $data = parent::editor('WechatKeyword', 'Reply.added');
+            $data = parent::editor('WechatKeyword', 'WechatReply.added');
             $this->assign('data', $data);
             return $this->fetch('keyword_editor');
         }
@@ -104,19 +104,19 @@ class Wechat extends Base
 
         // 新增
         if ($this->method == 'added') {
-            parent::added('WechatKeyword', 'Reply.added');
+            parent::added('WechatKeyword', 'WechatReply.added');
             return $this->fetch('keyword_added');
         }
 
         // 删除
         if ($this->method == 'remove') {
-            parent::remove('WechatKeyword', 'Reply.remove');
+            parent::remove('WechatKeyword', 'WechatReply.remove');
             return ;
         }
 
         // 编辑
         if ($this->method == 'editor') {
-            $data = parent::editor('WechatKeyword', 'Reply.added');
+            $data = parent::editor('WechatKeyword', 'WechatReply.added');
             $this->assign('data', $data);
             return $this->fetch('keyword_editor');
         }

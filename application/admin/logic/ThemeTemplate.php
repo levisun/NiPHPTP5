@@ -38,7 +38,7 @@ class ThemeTemplate
         $config_type = $this->config();
 
         $type = $this->type();
-        $list = UtilFile::get(ROOT_PATH . 'public' . DS . 'theme' . DS . $type . DS);
+        $list = UtilFile::get(ROOT_PATH . 'public' . DIRECTORY_SEPARATOR . 'theme' . DIRECTORY_SEPARATOR . $type . DIRECTORY_SEPARATOR);
 
         return ['config' => $config_type, 'list' => $list, 'type' => $type];
     }

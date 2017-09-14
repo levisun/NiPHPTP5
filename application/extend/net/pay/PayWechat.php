@@ -67,9 +67,9 @@ class PayWechat
             'key'          => !empty($config['key']) ? $config['key'] : '',
             'sign_type'    => !empty($config['sign_type']) ? $config['sign_type'] : 'md5',
             'sslcert_path' => !empty($config['sslcert_path']) ?
-            EXTEND_PATH . 'net' . DS . 'pay' . DS . $config['sslcert_path'] : '',
+            EXTEND_PATH . 'net' . DIRECTORY_SEPARATOR . 'pay' . DIRECTORY_SEPARATOR . $config['sslcert_path'] : '',
             'sslkey_path'  => !empty($config['sslkey_path']) ?
-            EXTEND_PATH . 'net' . DS . 'pay' . DS . $config['sslkey_path'] : '',
+            EXTEND_PATH . 'net' . DIRECTORY_SEPARATOR . 'pay' . DIRECTORY_SEPARATOR . $config['sslkey_path'] : '',
         ];
     }
 

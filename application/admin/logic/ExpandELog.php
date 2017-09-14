@@ -34,7 +34,7 @@ class ExpandELog
     public function getListData()
     {
         $dir = $this->request->param('name');
-        $dir = $dir ? decrypt($dir) . DS : $dir;
+        $dir = $dir ? decrypt($dir) . DIRECTORY_SEPARATOR : $dir;
 
         $list = UtilFile::get(LOG_PATH . $dir);
 
@@ -63,7 +63,7 @@ class ExpandELog
     public function getOneData()
     {
         $dir = $this->request->param('name');
-        $dir = $dir ? decrypt($dir) . DS : $dir;
+        $dir = $dir ? decrypt($dir) . DIRECTORY_SEPARATOR : $dir;
 
         $name = $this->request->param('id');
         $name = $name ? decrypt($name) : $name;

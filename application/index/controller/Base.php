@@ -195,14 +195,14 @@ class Base extends Controller
         $module = strtolower($this->request->module());
 
         // 模板路径
-        $template['view_path'] = ROOT_PATH . 'public' . DS . 'theme' . DS . $module . DS;
-        $template['view_path'] .= $this->websiteData[$module . '_theme'] . DS;
+        $template['view_path'] = ROOT_PATH . 'public' . DIRECTORY_SEPARATOR . 'theme' . DIRECTORY_SEPARATOR . $module . DIRECTORY_SEPARATOR;
+        $template['view_path'] .= $this->websiteData[$module . '_theme'] . DIRECTORY_SEPARATOR;
 
         // 判断访问端
-        $mobile = $this->request->isMobile() ? 'mobile' . DS : '';
+        $mobile = $this->request->isMobile() ? 'mobile' . DIRECTORY_SEPARATOR : '';
         if (is_wechat_request()) {
-            if (is_dir($template['view_path'] . 'wechat' . DS)) {
-                $mobile = 'wechat' . DS;
+            if (is_dir($template['view_path'] . 'wechat' . DIRECTORY_SEPARATOR)) {
+                $mobile = 'wechat' . DIRECTORY_SEPARATOR;
             }
         }
 

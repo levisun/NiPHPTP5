@@ -88,19 +88,19 @@ class Mall extends Base
 
         // 新增
         if ($this->method == 'added') {
-            parent::added('MallCategory', 'MallCategory.added');
+            parent::added('MallCategory');
             return $this->fetch('mall/type/type_added');
         }
 
         // 删除
         if ($this->method == 'remove') {
-            parent::remove('MallCategory', 'MallCategory.remove');
+            parent::remove('MallCategory');
             return ;
         }
 
         // 编辑
         if ($this->method == 'editor') {
-            $data = parent::editor('MallCategory', 'MallCategory.editor');
+            $data = parent::editor('MallCategory');
             $this->assign('data', $data);
             return $this->fetch('mall/type/type_editor');
         }
@@ -128,19 +128,19 @@ class Mall extends Base
 
         // 新增
         if ($this->method == 'added') {
-            parent::added('MallType', 'MallType.added');
+            parent::added('MallType');
             return $this->fetch('mall/type/type_added');
         }
 
         // 删除
         if ($this->method == 'remove') {
-            parent::remove('MallType', 'MallType.remove');
+            parent::remove('MallType');
             return ;
         }
 
         // 编辑
         if ($this->method == 'editor') {
-            $data = parent::editor('MallType', 'MallType.editor');
+            $data = parent::editor('MallType');
             $this->assign('data', $data);
             return $this->fetch('mall/type/type_editor');
         }
@@ -170,19 +170,19 @@ class Mall extends Base
 
         // 新增
         if ($this->method == 'added') {
-            parent::added('MallBrand', 'MallBrand.added');
+            parent::added('MallBrand');
             return $this->fetch('mall/brand/brand_added');
         }
 
         // 删除
         if ($this->method == 'remove') {
-            parent::remove('MallBrand', 'MallBrand.remove');
+            parent::remove('MallBrand');
             return ;
         }
 
         // 编辑
         if ($this->method == 'editor') {
-            $data = parent::editor('MallBrand', 'MallBrand.remove');
+            $data = parent::editor('MallBrand');
             $this->assign('data', $data);
             return $this->fetch('mall/brand/brand_editor');
         }

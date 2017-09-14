@@ -18,8 +18,9 @@ use think\Model;
 class BookArticle extends Model
 {
     protected $name = 'book_article';
-    protected $autoWriteTimestamp = false;
-    protected $updateTime = false;
+    protected $autoWriteTimestamp = true;
+    protected $updateTime = 'update_time';
+    protected $deleteTime = 'delete_time';
     protected $pk = 'id';
     protected $field = [
         'id',

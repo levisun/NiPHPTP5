@@ -57,11 +57,11 @@ class Content extends Base
         if ($this->method == 'page') {
             // 添加
             if ($this->request->isPost() && !$this->request->has('id', 'post')) {
-                parent::added('ContentContent', 'Content.page_added');
+                parent::added('ContentContent', 'ContentContent.page_added');
             }
 
             // 编辑数据
-            $data = parent::editor('ContentContent', 'Content.page_editor', '', false);
+            $data = parent::editor('ContentContent', 'ContentContent.page_editor', '', false);
 
             // 编辑数据不存在 获得添加字段数据
             if (!$data) {
@@ -199,9 +199,9 @@ class Content extends Base
 
         if (in_array($this->method, ['added', 'editor'])) {
             if ($this->request->param('pid/f')) {
-                $validate = 'Banner.' . $this->method;
+                $validate = 'ContentBanner.' . $this->method;
             } else {
-                $validate = 'Banner.' . $this->method . '_main';
+                $validate = 'ContentBanner.' . $this->method . '_main';
             }
         }
 

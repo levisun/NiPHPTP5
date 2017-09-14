@@ -30,35 +30,139 @@ class Base extends Controller
     protected $method = '';
 
     /**
-     * 上传
-     * @access public
+     * 初始化
+     * @access protected
      * @param
-     * @return string
+     * @return void
      */
-    public function upload()
+    protected function _initialize()
     {
-        if ($this->request->isPost()) {
-            $logic = new LogicCommonUpload;
-            $result = $logic->upload();
-            if (is_string($result)) {
-                $this->error($result);
-            }
-            $javascript = upload_to_javasecipt($result);
-            echo $javascript;
+        // 设置IP为授权Key
+        Log::key($this->request->ip(0, true));
+
+        // 搜索分页关键词
+        Config::set('paginate.query', ['key' => $this->request->param('key')]);
+
+        // 加载语言
+        $lang_path = APP_PATH . $this->request->module();
+        $lang_path .= DS . 'lang' . DIRECTORY_SEPARATOR . Lang::detect() . DIRECTORY_SEPARATOR;
+        Lang::load($lang_path . Lang::detect() . '.php');
+        Lang::load($lang_path . strtolower($this->request->controller()) . '.php');
+
+        // 权限判断
+        $account = new LogicCommonAccount;
+        $result = $account->accountAuth();
+        if (true !== $result) {
+            $this->redirect($result);
         }
-        return $this->fetch('public/upload');
+
+        $auth_data = $account->getSysData();
+
+        // 重新设置模板
+        $this->themeConfig();
+
+        // 注入常用模板变量
+        if (!empty($auth_data['auth_menu'])) {
+            $this->assign('__ADMIN_DATA__', Session::get('ADMIN_DATA'));
+            $this->assign('__MENU__', $auth_data['auth_menu']);
+            $this->assign('__SUB_TITLE__', $auth_data['sub_title']);
+            $this->assign('__BREADCRUMB__', $auth_data['breadcrumb']);
+        }
+        $this->assign('__TITLE__', $auth_data['title']);
+
+        $this->assign('submenu', 0);
+        $this->assign('submenu_button_added', 0);
+
+        // 分支操作方法
+        $this->method = $this->request->param('method', 'list');
     }
 
     /**
-     * 删除上传文件
-     * @access public
+     * 模板配置
+     * @access protected
      * @param
-     * @return mixed
+     * @return void
      */
-    public function delupload()
+    protected function themeConfig()
     {
-        $logic = new LogicCommonUpload;
-        $result = $logic->delUpload();
+        // 主题
+        $template = Config::get('template');
+        $template['view_path'] = APP_PATH . $this->request->module() . DIRECTORY_SEPARATOR . 'view' . DIRECTORY_SEPARATOR;
+        $template['view_path'] .= Config::get('default_theme') . DIRECTORY_SEPARATOR;
+        $this->view->engine($template);
+
+        // 默认跳转页面对应的模板文件
+        $dispatch = [
+            'dispatch_success_tmpl' => $template['view_path'] . 'dispatch_jump.html',
+            'dispatch_error_tmpl'   => $template['view_path'] . 'dispatch_jump.html',
+        ];
+        Config::set($dispatch);
+
+        // 获得域名地址
+        $domain = $this->request->domain();
+        $domain .= substr($this->request->baseFile(), 0, -10);
+        $default_theme = $domain . '/public/static/' . $this->request->module() . '/';
+        $default_theme .= Config::get('default_theme') . '/';
+
+        $replace = [
+            '__DOMAIN__'   => $domain,
+            '__PHP_SELF__' => basename($this->request->baseFile()),
+            '__STATIC__'   => $domain . '/public/static/',
+            '__LIBRARY__'  => $domain . '/public/static/library/',
+            '__LAYOUT__'   => $domain . '/public/static/layout/',
+            '__THEME__'    => Config::get('default_theme'),
+            '__CSS__'      => $default_theme . 'css/',
+            '__JS__'       => $default_theme . 'js/',
+            '__IMG__'      => $default_theme . 'images/',
+        ];
+        $this->view->replace($replace);
+    }
+
+    /**
+     * 数据合法验证
+     * @access protected
+     * @param  string $validate_name 验证器名
+     * @return mexid                 返回true or false or 提示信息
+     */
+    protected function illegal($validate_name = '')
+    {
+        // 验证器为空自动获得验证器
+        if ($validate_name == '') {
+            $validate_name = $this->request->controller();
+            $validate_name .= ucfirst($this->request->action());
+            $validate_name .= '.' . $this->method;
+        }
+
+        // 验证数据
+        if ($this->request->isPost()) {
+            $data = $this->request->post();
+        } else {
+            $data = ['id' => $this->request->param('id/f')];
+        }
+
+        $result = $this->validate($data, $validate_name);
+        if (true !== $result) {
+            $this->error($result);
+        }
+    }
+
+    /**
+     * 记录执行日志
+     * @access protected
+     * @param  string $action_name 行为名称
+     * @param  intval $record_id   数据ID
+     * @param  string $remark      备注
+     * @return void
+     */
+    protected function actionLog($action_name, $record_id = '', $remark = '')
+    {
+        // 行为为空自动获得
+        if (empty($action_name)) {
+            $action_name = $this->method !== 'list' ? $this->method : 'sort';
+            $action_name = $this->request->action() . '_' . $action_name;
+        }
+        $logic = new LogicCommonAccount;
+        $logic->actionLog($action_name, $record_id, $remark);
     }
 
     /**
@@ -162,7 +266,8 @@ class Base extends Controller
             $validate_name = explode('.', $validate_name);
             $validate_name = $validate_name[0] . '.illegal';
         } else {
-            $validate_name = ucfirst($this->request->action()) . '.illegal';
+            $validate_name = $this->request->controller();
+            $validate_name .= ucfirst($this->request->action()) . '.illegal';
         }
 
         if ($illegal_) {
@@ -223,138 +328,34 @@ class Base extends Controller
     }
 
     /**
-     * 数据合法验证
-     * @access protected
-     * @param  string $validate_name 验证器名
-     * @return mexid                 返回true or false or 提示信息
+     * 上传
+     * @access public
+     * @param
+     * @return string
      */
-    protected function illegal($validate_name = '')
+    public function upload()
     {
-        // 验证器为空自动获得验证器
-        if ($validate_name == '') {
-            $validate_name = ucfirst($this->request->action());
-            $validate_name .= '.' . $this->method;
-        }
-
-        // 验证数据
         if ($this->request->isPost()) {
-            $data = $this->request->post();
-        } else {
-            $data = ['id' => $this->request->param('id/f')];
+            $logic = new LogicCommonUpload;
+            $result = $logic->upload();
+            if (is_string($result)) {
+                $this->error($result);
+            }
+            $javascript = upload_to_javasecipt($result);
+            echo $javascript;
         }
-
-        $result = $this->validate($data, $validate_name);
-        if (true !== $result) {
-            $this->error($result);
-            // $this->error(Lang::get($result));
-        }
+        return $this->fetch('public/upload');
     }
 
     /**
-     * 记录执行日志
-     * @access protected
-     * @param  string $action_name 行为名称
-     * @param  intval $record_id   数据ID
-     * @param  string $remark      备注
-     * @return void
-     */
-    protected function actionLog($action_name, $record_id = '', $remark = '')
-    {
-        // 行为为空自动获得
-        if (empty($action_name)) {
-            $action_name = $this->method !== 'list' ? $this->method : 'sort';
-            $action_name = $this->request->action() . '_' . $action_name;
-        }
-        $logic = new LogicCommonAccount;
-        $logic->actionLog($action_name, $record_id, $remark);
-    }
-
-    /**
-     * 初始化
-     * @access protected
+     * 删除上传文件
+     * @access public
      * @param
-     * @return void
+     * @return mixed
      */
-    protected function _initialize()
+    public function delupload()
     {
-        // 设置IP为授权Key
-        Log::key($this->request->ip(0, true));
-
-        // 搜索分页关键词
-        Config::set('paginate.query', ['key' => $this->request->param('key')]);
-
-        // 加载语言
-        $lang_path = APP_PATH . $this->request->module();
-        $lang_path .= DS . 'lang' . DS . Lang::detect() . DS;
-        Lang::load($lang_path . Lang::detect() . '.php');
-        Lang::load($lang_path . strtolower($this->request->controller()) . '.php');
-
-        // 权限判断
-        $account = new LogicCommonAccount;
-        $result = $account->accountAuth();
-        if (true !== $result) {
-            $this->redirect($result);
-        }
-
-        $auth_data = $account->getSysData();
-
-        // 重新设置模板
-        $this->themeConfig();
-
-        // 注入常用模板变量
-        if (!empty($auth_data['auth_menu'])) {
-            $this->assign('__ADMIN_DATA__', Session::get('ADMIN_DATA'));
-            $this->assign('__MENU__', $auth_data['auth_menu']);
-            $this->assign('__SUB_TITLE__', $auth_data['sub_title']);
-            $this->assign('__BREADCRUMB__', $auth_data['breadcrumb']);
-        }
-        $this->assign('__TITLE__', $auth_data['title']);
-
-        $this->assign('submenu', 0);
-        $this->assign('submenu_button_added', 0);
-
-        // 分支操作方法
-        $this->method = $this->request->param('method', 'list');
-    }
-
-    /**
-     * 模板配置
-     * @access protected
-     * @param
-     * @return void
-     */
-    protected function themeConfig()
-    {
-        // 主题
-        $template = Config::get('template');
-        $template['view_path'] = APP_PATH . $this->request->module() . DS . 'view' . DS;
-        $template['view_path'] .= Config::get('default_theme') . DS;
-        $this->view->engine($template);
-
-        // 默认跳转页面对应的模板文件
-        $dispatch = [
-            'dispatch_success_tmpl' => $template['view_path'] . 'dispatch_jump.html',
-            'dispatch_error_tmpl'   => $template['view_path'] . 'dispatch_jump.html',
-        ];
-        Config::set($dispatch);
-
-        // 获得域名地址
-        $domain = $this->request->domain();
-        $domain .= substr($this->request->baseFile(), 0, -10);
-        $default_theme = $domain . '/public/static/' . $this->request->module() . '/';
-        $default_theme .= Config::get('default_theme') . '/';
-
-        $replace = [
-            '__DOMAIN__'   => $domain,
-            '__PHP_SELF__' => basename($this->request->baseFile()),
-            '__STATIC__'   => $domain . '/public/static/',
-            '__LIBRARY__'  => $domain . '/public/static/library/',
-            '__LAYOUT__'   => $domain . '/public/static/layout/',
-            '__THEME__'    => Config::get('default_theme'),
-            '__CSS__'      => $default_theme . 'css/',
-            '__JS__'       => $default_theme . 'js/',
-            '__IMG__'      => $default_theme . 'images/',
-        ];
-        $this->view->replace($replace);
+        $logic = new LogicCommonUpload;
+        $result = $logic->delUpload();
     }
 }
