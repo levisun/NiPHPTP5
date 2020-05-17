@@ -1,7 +1,7 @@
 <?php
 if (version_compare(PHP_VERSION, '5.5.0', '<')) die('require PHP >= 5.5.0 !');
 
-define('APP_DEBUG', true);
+//define('APP_DEBUG', true);
 define('BIND_MODULE', 'admin');
 define('APP_PATH', __DIR__ . '/application/');
 define('CONF_PATH', APP_PATH . 'config/');
